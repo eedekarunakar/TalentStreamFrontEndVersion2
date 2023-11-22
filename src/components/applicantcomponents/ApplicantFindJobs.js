@@ -48,6 +48,17 @@ function ApplicantFindJobs({ setSelectedJobId }) {
     fetchData();
   }, []);
 
+  const handleSaveJob = async (jobId) => {
+    try {
+      const response = await axios.post(`${apiUrl}/savedjob/applicants/savejob/${userId}/${jobId}`);
+      // Assuming the API response contains the message "Job Saved Successfully"
+      const { message } = response.data;
+      alert(message); // You might want to replace this with a more user-friendly notification
+    } catch (error) {
+      console.error('Error saving job:', error);
+    }
+  };
+
   return (
     <div>
       {loading ? null : (
@@ -102,8 +113,8 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                         <div className="job-archive-footer">
                           <div className="job-footer-right">
                             <div className="price">
-                              <span className="icon-dolar1"></span>
-                              <p>{job.minSalary}-{job.maxSalary}/Year</p>
+                              <span ></span>
+                              <p>Package : &#x20B9;{job.maxSalary}/Year</p>
                             </div>
                             <div className="job-footer-left">
                               <ul className="job-tag">
@@ -112,7 +123,7 @@ function ApplicantFindJobs({ setSelectedJobId }) {
               {job && (<Link to="/applicant-view-job" onClick={() => setSelectedJobId(job.id)}>View Job</Link> )}
                                 </li>
                                 <li>
-                                  <a href="#">Save Job</a>
+                                <button onClick={() => handleSaveJob(job.id)}>Save Job</button>
                                 </li>
                               </ul>
                             </div>

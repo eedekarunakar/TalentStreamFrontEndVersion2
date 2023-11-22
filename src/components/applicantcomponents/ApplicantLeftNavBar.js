@@ -33,14 +33,14 @@ const ApplicantLeftNavBar = () => {
           </li>
 
           <li>
-            <Link to="/my-applied" className="tf-effect">
+            <Link to="/applicant-applied-jobs" className="tf-effect">
               <span className="icon-my-apply dash-icon"></span>
               <span className="dash-titles">My Applied</span>
             </Link>
           </li>
 
           <li>
-            <Link to="/saved-jobs" className="tf-effect">
+            <Link to="/applicant-saved-jobs" className="tf-effect">
               <span className="icon-work dash-icon"></span>
               <span className="dash-titles">Saved Jobs</span>
             </Link>

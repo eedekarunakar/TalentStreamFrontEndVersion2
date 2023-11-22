@@ -3040,7 +3040,11 @@ input[type="color"],
   fill: red; /* Change 'red' to the color you desire */
 }
 
-
+.applied {
+  background-color: green;
+  color: white;
+  /* Add more styles as needed */
+}
 
 
 

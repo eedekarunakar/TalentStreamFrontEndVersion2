@@ -9,6 +9,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import ApplicantFindJobs from '../../components/applicantcomponents/ApplicantFindJobs';
 import ApplicantViewJob from '../../components/applicantcomponents/ApplicantViewJob';
+import ApplicantAppliedJobs from '../../components/applicantcomponents/ApplicantAppliedJobs';
+import ApplicantSavedJobs from '../../components/applicantcomponents/ApplicantSavedJobs';
 
 
 function ApplicantHomePage() {
@@ -31,8 +33,13 @@ function ApplicantHomePage() {
         setActiveRoute('findjobs');
         break;
         case '/applicant-view-job':
-          console.log("View Page");
           setActiveRoute('viewjob');
+        break;
+        case '/applicant-applied-jobs':
+          setActiveRoute('appliedjobs');
+        break;
+        case '/applicant-saved-jobs':
+          setActiveRoute('savedjobs');
         break;
       default:
         setActiveRoute('');
@@ -52,16 +59,10 @@ function ApplicantHomePage() {
      <ApplicantLeftNavBar />
      {activeRoute === 'dashboard' && <ApplicantDashboard />}
      {activeRoute === 'profile' && <ApplicantUpdateProfile />}
-     {/* {activeRoute === 'findjobs' && <ApplicantFindJobs />} */}
-     {/* {activeRoute === 'viewjob' && <ApplicantViewJob />} */}
      {activeRoute === 'findjobs' && (<ApplicantFindJobs setSelectedJobId={setSelectedJobId} /> )}
-     
      {activeRoute === 'viewjob' && (<ApplicantViewJob selectedJobId={selectedJobId} /> )}
-
-     {/* <Routes>
-     {activeRoute === 'viewjob' &&
-     <Route path="/applicant-view-job" element={<ApplicantViewJob selectedJobId={selectedJobId} />} />}
-     </Routes> */}
+     {activeRoute === 'appliedjobs' && <ApplicantAppliedJobs />}
+     {activeRoute === 'savedjobs' && <ApplicantSavedJobs />}
       <ApplicantFooter />   
 
     </div>
