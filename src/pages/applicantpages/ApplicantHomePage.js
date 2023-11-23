@@ -11,6 +11,7 @@ import ApplicantFindJobs from '../../components/applicantcomponents/ApplicantFin
 import ApplicantViewJob from '../../components/applicantcomponents/ApplicantViewJob';
 import ApplicantAppliedJobs from '../../components/applicantcomponents/ApplicantAppliedJobs';
 import ApplicantSavedJobs from '../../components/applicantcomponents/ApplicantSavedJobs';
+import ApplicantInterviewStatus from '../../components/applicantcomponents/ApplicantInterviewStatus';
 
 
 function ApplicantHomePage() {
@@ -41,6 +42,9 @@ function ApplicantHomePage() {
         case '/applicant-saved-jobs':
           setActiveRoute('savedjobs');
         break;
+        case '/applicant-interview-status':
+          setActiveRoute('interviewstatus');
+        break;
       default:
         setActiveRoute('');
         break;
@@ -61,8 +65,9 @@ function ApplicantHomePage() {
      {activeRoute === 'profile' && <ApplicantUpdateProfile />}
      {activeRoute === 'findjobs' && (<ApplicantFindJobs setSelectedJobId={setSelectedJobId} /> )}
      {activeRoute === 'viewjob' && (<ApplicantViewJob selectedJobId={selectedJobId} /> )}
-     {activeRoute === 'appliedjobs' && <ApplicantAppliedJobs />}
+     {activeRoute === 'appliedjobs' && <ApplicantAppliedJobs setSelectedJobId={setSelectedJobId}/>}
      {activeRoute === 'savedjobs' && <ApplicantSavedJobs />}
+     {activeRoute === 'interviewstatus' && (<ApplicantInterviewStatus selectedJobId={selectedJobId} /> )}
       <ApplicantFooter />   
 
     </div>

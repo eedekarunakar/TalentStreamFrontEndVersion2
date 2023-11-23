@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { apiUrl } from '../../services/ApplicantAPIService';  // Adjust the import path based on your project structure
 import { useUserContext } from '../common/UserProvider';
 import logoCompany1 from '../../images/cty12.png';
 
-function ApplicantAppliedJobs() {
+function ApplicantAppliedJobs({setSelectedJobId}) {
     const [jobs, setJobs] = useState([]);
 //   const [appliedJobs, setAppliedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -121,6 +122,10 @@ function ApplicantAppliedJobs() {
                                 <p>&#x20B9; {job.minSalary} - &#x20B9; {job.maxSalary} / year</p>
                               </div>
                               {/* <p className="days">{jobDetails.daysLeft} days left to apply</p> */}
+                              {/* <Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)}>
+                              <button type="button" style={{borderRadius:20}} className="btn-primary">Check Status</button>
+                              </Link> */}
+                              {job && (<Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)}>Check Status</Link> )}
                             </div>
                           </div>
                       </div>
