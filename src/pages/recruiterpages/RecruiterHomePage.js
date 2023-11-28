@@ -1,14 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes,Outlet } from 'react-router-dom';
-import RecruiterNavBar from '../../components/recruitercomponents/RecruiterNavBar';
-import ApplicantDashboard from '../../components/applicantcomponents/ApplicantDashboard';
-import ApplicantFooter from '../../components/applicantcomponents/ApplicantFooter';
-import ApplicantUpdateProfile from '../../components/applicantcomponents/ApplicantUpdateProfile';
 import { Link, useLocation } from 'react-router-dom';
+import RecruiterNavBar from '../../components/recruitercomponents/RecruiterNavBar';
 import { useState } from 'react';
-import ApplicantFindJobs from '../../components/applicantcomponents/ApplicantFindJobs';
-import ApplicantViewJob from '../../components/applicantcomponents/ApplicantViewJob';
 import RecruiterLeftNavBar from '../../components/recruitercomponents/RecruiterLeftNavBar';
+import RecruiterDashboard from '../../components/recruitercomponents/RecruiterDashboard';
+import ApplicantFooter from '../../components/applicantcomponents/ApplicantFooter';
+import RecruiterMyOrganization from '../../components/recruitercomponents/RecruiterMyOrganization';
+import RecruiterPostJob from '../../components/recruitercomponents/RecruiterPostJob';
 
 
 function RecruiterHomePage() {
@@ -20,19 +19,15 @@ function RecruiterHomePage() {
 
     
     switch (pathname) {
-      case '/applicanthome':
+      case '/recruiterhome':
         setActiveRoute('dashboard');
         break;
-      case '/applicant-update-profile':
-        setActiveRoute('profile');
-        break;
-        case '/applicant-find-jobs':
-        setActiveRoute('findjobs');
-        break;
-        case '/applicant-view-job/:id':
-          console.log("View Page");
-          setActiveRoute('viewjob');
-        break;
+        case '/recruiter-my-organization':
+          setActiveRoute('organization');
+          break;
+          case '/recruiter-postjob':
+            setActiveRoute('postjob');
+            break;
       default:
         setActiveRoute('');
         break;
@@ -49,10 +44,9 @@ function RecruiterHomePage() {
     <div  class="dashboard show ">
     <RecruiterNavBar />
     <RecruiterLeftNavBar />
-     {activeRoute === 'dashboard' && <ApplicantDashboard />}
-     {activeRoute === 'profile' && <ApplicantUpdateProfile />}
-     {activeRoute === 'findjobs' && <ApplicantFindJobs />}
-     {activeRoute === 'viewjob' && <ApplicantViewJob />}
+     {activeRoute === 'dashboard' && <RecruiterDashboard/>}
+     {activeRoute === 'organization' && <RecruiterMyOrganization />}
+     {activeRoute === 'postjob' && <RecruiterPostJob />}
       <ApplicantFooter />    
 
     </div>
