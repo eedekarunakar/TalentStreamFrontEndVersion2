@@ -12,6 +12,10 @@ import ApplicantViewJob from '../../components/applicantcomponents/ApplicantView
 import ApplicantAppliedJobs from '../../components/applicantcomponents/ApplicantAppliedJobs';
 import ApplicantSavedJobs from '../../components/applicantcomponents/ApplicantSavedJobs';
 import ApplicantInterviewStatus from '../../components/applicantcomponents/ApplicantInterviewStatus';
+import ApplicantChangePassword from '../../components/applicantcomponents/ApplicantChangePassword';
+import ApplicantDeleteProfile from '../../components/applicantcomponents/ApplicantDeleteProfile';
+import ApplicantJobAlerts from '../../components/applicantcomponents/ApplicantJobAlerts';
+import ApplicantResume from '../../components/applicantcomponents/ApplicantResume';
 
 
 function ApplicantHomePage() {
@@ -45,6 +49,18 @@ function ApplicantHomePage() {
         case '/applicant-interview-status':
           setActiveRoute('interviewstatus');
         break;
+        case '/applicant-change-password':
+          setActiveRoute('changepassword');
+        break;
+        case '/applicant-delete-profile':
+          setActiveRoute('deleteprofile');
+        break;
+        case '/applicant-job-alerts':
+          setActiveRoute('jobalerts');
+        break;
+        case '/applicant-resume':
+          setActiveRoute('resume');
+        break;
       default:
         setActiveRoute('');
         break;
@@ -68,6 +84,10 @@ function ApplicantHomePage() {
      {activeRoute === 'appliedjobs' && <ApplicantAppliedJobs setSelectedJobId={setSelectedJobId}/>}
      {activeRoute === 'savedjobs' && <ApplicantSavedJobs />}
      {activeRoute === 'interviewstatus' && (<ApplicantInterviewStatus selectedJobId={selectedJobId} /> )}
+     {activeRoute === 'changepassword' && <ApplicantChangePassword />}
+     {activeRoute === 'deleteprofile' && <ApplicantDeleteProfile />}
+     {activeRoute === 'jobalerts' && <ApplicantJobAlerts />}
+     {activeRoute === 'resume' && <ApplicantResume />}
       <ApplicantFooter />   
 
     </div>

@@ -181,14 +181,14 @@ function ApplicantNavBar() {
               <div class="sub-account">
                
                 <div class="sub-account-item">
-                  <a href="candidates-profile-setting.html"><span class="icon-profile"></span> Profile</a>
+                  <a href="/applicant-update-profile"><span class="icon-profile"></span> Profile</a>
                 </div>
                 <div class="sub-account-item">
-                  <a href="candidates-change-passwords.html"><span class="icon-change-passwords"></span> Change
-                    Passwords</a>
+                  <a href="/applicant-change-password"><span class="icon-change-passwords"></span> Change
+                    Password</a>
                 </div>
                 <div class="sub-account-item">
-                  <a href="candidates-delete-profile.html"><span class="icon-trash"></span> Delete Profile</a>
+                  <a href="/applicant-delete-profile"><span class="icon-trash"></span> Delete Profile</a>
                 </div>
                 <div class="sub-account-item">
                   <a href="/logout"><span class="icon-log-out"></span> Log Out</a>

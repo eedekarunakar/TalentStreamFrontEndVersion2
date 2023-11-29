@@ -18,22 +18,19 @@ export default function Footer() {
                 <span>Follow Us:</span>
                 <ul class="list-social d-flex aln-center">
                   <li>
-                    <a href="#"><i class="icon-facebook"></i></a>
+                    <a href="https://www.facebook.com/tekworks.in"><i class="icon-facebook"></i></a>
                   </li>
                   <li>
-                    <a href="#"><i class="icon-linkedin2"></i></a>
+                    <a href="https://www.linkedin.com/company/tekworks-in"><i class="icon-linkedin2"></i></a>
                   </li>
                   <li>
                     <a href="#"><i class="icon-twitter"></i></a>
                   </li>
                   <li>
-                    <a href="#"><i class="icon-pinterest"></i></a>
+                    <a href="https://www.instagram.com/tekworks_hiring"><i class="icon-instagram1"></i></a>
                   </li>
                   <li>
-                    <a href="#"><i class="icon-instagram1"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="icon-youtube"></i></a>
+                    <a href="https://www.youtube.com/@TekWorks-in"><i class="icon-youtube"></i></a>
                   </li>
                 </ul>
               </div>
@@ -57,7 +54,7 @@ export default function Footer() {
                   </div>
                 </div>
                 <p>
-                  Job Searching Just Got Easy. Use Jobtex to run a hiring site
+                  Job Searching Just Got Easy. Use TalentSteram to run a hiring site
                   and earn money in the process!
                 </p>
                 <div class="ft-icon">
@@ -75,11 +72,10 @@ export default function Footer() {
               <div class="footer-cl-2">
                 <h6 class="ft-title">Quick Links</h6>
                 <ul class="navigation-menu-footer">
-                  <li><a href="find-jobs-list.html">Job Packages</a></li>
-                  <li><a href="find-jobs-list.html">Post New Job</a></li>
-                  <li><a href="find-jobs-list.html">Jobs Listing</a></li>
-                  <li><a href="find-jobs-list.html">Jobs Style Grid</a></li>
-                  <li><a href="employers-list.html">Employer Listing</a></li>
+                  <li><a href="/aboutus">About</a></li>
+                  <li><a href="/login">Find Jobs</a></li>
+                  <li><a href="/recruiterlogin">Find Candidates</a></li>
+                  <li><a href="/contactus">Contact</a></li>
                   <li>
                     <a href="employers-grid-fullwidth.html">Employers Grid</a>
                   </li>
@@ -96,9 +92,7 @@ export default function Footer() {
                     <a href="candidate-list-sidebar.html">Candidate Listing</a>
                   </li>
                   <li><a href="candidate-grid.html">Candidates Grid</a></li>
-                  <li><a href="about-us.html">About us</a></li>
-                  <li><a href="contact-us.html">Contact us </a></li>
-                </ul>
+                                </ul>
               </div>
             </div>
             <div class="col-lg-2 col-md-4 col-6">
@@ -111,8 +105,6 @@ export default function Footer() {
                     <a href="employers-grid-sidebar.html">Employers Grid</a>
                   </li>
                   <li><a href="find-jobs-list.html">Job Packages</a></li>
-                  <li><a href="find-jobs-list.html">Jobs Listing</a></li>
-                  <li><a href="find-jobs-grid.html">Jobs Style Grid</a></li>
                 </ul>
               </div>
             </div>
