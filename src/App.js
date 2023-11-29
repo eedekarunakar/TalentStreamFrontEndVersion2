@@ -12,6 +12,8 @@ import UserProvider from './components/common/UserProvider';
 import Logout from './components/common/Logout';
 import RecruiterLoginPage from './pages/recruiterpages/RecruiterLoginPage';
 import RecruiterHomePage from './pages/recruiterpages/RecruiterHomePage';
+import ApplicantForgotPasswordPage from './pages/loginpage/ApplicantForgotPasswordPage';
+import RecruiterForgotPasswordPage from './pages/loginpage/ApplicantForgotPasswordPage';
 
 
 function App() {
@@ -58,6 +60,8 @@ function App() {
               <Route path="/aboutus" element={<AboutPage />} />
               <Route path="/contactus" element={<ContactPage />} />
               <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+              <Route path="/applicant-forgot-password" element={<ApplicantForgotPasswordPage />} />
+              <Route path="/recruiter-forgot-password" element={<RecruiterForgotPasswordPage />} />
               <Route path="/recruiterlogin" element={<RecruiterLoginPage onLogin={handleLogin} />} />
               <Route path="/register" element={<RegisterPage />} />
               {isLoggedIn ? (

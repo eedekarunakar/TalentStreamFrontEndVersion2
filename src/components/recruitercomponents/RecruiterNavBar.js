@@ -12,7 +12,7 @@ function RecruiterNavBar() {
     <div className="widget-filter">
       <div className="mobile-header">
         <div id="logo" className="logo">
-          <a href="/">
+          <a href="/recruiterhome">
             <img className="site-logo" src="../images/logo.png" alt="Image" />
           </a>
         </div>
@@ -84,7 +84,7 @@ function RecruiterNavBar() {
           <div className="sticky-area-wrap">
             <div className="header-ct-left">
               <div id="logo" className="logo">
-                <a href="/">
+                <a href="/recruiterhome">
                   <img
                     className="site-logo"
                     src="../images/logo.png"

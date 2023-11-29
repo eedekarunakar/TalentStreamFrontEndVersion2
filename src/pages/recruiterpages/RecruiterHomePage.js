@@ -44,7 +44,7 @@ function RecruiterHomePage() {
     <div  class="dashboard show ">
     <RecruiterNavBar />
     <RecruiterLeftNavBar />
-     {activeRoute === 'dashboard' && <RecruiterDashboard/>}
+     {activeRoute === 'dashboard' && <RecruiterDashboard />}
      {activeRoute === 'organization' && <RecruiterMyOrganization />}
      {activeRoute === 'postjob' && <RecruiterPostJob />}
       <ApplicantFooter />    

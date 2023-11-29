@@ -168,7 +168,7 @@ function RecruiterLogin({handleLogin}) {
                     <input type="checkbox" />
                     Remember me
                   </div>
-                  <a href="#" className="forgot">
+                  <a href="/recruiter-forgot-password" className="forgot">
                     Fogot password?
                   </a>
                 </div>

@@ -10,36 +10,6 @@ const Nav = () => {
     <div>
   <>
   <a id="scroll-top" />
-  {/* preloade */}
-  {/* <div className="preload preload-container">
-    <div className="preload-logo">
-      <div className="spinner" />
-    </div>
-  </div> */}
-  {/* /preload */}
-  {/* popup apply job */}
-  {/* <div className="wd-popup-job-apply">
-    <div className="modal-menu__backdrop" />
-    <div className="content">
-      <h6>Apply For This Job</h6>
-      <form action="https://themesflat.co/html/jobtex/get">
-        <label className="label-text">
-          Email<span>*</span>
-        </label>
-        <input type="text" placeholder="Email" required="" />
-        <div className="group-radio">
-          <input type="radio" />
-          <label>
-            You accept our <a href="#">Terms</a> and <a href="#">Conditions</a>{" "}
-            and <a href="#">Privacy Policy</a>{" "}
-          </label>
-        </div>
-        <button>Login</button>
-      </form>
-    </div>
-  </div> */}
-  {/* end */}
-  {/* popup nav menu-mobile*/}
   <div className="menu-mobile-popup">
     <div className="modal-menu__backdrop" />
     <div className="widget-filter">
