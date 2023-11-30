@@ -6,6 +6,7 @@ const Nav = () => {
 
   const navigate = useNavigate();
 
+
   return (
     <div>
   <>
@@ -122,7 +123,7 @@ const Nav = () => {
                       <a href="/">Home </a>
                     </li>
                     <li>
-                      <a href='/aboutus'>About Us </a>
+                      <a href='/aboutus'>About</a>
                     </li>
 
                     <li>
@@ -131,9 +132,9 @@ const Nav = () => {
                     <li>
                       <a href="/recruiterlogin">Find Candidate</a>
                     </li>
-                    {/* <li>
-                      <a href='/contactus'>Contact Us</a>
-                    </li> */}
+                    <li>
+                      <a href='/contactus'>Contact</a>
+                    </li>
                   </ul>
                 </nav>
               </div>
@@ -144,7 +145,7 @@ const Nav = () => {
                     <span className="icon-help-circle" />
                   </a>
                 </div>
-                <div className="header-customize-item bell">
+                {/* <div className="header-customize-item bell">
                   <span className="icon-bell" />
                   <div className="sub-notification">
                     <div className="sub-notification-heading">
@@ -197,11 +198,24 @@ const Nav = () => {
                       <a href="#">Read All</a>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div class="header-customize-item account">
-      <a href="/login">Login &nbsp;</a> or 
-      <a href="/register">&nbsp;Register &nbsp;</a>
-     </div>
+                <img src="images/user/avatar/sign-in.png" alt="" />
+                <div class="name">
+                  Candidates<span class="icon-keyboard_arrow_down"></span>
+                </div>
+                <div class="sub-account">
+                  <div class="sub-account-item">
+                    <a href="/register"><span class="icon-resumes"></span>Register</a>
+                  </div>
+                  <div class="sub-account-item">
+                    <a href="/login"><span class="icon-profile"></span>Login</a>
+                  </div>
+                  {/* <div class="sub-account-item">
+                    <a href="/recruiterlogin"><span class="icon-profile"></span>Recruiter's Login</a>
+                  </div> */}
+                </div>
+              </div>
                 <div className="header-customize-item button">
                   <a href="/recruiterlogin">Recruiter Login</a>
                 </div>

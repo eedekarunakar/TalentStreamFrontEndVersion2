@@ -13,7 +13,9 @@ import Logout from './components/common/Logout';
 import RecruiterLoginPage from './pages/recruiterpages/RecruiterLoginPage';
 import RecruiterHomePage from './pages/recruiterpages/RecruiterHomePage';
 import ApplicantForgotPasswordPage from './pages/loginpage/ApplicantForgotPasswordPage';
-import RecruiterForgotPasswordPage from './pages/loginpage/ApplicantForgotPasswordPage';
+import RecruiterForgotPasswordPage from './pages/recruiterpages/RecruiterForgotPasswordPage';
+
+
 
 
 function App() {

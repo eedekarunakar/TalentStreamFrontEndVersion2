@@ -3047,5 +3047,30 @@ input[type="color"],
 }
 
 
+.error-message {
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
+}
 
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
+.helpful-line {
+  background-color: #f0f0f0; /* You can change this color to your desired background color */
+  color: #911a1a; /* Text color for the helping lines */
+  font-size: 12px; /* You can adjust the font size as needed */
+  padding: 5px; /* You can adjust the padding to add spacing around the text */
+}
+.browse-button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}

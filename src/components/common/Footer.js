@@ -50,7 +50,7 @@ export default function Footer() {
                   </div>
                   <div class="content">
                     <p>Need help? 24/7</p>
-                    <h6><a href="tel:0123456678">+91-9966662524</a></h6>
+                    <h6><a href="tel:9966662524">+91-9966662524</a></h6>
                   </div>
                 </div>
                 <p>
@@ -76,40 +76,27 @@ export default function Footer() {
                   <li><a href="/login">Find Jobs</a></li>
                   <li><a href="/recruiterlogin">Find Candidates</a></li>
                   <li><a href="/contactus">Contact</a></li>
-                  <li>
-                    <a href="employers-grid-fullwidth.html">Employers Grid</a>
-                  </li>
                 </ul>
               </div>
             </div>
-            <div class="col-lg-2 col-md-4 col-6">
+            <div class="col-lg-2 col-md-6 col-6">
               <div class="footer-cl-3">
-                <h6 class="ft-title">For Candidates</h6>
+                <h6 class="ft-title">Quick Links</h6>
                 <ul class="navigation-menu-footer">
-                  <li><a href="dashboard.html">User Dashboard</a></li>
-                  <li><a href="sample-cv.html">CV Packages</a></li>
+                  <li><a href="/login">Terms Of Services</a></li>
+                  <li><a href="/login">Privacy Policy</a></li>
                   <li>
-                    <a href="candidate-list-sidebar.html">Candidate Listing</a>
+                    <a href="/login">Cookie Policy</a>
                   </li>
-                  <li><a href="candidate-grid.html">Candidates Grid</a></li>
-                                </ul>
-              </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-6">
-              <div class="footer-cl-4">
-                <h6 class="ft-title">For Employers</h6>
-                <ul class="navigation-menu-footer">
-                  <li><a href="find-jobs-list.html">Post New Job</a></li>
-                  <li><a href="employers-list.html">Employer Listing</a></li>
-                  <li>
-                    <a href="employers-grid-sidebar.html">Employers Grid</a>
-                  </li>
-                  <li><a href="find-jobs-list.html">Job Packages</a></li>
                 </ul>
               </div>
             </div>
-            <div class="col-lg-2 col-md-4 col-6">
-              <div class="footer-cl-5">
+            <div class="col-lg-4 col-6">
+                           
+               <img src="images/review/jobsearch.gif" width="350px" alt="images" />
+                         </div>
+            {/* <div class="col-lg-2 col-md-4 col-6">
+               <div class="footer-cl-5">
                 <h6 class="ft-title">Download App</h6>
                 <ul class="ft-download">
                   <li>
@@ -119,8 +106,9 @@ export default function Footer() {
                     <a href="#"><img src="images/review/btn4.png" alt="images" /></a>
                   </li>
                 </ul>
-              </div>
-            </div>
+              </div> 
+              <img src="images/review/jobsearch.gif" width="600px" alt="images" />
+            </div> */}
           </div>
         </div>
       </div>
@@ -132,7 +120,7 @@ export default function Footer() {
                 <div class="copyright">
                   ©2023 TekWorks. All Rights Reserved.
                 </div>
-                <span class="select-language">
+                {/* <span class="select-language">
                   <select class="image-select">
                     <option data-thumbnail="images/review/flag.png">
                       English
@@ -144,16 +132,16 @@ export default function Footer() {
                       VN
                     </option>
                   </select>
-                </span>
+                </span> */}
               </div>
             </div>
-            <div class="col-lg-6 col-md-6">
+            {/* <div class="col-lg-6 col-md-6">
               <ul class="menu-bottom d-flex aln-center">
                 <li><a href="term-of-use.html">Terms Of Services</a></li>
                 <li><a href="pricing.html">Privacy Policy</a></li>
                 <li><a href="contact-us.html">Cookie Policy</a></li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

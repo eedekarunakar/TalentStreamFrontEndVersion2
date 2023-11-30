@@ -25,6 +25,9 @@ function RegisterBody() {
   };
 
   const handleSendOTP = async () => {
+    if (!isFormValid()) {
+      return; // Do not proceed with registration if form is invalid
+    }
     try {
       setOTPSendingInProgress(true); // Set sending OTP in progress
       await axios.post(`${apiUrl}/applicant/applicantsendotp`, { email });
@@ -241,6 +244,7 @@ const isEmailValid = (email) => {
                       placeholder="Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
+                      required
                     />
                   </div>
                   <div className="ip">
@@ -250,6 +254,7 @@ const isEmailValid = (email) => {
                       placeholder="Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      required
                     />
                   </div>
                   <div className="ip">
@@ -259,6 +264,7 @@ const isEmailValid = (email) => {
                       placeholder="Mobile Number"
                       value={mobilenumber}
                       onChange={(e) => setMobilenumber(e.target.value)}
+                      required
                     />
                   </div>
                   <div className="ip">
@@ -269,6 +275,7 @@ const isEmailValid = (email) => {
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                       />
                     </div>
                   </div>

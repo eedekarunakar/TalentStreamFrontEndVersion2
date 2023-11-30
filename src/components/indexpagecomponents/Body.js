@@ -18,7 +18,7 @@ export default function Body() {
         <div className="column-6 background2">
           <div className="group-iconbox">
             <div className="title-iconbox">
-              <h1>What can I do with Jobtex?</h1>
+              <h1>What can I do with TalentSteram?</h1>
               <p>
                 Streamline your hiring process with strategic channels to reach
                 qualified candidates

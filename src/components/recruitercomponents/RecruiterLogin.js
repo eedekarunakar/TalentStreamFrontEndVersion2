@@ -140,7 +140,7 @@ function RecruiterLogin({handleLogin}) {
               <form  onSubmit={handleSubmit}>
                 <div className="ip">
                   <label>
-                    Username or email address<span>*</span>
+                    Email address<span>*</span>
                   </label>
                   <input
                         type="text"

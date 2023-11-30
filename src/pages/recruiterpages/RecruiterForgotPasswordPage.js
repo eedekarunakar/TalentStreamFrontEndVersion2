@@ -4,7 +4,7 @@ import Footer from '../../components/common/Footer';
 import RecruiterForgotPassword from '../../components/recruitercomponents/RecruiterForgotPassword';
 
 
-function ApplicantForgotPasswordPage() {
+function RecruiterForgotPasswordPage() {
   return (
     <div>
      <Nav />
@@ -14,4 +14,4 @@ function ApplicantForgotPasswordPage() {
   )
 }
 
-export default ApplicantForgotPasswordPage;
+export default RecruiterForgotPasswordPage;

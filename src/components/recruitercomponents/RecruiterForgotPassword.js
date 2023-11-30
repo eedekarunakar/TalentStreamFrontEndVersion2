@@ -123,7 +123,7 @@ function RecruiterForgotPassword() {
                 <div className="widget-menu-link">
                   <ul>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/applicant-forgot-password">Fogot Password</a></li>
+                    <li><a href="/recruiter-forgot-password">Fogot Password</a></li>
                   </ul>
                 </div>
               </div>
@@ -142,7 +142,7 @@ function RecruiterForgotPassword() {
                   </div>
                 ) : (
                   <div>
-                    <h4>Forgot Password</h4>
+                    <h5>Recruiter Forgot Password</h5><br />
                     <form onSubmit={handleResetPassword}>
                       <div className="ip">
                       <label>

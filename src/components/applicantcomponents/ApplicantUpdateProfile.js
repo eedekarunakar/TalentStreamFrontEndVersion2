@@ -247,35 +247,39 @@ function ApplicantUpdateProfile() {
       <div className="row">
         <div className="col-lg-12 col-md-12 ">
           <div className="profile-setting bg-white">
-            <div className="author-profile flex2 border-bt">
-              <div className="wrap-img flex2">
-                <div className="img-box relative">
-                  <img
-                    className="avatar "
-                    id="profileimg"
-                    src="../images/dashboard/image-up.jpg"
-                    alt=""
-                  />
-                </div>
-                <div id="upload-profile">
-                  <h5 className="fw-6">Upload a new avatar: </h5>
-                  <h6>JPG 80x80px</h6>
-                  <input
-                    className="up-file"
-                    id="tf-upload-img"
-                    type="file"
-                    name="profile"
-                    required=""
-                  />
-                </div>
-              </div>
-             
-            </div>
+          <div class="author-profile flex2 border-bt">
+
+<div class="wrap-img flex2">
+  <div class="img-box relative">
+    <img class="avatar " id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />
+  </div>
+  <div id="upload-profile">
+    <h5 class="fw-6">Upload a new avatar: </h5>
+    <h6>JPG 80x80px</h6>
+    <input class="up-file" id="tf-upload-img" type="file" name="profile" required="" />
+  </div>
+</div>
+<div class="wrap-img flex2">
+  <div class="img-box relative">
+    <img class="avatar " id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />
+  </div>
+  <div id="upload-profile">
+    <h5 class="fw-6">Upload Your Resume: </h5>
+    <h6>Doc or PFD</h6>
+    <input class="up-file" id="tf-upload-img" type="file" name="profile" required="" />
+  </div>
+</div>
+<div>
+  {/* <a href="#" class="btn-3">Save Profile</a> */}
+  <input type="submit" class=".browse-button" value="submit" />
+</div>
+</div>
             <div className="form-infor-profile">
               <h3 className="title-info">Information</h3>
               <div className="form-infor flex flat-form">
                 <div className="info-box info-wd">
                   <fieldset>
+                  <label class="title-user fw-7">Date of Birth</label>
                      <input
                              type="date"
                              placeholder="Date of Birth"
@@ -286,19 +290,22 @@ function ApplicantUpdateProfile() {
                              value={basicDetails.dateOfBirth}
                              onChange={(e) =>
                              setBasicDetails({...basicDetails,dateOfBirth: e.target.value,})}
+                             required
                        />
                   </fieldset>
                   <fieldset>
+                  <label class="title-user fw-7">City</label>
                     <input type="text"
                            placeholder="City"
                            className="input-form"
                            value={basicDetails.city}
                            onChange={(e) =>
-                           setBasicDetails({ ...basicDetails, city: e.target.value })
-                     }
+                           setBasicDetails({ ...basicDetails, city: e.target.value })}
+                           required
                   />
                   </fieldset>
                   <div id="item_date" className="dropdown titles-dropdown">
+                  <label class="title-user fw-7">Pin Code</label>
                     <input
                             type="text"
                             placeholder="Pin Code"
@@ -306,11 +313,13 @@ function ApplicantUpdateProfile() {
                             value={basicDetails.pincode}
                             onChange={(e) =>
                             setBasicDetails({ ...basicDetails, pincode: e.target.value })}
+                            required
                     />
                   </div>
                 </div>
                 <div className="info-box info-wd">
                   <fieldset>
+                  <label class="title-user fw-7">Address</label>
                     <input
                             type="text"
                             placeholder="Address"
@@ -318,9 +327,11 @@ function ApplicantUpdateProfile() {
                             value={basicDetails.address}
                             onChange={(e) =>
                             setBasicDetails({ ...basicDetails, address: e.target.value })}
+                            required
                      />
                   </fieldset>
                   <fieldset>
+                  <label class="title-user fw-7">State</label>
                     <input
                         type="text"
                         placeholder="State"
@@ -328,9 +339,11 @@ function ApplicantUpdateProfile() {
                         value={basicDetails.state}
                         onChange={(e) =>
                         setBasicDetails({ ...basicDetails, state: e.target.value })}
+                        required
                    />
                   </fieldset>
                   <div id="item_size" className="dropdown titles-dropdown ">
+                  <label class="title-user fw-7">Alternate Phone Number</label>
                     <input
                              type="text"
                              placeholder="Alternate Phone Number"
@@ -357,6 +370,7 @@ function ApplicantUpdateProfile() {
                           value={xClassDetails.xschoolName}
                           onChange={(e) =>
                            setXClassDetails({...xClassDetails,xschoolName: e.target.value,})}
+                           required
                   />
                   </fieldset>
                   <fieldset>
@@ -366,8 +380,8 @@ function ApplicantUpdateProfile() {
                            className="input-form"
                            value={xClassDetails.xboard}
                            onChange={(e) =>
-                           setXClassDetails({ ...xClassDetails, xboard: e.target.value })
-                }
+                           setXClassDetails({ ...xClassDetails, xboard: e.target.value })}
+                           required
               />
                   </fieldset>
                   <div id="item_date" className="dropdown titles-dropdown">
@@ -376,6 +390,7 @@ function ApplicantUpdateProfile() {
                           className="input-form"
                           value={xClassDetails.xpercentage}
                           onChange={(e) =>setXClassDetails({...xClassDetails,xpercentage: e.target.value,})}
+                          required
                    />
                   </div>
                   <div id="item_date" className="dropdown titles-dropdown">
@@ -385,6 +400,7 @@ function ApplicantUpdateProfile() {
                          className="input-form"
                          value={xClassDetails.xPincode}
                          onChange={(e) =>setXClassDetails({...xClassDetails,xPincode: e.target.value,})}
+                         required
 
                   />
                   </div>
@@ -398,6 +414,7 @@ function ApplicantUpdateProfile() {
                            value={xClassDetails.xyearOfPassing}
                            onChange={(e) =>
                            setXClassDetails({...xClassDetails,xyearOfPassing: e.target.value,})}
+                           required
                   />
                   </fieldset>
                   <fieldset>
@@ -407,6 +424,7 @@ function ApplicantUpdateProfile() {
                           value={xClassDetails.xCity}
                           onChange={(e) =>
                           setXClassDetails({ ...xClassDetails, xCity: e.target.value })}
+                          required
                   />
                   </fieldset>
                   <div id="item_size" className="dropdown titles-dropdown ">
@@ -416,6 +434,7 @@ function ApplicantUpdateProfile() {
                           value={xClassDetails.xState}
                           onChange={(e) =>
                           setXClassDetails({ ...xClassDetails, xState: e.target.value })}
+                          required
 
                    />
                   </div>
@@ -438,6 +457,7 @@ function ApplicantUpdateProfile() {
                             setIntermediateDetails({
                               ...intermediateDetails,
                               icollegeName: e.target.value,})}
+                              required
                   />
                   </fieldset>
                   <fieldset>
@@ -448,6 +468,7 @@ function ApplicantUpdateProfile() {
                            value={intermediateDetails.iboard}
                            onChange={(e) =>
                              setIntermediateDetails({...intermediateDetails,iboard: e.target.value,})}
+                             required
                     />
                   </fieldset>
                   <div id="item_date" className="dropdown titles-dropdown">
@@ -458,6 +479,7 @@ function ApplicantUpdateProfile() {
                           onChange={(e) =>
                             setIntermediateDetails({...intermediateDetails,iprogram: e.target.value,})
                           }
+                          required
                    />
                   </div>
                   <div id="item_date" className="dropdown titles-dropdown">
@@ -468,6 +490,7 @@ function ApplicantUpdateProfile() {
                           value={intermediateDetails.ipercentage}
                           onChange={(e) =>
                           setIntermediateDetails({...intermediateDetails,ipercentage: e.target.value,})}
+                          required
                    />
                   </div>
                 </div>
@@ -480,6 +503,7 @@ function ApplicantUpdateProfile() {
                            value={xClassDetails.xyearOfPassing}
                            onChange={(e) =>
                            setXClassDetails({...xClassDetails,xyearOfPassing: e.target.value,})}
+                           required
                   />
                   </fieldset>
                   <fieldset>
@@ -489,6 +513,7 @@ function ApplicantUpdateProfile() {
                           value={xClassDetails.xCity}
                           onChange={(e) =>
                           setXClassDetails({ ...xClassDetails, xCity: e.target.value })}
+                          required
                   />
                   </fieldset>
                   <div id="item_size" className="dropdown titles-dropdown ">
@@ -498,6 +523,7 @@ function ApplicantUpdateProfile() {
                           value={xClassDetails.xState}
                           onChange={(e) =>
                           setXClassDetails({ ...xClassDetails, xState: e.target.value })}
+                          required
 
                    />
                   </div>
@@ -516,6 +542,7 @@ function ApplicantUpdateProfile() {
                            className="input-form"
                            value={graduationDetails.gcollegeName}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gcollegeName: e.target.value,})}
+                           required
                   />
                   </fieldset>
                   <fieldset>
@@ -525,6 +552,7 @@ function ApplicantUpdateProfile() {
                            className="input-form"
                            value={graduationDetails.gboard}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gboard: e.target.value,})}
+                           required
                     />
                   </fieldset>
                   <div id="item_date" className="dropdown titles-dropdown">
@@ -537,6 +565,7 @@ function ApplicantUpdateProfile() {
                               gprogram: e.target.value,
                             })
                           }
+                          required
                    />
                   </div>
                   <div id="item_date" className="dropdown titles-dropdown">
@@ -547,6 +576,7 @@ function ApplicantUpdateProfile() {
                           value={graduationDetails.gpercentage}
                 onChange={(e) =>setGraduationDetails({
                     ...graduationDetails,gpercentage: e.target.value,})}
+                    required
                    />
                   </div>
                 </div>
@@ -558,6 +588,7 @@ function ApplicantUpdateProfile() {
                            className="input-form"
                            value={graduationDetails.gyearOfPassing}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gyearOfPassing: e.target.value,})}
+                           required
                   />
                   </fieldset>
                   <fieldset>
@@ -567,6 +598,7 @@ function ApplicantUpdateProfile() {
                           value={graduationDetails.gCity}
                           onChange={(e) =>
                             setGraduationDetails({...graduationDetails,gCity: e.target.value,})}
+                            required
                   />
                   </fieldset>
                   <div id="item_size" className="dropdown titles-dropdown ">
@@ -575,6 +607,7 @@ function ApplicantUpdateProfile() {
                           className="input-form"
                           value={graduationDetails.GState}
                           onChange={(e) =>setGraduationDetails({...graduationDetails,gState: e.target.value,})}
+                          required
                    />
                   </div>
                 </div>
@@ -591,21 +624,25 @@ function ApplicantUpdateProfile() {
                         {experienceDetails.map((experience, index) => (
             <div key={index}>
               <fieldset>
+              <label class="title-user color-1 fw-7">Compnay Name</label>
                 <input
                   type="text"
                   className="input-form"
-                  placeholder="Company"
+                  placeholder="ABC Pvt Ltd"
                   value={experience.company}
                   onChange={(e) => handleExperienceChange(e, index, "company")}
+                  required
                 />
               </fieldset>
               <fieldset>
+              <label class="title-user color-1 fw-7">Position</label>
                 <input
                   type="text"
                   className="input-form"
-                  placeholder="Position"
+                  placeholder="Java Developer"
                   value={experience.position}
                   onChange={(e) => handleExperienceChange(e, index, "position")}
+                  required
                 />
               </fieldset>
               <div id="item_date" className="dropdown titles-dropdown">
@@ -616,6 +653,7 @@ function ApplicantUpdateProfile() {
                   id={`startDate-${index}`}
                   value={experience.startDate}
                   onChange={(e) => handleExperienceChange(e, index, "startDate")}
+                  required
                 />
               </div>
               <div id="item_date" className="dropdown titles-dropdown">
@@ -626,6 +664,7 @@ function ApplicantUpdateProfile() {
                   id={`endDate-${index}`}
                   value={experience.endDate}
                   onChange={(e) => handleExperienceChange(e, index, "endDate")}
+                  required
                 />
               </div>
             </div>
@@ -641,18 +680,20 @@ function ApplicantUpdateProfile() {
                         {skillsRequired.map((skill, index) => (
 <div key={index} className="experience-table">
 <div>
+<label class="title-user fw-7">Your Skill</label>
 <input
   type="text"
-  placeholder="Skill"
+  placeholder="Java"
   className="input-form"
   value={skill.skillName}
   onChange={(e) => handleSkillChange(e, index, "skillName")}
 />
 </div>
 <div>
+<label class="title-user fw-7">Your Experience</label>
 <input
   type="text"
-  placeholder="Experience"
+  placeholder="5"
   className="input-form"
   value={skill.experience}
   onChange={(e) => handleSkillChange(e, index, "experience")}
@@ -673,7 +714,7 @@ function ApplicantUpdateProfile() {
 
                 <div className="tt-button button-style">
               
-                <button type="submit" className="btn-3">Submit</button>
+                {/* <button type="submit" className="btn-3">Submit</button> */}
                 
               </div>
 
