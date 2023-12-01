@@ -29,9 +29,14 @@ const RecruiterLeftNavBar = () => {
               <span className="dash-titles">Post Job</span>
             </Link>
           </li>
-
           <li>
-            <Link to="/my-applied" className="tf-effect">
+            <Link to="/recruiter-jobopenings" className="tf-effect">
+              <span className="icon-submit dash-icon"></span>
+              <span className="dash-titles">Job Openings</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/recruiter-allapplicants" className="tf-effect">
               <span className="icon-applicant dash-icon"></span>
               <span className="dash-titles">Applicants</span>
             </Link>

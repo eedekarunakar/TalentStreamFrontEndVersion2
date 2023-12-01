@@ -1,6 +1,172 @@
-import React from 'react'
+import React from 'react';
+import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
+import { useUserContext } from '../common/UserProvider';
+import { useState, useEffect,useRef } from "react";
+import axios from 'axios';
 
 function RecruiterPostJob() {
+  const [jobTitle, setJobTitle] = useState("");
+  const [minimumExperience, setMinimumExperience] = useState("");
+  const [maximumExperience, setMaximumExperience] = useState("");
+  const [minSalary, setMinSalary] = useState("");
+  const [maxSalary, setMaxSalary] = useState("");
+  const [location, setLocation] = useState("");
+  const [employeeType, setEmployeeType] = useState("");
+  const [industryType, setIndustryType] = useState("");
+  const [minimumQualification, setMinimumQualification] = useState("");
+  const [specialization, setSpecialization] = useState("");
+  const [skillsRequired, setSkillsRequired] = useState([
+    { skillName: "", minimumExperience: "" },
+  ]);
+  const [jobHighlights, setJobHighlights] = useState("");
+  const [description, setDescription] = useState("");
+  const [uploadDocument, setUploadDocument] = useState(null);
+  const [image, setImage] = useState(null);
+  const [fileName, setFileName] = useState("No selected file")
+  const fileInputRef = useRef(null);
+  const user1 = useUserContext();
+  const user = user1.user;
+  // Handle form submission
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+    // Prepare the form data to send to the server
+
+    const formData = {
+
+      jobTitle,
+
+      minimumExperience,
+
+      maximumExperience,
+
+      minSalary,
+
+      maxSalary,
+
+      location,
+
+      employeeType,
+
+      industryType,
+
+      minimumQualification,
+
+      specialization,
+
+      skillsRequired,
+
+      jobHighlights,
+
+      description,
+
+      uploadDocument,
+
+    };
+
+    // Get the JWT token from local storage
+    const jwtToken = localStorage.getItem('jwtToken');
+    // Configure the headers with the JWT token
+    const headers = {
+
+      Authorization: `Bearer ${jwtToken}`,
+
+      'Content-Type': 'application/json', // Set the content type as needed
+
+    };
+    // Make the API call to your backend with the JWT token in the headers
+
+    axios
+
+      .post(`${apiUrl}/job/recruiters/saveJob/${user.id}`, formData, { headers })
+
+      .then((response) => {
+
+        // Handle the successful response here, such as showing a success message or redirecting the user
+        
+        console.log('API Response:', response.data);
+
+        window.alert('job saved successfully');
+      })
+
+      .catch((error) => {
+
+        // Handle any errors that occur during the API call, such as displaying an error message
+
+        console.error('API Error:', error);
+
+      });
+
+  };
+
+ 
+
+  const handleExperienceChange = (e, index, field) => {
+
+    const updatedSkillsRequired = [...skillsRequired];
+
+    updatedSkillsRequired[index][field] = e.target.value;
+
+    setSkillsRequired(updatedSkillsRequired);
+
+  };
+
+ 
+
+  const addExperience = () => {
+
+    setSkillsRequired([...skillsRequired, { skillName: "", minimumExperience: "" }]);
+
+  };
+
+ 
+
+  const handleFileChange = (e) => {
+
+    const file = e.target.files[0];
+
+    if (file) {
+
+      // Check if the file type is allowed (PDF or DOC)
+
+      if (file.type === "application/pdf" || file.type === "application/msword" || file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+
+        setFileName(file.name);
+
+        setImage(URL.createObjectURL(file));
+
+      } else {
+
+        // Handle invalid file type
+
+        alert("Please select a valid PDF or DOC file.");
+
+        e.target.value = null; // Clear the file input
+
+      }
+
+    }
+
+  };
+
+ 
+
+  const handleBrowseClick = () => {
+
+    // Trigger a click event on the hidden file input element
+
+    if (fileInputRef.current) {
+
+      fileInputRef.current.click();
+
+    }
+
+  };
+
+
+
+
+
   return (
     <div>
        <div className="dashboard__content">
@@ -16,31 +182,24 @@ function RecruiterPostJob() {
     </div>
   </section>
   <section className="flat-dashboard-post flat-dashboard-setting">
+  <form onSubmit={handleSubmit}>
     <div className="themes-container">
       <div className="row">
         <div className="col-lg-12 col-md-12 ">
           <div className="post-new profile-setting bg-white">
-            <h3 className="title-img">
-              Featured Image <span className="color-red">*</span>{" "}
-            </h3>
-            <div className="btn-wrap button-wrap flex2">
-              <div className="tt-button button-browse">
-                <a href="#">Browse</a>
-              </div>
-              <div className="fs-16 ">
-                <a className="color-4">Upload image</a>{" "}
-              </div>
-            </div>
+            
             <div className="wrap-titles">
               <h3 className="title-img">
                 Job Title <span className="color-red">*</span>{" "}
               </h3>
               <fieldset className="info-wd">
-                <input
-                  type="text"
-                  className="input-form"
-                  defaultValue="UI UX Designer"
-                />
+              <input
+                      type="text" 
+                      placeholder="Job Role | Job Designation"
+                      className="input-form"
+                      value={jobTitle}
+                      onChange={(e) => setJobTitle(e.target.value)}
+                      required />
               </fieldset>
             </div>
             <div className="text-editor-wrap">
@@ -48,357 +207,166 @@ function RecruiterPostJob() {
                 Job Description <span className="color-red">*</span>{" "}
               </h3>
               <div className="text-editor-main">
-                <div className="options">
-                  <button className="my-text-btn" data-command="undo">
-                    <i className="fas fa-undo" />
-                  </button>
-                  <button className="my-text-btn" data-command="redo">
-                    <i className="fas fa-redo" />
-                  </button>
-                  <button className="my-text-btn" data-command="bold">
-                    <i className="fas fa-bold" />
-                  </button>
-                  <button className="my-text-btn" data-command="italic">
-                    <i className="fas fa-italic" />
-                  </button>
-                  <button className="my-text-btn" data-command="underline">
-                    <i className="fas fa-underline" />
-                  </button>
-                  <button className="my-text-btn" data-command="strikeThrough">
-                    <i className="fas fa-strikethrough" />
-                  </button>
-                  <button
-                    className="my-text-btn"
-                    data-command="formatBlock"
-                    data-block="H1"
-                  >
-                    H1
-                  </button>
-                  <button
-                    className="my-text-btn"
-                    data-command="formatBlock"
-                    data-block="H2"
-                  >
-                    H2
-                  </button>
-                  <button
-                    className="my-text-btn"
-                    data-command="formatBlock"
-                    data-block="H3"
-                  >
-                    H3
-                  </button>
-                  <button className="my-text-btn" data-command="justifyLeft">
-                    <i className="fas fa-align-left" />
-                  </button>
-                  <button className="my-text-btn" data-command="justifyCenter">
-                    <i className="fas fa-align-center" />
-                  </button>
-                  <button className="my-text-btn" data-command="justifyRight">
-                    <i className="fas fa-align-right" />
-                  </button>
-                  <button className="my-text-btn" data-command="justifyFull">
-                    <i className="fas fa-align-justify" />
-                  </button>
-                  <button className="my-text-btn" data-command="insertImage">
-                    <i className="fas fa-images" />
-                  </button>
-                  <button className="my-text-btn" data-command="createLink">
-                    <i className="fas fa-link" />
-                  </button>
-                </div>
-                <div className="contentOutput" contentEditable="true" />
+                <textarea
+                    className="input-form"
+                    placeholder="Job Description at least 50 words"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+
+                  />
               </div>
             </div>
             <div className="form-infor flex flat-form">
               <div className="info-box info-wd">
                 <div id="item_category" className="dropdown titles-dropdown">
-                  <label className="title-user fw-7">Category</label>
-                  <a className="btn-selector nolink input-form">
-                    {" "}
-                    Accountng/ Finance
-                  </a>
-                  <ul>
-                    <li>
-                      <span>Accountng/ Finance</span>
-                    </li>
-                    <li>
-                      <span>User/ Finance</span>
-                    </li>
-                    <li>
-                      <span>Admin/ Finance</span>
-                    </li>
-                  </ul>
+                 <label className="title-user fw-7">Minimum Experience</label>
+                  <input  type="number"
+                          placeholder="Min"
+                          className="input-form"
+                          value={minimumExperience}
+                          onChange={(e) => setMinimumExperience(e.target.value)}
+                          required
+                  />
                 </div>
                 <fieldset>
-                  <label className="title-user fw-7">Tag</label>
-                  <input type="text" className="input-form" required="" />
+                  <label className="title-user fw-7">Minimum Salary</label>
+                  <input type="number"
+                         placeholder="Min"
+                         className="input-form"
+                         value={minSalary}
+                         onChange={(e) => setMinSalary(e.target.value)}
+                         required
+                 />
+
                 </fieldset>
                 <div id="item_apply" className="dropdown titles-dropdown">
-                  <label className="title-user fw-7">Job Apply Type</label>
-                  <a className="btn-selector nolink input-form"> Internal</a>
-                  <ul>
-                    <li>
-                      <span>Internal</span>
-                    </li>
-                    <li>
-                      <span>Junior</span>
-                    </li>
-                    <li>
-                      <span>Mid Level</span>
-                    </li>
-                    <li>
-                      <span>Senior</span>
-                    </li>
-                  </ul>
+                  <label className="title-user fw-7">Location</label>
+                  <input type="text"
+                         className="input-form"
+                         value={location}
+                         placeholder="City"
+                         onChange={(e) => setLocation(e.target.value)}
+                        required
+                  />
                 </div>
                 <fieldset>
-                  <label className="title-user fw-7">Job Apply Email</label>
-                  <input type="email" className="input-form" required="" />
+                  <label className="title-user fw-7">Industry Type</label>
+                  <input
+                        type="text"
+                        value={industryType}
+                        className="input-form"
+                        placeholder="Sector"
+                        onChange={(e) => setIndustryType(e.target.value)}
+                        required
+                      />
                 </fieldset>
                 <fieldset>
-                  <label className="title-user fw-7">Min. Salary</label>
-                  <input type="tel" className="input-form" required="" />
+                  <label className="title-user fw-7">Specialization</label>
+                  <input 
+                            type="text"
+                            value={specialization}
+                            className="input-form"
+                            placeholder="Other courses"
+                            onChange={(e) => setSpecialization(e.target.value)}
+                  />
                 </fieldset>
-                <div id="item_date" className="dropdown titles-dropdown">
-                  <label className="title-user fw-7">Experience</label>
-                  <a className="btn-selector nolink input-form"> 3 Years </a>
-                  <ul>
-                    <li>
-                      <span>1 Years</span>
-                    </li>
-                    <li>
-                      <span>3 Years</span>
-                    </li>
-                    <li>
-                      <span>5 Years</span>
-                    </li>
-                  </ul>
-                </div>
-                <div
-                  id="item_qualification"
-                  className="dropdown titles-dropdown"
-                >
-                  <label className="title-user fw-7">Qualification</label>
-                  <a className="btn-selector nolink input-form">
-                    {" "}
-                    Certificate{" "}
-                  </a>
-                  <ul>
-                    <li>
-                      <span>Certificate</span>
-                    </li>
-                    <li>
-                      <span>University</span>
-                    </li>
-                    <li>
-                      <span>College</span>
-                    </li>
-                  </ul>
-                </div>
+                <fieldset class="">
+                        <label class="title-user fw-7">Skills</label>
+                        {skillsRequired.map((skill, index) => (
+  <div key={index} className="experience-table">
+    <div>
+      <input
+        type="text"
+        placeholder="Skill"
+        className="input-form"
+        value={skill.skillName}
+        onChange={(e) => handleExperienceChange(e, index, "skillName")}
+      />
+    </div>
+    <div>
+      <input
+        type="text"
+        placeholder="Experience"
+        className="input-form"
+        value={skill.minimumExperience}
+        onChange={(e) => handleExperienceChange(e, index, "minimumExperience")}
+      />
+    </div>
+    {index === skillsRequired.length - 1 && (
+      <button type="button" onClick={addExperience}>
+        Add Skill
+      </button>
+    )}
+  </div>
+))}
+                      </fieldset>
               </div>
               <div className="info-box info-wd">
                 <div id="item_1" className="dropdown titles-dropdown ">
-                  <label className="title-user fw-7">Type</label>
-                  <a className="btn-selector nolink input-form"> Freelance </a>
-                  <ul>
-                    <li>
-                      <span>Online</span>
-                    </li>
-                    <li>
-                      <span>Freelance</span>
-                    </li>
-                    <li>
-                      <span>Offline</span>
-                    </li>
-                  </ul>
+                  <label className="title-user fw-7">Minimum Experience</label>
+                  <input type="number" 
+                         placeholder="Max"
+                         className="input-form"
+                         value={maximumExperience}
+                         onChange={(e) => setMaximumExperience(e.target.value)}
+                         required
+                  />
                 </div>
                 <div id="item_2" className="dropdown titles-dropdown ">
-                  <label className="title-user fw-7">Gender</label>
-                  <a className="btn-selector nolink input-form"> Male</a>
-                  <ul>
-                    <li>
-                      <span>10 - 50</span>
-                    </li>
-                    <li>
-                      <span>50 - 120</span>
-                    </li>
-                    <li>
-                      <span>120 - 500</span>
-                    </li>
-                  </ul>
+                  <label className="title-user fw-7">Maximum Salary</label>
+                  <input
+                             type="number"
+                             placeholder="Max"
+                             className="input-form"
+                             value={maxSalary}
+                             onChange={(e) => setMaxSalary(e.target.value)}
+                             required
+                  />
                 </div>
                 <fieldset>
                   <label className="title-user fw-7">
-                    External URL for Apply Job
+                    Employee Type
                   </label>
-                  <input type="url" className="input-form" required="" />
+                  <select value={employeeType}
+                          className="input-form"
+                          onChange={(e) => setEmployeeType(e.target.value)}
+                          required>
+                       <option value="">Select</option>
+                       <option value="Full-time">Full-time</option>
+                       <option value="Part-time">Part-time</option>
+                       <option value="Contract">Contract</option>
+                 </select>
                 </fieldset>
                 <div id="item_3" className="dropdown titles-dropdown ">
-                  <label className="title-user fw-7">Salary Type</label>
-                  <a className="btn-selector nolink input-form"> Month</a>
-                  <ul>
-                    <li>
-                      <span>1</span>
-                    </li>
-                    <li>
-                      <span>6</span>
-                    </li>
-                    <li>
-                      <span>12</span>
-                    </li>
-                  </ul>
+                  <label className="title-user fw-7">Minimum Qualification</label>
+                  <input
+                             type="text"
+                             value={minimumQualification}
+                             className="input-form"
+                             placeholder="B tech"
+                             onChange={(e) => setMinimumQualification(e.target.value)} 
+                             required
+                 />
                 </div>
                 <fieldset>
-                  <label className="title-user fw-7">Max. Salary</label>
-                  <input
-                    type="text"
-                    className="input-form"
-                    defaultValue="Master Degree"
-                    required=""
+                  <label className="title-user fw-7">Job Highlights</label>
+                  <input type="text"
+                         className="input-form"
+                         placeholder="Job Key points"
+                         value={jobHighlights}
+                         onChange={(e) => setJobHighlights(e.target.value)}
                   />
                 </fieldset>
-                <div id="item_4" className="dropdown titles-dropdown ">
-                  <label className="title-user fw-7">Career Level</label>
-                  <a className="btn-selector nolink input-form"> Manager</a>
-                  <ul>
-                    <li>
-                      <span>Managerial</span>
-                    </li>
-                    <li>
-                      <span>Manager</span>
-                    </li>
-                    <li>
-                      <span>Personnel</span>
-                    </li>
-                  </ul>
-                </div>
-                <fieldset>
-                  <label className="title-user fw-7">
-                    Introduction Video URL
-                  </label>
-                  <input type="url" className="input-form" required="" />
-                </fieldset>
+             </div>
+            </div>
+            <div className="form-group">
+                <button type="submit">Post Job</button>
               </div>
-            </div>
-            <div className="wrap-date">
-              <fieldset className="info-wd">
-                <h5 className="title-url fw-7">Applicant Deadline Date</h5>
-                <input type="date" className="input-form" />
-              </fieldset>
-            </div>
-            <div className="photo-wrap">
-              <h3>Photo</h3>
-              <ul className="flex">
-                <li className="file-delete">
-                  <img src="../images/dashboard/photo-1.jpg" alt="" />
-                  <a className="icon-clear remove-file" />{" "}
-                </li>
-                <li className="file-delete">
-                  <img src="../images/dashboard/photo-2.jpg" alt="" />{" "}
-                  <a className="icon-clear remove-file" />{" "}
-                </li>
-                <li className="file-delete">
-                  <img src="../images/dashboard/photo-1.jpg" alt="" />{" "}
-                  <a className="icon-clear remove-file" />{" "}
-                </li>
-              </ul>
-            </div>
-            <div className="btn-wrap button-wrap flex2">
-              <div className="tt-button button-browse">
-                <a href="#" className="btn-3">
-                  Browse
-                </a>
-              </div>
-              <div className="fs-16">
-                <a>Upload image, video</a>{" "}
-              </div>
-            </div>
-            <div className="contact-wrap info-wd">
-              <h3>Location</h3>
-              <div className="form-map form-wg flex flat-form">
-                <div className="form-box  wg-box">
-                  <fieldset className="">
-                    <label className="title-user fs-16"> Address</label>
-                    <input
-                      type="text"
-                      className="input-form"
-                      defaultValue="Las Vegas, NV 89107, USA"
-                    />
-                  </fieldset>
-                </div>
-                <div className="form-box  wg-box">
-                  <div id="item_category2" className="dropdown titles-dropdow">
-                    <label className="title-user fs-16">Location</label>
-                    <a className="btn-selector nolink input-form"> Tokyo </a>
-                    <ul>
-                      <li>
-                        <span>VietNam</span>
-                      </li>
-                      <li>
-                        <span>Tokyo</span>
-                      </li>
-                      <li>
-                        <span>USA</span>
-                      </li>
-                      <li>
-                        <span>England</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <fieldset className="address-box">
-                <label className="title-user fs-16">Map Location</label>
-                <input type="text" className="input-form" />
-              </fieldset>
-            </div>
-            <div className="map-content">
-              <iframe
-                className="map-box"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7302.453092836291!2d90.47477022812872!3d23.77494577893369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1627293157601!5m2!1svi!2s"
-                allowFullScreen=""
-                loading="lazy"
-              />
-            </div>
-            <div className="area-wrap info-wd">
-              <div className="form-social form-wg flex flat-form">
-                <div className="form-box  wg-box">
-                  <fieldset className="">
-                    <input
-                      type="text"
-                      className="input-form input-style"
-                      defaultValue="40.69499198068389"
-                    />
-                  </fieldset>
-                </div>
-                <div className="form-box  wg-box">
-                  <fieldset className="">
-                    <input
-                      type="text"
-                      className="input-form input-style"
-                      defaultValue="-73.9959976171989"
-                    />
-                  </fieldset>
-                </div>
-              </div>
-            </div>
-            <div className="wrap-video">
-              <fieldset className="info-wd">
-                <label className="title-url fw-4 fs-16 color-4">
-                  Introduction Video
-                </label>
-                <input
-                  type="url"
-                  className="input-form input-style"
-                  defaultValue="https://www.youtube.com/watch?v=I6ZLgk_bq90"
-                />
-              </fieldset>
-            </div>
           </div>
         </div>
       </div>
     </div>
+    </form>
   </section>
 </div>
 </div>

@@ -124,13 +124,13 @@ function RecruiterMyOrganization() {
                 <div id="upload-profile">
                   <h5 className="fw-6">Upload a Logo:</h5>
                   <h6>JPG 80x80px</h6>
-                  {/* <input
+                  <input
                     className="up-file"
                     id="tf-upload-img"
                     type="file"
                     name="profile"
                     required=""
-                  /> */}
+                  />
                 </div>
               </div>
               <div className="wrap-img flex2">
@@ -154,6 +154,7 @@ function RecruiterMyOrganization() {
                   placeholder="ABC Company Pvt. Ltd"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
+                  required
                 />
                   </fieldset>
                   <fieldset>
@@ -189,6 +190,7 @@ function RecruiterMyOrganization() {
                   placeholder="www.abc.com"
                   value={website}
                   onChange={(e) => setWebsite(e.target.value)}
+                  required
                 />
                   </fieldset>
                 </div>
@@ -202,6 +204,7 @@ function RecruiterMyOrganization() {
                   placeholder="Head Office Address"
                   value={headOffice}
                   onChange={(e) => setHeadOffice(e.target.value)}
+                  required
                 />
               </div>
               
@@ -240,6 +243,7 @@ function RecruiterMyOrganization() {
                     placeholder="Instagram"
                     value={instagram}
                     onChange={(e) => setInstagram(e.target.value)}
+                    required
                   />
                     </fieldset>
                   </div>

@@ -270,9 +270,12 @@ function ApplicantUpdateProfile() {
   </div>
 </div>
 <div>
-  {/* <a href="#" class="btn-3">Save Profile</a> */}
-  <input type="submit" class=".browse-button" value="submit" />
-</div>
+<input
+    type="submit"
+    class="submit-button"
+    value="Save Profile"
+  />
+  </div>
 </div>
             <div className="form-infor-profile">
               <h3 className="title-info">Information</h3>
