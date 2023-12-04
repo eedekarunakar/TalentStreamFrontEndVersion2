@@ -6,40 +6,11 @@ const Nav = () => {
 
   const navigate = useNavigate();
 
+
   return (
     <div>
   <>
   <a id="scroll-top" />
-  {/* preloade */}
-  {/* <div className="preload preload-container">
-    <div className="preload-logo">
-      <div className="spinner" />
-    </div>
-  </div> */}
-  {/* /preload */}
-  {/* popup apply job */}
-  {/* <div className="wd-popup-job-apply">
-    <div className="modal-menu__backdrop" />
-    <div className="content">
-      <h6>Apply For This Job</h6>
-      <form action="https://themesflat.co/html/jobtex/get">
-        <label className="label-text">
-          Email<span>*</span>
-        </label>
-        <input type="text" placeholder="Email" required="" />
-        <div className="group-radio">
-          <input type="radio" />
-          <label>
-            You accept our <a href="#">Terms</a> and <a href="#">Conditions</a>{" "}
-            and <a href="#">Privacy Policy</a>{" "}
-          </label>
-        </div>
-        <button>Login</button>
-      </form>
-    </div>
-  </div> */}
-  {/* end */}
-  {/* popup nav menu-mobile*/}
   <div className="menu-mobile-popup">
     <div className="modal-menu__backdrop" />
     <div className="widget-filter">
@@ -152,7 +123,7 @@ const Nav = () => {
                       <a href="/">Home </a>
                     </li>
                     <li>
-                      <a href='/aboutus'>About Us </a>
+                      <a href='/aboutus'>About</a>
                     </li>
 
                     <li>
@@ -161,9 +132,9 @@ const Nav = () => {
                     <li>
                       <a href="/recruiterlogin">Find Candidate</a>
                     </li>
-                    {/* <li>
-                      <a href='/contactus'>Contact Us</a>
-                    </li> */}
+                    <li>
+                      <a href='/contactus'>Contact</a>
+                    </li>
                   </ul>
                 </nav>
               </div>
@@ -174,7 +145,7 @@ const Nav = () => {
                     <span className="icon-help-circle" />
                   </a>
                 </div>
-                <div className="header-customize-item bell">
+                {/* <div className="header-customize-item bell">
                   <span className="icon-bell" />
                   <div className="sub-notification">
                     <div className="sub-notification-heading">
@@ -227,11 +198,24 @@ const Nav = () => {
                       <a href="#">Read All</a>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div class="header-customize-item account">
-      <a href="/login">Login &nbsp;</a> or 
-      <a href="/register">&nbsp;Register &nbsp;</a>
-     </div>
+                <img src="images/user/avatar/sign-in.png" alt="" />
+                <div class="name">
+                  Candidates<span class="icon-keyboard_arrow_down"></span>
+                </div>
+                <div class="sub-account">
+                  <div class="sub-account-item">
+                    <a href="/register"><span class="icon-resumes"></span>Register</a>
+                  </div>
+                  <div class="sub-account-item">
+                    <a href="/login"><span class="icon-profile"></span>Login</a>
+                  </div>
+                  {/* <div class="sub-account-item">
+                    <a href="/recruiterlogin"><span class="icon-profile"></span>Recruiter's Login</a>
+                  </div> */}
+                </div>
+              </div>
                 <div className="header-customize-item button">
                   <a href="/recruiterlogin">Recruiter Login</a>
                 </div>

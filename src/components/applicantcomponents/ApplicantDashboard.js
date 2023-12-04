@@ -210,8 +210,6 @@ const ApplicantDashboard = () =>
     </div>
   </div>
 </section>
-
-  
 </div>
     )
 }

@@ -8,6 +8,8 @@ import RecruiterDashboard from '../../components/recruitercomponents/RecruiterDa
 import ApplicantFooter from '../../components/applicantcomponents/ApplicantFooter';
 import RecruiterMyOrganization from '../../components/recruitercomponents/RecruiterMyOrganization';
 import RecruiterPostJob from '../../components/recruitercomponents/RecruiterPostJob';
+import RecruiterJobOpenings from '../../components/recruitercomponents/RecruiterJobOpenings';
+import RecruiterAllApplicants from '../../components/recruitercomponents/RecruiterAllApplicants';
 
 
 function RecruiterHomePage() {
@@ -28,6 +30,12 @@ function RecruiterHomePage() {
           case '/recruiter-postjob':
             setActiveRoute('postjob');
             break;
+            case '/recruiter-jobopenings':
+              setActiveRoute('jobopenings');
+              break;
+              case '/recruiter-allapplicants':
+                setActiveRoute('allapplicants');
+                break;
       default:
         setActiveRoute('');
         break;
@@ -44,9 +52,11 @@ function RecruiterHomePage() {
     <div  class="dashboard show ">
     <RecruiterNavBar />
     <RecruiterLeftNavBar />
-     {activeRoute === 'dashboard' && <RecruiterDashboard/>}
+     {activeRoute === 'dashboard' && <RecruiterDashboard />}
      {activeRoute === 'organization' && <RecruiterMyOrganization />}
      {activeRoute === 'postjob' && <RecruiterPostJob />}
+     {activeRoute === 'jobopenings' && <RecruiterJobOpenings />}
+     {activeRoute === 'allapplicants' && <RecruiterAllApplicants />}
       <ApplicantFooter />    
 
     </div>

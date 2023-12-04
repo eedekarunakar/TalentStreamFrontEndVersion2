@@ -8,7 +8,7 @@ const RecruiterLeftNavBar = () => {
       <div id="sidebar-menu">
         <ul className="downmenu list-unstyled" id="side-menu">
           <li>
-            <Link to="/recruiterthome" className="tf-effect">
+            <Link to="/recruiterhome" className="tf-effect">
               <span className="icon-dashboard dash-icon"></span>
               <span className="dash-titles">Dashboard</span>
             </Link>
@@ -29,9 +29,14 @@ const RecruiterLeftNavBar = () => {
               <span className="dash-titles">Post Job</span>
             </Link>
           </li>
-
           <li>
-            <Link to="/my-applied" className="tf-effect">
+            <Link to="/recruiter-jobopenings" className="tf-effect">
+              <span className="icon-submit dash-icon"></span>
+              <span className="dash-titles">Job Openings</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/recruiter-allapplicants" className="tf-effect">
               <span className="icon-applicant dash-icon"></span>
               <span className="dash-titles">Applicants</span>
             </Link>
@@ -57,9 +62,6 @@ const RecruiterLeftNavBar = () => {
               <span className="dash-titles">My Organization</span>
             </Link>
           </li>
-
-        
-
           <li>
             <Link to="/change-passwords" className="tf-effect">
               <span className="icon-change-passwords dash-icon"></span>

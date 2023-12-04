@@ -1,6 +1,17 @@
 import React from 'react'
+import { useState, useEffect } from 'react';
 
 function RecruiterDashboard() {
+    const [token, setToken] = useState('');
+    useEffect(() => {
+        // Get the JWT token from local storage
+        const storedToken = localStorage.getItem('jwtToken');
+        if (storedToken) {
+          setToken(storedToken);
+        }
+      }, []);
+
+
   return (
     <div>
 <div className="dashboard__content">
