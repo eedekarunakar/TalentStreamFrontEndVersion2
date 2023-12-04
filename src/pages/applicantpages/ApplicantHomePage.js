@@ -9,6 +9,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import ApplicantFindJobs from '../../components/applicantcomponents/ApplicantFindJobs';
 import ApplicantViewJob from '../../components/applicantcomponents/ApplicantViewJob';
+import ApplicantAppliedJobs from '../../components/applicantcomponents/ApplicantAppliedJobs';
+import ApplicantSavedJobs from '../../components/applicantcomponents/ApplicantSavedJobs';
+import ApplicantInterviewStatus from '../../components/applicantcomponents/ApplicantInterviewStatus';
+import ApplicantChangePassword from '../../components/applicantcomponents/ApplicantChangePassword';
+import ApplicantDeleteProfile from '../../components/applicantcomponents/ApplicantDeleteProfile';
+import ApplicantJobAlerts from '../../components/applicantcomponents/ApplicantJobAlerts';
+import ApplicantResume from '../../components/applicantcomponents/ApplicantResume';
 
 
 function ApplicantHomePage() {
@@ -31,8 +38,28 @@ function ApplicantHomePage() {
         setActiveRoute('findjobs');
         break;
         case '/applicant-view-job':
-          console.log("View Page");
           setActiveRoute('viewjob');
+        break;
+        case '/applicant-applied-jobs':
+          setActiveRoute('appliedjobs');
+        break;
+        case '/applicant-saved-jobs':
+          setActiveRoute('savedjobs');
+        break;
+        case '/applicant-interview-status':
+          setActiveRoute('interviewstatus');
+        break;
+        case '/applicant-change-password':
+          setActiveRoute('changepassword');
+        break;
+        case '/applicant-delete-profile':
+          setActiveRoute('deleteprofile');
+        break;
+        case '/applicant-job-alerts':
+          setActiveRoute('jobalerts');
+        break;
+        case '/applicant-resume':
+          setActiveRoute('resume');
         break;
       default:
         setActiveRoute('');
@@ -52,16 +79,15 @@ function ApplicantHomePage() {
      <ApplicantLeftNavBar />
      {activeRoute === 'dashboard' && <ApplicantDashboard />}
      {activeRoute === 'profile' && <ApplicantUpdateProfile />}
-     {/* {activeRoute === 'findjobs' && <ApplicantFindJobs />} */}
-     {/* {activeRoute === 'viewjob' && <ApplicantViewJob />} */}
      {activeRoute === 'findjobs' && (<ApplicantFindJobs setSelectedJobId={setSelectedJobId} /> )}
-     
      {activeRoute === 'viewjob' && (<ApplicantViewJob selectedJobId={selectedJobId} /> )}
-
-     {/* <Routes>
-     {activeRoute === 'viewjob' &&
-     <Route path="/applicant-view-job" element={<ApplicantViewJob selectedJobId={selectedJobId} />} />}
-     </Routes> */}
+     {activeRoute === 'appliedjobs' && <ApplicantAppliedJobs setSelectedJobId={setSelectedJobId}/>}
+     {activeRoute === 'savedjobs' && <ApplicantSavedJobs />}
+     {activeRoute === 'interviewstatus' && (<ApplicantInterviewStatus selectedJobId={selectedJobId} /> )}
+     {activeRoute === 'changepassword' && <ApplicantChangePassword />}
+     {activeRoute === 'deleteprofile' && <ApplicantDeleteProfile />}
+     {activeRoute === 'jobalerts' && <ApplicantJobAlerts />}
+     {activeRoute === 'resume' && <ApplicantResume />}
       <ApplicantFooter />   
 
     </div>

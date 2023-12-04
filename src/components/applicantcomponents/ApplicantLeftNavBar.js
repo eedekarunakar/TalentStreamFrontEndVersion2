@@ -33,34 +33,34 @@ const ApplicantLeftNavBar = () => {
           </li>
 
           <li>
-            <Link to="/my-applied" className="tf-effect">
+            <Link to="/applicant-applied-jobs" className="tf-effect">
               <span className="icon-my-apply dash-icon"></span>
               <span className="dash-titles">My Applied</span>
             </Link>
           </li>
 
           <li>
-            <Link to="/saved-jobs" className="tf-effect">
+            <Link to="/applicant-saved-jobs" className="tf-effect">
               <span className="icon-work dash-icon"></span>
               <span className="dash-titles">Saved Jobs</span>
             </Link>
           </li>
 
           <li>
-            <Link to="/alerts-jobs" className="tf-effect">
+            <Link to="/applicant-job-alerts" className="tf-effect">
               <span className="icon-bell1 dash-icon"></span>
-              <span className="dash-titles">Alerts Jobs</span>
+              <span className="dash-titles">Job Alerts</span>
             </Link>
           </li>
 
           <li>
-            <Link to="/messages" className="tf-effect">
+            <Link to="/applicant-resume" className="tf-effect">
               <span className="icon-chat dash-icon"></span>
-              <span className="dash-titles">Messages</span>
+              <span className="dash-titles">My Resume</span>
             </Link>
           </li>
 
-          <li>
+          {/* <li>
             <Link to="/following-employers" className="tf-effect">
               <span className="icon-following dash-icon"></span>
               <span className="dash-titles">Following Employers</span>
@@ -72,17 +72,17 @@ const ApplicantLeftNavBar = () => {
               <span className="icon-meeting dash-icon"></span>
               <span className="dash-titles">Meeting</span>
             </Link>
-          </li>
+          </li> */}
 
           <li>
-            <Link to="/change-passwords" className="tf-effect">
+            <Link to="/applicant-change-password" className="tf-effect">
               <span className="icon-change-passwords dash-icon"></span>
-              <span className="dash-titles">Change passwords</span>
+              <span className="dash-titles">Change password</span>
             </Link>
           </li>
 
           <li>
-            <Link to="/delete-profile" className="tf-effect">
+            <Link to="/applicant-delete-profile" className="tf-effect">
               <span className="icon-trash dash-icon"></span>
               <span className="dash-titles">Delete Profile</span>
             </Link>

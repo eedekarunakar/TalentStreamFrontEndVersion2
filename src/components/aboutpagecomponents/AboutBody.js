@@ -68,18 +68,17 @@ export default function AboutBody() {
               <div className="wd-review-job contentbox1 page-text stc">
                 <h3>About Us</h3>
                 <p>
-                  Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly
-                  vehement irresistibly fussy penguin insect additionally wow absolutely crud meretriciously
-                  hastily dalmatian a glowered inset one echidna cassowary.
+                We Are A Leading Global Executive Search Firm Specializing In Leadership And Senior Technical Hires.
+
+Through Our Range Of Value-Added Services, We Help You Make Smart Hiring Decisions That Will Let You Build A Growing Organization.
+</p>
+<p>
+We Understand Your Organizational Needs, Culture, And Help You Find The Best Talent With Unique Leadership Attributes.
+
+We Leverage Seamless Networking And Data-Driven Search Strategies In Recruiting Executive Talent Across A Broad Range Of Industries, Business Functions, And Job Levels.
                 </p>
-                <p>
-                  Repeatedly dreamed alas opossum but dramatically despite expeditiously that jeepers loosely
-                  yikes that as or eel underneath kept and slept compactly far purred sure abidingly up above
-                  fitting to strident wiped set waywardly far the and pangolin horse approving paid chuckled
-                  cassowary oh above a much opposite far much hypnotically more therefore wasp less that hey
-                  apart well like while superbly orca and far hence one.
-                </p>
-                <a href="#" className="tf-button style-1">Read more</a>
+                
+                <a href="/aboutus" className="tf-button style-1">Read more</a>
               </div>
             </div>
           </div>
@@ -154,8 +153,8 @@ export default function AboutBody() {
             <h3>Job Opportunities Are Always Open</h3>
             <p>Aenean porta, eros lacus congue lorem, sit amet mollis magna velit ac erat.</p>
             <div class="group-btn">
-              <button class="tf-btn">Search Job</button>
-              <button class="tf-btn">Find Candidates</button>
+              <a href="/login"><button class="tf-btn">Search Job</button></a>
+              <a href="/recruiterlogin"><button class="tf-btn">Find Candidates</button></a>
             </div>
           </div>
         </div>

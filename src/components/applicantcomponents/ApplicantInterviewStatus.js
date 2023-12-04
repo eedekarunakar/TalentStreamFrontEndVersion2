@@ -1,29 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
+import logoCompany1 from '../../images/cty12.png';
 import { useUserContext } from '../common/UserProvider';
+import { apiUrl } from '../../services/ApplicantAPIService';
 
-function ApplicantViewJob({ selectedJobId }) {
+const ApplicantInterviewStatus = ({ selectedJobId }) => {
   const [jobDetails, setJobDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [applied, setApplied] = useState(false);
   const { user } = useUserContext();
   const applicantId = user.id;
+
   useEffect(() => {
-    // Simulate an asynchronous operation (e.g., fetching data from an API)
     const fetchData = async () => {
       try {
-        // Simulate fetching data after a delay (replace this with your actual data fetching logic)
-        await new Promise(resolve => setTimeout(resolve, 50));
+        await new Promise((resolve) => setTimeout(resolve, 50));
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        // Set loading to false to indicate the end of the operation, whether successful or not
         setLoading(false);
       }
     };
 
-    // Call the fetchData function
     fetchData();
   }, []);
 
@@ -40,23 +37,8 @@ function ApplicantViewJob({ selectedJobId }) {
       }
     };
 
-    // Call the fetchJobDetails function
     fetchJobDetails();
   }, [selectedJobId]);
-
-  const handleApplyNow = async () => {
-    try {
-      // Use the appropriate API endpoint and payload to apply for the job
-      const response = await axios.post(`${apiUrl}/applyjob/applicants/applyjob/${applicantId}/${selectedJobId}`);
-      // Assuming the response contains information about the application status
-      const { applied } = response.data;
-      setApplied(applied);
-    } catch (error) {
-      console.error('Error applying for the job:', error);
-    }
-  };
-
-
 
   return (
     <div>
@@ -67,7 +49,7 @@ function ApplicantViewJob({ selectedJobId }) {
               <div className="row">
                 <div className="col-lg-12 col-md-12 ">
                   <div className="title-dashboard">
-                    <div className="title-dash flex2">Full Job Details</div>
+                    <div className="title-dash flex2">Interview Status</div>
                   </div>
                 </div>
               </div>
@@ -78,24 +60,25 @@ function ApplicantViewJob({ selectedJobId }) {
               <div className="content-tab">
                 <div className="inner">
                   <br />
-                  <article className="job-article">
-                    {/* Render job details using the jobDetails state */}
-                    {jobDetails && (
-                      <div className="top-content">
-                        {/* Render job details based on the structure of your API response */}
-                        <div className="features-job style-2 stc-apply">
+                  <div className="group-col-2">
+                    {jobDetails ? (
+                      <>
+                        {/* Job Details */}
+                        <div className="features-job cl2">
                           <div className="job-archive-header">
                             <div className="inner-box">
                               <div className="logo-company">
-                                <img src="images/logo-company/cty12.png" alt="images/logo-company/cty12.png" />
+                                <img src={logoCompany1} alt={`Company Logo ${jobDetails.id}`} />
                               </div>
                               <div className="box-content">
                                 <h4>
-                                  <a href={`jobs-single.html`}>{jobDetails.jobRecruiter.companyname}</a>
+                                  <a href="jobs-single.html">{jobDetails.jobRecruiter.companyname}</a>
                                 </h4>
                                 <h3>
-                                  <a href={`jobs-single.html`}>{jobDetails.jobTitle}</a>
-                                  <span className="icon-bolt"></span>
+                                  <a href="jobs-single.html">
+                                    {jobDetails.jobTitle}
+                                    <span className="icon-bolt"></span>
+                                  </a>
                                 </h3>
                                 <ul>
                                   <li>
@@ -104,21 +87,10 @@ function ApplicantViewJob({ selectedJobId }) {
                                   </li>
                                   <li>
                                     <span className="icon-calendar"></span>
-                                    {jobDetails.datePosted} 
+                                    Posted on {jobDetails.datePosted}
                                   </li>
                                 </ul>
-                                <div className="button-readmore">
-                                  <span className="icon-heart"></span>
-                                  <a className="btn-apply btn-popup">
-                                    <button
-                                           className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
-                                          onClick={handleApplyNow}
-                                           disabled={applied}>
-                                    <span className="icon-send"></span>
-                                         {applied ? 'Already Applied' : 'Apply Now'}
-                                   </button>
-                                  </a>
-                                </div>
+                                <span className="icon-heart"></span>
                               </div>
                             </div>
                           </div>
@@ -143,20 +115,17 @@ function ApplicantViewJob({ selectedJobId }) {
                                 <span></span>
                                 <p>&#x20B9; {jobDetails.minSalary} - &#x20B9; {jobDetails.maxSalary} / year</p>
                               </div>
-                              {/* <p className="days">{jobDetails.daysLeft} days left to apply</p> */}
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </>
+                    ) : (
+                      <p>No job details available.</p>
                     )}
 
-                    {jobDetails && (
-                      <div className="inner-content">
-                        <h5>Full Job Description</h5>
-                        <p>{jobDetails.description}</p>
-                      </div>
-                    )}
-                  </article>
+                    {/* Interview Status Timeline */}
+                    {/* Add your timeline rendering logic here */}
+                  </div>
                 </div>
               </div>
             </div>
@@ -165,6 +134,6 @@ function ApplicantViewJob({ selectedJobId }) {
       )}
     </div>
   );
-}
+};
 
-export default ApplicantViewJob;
+export default ApplicantInterviewStatus;

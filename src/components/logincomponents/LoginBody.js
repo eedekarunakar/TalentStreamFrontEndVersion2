@@ -137,7 +137,7 @@ function LoginBody({handleLogin}) {
               <form  onSubmit={handleSubmit}>
                 <div className="ip">
                   <label>
-                    Username or email address<span>*</span>
+                    Email address<span>*</span>
                   </label>
                   <input
                         type="text"
@@ -165,7 +165,7 @@ function LoginBody({handleLogin}) {
                     <input type="checkbox" />
                     Remember me
                   </div>
-                  <a href="#" className="forgot">
+                  <a href="/applicant-forgot-password" className="forgot">
                     Fogot password?
                   </a>
                 </div>
