@@ -31,6 +31,9 @@ function RecruiterPostJob() {
 
     e.preventDefault();
     // Prepare the form data to send to the server
+    if (!validateForm()) {
+      return;
+    }
 
     const formData = {
 
@@ -87,6 +90,7 @@ function RecruiterPostJob() {
         console.log('API Response:', response.data);
 
         window.alert('job saved successfully');
+        clearForm();
       })
 
       .catch((error) => {
@@ -98,6 +102,25 @@ function RecruiterPostJob() {
       });
 
   };
+  const clearForm = () => {
+    setJobTitle('');
+    setMinimumExperience('');
+    setMaximumExperience('');
+    setMinSalary('');
+    setMaxSalary('');
+    setLocation('');
+    setEmployeeType('');
+    setIndustryType('');
+    setMinimumQualification('');
+    setSpecialization('');
+    setSkillsRequired([{ skillName: '', minimumExperience: '' }]);
+    setJobHighlights('');
+    setDescription('');
+    setUploadDocument(null);
+    setFileName('No selected file');
+    setImage(null);
+  };
+  
 // Validation function
 const validateForm = () => {
   let isValid = true;
@@ -144,12 +167,12 @@ const validateForm = () => {
     return isValid;
   }
 
-  // Specialization Validation
-  if (!specialization.trim() || specialization.trim().length < 3) {
-    isValid = false;
-    window.alert('Specialization is required and must be at least 3 characters long.');
-    return isValid;
-  }
+  // // Specialization Validation
+  // if (!specialization.trim() || specialization.trim().length < 3) {
+  //   isValid = false;
+  //   window.alert('Specialization is required and must be at least 3 characters long.');
+  //   return isValid;
+  // }
 
   // Skills Required Validation
   for (const skill of skillsRequired) {
@@ -161,11 +184,11 @@ const validateForm = () => {
   }
 
   // Job Highlights Validation
-  if (!jobHighlights.trim() || jobHighlights.trim().length < 3) {
-    isValid = false;
-    window.alert('Job Highlights are required and must be at least 3 characters long.');
-    return isValid;
-  }
+  // if (!jobHighlights.trim() || jobHighlights.trim().length < 3) {
+  //   isValid = false;
+  //   window.alert('Job Highlights are required and must be at least 3 characters long.');
+  //   return isValid;
+  // }
 
   // Description Validation
   if (!description.trim() || description.trim().length < 15) {
@@ -303,7 +326,7 @@ const validateForm = () => {
                 </div>
                 <fieldset>
                   <label className="title-user fw-7">Minimum Salary<span className="color-red">*</span></label>
-                  <input type="number"
+                  <input type="text"
                          placeholder="Min"
                          className="input-form"
                          value={minSalary}
@@ -390,7 +413,7 @@ const validateForm = () => {
                 <div id="item_2" className="dropdown titles-dropdown ">
                   <label className="title-user fw-7">Maximum Salary<span className="color-red">*</span></label>
                   <input
-                             type="number"
+                             type="text"
                              placeholder="Max"
                              className="input-form"
                              value={maxSalary}
@@ -413,7 +436,7 @@ const validateForm = () => {
                  </select>
                 </fieldset>
                 <div id="item_3" className="dropdown titles-dropdown ">
-                  <label className="title-user fw-7">Minimum Qualification</label>
+                  <label className="title-user fw-7">Minimum Qualification<span className="color-red">*</span></label>
                   <input
                              type="text"
                              value={minimumQualification}
