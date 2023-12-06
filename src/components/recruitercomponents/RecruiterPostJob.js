@@ -31,6 +31,9 @@ function RecruiterPostJob() {
 
     e.preventDefault();
     // Prepare the form data to send to the server
+    if (!validateForm()) {
+      return;
+    }
 
     const formData = {
 
@@ -87,6 +90,7 @@ function RecruiterPostJob() {
         console.log('API Response:', response.data);
 
         window.alert('job saved successfully');
+        clearForm();
       })
 
       .catch((error) => {
@@ -98,7 +102,103 @@ function RecruiterPostJob() {
       });
 
   };
+  const clearForm = () => {
+    setJobTitle('');
+    setMinimumExperience('');
+    setMaximumExperience('');
+    setMinSalary('');
+    setMaxSalary('');
+    setLocation('');
+    setEmployeeType('');
+    setIndustryType('');
+    setMinimumQualification('');
+    setSpecialization('');
+    setSkillsRequired([{ skillName: '', minimumExperience: '' }]);
+    setJobHighlights('');
+    setDescription('');
+    setUploadDocument(null);
+    setFileName('No selected file');
+    setImage(null);
+  };
+  
+// Validation function
+const validateForm = () => {
+  let isValid = true;
 
+  // Job Title Validation
+  if (!jobTitle.trim()) {
+    isValid = false;
+    window.alert('Job Title is required.');
+    return isValid;
+  }
+
+  // Minimum Experience Validation
+  if (!minimumExperience.trim()) {
+    isValid = false;
+    window.alert('Minimum Experience is required.');
+    return isValid;
+  }
+
+  // Maximum Experience Validation
+  if (!maximumExperience.trim()) {
+    isValid = false;
+    window.alert('Maximum Experience is required.');
+    return isValid;
+  }
+
+  // Minimum Salary Validation
+  if (!minSalary.trim()) {
+    isValid = false;
+    window.alert('Minimum Salary is required.');
+    return isValid;
+  }
+
+  // Location Validation
+  if (!location.trim()) {
+    isValid = false;
+    window.alert('Location is required.');
+    return isValid;
+  }
+
+  // Minimum Qualification Validation
+  if (!minimumQualification.trim()) {
+    isValid = false;
+    window.alert('Minimum Qualification is required.');
+    return isValid;
+  }
+
+  // // Specialization Validation
+  // if (!specialization.trim() || specialization.trim().length < 3) {
+  //   isValid = false;
+  //   window.alert('Specialization is required and must be at least 3 characters long.');
+  //   return isValid;
+  // }
+
+  // Skills Required Validation
+  for (const skill of skillsRequired) {
+    if (!skill.skillName.trim() || !skill.minimumExperience.trim()) {
+      isValid = false;
+      window.alert('All Skills fields are required.');
+      return isValid;
+    }
+  }
+
+  // Job Highlights Validation
+  // if (!jobHighlights.trim() || jobHighlights.trim().length < 3) {
+  //   isValid = false;
+  //   window.alert('Job Highlights are required and must be at least 3 characters long.');
+  //   return isValid;
+  // }
+
+  // Description Validation
+  if (!description.trim() || description.trim().length < 15) {
+    isValid = false;
+    window.alert('Description is required and must be at least 15 characters long.');
+    return isValid;
+  }
+
+  return isValid;
+};
  
 
   const handleExperienceChange = (e, index, field) => {
@@ -162,11 +262,6 @@ function RecruiterPostJob() {
     }
 
   };
-
-
-
-
-
   return (
     <div>
        <div className="dashboard__content">
@@ -212,6 +307,7 @@ function RecruiterPostJob() {
                     placeholder="Job Description at least 50 words"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                    required
 
                   />
               </div>
@@ -219,7 +315,7 @@ function RecruiterPostJob() {
             <div className="form-infor flex flat-form">
               <div className="info-box info-wd">
                 <div id="item_category" className="dropdown titles-dropdown">
-                 <label className="title-user fw-7">Minimum Experience</label>
+                 <label className="title-user fw-7">Minimum Experience<span className="color-red">*</span></label>
                   <input  type="number"
                           placeholder="Min"
                           className="input-form"
@@ -229,8 +325,8 @@ function RecruiterPostJob() {
                   />
                 </div>
                 <fieldset>
-                  <label className="title-user fw-7">Minimum Salary</label>
-                  <input type="number"
+                  <label className="title-user fw-7">Minimum Salary<span className="color-red">*</span></label>
+                  <input type="text"
                          placeholder="Min"
                          className="input-form"
                          value={minSalary}
@@ -240,7 +336,7 @@ function RecruiterPostJob() {
 
                 </fieldset>
                 <div id="item_apply" className="dropdown titles-dropdown">
-                  <label className="title-user fw-7">Location</label>
+                  <label className="title-user fw-7">Location<span className="color-red">*</span></label>
                   <input type="text"
                          className="input-form"
                          value={location}
@@ -257,7 +353,7 @@ function RecruiterPostJob() {
                         className="input-form"
                         placeholder="Sector"
                         onChange={(e) => setIndustryType(e.target.value)}
-                        required
+                        
                       />
                 </fieldset>
                 <fieldset>
@@ -271,7 +367,7 @@ function RecruiterPostJob() {
                   />
                 </fieldset>
                 <fieldset class="">
-                        <label class="title-user fw-7">Skills</label>
+                        <label class="title-user fw-7">Skills<span className="color-red">*</span></label>
                         {skillsRequired.map((skill, index) => (
   <div key={index} className="experience-table">
     <div>
@@ -281,6 +377,7 @@ function RecruiterPostJob() {
         className="input-form"
         value={skill.skillName}
         onChange={(e) => handleExperienceChange(e, index, "skillName")}
+        required
       />
     </div>
     <div>
@@ -290,6 +387,7 @@ function RecruiterPostJob() {
         className="input-form"
         value={skill.minimumExperience}
         onChange={(e) => handleExperienceChange(e, index, "minimumExperience")}
+        required
       />
     </div>
     {index === skillsRequired.length - 1 && (
@@ -303,7 +401,7 @@ function RecruiterPostJob() {
               </div>
               <div className="info-box info-wd">
                 <div id="item_1" className="dropdown titles-dropdown ">
-                  <label className="title-user fw-7">Minimum Experience</label>
+                  <label className="title-user fw-7">Minimum Experience<span className="color-red">*</span></label>
                   <input type="number" 
                          placeholder="Max"
                          className="input-form"
@@ -313,9 +411,9 @@ function RecruiterPostJob() {
                   />
                 </div>
                 <div id="item_2" className="dropdown titles-dropdown ">
-                  <label className="title-user fw-7">Maximum Salary</label>
+                  <label className="title-user fw-7">Maximum Salary<span className="color-red">*</span></label>
                   <input
-                             type="number"
+                             type="text"
                              placeholder="Max"
                              className="input-form"
                              value={maxSalary}
@@ -325,7 +423,7 @@ function RecruiterPostJob() {
                 </div>
                 <fieldset>
                   <label className="title-user fw-7">
-                    Employee Type
+                    Employee Type<span className="color-red">*</span>
                   </label>
                   <select value={employeeType}
                           className="input-form"
@@ -338,7 +436,7 @@ function RecruiterPostJob() {
                  </select>
                 </fieldset>
                 <div id="item_3" className="dropdown titles-dropdown ">
-                  <label className="title-user fw-7">Minimum Qualification</label>
+                  <label className="title-user fw-7">Minimum Qualification<span className="color-red">*</span></label>
                   <input
                              type="text"
                              value={minimumQualification}

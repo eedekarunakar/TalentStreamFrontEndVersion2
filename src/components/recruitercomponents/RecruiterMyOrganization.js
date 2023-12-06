@@ -19,6 +19,14 @@ function RecruiterMyOrganization() {
     const [twitter, setTwitter] = useState('');
     const [instagram, setInstagram] = useState('');
     const [youtube, setYoutube] = useState('');
+    const [formErrors, setFormErrors] = useState({
+      companyName: '',
+      website: '',
+      phoneNumber: '',
+      email: '',
+      headOffice: '',
+      instagram: '',
+    });
   
     const user1 = useUserContext();
     const user = user1.user;
@@ -29,10 +37,54 @@ function RecruiterMyOrganization() {
         setToken(storedToken);
       }
     }, []);
+    const validateForm = () => {
+      let isValid = true;
+      const errors = {};
+  
+      // Company Name Validation (Mandatory, At least 3 characters)
+      if (!companyName.trim()) {
+        errors.companyName = 'Company name is required';
+        isValid = false;
+      } else if (companyName.trim().length < 3) {
+        errors.companyName = 'Company name must be at least 3 characters';
+        isValid = false;
+      }
+  
+      // Website Validation (Mandatory, Ends with .com, .in, or .org)
+      if (!website.trim()) {
+        errors.website = 'Website is required';
+        isValid = false;
+      } else {
+        const websiteRegex = /\.(com|in|org)$/;
+        if (!websiteRegex.test(website.trim())) {
+          errors.website = 'Website should end with .com, .in, or .org';
+          isValid = false;
+        }
+      }
+  
+      const phoneRegex = /^[6-9]\d{9}$/;
+      if (!phoneRegex.test(phoneNumber.trim())) {
+        errors.phoneNumber = 'Invalid phone number';
+        isValid = false;
+      }
+      if (!headOffice.trim()) {
+        errors.headOffice = 'Head office address is required';
+      }
+  
+      // if (!instagram.trim()) {
+      //   errors.instagram = 'Instagram handle is required';
+      // }
+  
+      setFormErrors(errors);
+      return isValid;
+    };
   
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent the default form submission behavior
-    
+        e.preventDefault();
+         // Prevent the default form submission behavior
+         if (!validateForm()) {
+          return;
+        }
         try {
           const requestData = {
             companyName,
@@ -77,20 +129,20 @@ function RecruiterMyOrganization() {
     //   // Handle cancel action here
     // };
   
-    const handleSocialProfileChange = (network, value) => {
-      setSocialProfiles((prevProfiles) => {
-        const updatedProfiles = [...prevProfiles];
-        const index = updatedProfiles.findIndex((profile) => profile.network === network);
+    // const handleSocialProfileChange = (network, value) => {
+    //   setSocialProfiles((prevProfiles) => {
+    //     const updatedProfiles = [...prevProfiles];
+    //     const index = updatedProfiles.findIndex((profile) => profile.network === network);
   
-        if (index !== -1) {
-          updatedProfiles[index].value = value;
-        } else {
-          updatedProfiles.push({ network, value });
-        }
+    //     if (index !== -1) {
+    //       updatedProfiles[index].value = value;
+    //     } else {
+    //       updatedProfiles.push({ network, value });
+    //     }
   
-        return updatedProfiles;
-      });
-    };
+    //     return updatedProfiles;
+    //   });
+    // };
   return (
     <div>
 <div className="dashboard__content">
@@ -146,7 +198,7 @@ function RecruiterMyOrganization() {
               <div className="form-infor flex flat-form">
                 <div className="info-box info-wd">
                   <fieldset>
-                    <label className="title-user fw-7">Company Full Name</label>
+                    <label className="title-user fw-7">Company Full Name<span className="color-red">*</span></label>
                     <input
                   type="text"
                   id="companyName"
@@ -182,7 +234,7 @@ function RecruiterMyOrganization() {
                 />
                   </fieldset>
                   <fieldset>
-                    <label className="title-user fw-7">Website</label>
+                    <label className="title-user fw-7">Website<span className="color-red">*</span></label>
                     <input
                   type="text"
                   id="website"
@@ -196,7 +248,7 @@ function RecruiterMyOrganization() {
                 </div>
               </div>
               <div className="text-editor-wrap border-bt">
-                <h3>Head Office Address</h3>
+                <h3>Head Office Address<span className="color-red">*</span></h3>
                 <input
                   type="text"
                   id="address"

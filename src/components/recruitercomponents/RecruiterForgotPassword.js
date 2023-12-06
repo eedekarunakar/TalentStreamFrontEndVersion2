@@ -7,7 +7,7 @@ function RecruiterForgotPassword() {
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [password, setPassword] = useState(''); // New password field
-    const [confirmPassword, setConfirmPassword] = useState(''); // Confirm password field
+    const [confirmedPassword, setConfirmedPassword] = useState(''); // Confirm password field
     const [resetSuccess, setResetSuccess] = useState(false);
     const [resetError, setResetError] = useState('');
     const [otpSent, setOtpSent] = useState(false);
@@ -77,7 +77,7 @@ function RecruiterForgotPassword() {
   
     const handleResetPassword = async () => {
   
-      if (password !== confirmPassword) {
+      if (password !== confirmedPassword) {
         setResetSuccess(false);
         setResetError('Passwords do not match. Please make sure the passwords match.');
         return;
@@ -93,13 +93,16 @@ function RecruiterForgotPassword() {
       try {
         // Send a request to the server to reset the password with the new password
         const response = await axios.post(`${apiUrl}/forgotpassword/recuriterreset-password/set-new-password/${email}`, {
-          email,
+        
           password,
+          confirmedPassword,
           
         });
   
         if (response.data === 'Password reset was done successfully') {
+
           setResetSuccess(true);
+          console.log("Api is called");
           setResetError('');
         } else {
           setResetSuccess(false);
@@ -170,8 +173,8 @@ function RecruiterForgotPassword() {
                             <input
                               type="password"
                               placeholder="Confirm New Password"
-                              value={confirmPassword}
-                              onChange={(e) => setConfirmPassword(e.target.value)}
+                              value={confirmedPassword}
+                              onChange={(e) => setConfirmedPassword(e.target.value)}
                             />
                             </div>
                             <div className="helpful-line">
@@ -179,7 +182,7 @@ function RecruiterForgotPassword() {
                               one lowercase letter, one number, one special character, and no spaces.
                             </div>
   
-                            <button type="submit">Reset Password</button>
+                            <button type="button" onClick={handleResetPassword}>Reset Password </button>
                             <p style={{ color: 'green' }}>OTP verified successfully!</p>
                           </div>
                         ) : (
