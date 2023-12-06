@@ -6,7 +6,6 @@ import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService'
 import { useUserContext } from '../common/UserProvider';
 import logoCompany1 from '../../images/cty12.png';
 
-
 function ApplicantFindJobs({ setSelectedJobId }) {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,6 +46,17 @@ function ApplicantFindJobs({ setSelectedJobId }) {
     // Call the fetchData function
     fetchData();
   }, []);
+
+  const handleSaveJob = async (jobId) => {
+    try {
+      const response = await axios.post(`${apiUrl}/savedjob/applicants/savejob/${userId}/${jobId}`);
+      // Assuming the API response contains the message "Job Saved Successfully"
+      const { message } = response.data;
+      alert(message); // You might want to replace this with a more user-friendly notification
+    } catch (error) {
+      console.error('Error saving job:', error);
+    }
+  };
 
   return (
     <div>
@@ -102,20 +112,33 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                         <div className="job-archive-footer">
                           <div className="job-footer-right">
                             <div className="price">
-                              <span className="icon-dolar1"></span>
-                              <p>{job.minSalary}-{job.maxSalary}/Year</p>
+                              <span ></span>
+                              <p>Package : &#x20B9;{job.maxSalary}/Year</p>
                             </div>
                             <div className="job-footer-left">
-                              <ul className="job-tag">
-                                <li>
-                                   {/* <a href={`/applicant-view-job/${job.id}`}>View Job</a> */}
-              {job && (<Link to="/applicant-view-job" onClick={() => setSelectedJobId(job.id)}>View Job</Link> )}
-                                </li>
-                                <li>
-                                  <a href="#">Save Job</a>
-                                </li>
-                              </ul>
-                            </div>
+  <ul className="job-tag">
+    <li>
+      {job && (
+        <Link
+          to="/applicant-view-job"
+          onClick={() => setSelectedJobId(job.id)}
+          className="job-button medium-button"
+        >
+          View Job
+        </Link>
+      )}
+    </li>
+    <li>
+      <button
+        onClick={() => handleSaveJob(job.id)}
+        className="submit-button"
+      >
+        Save Job
+      </button>
+    </li>
+  </ul>
+</div>
+
                           </div>
                         </div>
                       </div>

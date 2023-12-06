@@ -63,12 +63,21 @@ export default function ContactBody() {
                                 </div>
                             </div>
                             <ul class="list-social d-flex aln-center">
-                                <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                <li><a href="#"><i class="icon-linkedin2"></i></a></li>
-                                <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                <li><a href="#"><i class="icon-pinterest"></i></a></li>
-                                <li><a href="#"><i class="icon-instagram1"></i></a></li>
-                                <li><a href="#"><i class="icon-youtube"></i></a></li>
+                            <li>
+                    <a href="https://www.facebook.com/tekworks.in"><i class="icon-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a href="https://www.linkedin.com/company/tekworks-in"><i class="icon-linkedin2"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="icon-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="https://www.instagram.com/tekworks_hiring"><i class="icon-instagram1"></i></a>
+                  </li>
+                  <li>
+                    <a href="https://www.youtube.com/@TekWorks-in"><i class="icon-youtube"></i></a>
+                  </li>
                             </ul>
                         </div>
                         <div class="form-candidate">

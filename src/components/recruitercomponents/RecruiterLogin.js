@@ -140,7 +140,7 @@ function RecruiterLogin({handleLogin}) {
               <form  onSubmit={handleSubmit}>
                 <div className="ip">
                   <label>
-                    Username or email address<span>*</span>
+                    Email address<span>*</span>
                   </label>
                   <input
                         type="text"
@@ -168,7 +168,7 @@ function RecruiterLogin({handleLogin}) {
                     <input type="checkbox" />
                     Remember me
                   </div>
-                  <a href="#" className="forgot">
+                  <a href="/recruiter-forgot-password" className="forgot">
                     Fogot password?
                   </a>
                 </div>

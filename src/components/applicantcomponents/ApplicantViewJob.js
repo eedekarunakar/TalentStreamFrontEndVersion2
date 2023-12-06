@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
+import { useUserContext } from '../common/UserProvider';
 
 function ApplicantViewJob({ selectedJobId }) {
   const [jobDetails, setJobDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [applied, setApplied] = useState(false);
+  const { user } = useUserContext();
+  const applicantId = user.id;
   useEffect(() => {
     // Simulate an asynchronous operation (e.g., fetching data from an API)
     const fetchData = async () => {
@@ -23,11 +27,10 @@ function ApplicantViewJob({ selectedJobId }) {
     fetchData();
   }, []);
 
-
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8081/viewjob/applicant/viewjob/${selectedJobId}`);
+        const response = await axios.get(`${apiUrl}/viewjob/applicant/viewjob/${selectedJobId}`);
         const jobData = response.data;
         setJobDetails(jobData);
       } catch (error) {
@@ -40,6 +43,20 @@ function ApplicantViewJob({ selectedJobId }) {
     // Call the fetchJobDetails function
     fetchJobDetails();
   }, [selectedJobId]);
+
+  const handleApplyNow = async () => {
+    try {
+      // Use the appropriate API endpoint and payload to apply for the job
+      const response = await axios.post(`${apiUrl}/applyjob/applicants/applyjob/${applicantId}/${selectedJobId}`);
+      // Assuming the response contains information about the application status
+      const { applied } = response.data;
+      setApplied(applied);
+    } catch (error) {
+      console.error('Error applying for the job:', error);
+    }
+  };
+
+
 
   return (
     <div>
@@ -93,8 +110,13 @@ function ApplicantViewJob({ selectedJobId }) {
                                 <div className="button-readmore">
                                   <span className="icon-heart"></span>
                                   <a className="btn-apply btn-popup">
+                                    <button
+                                           className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
+                                          onClick={handleApplyNow}
+                                           disabled={applied}>
                                     <span className="icon-send"></span>
-                                    Apply Now
+                                         {applied ? 'Already Applied' : 'Apply Now'}
+                                   </button>
                                   </a>
                                 </div>
                               </div>
@@ -118,8 +140,8 @@ function ApplicantViewJob({ selectedJobId }) {
                             </div>
                             <div className="job-footer-right">
                               <div className="price">
-                                <span className="icon-dollar"></span>
-                                <p>${jobDetails.minSalary} - ${jobDetails.maxSalary} / year</p>
+                                <span></span>
+                                <p>&#x20B9; {jobDetails.minSalary} - &#x20B9; {jobDetails.maxSalary} / year</p>
                               </div>
                               {/* <p className="days">{jobDetails.daysLeft} days left to apply</p> */}
                             </div>
