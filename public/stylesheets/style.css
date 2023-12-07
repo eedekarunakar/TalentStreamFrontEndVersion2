@@ -3095,3 +3095,25 @@ input[type="color"],
 .table-container-wrapper {
   overflow-x: auto;
 }
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px; /* Adjust as needed for spacing */
+}
+.verification-status {
+  padding: 10px;
+  margin: 10px 0;
+  font-weight: bold;
+ 
+}
+ 
+.profile-not-verified {
+  color: red;
+  font-size: 30pt;
+}
+ 
+.profile-under-process {
+  color: green;
+  font-size: 300;
+}

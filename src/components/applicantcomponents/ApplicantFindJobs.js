@@ -79,7 +79,10 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                 <div className="inner">
                   <br />
                   <div className="group-col-2">
-                    {jobs.map((job) => (
+                  {jobs.length === 0 ? (
+                      <div style={{marginLeft:30}}>No Recommended jobs available</div>
+                    ) : (
+                    jobs.map((job) => (
                       <div className="features-job cl2" key={job.id}>
                         <div className="job-archive-header">
                           <div className="inner-box">
@@ -88,10 +91,10 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                             </div>
                             <div className="box-content">
                               <h4>
-                                <a href="jobs-single.html">{job.jobRecruiter.companyname}</a>
+                                <a href="#">{job.companyname}</a>
                               </h4>
                               <h3>
-                                <a href="jobs-single.html">
+                                <a href="#">
                                   {job.jobTitle}
                                   <span className="icon-bolt"></span>
                                 </a>
@@ -122,7 +125,7 @@ function ApplicantFindJobs({ setSelectedJobId }) {
         <Link
           to="/applicant-view-job"
           onClick={() => setSelectedJobId(job.id)}
-          className="job-button medium-button"
+          className="button-status"
         >
           View Job
         </Link>
@@ -131,7 +134,7 @@ function ApplicantFindJobs({ setSelectedJobId }) {
     <li>
       <button
         onClick={() => handleSaveJob(job.id)}
-        className="submit-button"
+        className="button-status"
       >
         Save Job
       </button>
@@ -142,7 +145,7 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                           </div>
                         </div>
                       </div>
-                    ))}
+                    )))}
                   </div>
                 </div>
               </div>

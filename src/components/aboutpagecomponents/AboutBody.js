@@ -151,7 +151,10 @@ We Leverage Seamless Networking And Data-Driven Search Strategies In Recruiting 
         <div class="col-lg-12  wow fadeInUp">
           <div class="group-banner-CTA">
             <h3>Job Opportunities Are Always Open</h3>
-            <p>Aenean porta, eros lacus congue lorem, sit amet mollis magna velit ac erat.</p>
+            <p>
+                Streamline your hiring process with strategic channels to reach
+                qualified candidates
+              </p>
             <div class="group-btn">
               <a href="/login"><button class="tf-btn">Search Job</button></a>
               <a href="/recruiterlogin"><button class="tf-btn">Find Candidates</button></a>

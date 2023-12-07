@@ -11,6 +11,39 @@ function ApplicantUpdateProfile() {
   const user=user1.user;
   let error = "";
   
+  const [errors, setErrors] = useState({
+    basicDetails: {},
+    xClassDetails: {},
+    intermediateDetails: {},
+    graduationDetails: {},
+    skillsRequired: [],
+    experienceDetails: [],
+  });
+
+  // Validation function
+  const validateForm = () => {
+    const newErrors = {
+      basicDetails: {},
+      xClassDetails: {},
+      intermediateDetails: {},
+      graduationDetails: {},
+      skillsRequired: [],
+      experienceDetails: [],
+    };
+
+    // Example validation for required fields
+    if (!basicDetails.firstName) {
+      newErrors.basicDetails.firstName = 'First Name is required';
+    }
+
+    // Add more validation for other fields...
+
+    setErrors(newErrors);
+
+    // Check if there are no errors
+    return Object.keys(newErrors).every(key => Object.keys(newErrors[key]).length === 0);
+  };
+
   useEffect(() => {
     // Simulate an asynchronous operation (e.g., fetching data from an API)
     const fetchData = async () => {
@@ -163,8 +196,7 @@ function ApplicantUpdateProfile() {
   };
   
   
- 
-  
+
 
   const handleFileDrop = (e) => {
     e.preventDefault();
@@ -206,7 +238,7 @@ function ApplicantUpdateProfile() {
         if (response.data === 'Profile saved successfully') {
           console.log(response.body);
           console.log('Data sent successfully!');
-          navigate('/applicanthome?success=profile-updated');
+          navigate('/applicanthome');
         } else if (response.data === 'your Profile was updated already') {
           // Handle duplicate entry error (HTTP 409 Conflict)
           window.alert("Your profile has already been updated.");
@@ -270,14 +302,17 @@ function ApplicantUpdateProfile() {
   </div>
 </div>
 <div>
-<input
-    type="submit"
-    class="submit-button"
-    value="Save Profile"
-  />
+
+  {/*  <input type="submit" class="submit-button"  value="Save Profile"  /> */}
+  <button type="submit" className='button-status'>Save Profile</button>
   </div>
 </div>
             <div className="form-infor-profile">
+            <div className="validation-errors">
+            {errors.basicDetails.firstName && (
+              <div className="error-message">{errors.basicDetails.firstName}</div>
+            )}
+          </div>
               <h3 className="title-info">Information</h3>
               <div className="form-infor flex flat-form">
                 <div className="info-box info-wd">
@@ -503,9 +538,9 @@ function ApplicantUpdateProfile() {
                            type="text"
                            placeholder="Year of passing"
                            className="input-form"
-                           value={xClassDetails.xyearOfPassing}
+                           value={intermediateDetails.iyearOfPassing}
                            onChange={(e) =>
-                           setXClassDetails({...xClassDetails,xyearOfPassing: e.target.value,})}
+                            setIntermediateDetails({...intermediateDetails,iyearOfPassing: e.target.value,})}
                            required
                   />
                   </fieldset>
@@ -513,9 +548,9 @@ function ApplicantUpdateProfile() {
                   <input  type="text"
                           placeholder="City"
                           className="input-form"
-                          value={xClassDetails.xCity}
+                          value={intermediateDetails.iCity}
                           onChange={(e) =>
-                          setXClassDetails({ ...xClassDetails, xCity: e.target.value })}
+                            setIntermediateDetails({ ...intermediateDetails, iCity: e.target.value })}
                           required
                   />
                   </fieldset>
@@ -523,9 +558,9 @@ function ApplicantUpdateProfile() {
                   <input  type="text"
                           placeholder="State"
                           className="input-form"
-                          value={xClassDetails.xState}
+                          value={intermediateDetails.iState}
                           onChange={(e) =>
-                          setXClassDetails({ ...xClassDetails, xState: e.target.value })}
+                            setIntermediateDetails({ ...intermediateDetails, iState: e.target.value })}
                           required
 
                    />
@@ -608,7 +643,7 @@ function ApplicantUpdateProfile() {
                   <input  type="text"
                           placeholder="State"
                           className="input-form"
-                          value={graduationDetails.GState}
+                          value={graduationDetails.gState}
                           onChange={(e) =>setGraduationDetails({...graduationDetails,gState: e.target.value,})}
                           required
                    />

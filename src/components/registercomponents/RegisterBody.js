@@ -177,7 +177,7 @@ const isEmailValid = (email) => {
       setErrorMessage('Please enter a valid 10-digit mobile number & should begin with 6 or 7 or 8 or 9.');
       return false;
     }
-    if (!isPasswordValid(candidatePassword)) {
+    if (!isPasswordValid(employerPassword)) {
       setErrorMessage('Password must be at least 6 characters long and should have one cpital letter and one small letter and no spaces are allowed.');
       return false;
     }
@@ -425,7 +425,7 @@ const isEmailValid = (email) => {
       </div>
     ) : (
       <div>
-        
+         <div className="helpful-line">Click on send OTP to verify your email</div>
         <button
           type="button"
           onClick={handleSendOTP1}

@@ -31,8 +31,11 @@ function ApplicantViewJob({ selectedJobId }) {
     const fetchJobDetails = async () => {
       try {
         const response = await axios.get(`${apiUrl}/viewjob/applicant/viewjob/${selectedJobId}`);
-        const jobData = response.data;
-        setJobDetails(jobData);
+        const {body} = response.data;
+        setLoading(false);
+        if (body) {
+          setJobDetails(body);
+        }
       } catch (error) {
         console.error('Error fetching job details:', error);
       } finally {
@@ -91,10 +94,10 @@ function ApplicantViewJob({ selectedJobId }) {
                               </div>
                               <div className="box-content">
                                 <h4>
-                                  <a href={`jobs-single.html`}>{jobDetails.jobRecruiter.companyname}</a>
+                                  {/* <a href="#">{jobDetails.companyname}</a> */}
                                 </h4>
                                 <h3>
-                                  <a href={`jobs-single.html`}>{jobDetails.jobTitle}</a>
+                                  <a href="#">{jobDetails.jobTitle}</a>
                                   <span className="icon-bolt"></span>
                                 </h3>
                                 <ul>

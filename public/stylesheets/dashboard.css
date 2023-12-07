@@ -569,7 +569,7 @@ tbody tr td:nth-child(2) {
 /*  */
 
 .dashboard .button-status {
-    background-color: #1481601a;
+    background-color: #1967d2;
     font-weight: 700;
     border-radius: 24px;
     display: inline-flex;
@@ -577,6 +577,12 @@ tbody tr td:nth-child(2) {
     width: 100px;
     align-items: center;
     height: 34px;
+    color:#fff;
+}
+
+.dashboard .button-status:hover
+{
+    background-color: #504cfe;
 }
 
 .dashboard .button-status.style {
@@ -595,7 +601,7 @@ tbody tr td:nth-child(2) {
 }
 
 .dashboard .button-cancel {
-    border: 1px solid #14a077;
+    border: 1px solid #504cfe;
     background-color: #fff;
     padding: 6px 19px;
     border-radius: 4px;

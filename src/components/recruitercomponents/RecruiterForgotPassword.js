@@ -52,7 +52,7 @@ function RecruiterForgotPassword() {
         console.error('Error sending OTP:', error);
         setOtpSent(false);
         setOtpVerified(false);
-        setResetError('An error occurred. Please try again later.');
+        setResetError('Enter valid email address');
       }
     };
   
@@ -86,7 +86,7 @@ function RecruiterForgotPassword() {
   // Validate the password as the user types
   if (!validatePassword(password)) {
     setResetSuccess(false);
-    setResetError('Password does not meet the criteria.');
+    setResetError('Password Should not be empty.');
     return;
   }
   
@@ -141,12 +141,11 @@ function RecruiterForgotPassword() {
               <div className="wd-form-login">
                 {resetSuccess ? (
                   <div className="success-message">
-                    <h5>Password reset was done successfully. Please click on Login to continue</h5>
+                    <h5>Password reset was done successfully. Please click on <a href="/recruiterlogin" style={{color:'blue'}}>Login</a> to continue</h5>
                   </div>
                 ) : (
                   <div>
                     <h5>Recruiter Forgot Password</h5><br />
-                    <form onSubmit={handleResetPassword}>
                       <div className="ip">
                       <label>
                     Email address<span>*</span>
@@ -204,7 +203,7 @@ function RecruiterForgotPassword() {
                         </button>
                       )}
                       {resetError && <div className="error-message">{resetError}</div>}
-                    </form>
+                    
                   </div>
                 )}
               </div>
