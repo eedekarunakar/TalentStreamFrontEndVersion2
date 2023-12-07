@@ -19,6 +19,7 @@ function RecruiterLogin({handleLogin}) {
   
     const isFormValid = () => {
       if (!email.trim() || !password.trim()) {
+        setErrorMessage('Please enter required details to login');
         return false; // Username and password should not be empty or whitespace only
       }
       return true;
@@ -31,7 +32,7 @@ function RecruiterLogin({handleLogin}) {
     const handleSubmit = async (e) => {
       e.preventDefault();
       if (!isFormValid()) {
-        window.alert('Please enter both username and password.');
+       // window.alert('Please enter both username and password.');
         return;
       }
       try {
@@ -55,6 +56,7 @@ function RecruiterLogin({handleLogin}) {
   
         if (response.status === 200) {
           // Assuming the response.data contains user data
+          setErrorMessage('');
           const userData = response.data;
           console.log('this is response ',userData);
           console.log('this is token ',userData.data.jwt);
@@ -165,8 +167,8 @@ function RecruiterLogin({handleLogin}) {
                 </div>
                 <div className="group-ant-choice">
                   <div className="sub-ip">
-                    <input type="checkbox" />
-                    Remember me
+                    {/* <input type="checkbox" />
+                    Remember me */}
                   </div>
                   <a href="/recruiter-forgot-password" className="forgot">
                     Fogot password?

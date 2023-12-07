@@ -9,11 +9,18 @@ function RegisterBody() {
   const navigate = useNavigate();
   const [otpSent, setOTPSent] = useState(false); // Track whether OTP is sent
   const [otpVerified, setOTPVerified] = useState(false);
-  const [name, setName] = useState('');
-  const [companyname, setCompanyname] = useState('');
-  const [email, setEmail] = useState('');
-  const [mobilenumber, setMobilenumber] = useState('');
-  const [password, setPassword] = useState('');
+   // Candidate form state
+   const [candidateName, setCandidateName] = useState('');
+   const [candidateEmail, setCandidateEmail] = useState('');
+   const [candidateMobileNumber, setCandidateMobileNumber] = useState('');
+   const [candidatePassword, setCandidatePassword] = useState('');
+ 
+   // Employer form state
+   const [companyName, setCompanyName] = useState('');
+   const [employerEmail, setEmployerEmail] = useState('');
+   const [employerMobileNumber, setEmployerMobileNumber] = useState('');
+   const [employerPassword, setEmployerPassword] = useState('');
+
   const [errorMessage, setErrorMessage] = useState('');
   const [registrationSuccess, setRegistrationSuccess] = useState(false); // New state variable
   const [registrationInProgress, setRegistrationInProgress] = useState(false);
@@ -30,7 +37,9 @@ function RegisterBody() {
     }
     try {
       setOTPSendingInProgress(true); // Set sending OTP in progress
-      await axios.post(`${apiUrl}/applicant/applicantsendotp`, { email });
+      console.log("email is:",candidateEmail);
+      await axios.post(`${apiUrl}/applicant/applicantsendotp`, { email:candidateEmail });
+      console.log("email is:",candidateEmail);
       setOTPSent(true);
       setOTPSendingInProgress(false); // Clear sending OTP in progress
     } catch (error) {
@@ -40,13 +49,13 @@ function RegisterBody() {
   };
 
   const handleSendOTP1 = async () => {
-    if (!isFormValid()) {
+    if (!isFormValid1()) {
       return; // Do not proceed with registration if form is invalid
     }
 
     try {
       setOTPSendingInProgress(true); // Set sending OTP in progress
-     const response= await axios.post(`${apiUrl}/recuriters/registration-send-otp`, { email });
+     const response= await axios.post(`${apiUrl}/recuriters/registration-send-otp`, { email:employerEmail });
       setOTPSent(true);
       setOTPSendingInProgress(false); // Clear sending OTP in progress
       if(response.body==='Email is already  registered.'){
@@ -63,48 +72,39 @@ function RegisterBody() {
     e.preventDefault();
 
     if (!isFormValid()) {
-      return; // Do not proceed with registration if form is invalid
+      return;
     }
 
     try {
       setRegistrationInProgress(true);
-      // Send the form data to the backend server using Axios POST request
       const response = await axios.post(`${apiUrl}/applicant/saveApplicant`, {
-        name,
-        email,
-        mobilenumber,
-        password,
+        name: candidateName,
+        email: candidateEmail,
+        mobilenumber: candidateMobileNumber,
+        password: candidatePassword,
       });
 
-      // Clear any previous error messages if the registration is successful
-      // If OTP is sent, render OTPVerification component
-      
       setErrorMessage('');
       setRegistrationSuccess(true);
 
-      
-      // Handle the response from the server (e.g., show a success message)
       console.log('Registration successful', response.data);
-      // Show a window alert for successful registration
-      setName('');
-      setEmail('');
-      setMobilenumber('');
-      setPassword('');
+
+      setCandidateName('');
+      setCandidateEmail('');
+      setCandidateMobileNumber('');
+      setCandidatePassword('');
       setRegistrationInProgress(false);
 
-      // Use the navigate function to navigate to the home screen
       if (otpSent && otpVerified) {
         navigate('/login', { state: { registrationSuccess: true } });
       }
     } catch (error) {
-      // Handle registration errors (e.g., show an error message)
       setErrorMessage('Registration failed. Please try again later.');
       setRegistrationInProgress(false);
       window.alert('Registration failed! user with this email already exist');
       console.error('Registration failed', error);
     }
-
-};
+  };
 
 const isEmailValid = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -153,46 +153,66 @@ const isEmailValid = (email) => {
     return true;
   };
   const isFormValid = () => {
-    if (!isEmailValid(email)) {
+    if (!isEmailValid(candidateEmail)) {
       setErrorMessage('Please enter a valid email address.');
       return false;
     }
-    if (!isMobileNumberValid(mobilenumber)) {
+    if (!isMobileNumberValid(candidateMobileNumber)) {
       setErrorMessage('Please enter a valid 10-digit mobile number & should begin with 6 or 7 or 8 or 9.');
       return false;
     }
-    if (!isPasswordValid(password)) {
+    if (!isPasswordValid(candidatePassword)) {
       setErrorMessage('Password must be at least 6 characters long and should have one cpital letter and one small letter and no spaces are allowed.');
       return false;
     }
-
     return true;
-    
+  };
+
+  const isFormValid1 = () => {
+    if (!isEmailValid(employerEmail)) {
+      setErrorMessage('Please enter a valid email address.');
+      return false;
+    }
+    if (!isMobileNumberValid(employerMobileNumber)) {
+      setErrorMessage('Please enter a valid 10-digit mobile number & should begin with 6 or 7 or 8 or 9.');
+      return false;
+    }
+    if (!isPasswordValid(employerPassword)) {
+      setErrorMessage('Password must be at least 6 characters long and should have one cpital letter and one small letter and no spaces are allowed.');
+      return false;
+    }
+    return true;
   };
 
   const handleSubmit1 = async (e) => {
     e.preventDefault();
 
-   
+    if (!isFormValid1()) {
+      return;
+    }
+
     try {
       setRegistrationInProgress(true);
       const response = await axios.post(`${apiUrl}/recuriters/saverecruiters`, {
-       
-        companyname, 
-        mobilenumber,
-        email,
-        password,
+        companyname: companyName,
+        mobilenumber: employerMobileNumber,
+        email: employerEmail,
+        password: employerPassword,
       });
 
       setErrorMessage('');
       setRegistrationSuccess(true);
 
       console.log('Registration successful', response.data);
-      
+
+      setCompanyName('');
+      setEmployerEmail('');
+      setEmployerMobileNumber('');
+      setEmployerPassword('');
       setRegistrationInProgress(false);
+
       if (otpSent && otpVerified) {
-          
-          navigate('/recruiterlogin', { state: { registrationSuccess: true } });
+        navigate('/recruiterlogin', { state: { registrationSuccess: true } });
       }
     } catch (error) {
       setErrorMessage('Registration failed. Please try again later.');
@@ -237,13 +257,13 @@ const isEmailValid = (email) => {
             <div className="content-tab">
               <div className="inner" style={{ display: activeTab === 'Candidate' ? 'block' : 'none' }}>
                 <form onSubmit={handleSubmit}>
-                  <div className="ip">
+                <div className="ip">
                     <label>Full Name<span>*</span></label>
                     <input
                       type="text"
                       placeholder="Name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      value={candidateName}
+                      onChange={(e) => setCandidateName(e.target.value)}
                       required
                     />
                   </div>
@@ -252,8 +272,8 @@ const isEmailValid = (email) => {
                     <input
                       type="email"
                       placeholder="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={candidateEmail}
+                      onChange={(e) => setCandidateEmail(e.target.value)}
                       required
                     />
                   </div>
@@ -262,8 +282,8 @@ const isEmailValid = (email) => {
                     <input
                       type="text"
                       placeholder="Mobile Number"
-                      value={mobilenumber}
-                      onChange={(e) => setMobilenumber(e.target.value)}
+                      value={candidateMobileNumber}
+                      onChange={(e) => setCandidateMobileNumber(e.target.value)}
                       required
                     />
                   </div>
@@ -273,8 +293,8 @@ const isEmailValid = (email) => {
                       <input
                         type="password"
                         placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={candidatePassword}
+                        onChange={(e) => setCandidatePassword(e.target.value)}
                         required
                       />
                     </div>
@@ -283,24 +303,12 @@ const isEmailValid = (email) => {
   <div>
     <p style={{ color: 'green' }}>OTP sent to your email. Please check and enter below:</p>
     <OTPVerification
-            email={email}
+            email={candidateEmail}
             onOTPVerified={() => setOTPVerified(true)}
             otpVerifyingInProgress={otpVerifyingInProgress}
             setOTPVerifyingInProgress={setOTPVerifyingInProgress}
           />
-    <button
-      type="button"
-      onClick={handleSendOTP}
-      disabled={otpSent || registrationInProgress || otpSendingInProgress}
-    >
-      {otpSendingInProgress ? (
-        
-        <div className="spinner"></div>
-       
-      ) : (
-        <div></div>
-      )}
-    </button>
+   
   </div>
 ) : (
   <div>
@@ -342,21 +350,19 @@ const isEmailValid = (email) => {
     )}
   </button>
 )}
-
-
                 </form>
               </div>
             </div>
             <div className="content-tab">
               <div className="inner" style={{ display: activeTab === 'Employer' ? 'block' : 'none' }}>
                 <form onSubmit={handleSubmit1}>
-                  <div className="ip">
+                <div className="ip">
                     <label>Company Name<span>*</span></label>
                     <input
-                          type="text"
-                           placeholder="Enter your company name"
-                            value={companyname}
-                             onChange={(e) => setCompanyname(e.target.value)}
+                      type="text"
+                      placeholder="Enter your company name"
+                      value={companyName}
+                      onChange={(e) => setCompanyName(e.target.value)}
                     />
                   </div>
                   <div className="ip">
@@ -364,8 +370,8 @@ const isEmailValid = (email) => {
                     <input
                       type="email"
                       placeholder="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={employerEmail}
+                      onChange={(e) => setEmployerEmail(e.target.value)}
                     />
                   </div>
                   <div className="ip">
@@ -373,8 +379,8 @@ const isEmailValid = (email) => {
                     <input
                       type="text"
                       placeholder="Mobile Number"
-                      value={mobilenumber}
-                      onChange={(e) => setMobilenumber(e.target.value)}
+                      value={employerMobileNumber}
+                      onChange={(e) => setEmployerMobileNumber(e.target.value)}
                     />
                   </div>
                   <div className="ip">
@@ -383,8 +389,8 @@ const isEmailValid = (email) => {
                       <input
                         type="password"
                         placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={employerPassword}
+                        onChange={(e) => setEmployerPassword(e.target.value)}
                       />
                     </div>
                   </div>
@@ -392,12 +398,12 @@ const isEmailValid = (email) => {
   <div>
     <p style={{ color: 'green' }}>OTP sent to your email. Please check and enter below:</p>
     <OTPVerification1
-            email={email}
+            email={employerEmail}
             onOTPVerified={() => setOTPVerified(true)}
             otpVerifyingInProgress={otpVerifyingInProgress}
             setOTPVerifyingInProgress={setOTPVerifyingInProgress}
           />
-    <button
+    {/* <button
       type="button"
       onClick={handleSendOTP}
       disabled={otpSent || registrationInProgress || otpSendingInProgress}
@@ -409,7 +415,7 @@ const isEmailValid = (email) => {
       ) : (
         <div></div>
       )}
-    </button>
+    </button> */}
   </div>
 ) : (
   <div>
@@ -419,7 +425,7 @@ const isEmailValid = (email) => {
       </div>
     ) : (
       <div>
-        
+         <div className="helpful-line">Click on send OTP to verify your email</div>
         <button
           type="button"
           onClick={handleSendOTP1}

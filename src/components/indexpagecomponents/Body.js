@@ -19,10 +19,7 @@ export default function Body() {
           <div className="group-iconbox">
             <div className="title-iconbox">
               <h1>What can I do with TalentSteram?</h1>
-              <p>
-                Streamline your hiring process with strategic channels to reach
-                qualified candidates
-              </p>
+             
             </div>
             <div className="text-iconbox wow fadeInRight">
               <div className="tf-iconbox style-1">

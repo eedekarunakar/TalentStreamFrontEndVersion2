@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useUserContext } from '../common/UserProvider';
 import axios from 'axios';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
+import { useNavigate} from 'react-router-dom';
 
 function ApplicantForgotPassword() {
   const [email, setEmail] = useState('');
+  const navigate = useNavigate();
   const [otp, setOtp] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -46,7 +48,7 @@ function ApplicantForgotPassword() {
       console.error('Error sending OTP:', error);
       setOtpSent(false);
       setOtpVerified(false);
-      setResetError('An error occurred. Please try again later.');
+      setResetError('Enter valid email address');
     }
   };
 
@@ -77,7 +79,7 @@ function ApplicantForgotPassword() {
 
     if (!validatePassword(password)) {
       setResetSuccess(false);
-      setResetError('Password does not meet the criteria.');
+      setResetError('Password Should not be empty.');
       return;
     }
 
@@ -93,6 +95,7 @@ function ApplicantForgotPassword() {
       if (response.data === 'Password reset was done successfully') {
         setResetSuccess(true);
         setResetError('');
+       // navigate('/login');
       } else {
         setResetSuccess(false);
         setResetError('Password reset failed. Please try again later.');
@@ -130,12 +133,11 @@ function ApplicantForgotPassword() {
               <div className="wd-form-login">
                 {resetSuccess ? (
                   <div className="success-message">
-                    <h5>Password reset was done successfully. Please click on Login to continue</h5>
+                    <h5>Password reset was done successfully. Please click on <a href="/login" style={{color:'blue'}}>Login</a> to continue</h5>
                   </div>
                 ) : (
                   <div>
                     <h4>Forgot Password</h4>
-                    <form onSubmit={handleResetPassword}>
                       <div className="ip">
                       <label>
                     Email address<span>*</span>
@@ -171,7 +173,7 @@ function ApplicantForgotPassword() {
                               one lowercase letter, one number, one special character, and no spaces.
                             </div>
   
-                            <button type="submit">Reset Password</button>
+                            <button type="submit" onClick={handleResetPassword}>Reset Password</button>
                             <p style={{ color: 'green' }}>OTP verified successfully!</p>
                           </div>
                         ) : (
@@ -189,11 +191,11 @@ function ApplicantForgotPassword() {
                         )
                       ) : (
                         <button type="button" onClick={handleSendOTP}>
-                          Send OTP
+                          <div>Send OTP</div>
                         </button>
                       )}
                       {resetError && <div className="error-message">{resetError}</div>}
-                    </form>
+                    
                   </div>
                 )}
               </div>

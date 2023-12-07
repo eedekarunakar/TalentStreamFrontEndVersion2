@@ -7,7 +7,7 @@ function RecruiterForgotPassword() {
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [password, setPassword] = useState(''); // New password field
-    const [confirmPassword, setConfirmPassword] = useState(''); // Confirm password field
+    const [confirmedPassword, setConfirmedPassword] = useState(''); // Confirm password field
     const [resetSuccess, setResetSuccess] = useState(false);
     const [resetError, setResetError] = useState('');
     const [otpSent, setOtpSent] = useState(false);
@@ -52,7 +52,7 @@ function RecruiterForgotPassword() {
         console.error('Error sending OTP:', error);
         setOtpSent(false);
         setOtpVerified(false);
-        setResetError('An error occurred. Please try again later.');
+        setResetError('Enter valid email address');
       }
     };
   
@@ -77,7 +77,7 @@ function RecruiterForgotPassword() {
   
     const handleResetPassword = async () => {
   
-      if (password !== confirmPassword) {
+      if (password !== confirmedPassword) {
         setResetSuccess(false);
         setResetError('Passwords do not match. Please make sure the passwords match.');
         return;
@@ -86,20 +86,23 @@ function RecruiterForgotPassword() {
   // Validate the password as the user types
   if (!validatePassword(password)) {
     setResetSuccess(false);
-    setResetError('Password does not meet the criteria.');
+    setResetError('Password Should not be empty.');
     return;
   }
   
       try {
         // Send a request to the server to reset the password with the new password
         const response = await axios.post(`${apiUrl}/forgotpassword/recuriterreset-password/set-new-password/${email}`, {
-          email,
+        
           password,
+          confirmedPassword,
           
         });
   
         if (response.data === 'Password reset was done successfully') {
+
           setResetSuccess(true);
+          console.log("Api is called");
           setResetError('');
         } else {
           setResetSuccess(false);
@@ -138,12 +141,11 @@ function RecruiterForgotPassword() {
               <div className="wd-form-login">
                 {resetSuccess ? (
                   <div className="success-message">
-                    <h5>Password reset was done successfully. Please click on Login to continue</h5>
+                    <h5>Password reset was done successfully. Please click on <a href="/recruiterlogin" style={{color:'blue'}}>Login</a> to continue</h5>
                   </div>
                 ) : (
                   <div>
                     <h5>Recruiter Forgot Password</h5><br />
-                    <form onSubmit={handleResetPassword}>
                       <div className="ip">
                       <label>
                     Email address<span>*</span>
@@ -170,8 +172,8 @@ function RecruiterForgotPassword() {
                             <input
                               type="password"
                               placeholder="Confirm New Password"
-                              value={confirmPassword}
-                              onChange={(e) => setConfirmPassword(e.target.value)}
+                              value={confirmedPassword}
+                              onChange={(e) => setConfirmedPassword(e.target.value)}
                             />
                             </div>
                             <div className="helpful-line">
@@ -179,7 +181,7 @@ function RecruiterForgotPassword() {
                               one lowercase letter, one number, one special character, and no spaces.
                             </div>
   
-                            <button type="submit">Reset Password</button>
+                            <button type="button" onClick={handleResetPassword}>Reset Password </button>
                             <p style={{ color: 'green' }}>OTP verified successfully!</p>
                           </div>
                         ) : (
@@ -201,7 +203,7 @@ function RecruiterForgotPassword() {
                         </button>
                       )}
                       {resetError && <div className="error-message">{resetError}</div>}
-                    </form>
+                    
                   </div>
                 )}
               </div>

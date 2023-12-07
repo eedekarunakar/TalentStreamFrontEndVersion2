@@ -20,7 +20,7 @@ import ApplicantResume from '../../components/applicantcomponents/ApplicantResum
 
 function ApplicantHomePage() {
   const [activeRoute, setActiveRoute] = useState('');
-  const [selectedJobId, setSelectedJobId] = useState(null);
+  const [selectedJobId, setSelectedJobId] = useState('');
   const location = useLocation();
 
   const updateActiveRoute = () => {
@@ -74,7 +74,7 @@ function ApplicantHomePage() {
 
 
   return (
-    <div  class="dashboard show ">
+    <div  class="dashboard show">
      <ApplicantNavBar />
      <ApplicantLeftNavBar />
      {activeRoute === 'dashboard' && <ApplicantDashboard />}

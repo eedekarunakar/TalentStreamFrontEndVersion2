@@ -69,7 +69,10 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                 <div className="inner">
                   <br />
                   <div className="group-col-2">
-                    {jobs.map((job) => (
+                  {jobs.length === 0 ? (
+                      <div style={{marginLeft:30}}>No Applied jobs available</div>
+                    ) : (
+                    jobs.map((job) => (
                       <div className="features-job cl2" key={job.id}>
                         <div className="job-archive-header">
                           <div className="inner-box">
@@ -78,7 +81,7 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                             </div>
                             <div className="box-content">
                               <h4>
-                                <a href="jobs-single.html">{job.jobRecruiter.companyname}</a>
+                                <a href="jobs-single.html">{job.companyname}</a>
                               </h4>
                               <h3>
                                 <a href="jobs-single.html">
@@ -129,7 +132,7 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                             </div>
                           </div>
                       </div>
-                    ))}
+                    )))}
                   </div>
                 </div>
               </div>
