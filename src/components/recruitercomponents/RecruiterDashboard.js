@@ -1,8 +1,84 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import axios from "axios";
+import { useUserContext } from '../common/UserProvider';
+import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 
 function RecruiterDashboard() {
     const [token, setToken] = useState('');
+    const { user } = useUserContext();
+    const [contActiveJobs, setActiveCountJobs] = useState(0);
+    const [contJobApplicants, setJobApplicants] = useState(0);
+    const [contJobHires, setJobHires] = useState(0);
+    const [countInterviews, setInterviews] = useState(0);
+    useEffect(() => {
+        const jwtToken = localStorage.getItem('jwtToken');
+        if (jwtToken) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+        }
+
+        // Fetch team members data
+        axios
+            .get(`${apiUrl}/job/recruiterscountjobs/${user.id}`)
+            .then((response) => {
+                setActiveCountJobs(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching team members:', error);
+            });
+    }, [user.id]); // Include id as a dependency if you use it in the effect
+
+    useEffect(() => {
+        const jwtToken = localStorage.getItem('jwtToken');
+        if (jwtToken) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+        }
+
+        // Fetch team members data
+        axios
+            .get(`${apiUrl}/applyjob/recruiters/applyjobapplicantscount/${user.id}`)
+            .then((response) => {
+                setJobApplicants(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching team members:', error);
+            });
+    }, [user.id]); // Include id as a dependency if you use it in the effect
+
+    useEffect(() => {
+        const jwtToken = localStorage.getItem('jwtToken');
+        if (jwtToken) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+        }
+
+        // Fetch team members data
+        axios
+            .get(`${apiUrl}/applyjob/recruiters/selected/count`)
+            .then((response) => {
+                setJobHires(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching team members:', error);
+            });
+    }, [user.id]); // Include id as a dependency if you use it in the effect
+
+    useEffect(() => {
+        const jwtToken = localStorage.getItem('jwtToken');
+        if (jwtToken) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+        }
+
+        // Fetch team members data
+        axios
+            .get(`${apiUrl}/applyjob/recruiters/countShortlistedAndInterviewed`)
+            .then((response) => {
+                setInterviews(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching team members:', error);
+            });
+    }, [user.id]); // Include id as a dependency if you use it in the effect
+
     useEffect(() => {
         // Get the JWT token from local storage
         const storedToken = localStorage.getItem('jwtToken');
@@ -57,12 +133,8 @@ function RecruiterDashboard() {
                 </span>
               </div>
               <div className="content">
-                <div
-                  className="count-dash counter-number"
-                  data-speed={2000}
-                  data-to={15}
-                />
-                <h4 className="title-count">Posted Jobs</h4>
+              <h3>{contActiveJobs}</h3>
+                <h4 className="title-count">Active Jobs</h4>
               </div>
             </div>
             <div className="box-icon wrap-counter flex">
@@ -99,12 +171,8 @@ function RecruiterDashboard() {
                 </span>
               </div>
               <div className="content">
-                <div
-                  className="count-dash counter-number"
-                  data-speed={2000}
-                  data-to={2068}
-                />
-                <h4 className="title-count">Application</h4>
+              <h3>{contJobApplicants}</h3>
+                <h4 className="title-count">Job Applicants</h4>
               </div>
             </div>
             <div className="box-icon wrap-counter flex">
@@ -127,12 +195,8 @@ function RecruiterDashboard() {
                 </span>
               </div>
               <div className="content style3">
-                <div
-                  className="count-dash counter-number"
-                  data-speed={2000}
-                  data-to={21}
-                />
-                <h4 className="title-count">Review</h4>
+              <h3>{contJobHires}</h3>
+                <h4 className="title-count">Hires</h4>
               </div>
             </div>
             <div className="box-icon wrap-counter flex">
@@ -153,12 +217,8 @@ function RecruiterDashboard() {
                 </span>
               </div>
               <div className="content">
-                <div
-                  className="count-dash counter-number"
-                  data-speed={2000}
-                  data-to={320}
-                />
-                <h4 className="title-count">Wishlist</h4>
+              <h3> {countInterviews}</h3>
+                <h4 className="title-count">Interviews</h4>
               </div>
             </div>
           </div>

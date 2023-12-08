@@ -6,7 +6,7 @@ import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import logoCompany1 from '../../images/cty12.png';
 import { Link } from 'react-router-dom';
 
-function RecruiterJobOpenings() {
+function RecruiterJobOpenings({setSelectedJobId}) {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
@@ -31,6 +31,11 @@ function RecruiterJobOpenings() {
         });
     }, []); // Replace with the actual user identifier
   
+    const handleButtonClick = (jobId) => {
+      // Perform any logic you need when the button is clicked
+      // For example, set the selected job ID in your component's state
+      setSelectedJobId(jobId);
+    };
 
   return (
     <div>
@@ -62,7 +67,7 @@ function RecruiterJobOpenings() {
                             </div>
                             <div className="box-content">
                               <h4>
-                                <a href="jobs-single.html">{job.jobRecruiter.companyname}</a>
+                                <a href="jobs-single.html">{job.companyname}</a>
                               </h4>
                               <h3>
                                 <a href="jobs-single.html">
@@ -111,7 +116,7 @@ function RecruiterJobOpenings() {
                               </Link> */}
                               {/* {job && (<Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)}>Check Status</Link> )} */}
 
-                              <Link to="/recruiter-allapplicants">
+                              <Link to="/recruiter-appliedapplicants" onClick={() => handleButtonClick(job.id)}>
                               <button type="button" style={{borderRadius:20}} className="btn-primary">View Applicants</button>
                               </Link>
                             </div>

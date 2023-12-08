@@ -128,7 +128,7 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                               {/* <Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)}>
                               <button type="button" style={{borderRadius:20}} className="btn-primary">Check Status</button>
                               </Link> */}
-                              {job && (<Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)}>Check Status</Link> )}
+                              {job && (<Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)} className="button-status">Check Status</Link> )}
                             </div>
                           </div>
                       </div>

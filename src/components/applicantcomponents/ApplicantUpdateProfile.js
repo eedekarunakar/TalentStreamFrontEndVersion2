@@ -237,7 +237,7 @@ function ApplicantUpdateProfile() {
         // Successful response
         if (response.data === 'Profile saved successfully') {
           console.log(response.body);
-          console.log('Data sent successfully!');
+          window.alert('Profile sent successfully!');
           navigate('/applicanthome');
         } else if (response.data === 'your Profile was updated already') {
           // Handle duplicate entry error (HTTP 409 Conflict)

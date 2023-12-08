@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import OTPVerification from '../applicantcomponents/OTPVerification';
 import OTPVerification1 from '../recruitercomponents/OTPVerification1';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 function RegisterBody() {
   const [activeTab, setActiveTab] = useState('Candidate');
   const navigate = useNavigate();
@@ -26,6 +28,12 @@ function RegisterBody() {
   const [registrationInProgress, setRegistrationInProgress] = useState(false);
   const [otpSendingInProgress, setOTPSendingInProgress] = useState(false); // New state variable for sending OTP
   const [otpVerifyingInProgress, setOTPVerifyingInProgress] = useState(false); // New state variable for verifying OTP 
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -291,12 +299,15 @@ const isEmailValid = (email) => {
                     <label>Password<span>*</span></label>
                     <div className="inputs-group auth-pass-inputgroup">
                       <input
-                        type="password"
+                         type={showPassword ? 'text' : 'password'}
                         placeholder="Password"
                         value={candidatePassword}
                         onChange={(e) => setCandidatePassword(e.target.value)}
                         required
                       />
+                       <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
+        {showPassword ? <FaEye /> : <FaEyeSlash />}
+      </div>
                     </div>
                   </div>
                   {otpSent && !otpVerified ? (
@@ -387,11 +398,14 @@ const isEmailValid = (email) => {
                     <label>Password<span>*</span></label>
                     <div className="inputs-group auth-pass-inputgroup">
                       <input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         placeholder="Password"
                         value={employerPassword}
                         onChange={(e) => setEmployerPassword(e.target.value)}
                       />
+                        <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
+        {showPassword ? <FaEye /> : <FaEyeSlash />}
+      </div>
                     </div>
                   </div>
                   {otpSent && !otpVerified ? (

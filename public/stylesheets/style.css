@@ -471,12 +471,12 @@ input::-moz-placeholder {
 }
 
 input:-ms-input-placeholder {
-  color: #a0a0a0;
+  color: #c7c2c2;
 }
 
 textarea::-webkit-input-placeholder,
 input::-webkit-input-placeholder {
-  color: #a0a0a0;
+  color: c7c2c2;
   opacity: 1;
 }
 
@@ -3116,4 +3116,12 @@ input[type="color"],
 .profile-under-process {
   color: green;
   font-size: 300;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 10px; /* Adjust the position as needed */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
 }

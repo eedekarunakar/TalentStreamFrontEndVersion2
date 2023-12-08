@@ -4,6 +4,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function RecruiterLogin({handleLogin}) {
 
@@ -15,7 +16,11 @@ function RecruiterLogin({handleLogin}) {
     const navigate = useNavigate();
     const { setUser } = useUserContext();
     const { setUserType } = useUserContext();
-   
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleTogglePassword = () => {
+      setShowPassword(!showPassword);
+    };
   
     const isFormValid = () => {
       if (!email.trim() || !password.trim()) {
@@ -157,12 +162,14 @@ function RecruiterLogin({handleLogin}) {
                   </label>
                   <div className="inputs-group auth-pass-inputgroup">
                   <input
-                        type="password"
+                       type={showPassword ? 'text' : 'password'}
                          placeholder="Password"
                          value={password}
                           onChange={(e) => setPassword(e.target.value)}
                     />
-                    <a className="icon-eye-off password-addon" id="password-addon"></a>
+                  <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
+        {showPassword ? <FaEye /> : <FaEyeSlash />}
+      </div>
                   </div>
                 </div>
                 <div className="group-ant-choice">
