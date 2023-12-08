@@ -1705,7 +1705,7 @@ tbody tr td:nth-child(2) {
 }
 
 .info-wd input::placeholder {
-    color: #000;
+    color: #b9b5b5;
 }
 
 .flat-dashboard-setting .info-wd .dropdown>a {

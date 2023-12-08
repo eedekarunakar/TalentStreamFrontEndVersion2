@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import axios from 'axios';
+import { Link,useParams } from 'react-router-dom';
 
-function RecruiterAllApplicants() {
+function RecruiterAppliedApplicants({selectedJobId}) {
   const [applicants, setApplicants] = useState([]);
   const { user } = useUserContext();
-
+  const { jobId } = useParams();
 
   useEffect(() => {
     const jwtToken = localStorage.getItem('jwtToken');
@@ -15,7 +16,7 @@ function RecruiterAllApplicants() {
     }
 
     axios
-      .get(`${apiUrl}/applyjob/recruiter/${user.id}/appliedapplicants`)
+      .get(`${apiUrl}/applyjob/appliedapplicants/${selectedJobId}`)
       .then((response) => {
         setApplicants(response.data);
       })
@@ -32,7 +33,7 @@ function RecruiterAllApplicants() {
       <div className="row">
         <div className="col-lg-12 col-md-12 ">
           <div className="title-dashboard">
-            <div className="title-dash flex2">All Applicants</div>
+            <div className="title-dash flex2">Applied Applicants</div>
           </div>
         </div>
       </div>
@@ -61,17 +62,20 @@ function RecruiterAllApplicants() {
           </thead>
           <tbody>
           {applicants.map((application) => (
-                            <tr key={application.email}>
-                              <td>{application.name}</td>
-                              <td>{application.email}</td>
-                              <td>{application.mobilenumber}</td>
-                              <td>{application.jobTitle}</td>
+                            <tr key={application.applicant.email}>
+                              <td>{application.applicant.name}</td>
+                              <td>{application.applicant.email}</td>
+                              <td>{application.applicant.mobilenumber}</td>
+                              <td>{application.job.jobTitle}</td>
                               <td>{application.applicantStatus}</td>
-                              <td>{application.minimumExperience}</td>
-                              <td>{application.skillName}                           
+                              <td>{application.job.maximumExperience}</td>
+                              <td>
+                                {application.job.skillsRequired.map((skill) => (
+                                  <span key={skill.id}>{skill.skillName}, </span>
+                                ))}
                               </td>
-                              <td>{application.minimumQualification}</td>
-                              <td>{application.location}</td>
+                              <td>{application.job.minimumQualification}</td>
+                              <td>{application.job.location}</td>
                             </tr>
                           ))}
           </tbody>
@@ -88,4 +92,4 @@ function RecruiterAllApplicants() {
   );
 }
 
-export default RecruiterAllApplicants;
+export default RecruiterAppliedApplicants;

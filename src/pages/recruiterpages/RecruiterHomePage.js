@@ -10,11 +10,13 @@ import RecruiterMyOrganization from '../../components/recruitercomponents/Recrui
 import RecruiterPostJob from '../../components/recruitercomponents/RecruiterPostJob';
 import RecruiterJobOpenings from '../../components/recruitercomponents/RecruiterJobOpenings';
 import RecruiterAllApplicants from '../../components/recruitercomponents/RecruiterAllApplicants';
+import RecruiterAppliedApplicants from '../../components/recruitercomponents/RecruiterAppliedApplicants';
 
 
 function RecruiterHomePage() {
   const [activeRoute, setActiveRoute] = useState('');
   const location = useLocation();
+  const [selectedJobId, setSelectedJobId] = useState('');
 
   const updateActiveRoute = () => {
     const pathname = location.pathname;
@@ -33,7 +35,10 @@ function RecruiterHomePage() {
             case '/recruiter-jobopenings':
               setActiveRoute('jobopenings');
               break;
-              case '/recruiter-allapplicants':
+              case '/recruiter-appliedapplicants':
+                setActiveRoute('appliedapplicants');
+                break;
+                case '/recruiter-allapplicants':
                 setActiveRoute('allapplicants');
                 break;
       default:
@@ -55,7 +60,8 @@ function RecruiterHomePage() {
      {activeRoute === 'dashboard' && <RecruiterDashboard />}
      {activeRoute === 'organization' && <RecruiterMyOrganization />}
      {activeRoute === 'postjob' && <RecruiterPostJob />}
-     {activeRoute === 'jobopenings' && <RecruiterJobOpenings />}
+     {activeRoute === 'jobopenings' && <RecruiterJobOpenings setSelectedJobId={setSelectedJobId} />}
+     {activeRoute === 'appliedapplicants' && <RecruiterAppliedApplicants selectedJobId={selectedJobId} />}
      {activeRoute === 'allapplicants' && <RecruiterAllApplicants />}
       <ApplicantFooter />    
 
