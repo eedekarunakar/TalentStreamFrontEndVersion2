@@ -11,6 +11,7 @@ import RecruiterPostJob from '../../components/recruitercomponents/RecruiterPost
 import RecruiterJobOpenings from '../../components/recruitercomponents/RecruiterJobOpenings';
 import RecruiterAllApplicants from '../../components/recruitercomponents/RecruiterAllApplicants';
 import RecruiterAppliedApplicants from '../../components/recruitercomponents/RecruiterAppliedApplicants';
+import RecruiterApplicantInterviews from '../../components/recruitercomponents/RecruiterApplicantInterviews';
 
 
 function RecruiterHomePage() {
@@ -41,6 +42,9 @@ function RecruiterHomePage() {
                 case '/recruiter-allapplicants':
                 setActiveRoute('allapplicants');
                 break;
+                case '/recruiter-applicantinterviews':
+                  setActiveRoute('applicantinterviews');
+                  break;
       default:
         setActiveRoute('');
         break;
@@ -63,6 +67,7 @@ function RecruiterHomePage() {
      {activeRoute === 'jobopenings' && <RecruiterJobOpenings setSelectedJobId={setSelectedJobId} />}
      {activeRoute === 'appliedapplicants' && <RecruiterAppliedApplicants selectedJobId={selectedJobId} />}
      {activeRoute === 'allapplicants' && <RecruiterAllApplicants />}
+     {activeRoute === 'applicantinterviews' && <RecruiterApplicantInterviews />}
       <ApplicantFooter />    
 
     </div>

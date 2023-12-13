@@ -1,10 +1,13 @@
+
 import $ from 'jquery';
 import 'jquery.cookie';
 import 'metismenu';
 // import jQuery from 'jquery';
-
 $(document).ready(function() {
   "use strict";
+
+
+
 
   const sideMenu = $("#side-menu");
   const leftMenuBtn = $("#left-menu-btn");
@@ -45,6 +48,7 @@ $(document).ready(function() {
   }
 
   const sidebarMenu = $("#sidebar-menu");
+  console.log('sidebarMenu:', sidebarMenu);
 
   if (sidebarMenu.length > 0) {
     sidebarMenu.find("a").each(function() {
@@ -75,4 +79,3 @@ $(document).ready(function() {
   
   $(function () {});
 });
-``

@@ -4,6 +4,7 @@ import Footer from '../../components/common/Footer';
 import LoginBody from '../../components/logincomponents/LoginBody';
 
 function LoginPage({onLogin}) {
+  localStorage.clear();
   return (
     <div>
      <Nav />

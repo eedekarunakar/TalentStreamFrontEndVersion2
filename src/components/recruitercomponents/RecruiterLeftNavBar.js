@@ -43,7 +43,7 @@ const RecruiterLeftNavBar = () => {
           </li>
 
           <li>
-            <Link to="/alerts-jobs" className="tf-effect">
+            <Link to="/recruiter-applicantinterviews" className="tf-effect">
               <span className="icon-chat dash-icon"></span>
               <span className="dash-titles">Interviews</span>
             </Link>

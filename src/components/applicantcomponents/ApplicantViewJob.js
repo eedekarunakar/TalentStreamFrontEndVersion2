@@ -54,8 +54,13 @@ function ApplicantViewJob({ selectedJobId }) {
       // Assuming the response contains information about the application status
       const { applied } = response.data;
       setApplied(applied);
+       if(response.body === 200){
+        window.alert('job applied successfully');
+       }
+
     } catch (error) {
       console.error('Error applying for the job:', error);
+      window.alert('Job has already been applied by the applicant');
     }
   };
 

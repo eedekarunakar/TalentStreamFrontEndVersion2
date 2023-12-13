@@ -1,38 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
+import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
 
-const OTPVerification1 = ({ email, onOTPVerified, otpVerifyingInProgress, setOTPVerifyingInProgress }) => {
+const OTPVerification1 = ({ email, onOTPVerified, recruiterOTPVerifyingInProgress, setRecruiterOTPVerifyingInProgress }) => {
   const [otp, setOTP] = useState('');
   const [verificationError, setVerificationError] = useState('');
   const [otpVerified, setOTPVerified] = useState(false); // New state
 
-  
-
   const handleVerifyOTP = async () => {
-    
     try {
-      setOTPVerifyingInProgress(true); // Start verifying process
+      setRecruiterOTPVerifyingInProgress(true); // Start verifying process
       // Send the entered OTP to the backend for verification
-
-      //const params = new URLSearchParams();     
-      //params.append('email', email);                             // Add email as a query parameter    
-      //const url = `${apiUrl}/verify-otp?${params.toString()}`;  // Send the entered OTP and email to the backend for verification    
-      //await axios.post(url, { otp });
-      
       await axios.post(`${apiUrl}/forgotpassword/recuriterverify-otp`, { email, otp });
       setOTPVerified(true); // Set OTP verified state to true
       onOTPVerified(); // Notify parent component
     } catch (error) {
       setVerificationError('Invalid OTP. Please try again.');
     } finally {
-      setOTPVerifyingInProgress(false); // Finish verifying process
+      setRecruiterOTPVerifyingInProgress(false); // Finish verifying process
     }
   };
 
   useEffect(() => {
     if (otpVerified) {
-      setOTPVerifyingInProgress(false); // Ensure verifying spinner is hidden when OTP is verified
+      setRecruiterOTPVerifyingInProgress(false); // Ensure verifying spinner is hidden when OTP is verified
     }
   }, [otpVerified]);
 
@@ -54,7 +45,7 @@ const OTPVerification1 = ({ email, onOTPVerified, otpVerifyingInProgress, setOTP
         onChange={(e) => setOTP(e.target.value)}
       />
       <button type="button" onClick={handleVerifyOTP}>
-        {otpVerifyingInProgress ? (
+        {recruiterOTPVerifyingInProgress ? (
           <div className="spinner"></div>
         ) : (
           'Verify OTP'

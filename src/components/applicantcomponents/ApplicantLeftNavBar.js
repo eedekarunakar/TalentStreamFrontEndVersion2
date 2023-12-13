@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 const ApplicantLeftNavBar = () => {
   return (
-    <div className="left-menu">
+    
+    <div className="left-menu" >
       {/* Sidemenu */}
       <div id="sidebar-menu">
         <ul className="downmenu list-unstyled" id="side-menu">
@@ -97,6 +98,7 @@ const ApplicantLeftNavBar = () => {
         </ul>
       </div>
     </div>
+   
   );
 }
 

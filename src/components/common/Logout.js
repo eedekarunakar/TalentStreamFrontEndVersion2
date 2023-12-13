@@ -14,11 +14,12 @@ const Logout = () => {
           credentials: 'include', // Include cookies if needed
         });
 
-        if (response.ok) {
+        if (response.status === 204) {
           setIsLoggedOut(true);
 
           // Redirect to the home page after logging out
           navigate('/');
+          console.log('Redirecting to the home page...');
         } else {
           // Handle the error, e.g., display an error message
           console.error('Sign-out request failed.');
