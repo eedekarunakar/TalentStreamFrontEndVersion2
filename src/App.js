@@ -86,6 +86,7 @@ function App() {
                 <Route path="/recruiter-jobopenings" element={<RecruiterHomePage />} />
                 <Route path="/recruiter-allapplicants" element={<RecruiterHomePage />} />
                 <Route path="/recruiter-appliedapplicants" element={<RecruiterHomePage />} />
+                <Route path="/recruiter-applicantinterviews" element={<RecruiterHomePage />} />
                 </>
               ) : (
                 // Redirect to login page if not authenticated

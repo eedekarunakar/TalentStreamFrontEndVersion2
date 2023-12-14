@@ -524,56 +524,6 @@ input[type="color"],
   padding: 20px; /* Add padding for content spacing */
 }
 
-/* Styles for the first part (Menu) */
-.menu-list {
-  display: flex;
-}
-
-.menu-item {
-  cursor: pointer;
-  padding: 8px 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  transition: background-color 0.3s ease;
-  margin-right: 8px; /* Adjust margin between menu items */
-}
-
-.menu-item:last-child {
-  margin-right: 16px; /* Add margin for the last menu item */
-}
-
-.menu-item:hover {
-  background-color: #e0e0e0;
-}
-
-/* Styles for the second part (Filter option) */
-.filter-option {
-  /* Add your styles for the filter options here */
-}
-
-/* Styles for the third part (Dropdown) */
-.dropdown-container {
-  float: right;
-  /* width: 150px; /* Adjust the width as needed */
-  /* margin-top: 8px; Add margin to separate it from the above content */ 
-}
-.dropdown-container select {
-  padding: 8px;
-  font-size: 20px;
-  border: none;
-  border-radius: 4px;
-  background-color: #3498db; /* Set the default background color */
-  color: #ffffff; /* Set the default text color */
-  cursor: pointer;
-}
-/* Additional styles for responsiveness */
-@media (max-width: 992px) {
-  /* Adjust styles for smaller screens if needed */
-  .menu-list {
-    flex-direction: column; /* Stack menu items vertically on smaller screens */
-  }
-
   .menu-item {
     margin-right: 0; /* Remove right margin for menu items on smaller screens */
     margin-bottom: 8px; /* Add bottom margin to separate menu items vertically */
@@ -3128,11 +3078,7 @@ input[type="color"],
 }
 
 
-.error-message {
-  color: red;
-  margin-top: 5px;
-  font-size: 20px;
-}
+
 
 .success-message {
   color: green;
@@ -3179,9 +3125,10 @@ input[type="color"],
 
 .error-message {
   color: red;
-  font-size: 20px;
+  font-size: 17px;
   margin-top: 4px; /* Adjust as needed for spacing */
 }
+
 .verification-status {
   padding: 10px;
   margin: 10px 0;

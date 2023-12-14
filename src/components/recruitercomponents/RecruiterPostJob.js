@@ -414,7 +414,15 @@ const handleMaxSalaryChange = (e) => {
  
   };
  
- 
+  const removeExperience = () => {
+    // Check if there are skills to remove
+    if (skillsRequired.length > 1) {
+      // Create a copy of the skillsRequired array without the last item
+      const updatedSkills = [...skillsRequired.slice(0, -1)];
+      // Update the state with the new skills array
+      setSkillsRequired(updatedSkills);
+    }
+  };
  
   const handleFileChange = (e) => {
  
@@ -597,7 +605,7 @@ const handleMaxSalaryChange = (e) => {
         onChange={(e) =>handleSkillChange(e, index, "skillName")}
         required
       />
-    </div>
+    </div><br />
     <div>
       <input
         type="text"
@@ -610,9 +618,14 @@ const handleMaxSalaryChange = (e) => {
     </div>
     {index === skillsRequired.length - 1 && (
       <button type="button" onClick={addExperience}>
-        Add Skill
+        +
       </button>
-    )}
+    )} &nbsp;
+    {index === skillsRequired.length - 1 && (
+        <button type="button" onClick={removeExperience}>
+          -
+        </button>
+      )}
   </div>
 ))}
                       </fieldset>
