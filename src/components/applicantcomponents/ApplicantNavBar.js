@@ -67,37 +67,27 @@ function ApplicantNavBar() {
           <div className="content">
             <p>Need help? 24/7</p>
             <h6>
-              <a href="tel:0123456678">001-1234-88888</a>
+              <a href="tel:0123456678">+91-9966662524</a>
             </h6>
           </div>
         </div>
         <div className="wd-social d-flex aln-center">
           <ul className="list-social d-flex aln-center">
-            <li>
-              <a href="#">
-                <i className="icon-facebook" />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="icon-linkedin2" />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="icon-pinterest" />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="icon-instagram1" />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="icon-youtube" />
-              </a>
-            </li>
+          <li>
+                    <a href="https://www.facebook.com/tekworks.in"><i class="icon-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a href="https://www.linkedin.com/company/tekworks-in"><i class="icon-linkedin2"></i></a>
+                  </li>
+                  {/* <li>
+                    <a href="#"><i class="icon-twitter"></i></a>
+                  </li> */}
+                  <li>
+                    <a href="https://www.instagram.com/tekworks_hiring"><i class="icon-instagram1"></i></a>
+                  </li>
+                  <li>
+                    <a href="https://www.youtube.com/@TekWorks-in"><i class="icon-youtube"></i></a>
+                  </li>
           </ul>
         </div>
       </div>

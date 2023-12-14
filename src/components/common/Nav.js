@@ -82,9 +82,9 @@ const Nav = () => {
                   <li>
                     <a href="https://www.linkedin.com/company/tekworks-in"><i class="icon-linkedin2"></i></a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a href="#"><i class="icon-twitter"></i></a>
-                  </li>
+                  </li> */}
                   <li>
                     <a href="https://www.instagram.com/tekworks_hiring"><i class="icon-instagram1"></i></a>
                   </li>

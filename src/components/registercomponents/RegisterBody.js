@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import OTPVerification from '../applicantcomponents/OTPVerification';
 import OTPVerification1 from '../recruitercomponents/OTPVerification1';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-
+ 
 function RegisterBody() {
   const [activeTab, setActiveTab] = useState('Candidate');
   const navigate = useNavigate();
-  
+ 
    // Candidate form state
    const [candidateName, setCandidateName] = useState('');
    const [candidateEmail, setCandidateEmail] = useState('');
@@ -21,9 +21,9 @@ function RegisterBody() {
    const [employerEmail, setEmployerEmail] = useState('');
    const [employerMobileNumber, setEmployerMobileNumber] = useState('');
    const [employerPassword, setEmployerPassword] = useState('');
-
+ 
   const [errorMessage, setErrorMessage] = useState('');
-
+ 
   // Inside your component function
 const [allErrors, setAllErrors] = useState(false);
   // Inside your component function
@@ -31,45 +31,45 @@ const [candidateNameError, setCandidateNameError] = useState('');
 const [candidateEmailError, setCandidateEmailError] = useState('');
 const [candidateMobileNumberError, setCandidateMobileNumberError] = useState('');
 const [candidatePasswordError, setCandidatePasswordError] = useState('');
-
+ 
 const [employerNameError, setEmployerNameError] = useState('');
 const [employerEmailError, setEmployerEmailError] = useState('');
 const [employerMobileNumberError, setEmployerMobileNumberError] = useState('');
 const [employerPasswordError, setEmployerPasswordError] = useState('');
-
-  
-  
-  
+ 
+ 
+ 
+ 
   // Recruiter OTP state
   const [recruiterOTPSent, setRecruiterOTPSent] = useState(false);
   const [recruiterOTPVerified, setRecruiterOTPVerified] = useState(false);
   const [recruiterOTPVerifyingInProgress, setRecruiterOTPVerifyingInProgress] = useState(false);
   const [recruiterRegistrationSuccess, setRecruiterRegistrationSuccess] = useState(false);
   const [recruiterRegistrationInProgress, setRecruiterRegistrationInProgress] = useState(false);
-
+ 
   const [recruiterOTPSendingInProgress, setRecruiterOTPSendingInProgress] = useState(false);
-
+ 
   const [showPassword, setShowPassword] = useState(false);
-
+ 
   // Candidate OTP state
   const [candidateOTPSent, setCandidateOTPSent] = useState(false);
   const [candidateOTPVerified, setCandidateOTPVerified] = useState(false);
   const [candidateOTPVerifyingInProgress, setCandidateOTPVerifyingInProgress] = useState(false);
-
+ 
 const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useState(false);
-
+ 
   const [candidateRegistrationSuccess, setCandidateRegistrationSuccess] = useState(false);
   const [candidateRegistrationInProgress, setCandidateRegistrationInProgress] = useState(false);
-
-
+ 
+ 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
-
+ 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-
+ 
   const handleSendOTP = async () => {
     if (!isFormValid()) {
       setAllErrors(true);
@@ -85,15 +85,16 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
     } catch (error) {
       console.error('Error sending OTP:', error);
       setCandidateOTPSendingInProgress(false); // Use setCandidateOTPSendingInProgress
+      window.alert('Email is already registered.');
     }
   };
-
+ 
   const handleSendOTP1 = async () => {
     if (!isFormValid1()) {
       setAllErrors(true);
       return; // Do not proceed with registration if form is invalid
     }
-
+ 
     try {
       setRecruiterOTPSendingInProgress(true); // Use setRecruiterOTPSendingInProgress
       const response = await axios.post(`${apiUrl}/recuriters/registration-send-otp`, { email: employerEmail });
@@ -102,20 +103,25 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
       if (response.data === 'Email is already registered.') {
         window.alert('Email is already registered.');
       }
+      if (response.data === 'Mobile number already existed, enter a new mobile number') {
+        window.alert('Mobile Number is already registered.');
+      }
     } catch (error) {
       console.error('Error sending OTP:', error);
       setRecruiterOTPSendingInProgress(false); // Use setRecruiterOTPSendingInProgress
+      window.alert('Email is already registered.');
     }
   };
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!isFormValid()) {
-      
       return;
     }
-
+  
+    //let response = null;
+  
     try {
       
       setCandidateRegistrationInProgress(true);
@@ -125,13 +131,12 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
         mobilenumber: candidateMobileNumber,
         password: candidatePassword,
       });
-      
-
+     
       setErrorMessage('');
       setCandidateRegistrationSuccess(true);
-
+  
       console.log('Registration successful', response.data);
-
+      
       setCandidateName('');
       setCandidateEmail('');
       setCandidateMobileNumber('');
@@ -142,68 +147,81 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
         navigate('/login', { state: { registrationSuccess: true } });
       }
     } catch (error) {
+      
       setErrorMessage('Registration failed. Please try again later.');
       setCandidateRegistrationInProgress(false);
-      window.alert('Registration failed! user with this email already exist');
-      console.error('Registration failed', error);
+  
+        console.error('Registration failed', error);
+        if (error.response && error.response.status === 400) {
+          if (error.response.data === 'Email already registered') {
+            window.alert('Registration failed! User with this email already exists');
+          } else if (error.response.data === 'Mobile number already existed') {
+            window.alert('Registration failed! Mobile number already exists');
+          }
+        }
+      
     }
   };
+  
   const isFullNameValid = (fullName) => {
     // Full name must not be empty
     if (!fullName.trim()) {
       return false;
     }
-  
+ 
     // Check if the full name contains only alphabetic characters and spaces
     if (!/^[a-zA-Z\s]+$/.test(fullName)) {
       return false;
     }
-  
+ 
     // Additional validation logic can be added if needed
-  
+ 
     return true;
   };
-  
+ 
 const isEmailValid = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-
+ 
   const isPasswordValid = (password) => {
     // Password must be at least 6 characters long
     if (password.length < 6) {
       return false;
     }
-  
+ 
     // Password must contain at least one uppercase letter
     if (!/[A-Z]/.test(password)) {
       return false;
     }
-  
+ 
     // Password must contain at least one special character (non-alphanumeric)
     if (!/[^A-Za-z0-9]/.test(password)) {
       return false;
     }
-  
+ 
     // Password cannot contain spaces
     if (/\s/.test(password)) {
       return false;
     }
-  
+ 
     return true;
   };
-  
+ 
   const isMobileNumberValid = (mobilenumber) => {
     // Mobile number must contain only numeric digits
     if (!/^\d+$/.test(mobilenumber)) {
       return false;
     }
-
+ 
     // Mobile number must have a specific length (e.g., 10 digits)
     if (mobilenumber.length !== 10) {
       return false;
     }
-
+    // Check if the mobile number has a space
+    if (/\s/.test(mobilenumber)) {
+      return false;
+    }
     const firstDigit = mobilenumber.charAt(0);
   if (!['6', '7', '8', '9'].includes(firstDigit)) {
     return false;
@@ -212,101 +230,88 @@ const isEmailValid = (email) => {
   };
   const isFormValid = () => {
     setAllErrors(false); // Reset the allErrors state
-
-    setCandidateNameError('');
-    setCandidateEmailError('');
-    setCandidateMobileNumberError('');
-    setCandidatePasswordError('');
-
+   
+   
+ 
     if (!isFullNameValid(candidateName)) {
       setCandidateNameError('Please enter a valid full name and should not have any numbers and special char.');
-      
+      return false;
     }
     if (!isEmailValid(candidateEmail)) {
       setCandidateEmailError('Please enter a valid email address.');
-      
+      return false;
     }
     if (!isMobileNumberValid(candidateMobileNumber)) {
       setCandidateMobileNumberError('Please enter a valid 10-digit mobile number & should begin with 6 or 7 or 8 or 9.');
-      
+      return false;
     }
     if (!isPasswordValid(candidatePassword)) {
-      setCandidatePasswordError('Password must be at least 6 characters long and should have one cpital letter and one small letter and no spaces are allowed.');
-      
+      setCandidatePasswordError('Password must be at least 6 characters long and should have one capital letter, one small, one Specal charater, one number and no spaces are allowed.');
+      return false;
     }
-    if (allErrors) {
-      setCandidateNameError('Please enter a valid full name and should not have any numbers and special char.');
-      setCandidateEmailError('Please enter a valid email address.');
-      setCandidateMobileNumberError('Please enter a valid 10-digit mobile number & should begin with 6 or 7 or 8 or 9.');
-      setCandidatePasswordError('Password must be at least 6 characters long and should have one capital letter and one small letter, and no spaces are allowed.');
-    }
-  
-    return !allErrors;
+   
+ 
+    return true;
   };
-
-
+ 
+ 
   const isFormValid1 = () => {
     setAllErrors(false); // Reset the allErrors state
-  
-    setEmployerNameError('');
-    setEmployerEmailError('');
-    setEmployerMobileNumberError('');
-    setEmployerPasswordError('');
-  
+ 
+   
+ 
     if (!isFullNameValid(companyName)) {
       setEmployerNameError('Please enter a valid company name and should not have any numbers and special char.');
+      return false;
     }
-  
+ 
     if (!isEmailValid(employerEmail)) {
       setEmployerEmailError('Please enter a valid email address.');
+      return false;
     }
-  
+ 
     if (!isMobileNumberValid(employerMobileNumber)) {
       setEmployerMobileNumberError('Please enter a valid 10-digit mobile number & should begin with 6 or 7 or 8 or 9.');
+      return false;
     }
-  
+ 
     if (!isPasswordValid(employerPassword)) {
-      setEmployerPasswordError('Password must be at least 6 characters long and should have one capital letter and one small letter, and no spaces are allowed.');
+      setEmployerPasswordError('Password must be at least 6 characters long and should have one cpital letter, one small, one Specal charater, one number and no spaces are allowed.');
+      return false;
+   
     }
-  
-    // Set errors for all fields if allErrors is true
-    if (allErrors) {
-      setEmployerNameError('Please enter a valid company name and should not have any numbers and special char.');
-      setEmployerEmailError('Please enter a valid email address.');
-      setEmployerMobileNumberError('Please enter a valid 10-digit mobile number & should begin with 6 or 7 or 8 or 9.');
-      setEmployerPasswordError('Password must be at least 6 characters long and should have one capital letter and one small letter, and no spaces are allowed.');
-    }
-  
-    return !allErrors;
+ 
+   
+    return true;
   };
-
+ 
   const handleCompanyNameChange = (e) => {
     setCompanyName(e.target.value);
     setEmployerNameError(''); // Clear the error when the input changes
   };
-  
+ 
   const handleEmployerEmailChange = (e) => {
     setEmployerEmail(e.target.value);
     setEmployerEmailError(''); // Clear the error when the input changes
   };
-  
+ 
   const handleEmployerMobileNumberChange = (e) => {
     setEmployerMobileNumber(e.target.value);
     setEmployerMobileNumberError(''); // Clear the error when the input changes
   };
-  
+ 
   const handleEmployerPasswordChange = (e) => {
     setEmployerPassword(e.target.value);
     setEmployerPasswordError(''); // Clear the error when the input changes
   };
-  
+ 
   const handleSubmit1 = async (e) => {
     e.preventDefault();
-
+ 
     if (!isFormValid1()) {
       return;
     }
-
+ 
     try {
       setRecruiterRegistrationInProgress(true);
       const response = await axios.post(`${apiUrl}/recuriters/saverecruiters`, {
@@ -315,18 +320,18 @@ const isEmailValid = (email) => {
         email: employerEmail,
         password: employerPassword,
       });
-
+ 
       setErrorMessage('');
       setRecruiterRegistrationSuccess(true);
-
+ 
       console.log('Registration successful', response.data);
-
+ 
       setCompanyName('');
       setEmployerEmail('');
       setEmployerMobileNumber('');
       setEmployerPassword('');
       setRecruiterRegistrationInProgress(false);
-
+ 
       if (recruiterOTPSent && recruiterOTPVerified) {
         navigate('/recruiterlogin', { state: { registrationSuccess: true } });
       }
@@ -336,7 +341,7 @@ const isEmailValid = (email) => {
       console.error('Registration failed', error);
     }
   };
-
+ 
   return (
     <div>
     <section className="bg-f5">
@@ -355,13 +360,13 @@ const isEmailValid = (email) => {
         </div>
       </div>
     </section>
-
+ 
     <section className="account-section">
       <div className="tf-container">
         <div className="row">
           <div className="wd-form-login tf-tab">
             <h4>Create a free account</h4>
-            
+           
             <ul className="menu-tab">
               <li className={`ct-tab ${activeTab === 'Candidate' ? 'active' : ''}`} onClick={() => handleTabClick('Candidate')}>
                 Candidate
@@ -383,13 +388,13 @@ const isEmailValid = (email) => {
                         setCandidateNameError(''); // Clear the error when the input changes
                       }}
                       required
-                    
+                   
                     />
                     {candidateNameError && <div className="error-message">{candidateNameError}</div>}
                   </div>
                   <div className="ip">
                     <label>Email address<span>*</span></label>
-                  
+                 
                 <input
                   type="email"
                   placeholder="Email"
@@ -404,7 +409,7 @@ const isEmailValid = (email) => {
                   </div>
                   <div className="ip">
                     <label>Mobile Number<span>*</span></label>
-                    
+                   
                   <input
                     type="text"
                     placeholder="Mobile Number"
@@ -434,7 +439,7 @@ const isEmailValid = (email) => {
                        <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
         {showPassword ? <FaEye /> : <FaEyeSlash />}
       </div>
-                  
+                 
                     </div>
                     {candidatePasswordError && <div className="error-message">{candidatePasswordError}</div>}
                   </div>
@@ -476,7 +481,7 @@ const isEmailValid = (email) => {
     )}
   </div>
 )}
-
+ 
 {candidateOTPVerified && (
   <button type="submit">
     {candidateRegistrationInProgress ? (
@@ -543,13 +548,13 @@ const isEmailValid = (email) => {
                         type={showPassword ? 'text' : 'password'}
                         placeholder="Password"
                         value={employerPassword}
-                        
+                       
                         onChange={(e) => {
                           setEmployerPassword(e.target.value);
                           setEmployerPasswordError(''); // Clear the error when the input changes
                         }}
                       />
-
+ 
                         <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
         {showPassword ? <FaEye /> : <FaEyeSlash />}
       </div>
@@ -571,7 +576,7 @@ const isEmailValid = (email) => {
       disabled={otpSent || registrationInProgress || otpSendingInProgress}
     >
       {otpSendingInProgress ? (
-        
+       
         <div className="spinner"></div>
        
       ) : (
@@ -606,7 +611,7 @@ const isEmailValid = (email) => {
     )}
   </div>
 )}
-
+ 
 {recruiterOTPVerified && (
   <button type="submit">
     {recruiterRegistrationInProgress ? (
@@ -619,8 +624,8 @@ const isEmailValid = (email) => {
     )}
   </button>
 )}
-
-
+ 
+ 
                 </form>
               </div>
             </div>
@@ -629,8 +634,8 @@ const isEmailValid = (email) => {
       </div>
     </section>
   </div>
-    
+   
   );
 }
-
+ 
 export default RegisterBody;

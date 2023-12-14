@@ -3131,7 +3131,7 @@ input[type="color"],
 .error-message {
   color: red;
   margin-top: 5px;
-  font-size: 20px;
+  font-size: 17px;
 }
 
 .success-message {
@@ -3179,9 +3179,10 @@ input[type="color"],
 
 .error-message {
   color: red;
-  font-size: 20px;
+  font-size: 17px;
   margin-top: 4px; /* Adjust as needed for spacing */
 }
+
 .verification-status {
   padding: 10px;
   margin: 10px 0;

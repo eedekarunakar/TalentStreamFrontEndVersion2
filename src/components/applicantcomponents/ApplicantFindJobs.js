@@ -52,13 +52,10 @@ function ApplicantFindJobs({ setSelectedJobId }) {
       const response = await axios.post(`${apiUrl}/savedjob/applicants/savejob/${userId}/${jobId}`);
       // Assuming the API response contains the message "Job Saved Successfully"
       const { message } = response.data;
-    
        if(response.status =200){
         window.alert('Job Saved successfully');
        }
     } catch (error) {
-
-      
       window.alert('Job has already been saved by the applicant');
       console.error('Error saving job:', error);
     }

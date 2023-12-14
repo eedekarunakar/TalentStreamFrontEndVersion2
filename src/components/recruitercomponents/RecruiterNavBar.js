@@ -21,7 +21,7 @@ function RecruiterNavBar() {
         </a>
       </div>
       <div className="header-customize-item button">
-        <a href="candidates-dashboard.html">Post a Job</a>
+        <a href="">Post a Job</a>
       </div>
       <div className="mobile-footer">
         <div className="icon-infor d-flex aln-center">
@@ -95,69 +95,15 @@ function RecruiterNavBar() {
             </div>
             <div className="header-ct-center"></div>
             <div className="header-ct-right">
-              <div className="header-customize-item help">
+              {/* <div className="header-customize-item help">
                 <a href="../term-of-use.html">
                   <span className="icon-help-circle" />
                 </a>
-              </div>
-              <div className="header-customize-item bell">
-                <span className="icon-bell" />
-                <div className="sub-notification">
-                  <div className="sub-notification-heading">
-                    <div className="sub-notification-title">Notification</div>
-                    <span>5 New</span>
-                  </div>
-                  <div className="sub-notification-content">
-                    <div className="sub-notification-item icon-plus">
-                      <div className="time">Last day</div>
-                      <div className="content">
-                        Your submit job{" "}
-                        <span className="name">Graphic Design</span> is
-                        <span className="status">Success</span>
-                      </div>
-                    </div>
-                    <div className="sub-notification-item icon-plus">
-                      <div className="time">5 Day ago</div>
-                      <div className="content">
-                        A new application is submitted on your job
-                        <span className="name">Graphic Design</span> by
-                        <span className="name">Maverick Nguyen</span>
-                      </div>
-                    </div>
-                    <div className="sub-notification-item icon-plus">
-                      <div className="time">5 Day ago</div>
-                      <div className="content">
-                        A new application is submitted on your job
-                        <span className="name">Graphic Design</span> by
-                        <span className="name">Maverick Nguyen</span>
-                      </div>
-                    </div>
-                    <div className="sub-notification-item icon-plus">
-                      <div className="time">Last day</div>
-                      <div className="content">
-                        Your submit job{" "}
-                        <span className="name">Graphic Design</span> is
-                        <span className="status">Success</span>
-                      </div>
-                    </div>
-                    <div className="sub-notification-item icon-plus">
-                      <div className="time">5 Day ago</div>
-                      <div className="content">
-                        A new application is submitted on your job
-                        <span className="name">Graphic Design</span> by
-                        <span className="name">Maverick Nguyen</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="sub-notification-button">
-                    <a href="#">Read All</a>
-                  </div>
-                </div>
-              </div>
+              </div> */}
               <div className="header-customize-item account">
                 <img src="../images/user/avatar/image-01.jpg" alt="" />
                 <div className="name">
-                  Candidates
+                  {/* Candidates */}
                   <span className="icon-keyboard_arrow_down" />
                 </div>
                 <div className="sub-account">
