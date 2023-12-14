@@ -202,7 +202,7 @@ const Nav = () => {
                 <div class="header-customize-item account">
                 <img src="images/user/avatar/sign-in.png" alt="" />
                 <div class="name">
-                  Candidates<span class="icon-keyboard_arrow_down"></span>
+                  <span class="icon-keyboard_arrow_down"></span>
                 </div>
                 <div class="sub-account">
                   <div class="sub-account-item">
