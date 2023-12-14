@@ -337,7 +337,7 @@ const isEmailValid = (email) => {
       }
     } catch (error) {
       setErrorMessage('Registration failed. Please try again later.');
-      window.alert('Registration failed! or User with this email already exists.');
+    
       console.error('Registration failed', error);
        if (error.response && error.response.status === 400) {
           if (error.response.data === 'Email already registered') {
