@@ -64,8 +64,6 @@ function ApplicantViewJob({ selectedJobId }) {
     }
   };
  
- 
- 
   return (
     <div>
       {loading ? null : (

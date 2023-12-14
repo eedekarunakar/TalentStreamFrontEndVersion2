@@ -374,26 +374,28 @@ function ApplicantUpdateProfile() {
           Authorization: `Bearer ${jwtToken}`, // Include the JWT token in the Authorization header
         },
       });
- 
-     
+   
       if (response.status === 200) {
         // Successful response
-        if (response.data === 'Profile saved successfully') {
+        if (response.data === 'profile saved sucessfully') {
           console.log(response.body);
-          window.alert('Profile sent successfully!');
+          window.alert('Profile saved successfully!');
           navigate('/applicanthome');
-        } else if (response.data === 'your Profile was updated already') {
-          // Handle duplicate entry error (HTTP 409 Conflict)
-          window.alert("Your profile has already been updated.");
-        } else {
+        }  else {
           console.error('An unexpected success response:', response.body);
         }
-      } else {
+         
+      }
+      else {
         // Handle other error cases
         console.error('An error occurred:', response.status, response.body);
       }
      
     } catch (error) {
+
+      
+        window.alert("Your profile has already been updated.");
+        navigate('/applicanthome');
       console.error('An error occurred:', error);
     }
   };  */
@@ -1019,16 +1021,14 @@ function ApplicantUpdateProfile() {
                       </fieldset>
                     </div>
                   </div>
-                 
                 </div>
- 
                 <div className="tt-button button-style">
-             
                 {/* <button type="submit" className="btn-3">Submit</button> */}
-               
               </div>
- 
- 
+                <div>
+                  {/*  <input type="submit" class="submit-button"  value="Save Profile"  /> */}
+                  <button type="submit" className='button-status'>Save Profile</button>
+</div>
     </div>
    
     </div>
