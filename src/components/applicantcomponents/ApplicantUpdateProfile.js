@@ -1022,11 +1022,7 @@ function ApplicantUpdateProfile() {
                  
                 </div>
  
-                <div className="tt-button button-style">
-             
-                {/* <button type="submit" className="btn-3">Submit</button> */}
-               
-              </div>
+              
  
  
     </div>
