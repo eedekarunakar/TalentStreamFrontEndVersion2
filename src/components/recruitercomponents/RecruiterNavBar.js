@@ -108,21 +108,21 @@ function RecruiterNavBar() {
                 </div>
                 <div className="sub-account">
                   <div className="sub-account-item">
-                    <a href="candidates-profile-setting.html">
+                    <a href="/recruiter-my-organization">
                       <span className="icon-profile" /> Profile
                     </a>
                   </div>
                   <div className="sub-account-item">
-                    <a href="candidates-change-passwords.html">
+                    <a href="/recruiter-change-password">
                       <span className="icon-change-passwords" /> Change
                       Passwords
                     </a>
                   </div>
-                  <div className="sub-account-item">
+                  {/* <div className="sub-account-item">
                     <a href="candidates-delete-profile.html">
                       <span className="icon-trash" /> Delete Profile
                     </a>
-                  </div>
+                  </div> */}
                   <div className="sub-account-item">
                     <a href="/logout">
                       <span className="icon-log-out" /> Log Out

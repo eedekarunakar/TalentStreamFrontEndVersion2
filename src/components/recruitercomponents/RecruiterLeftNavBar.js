@@ -63,18 +63,18 @@ const RecruiterLeftNavBar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/change-passwords" className="tf-effect">
+            <Link to="/recruiter-change-password" className="tf-effect">
               <span className="icon-change-passwords dash-icon"></span>
               <span className="dash-titles">Change password</span>
             </Link>
           </li>
 
-          <li>
+          {/* <li>
             <Link to="/delete-profile" className="tf-effect">
               <span className="icon-trash dash-icon"></span>
               <span className="dash-titles">Delete Profile</span>
             </Link>
-          </li>
+          </li> */}
 
           <li>
             <Link to="/logout" className="tf-effect">
