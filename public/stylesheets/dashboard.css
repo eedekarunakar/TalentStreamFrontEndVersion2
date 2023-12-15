@@ -126,6 +126,7 @@
 
 .dashboard .fw-7 {
     font-weight: 700;
+    font-size:15px;
 }
 
 .dashboard .fs-16 {
@@ -1695,6 +1696,7 @@ tbody tr td:nth-child(2) {
     transition: all 0.3s ease-in-out;
 }
 
+textarea:focus,
 .info-wd .input-form2:focus,
 .info-wd .input-form:focus {
     border: 1px solid #14a077;

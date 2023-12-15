@@ -40,20 +40,38 @@ function ApplicantUpdateProfile() {
       newErrors.basicDetails.dateOfBirth = 'Date of Birth is required';
     }
  
-    if (!basicDetails.city.trim()) {
+    if (!basicDetails.city) {
       newErrors.basicDetails.city = 'City is required';
+    } else {
+      // Validation for not accepting digits
+      if (/\d/.test(basicDetails.city.trim())) {
+        newErrors.basicDetails.city = 'City should not contain digits';
+      }
     }
  
     if (!basicDetails.address.trim()) {
       newErrors.basicDetails.address = 'Address is required';
     }
  
+   /*  if (!basicDetails.pincode.trim()) {
+      newErrors.basicDetails.pincode = 'Pin Code is required';
+    } */
     if (!basicDetails.pincode.trim()) {
       newErrors.basicDetails.pincode = 'Pin Code is required';
+    } else if (!/^\d{6}$/.test(basicDetails.pincode.trim())) {
+      newErrors.basicDetails.pincode = 'Pin Code should be 6 digits and contain only numbers';
     }
  
-    if (!basicDetails.state.trim()) {
+   /*  if (!basicDetails.state.trim()) {
       newErrors.basicDetails.state = 'State is required';
+    } */
+    if (!basicDetails.state) {
+      newErrors.basicDetails.state = 'State is required';
+    } else {
+      // Validation for not accepting digits
+      if (/\d/.test(basicDetails.state.trim())) {
+        newErrors.basicDetails.state = 'State should contain text only';
+      }
     }
  
    /* if (!basicDetails.address.trim()) {
@@ -62,116 +80,349 @@ function ApplicantUpdateProfile() {
     // Add similar validations for other basic details...
  
     // X Class Details
-    if (!xClassDetails.xschoolName.trim()) {
+   /*  if (!xClassDetails.xschoolName.trim()) {
       newErrors.xClassDetails.xschoolName = 'School Name is required';
-    }
+    } */
  
-    if (!xClassDetails.xboard.trim()) {
+    if (!xClassDetails.xschoolName) {
+      newErrors.xClassDetails.xschoolName = 'School Name is required';
+    } else {
+      // Validation for text only
+      if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xschoolName.trim())) {
+        newErrors.xClassDetails.xschoolName = 'School Name should contain text only';
+      }
+    }
+
+   /*  if (!xClassDetails.xboard.trim()) {
       newErrors.xClassDetails.xboard = 'Board is required';
     }
- 
+  */
+    if (!xClassDetails.xboard) {
+      newErrors.xClassDetails.xboard = 'Board is required';
+    } else {
+      // Validation for text only
+      if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xboard.trim())) {
+        newErrors.xClassDetails.xboard = 'Board should contain text only';
+      }
+    }
+   /*  if (!xClassDetails.xpercentage.trim()) {
+      newErrors.xClassDetails.xpercentage = 'Percentage is required';
+    } */
     if (!xClassDetails.xpercentage.trim()) {
       newErrors.xClassDetails.xpercentage = 'Percentage is required';
+    } else {
+      const percentageValue = xClassDetails.xpercentage.trim();
+   
+      // Regular expression to match digits and an optional decimal point
+      const validPercentageRegex = /^\d+(\.\d+)?$/;
+   
+      if (!validPercentageRegex.test(percentageValue) || parseFloat(percentageValue) < 0 || parseFloat(percentageValue) > 100) {
+        newErrors.xClassDetails.xpercentage = 'Enter a valid percentage between 0 and 100 (only digits and period(.) are allowed)';
+      }
     }
- 
-    if (!xClassDetails.xPincode.trim()) {
+   /*  if (!xClassDetails.xPincode.trim()) {
       newErrors.xClassDetails.xPincode = 'Pin Code is required';
     }
- 
-    if (!xClassDetails.xyearOfPassing.trim()) {
+  */
+    if (!xClassDetails.xPincode.trim()) {
+      newErrors.xClassDetails.xPincode = 'Pin Code is required';
+    } else if (!/^\d{6}$/.test(xClassDetails.xPincode.trim())) {
+      newErrors.xClassDetails.xPincode = 'Pin Code should be 6 digits and contain only numbers';
+    }
+   /*  if (!xClassDetails.xyearOfPassing.trim()) {
       newErrors.xClassDetails.xyearOfPassing = 'Year of Passing is required';
+    } */
+   // Validation for required field
+if (!xClassDetails.xyearOfPassing) {
+  newErrors.xClassDetails.xyearOfPassing = 'Year of Passing is required';
+} else {
+  // Validation for 4-digit numeric value
+  if (!/^\d{4}$/.test(xClassDetails.xyearOfPassing.trim())) {
+    newErrors.xClassDetails.xyearOfPassing = 'Year of Passing should be a 4-digit number';
+  } else {
+    // Additional validation for numeric value (no special characters or alphabets)
+    if (!/^\d+$/.test(xClassDetails.xyearOfPassing.trim())) {
+      newErrors.xClassDetails.xyearOfPassing = 'Year of Passing should contain only digits';
     }
+  }
+}
  
-    if (!xClassDetails.xCity.trim()) {
+   /*  if (!xClassDetails.xCity.trim()) {
       newErrors.xClassDetails.xCity = 'City is required';
-    }
-    if (!xClassDetails.xState.trim()) {
+    } */
+    // Validation for City
+if (!xClassDetails.xCity) {
+  newErrors.xClassDetails.xCity = 'City is required';
+} else {
+  // Validation for text only
+  if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xCity.trim())) {
+    newErrors.xClassDetails.xCity = 'City should contain text only';
+  }
+}
+
+// Validation for State
+if (!xClassDetails.xState) {
+  newErrors.xClassDetails.xState = 'State is required';
+} else {
+  // Validation for text only
+  if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xState.trim())) {
+    newErrors.xClassDetails.xState = 'State should contain text only';
+  }
+}
+   /*  if (!xClassDetails.xState.trim()) {
       newErrors.xClassDetails.xState = 'State is required';
-    }
+    } */
     // Add similar validations for other X Class details...
  
     // Intermediate Details
-    if (!intermediateDetails.icollegeName.trim()) {
+    /* if (!intermediateDetails.icollegeName.trim()) {
       newErrors.intermediateDetails.icollegeName = 'College Name is required';
-    }
- 
-    if (!intermediateDetails.iboard.trim()) {
+    } */
+   // Validation for College Name
+if (!intermediateDetails.icollegeName) {
+  newErrors.intermediateDetails.icollegeName = 'College Name is required';
+} else {
+  // Validation for text only
+  if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.icollegeName.trim())) {
+    newErrors.intermediateDetails.icollegeName = 'College Name should contain text only';
+  }
+}
+   /*  if (!intermediateDetails.iboard.trim()) {
       newErrors.intermediateDetails.iboard = 'Board Name is required';
     }
- 
-    if (!intermediateDetails.iprogram.trim()) {
+  */
+// Validation for Board Name
+if (!intermediateDetails.iboard) {
+  newErrors.intermediateDetails.iboard = 'Board Name is required';
+} else {
+  // Validation for text only
+  if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iboard.trim())) {
+    newErrors.intermediateDetails.iboard = 'Board Name should contain text only';
+  }
+}
+
+    /* if (!intermediateDetails.iprogram.trim()) {
       newErrors.intermediateDetails.iprogram = 'Program is required';
-    }
+    } */
+
+// Validation for Program
+if (!intermediateDetails.iprogram) {
+  newErrors.intermediateDetails.iprogram = 'Program is required';
+} else {
+  // Validation for text only
+  if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iprogram.trim())) {
+    newErrors.intermediateDetails.iprogram = 'Program should contain text only';
+  }
+}
+
+   /*  if (!intermediateDetails.ipercentage.trim()) {
+      newErrors.intermediateDetails.ipercentage = 'Percentage is required';
+    } */
     if (!intermediateDetails.ipercentage.trim()) {
       newErrors.intermediateDetails.ipercentage = 'Percentage is required';
+    } else {
+      const percentageValue = intermediateDetails.ipercentage.trim();
+   
+      // Regular expression to match digits and an optional decimal point
+      const validPercentageRegex = /^\d+(\.\d+)?$/;
+   
+      if (!validPercentageRegex.test(percentageValue) || parseFloat(percentageValue) < 0 || parseFloat(percentageValue) > 100) {
+        newErrors.intermediateDetails.ipercentage = 'Enter a valid percentage between 0 (only digits and period(.) are allowed)';
+      }
     }
-    if (!intermediateDetails.iyearOfPassing.trim()) {
+  /*  if (!intermediateDetails.iyearOfPassing.trim()) {
       newErrors.intermediateDetails.iyearOfPassing = 'Year of passing is required';
+    } */
+    if (!intermediateDetails.iyearOfPassing) {
+      newErrors.intermediateDetails.iyearOfPassing = 'Year of Passing is required';
+    } else {
+      // Validation for 4-digit numeric value
+      if (!/^\d{4}$/.test(intermediateDetails.iyearOfPassing.trim())) {
+        newErrors.intermediateDetails.iyearOfPassing = 'Year of Passing should be a 4-digit number';
+      } else {
+        // Additional validation for numeric value (no special characters or alphabets)
+        if (!/^\d+$/.test(intermediateDetails.iyearOfPassing.trim())) {
+          newErrors.intermediateDetails.iyearOfPassing = 'Year of Passing should contain only digits';
+        }
+      }
     }
  
-    if (!intermediateDetails.iCity.trim()) {
+    /* if (!intermediateDetails.iCity.trim()) {
       newErrors.intermediateDetails.iCity = 'City is required';
-    }
-    if (!intermediateDetails.iState.trim()) {
+    } */
+// Validation for Intermediate City
+if (!intermediateDetails.iCity) {
+  newErrors.intermediateDetails.iCity = 'City is required';
+} else {
+  // Validation for text only
+  if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iCity.trim())) {
+    newErrors.intermediateDetails.iCity = 'City should contain text only';
+  }
+}
+
+   /*  if (!intermediateDetails.iState.trim()) {
       newErrors.intermediateDetails.iState = 'State is required';
-    }
-    // Graduation Details
+    } */
+
+    // Validation for Intermediate State
+if (!intermediateDetails.iState) {
+  newErrors.intermediateDetails.iState = 'State is required';
+} else {
+  // Validation for text only
+  if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iState.trim())) {
+    newErrors.intermediateDetails.iState = 'State should contain text only';
+  }
+}
+
+   /*  // Graduation Details
     if (!graduationDetails.gcollegeName.trim()) {
       newErrors.graduationDetails.gcollegeName = 'College Name is required';
-    }
+    } */
+    // Validation for Graduation College Name
+if (!graduationDetails.gcollegeName) {
+  newErrors.graduationDetails.gcollegeName = 'College Name is required';
+} else {
+  // Validation for text only
+  if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gcollegeName.trim())) {
+    newErrors.graduationDetails.gcollegeName = 'College Name should contain text only';
+  }
+}
  
-    if (!graduationDetails.gboard.trim()) {
+   /*  if (!graduationDetails.gboard.trim()) {
       newErrors.graduationDetails.gboard = 'Board Name is required';
-    }
+    } */
+    // Validation for Graduation Board Name
+if (!graduationDetails.gboard) {
+  newErrors.graduationDetails.gboard = 'Board Name is required';
+} else {
+  // Validation for text only
+  if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gboard.trim())) {
+    newErrors.graduationDetails.gboard = 'Board Name should contain text only';
+  }
+}
  
-    if (!graduationDetails.gprogram.trim()) {
+   /*  if (!graduationDetails.gprogram.trim()) {
       newErrors.graduationDetails.gprogram = 'Program is required';
-    }
+    } */
+
+    // Validation for Graduation Program
+if (!graduationDetails.gprogram) {
+  newErrors.graduationDetails.gprogram = 'Program is required';
+} else {
+  // Validation for text only
+  if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gprogram.trim())) {
+    newErrors.graduationDetails.gprogram = 'Program should contain text only';
+  }
+}
+    /* if (!graduationDetails.gpercentage.trim()) {
+      newErrors.graduationDetails.gpercentage = 'Percentage is required';
+    } */
     if (!graduationDetails.gpercentage.trim()) {
       newErrors.graduationDetails.gpercentage = 'Percentage is required';
+    } else {
+      const percentageValue = graduationDetails.gpercentage.trim();
+   
+      // Regular expression to match digits and an optional decimal point
+      const validPercentageRegex = /^\d+(\.\d+)?$/;
+   
+      if (!validPercentageRegex.test(percentageValue) || parseFloat(percentageValue) < 0 || parseFloat(percentageValue) > 100) {
+        newErrors.graduationDetails.gpercentage = 'Enter a valid percentage between 0 and 100 (only digits and period(.) are allowed)';
+      }
     }
-    if (!graduationDetails.gyearOfPassing.trim()) {
+
+   /*  if (!graduationDetails.gyearOfPassing.trim()) {
       newErrors.graduationDetails.gyearOfPassing = 'Year of passing is required';
+    } */
+    if (!graduationDetails.gyearOfPassing) {
+      newErrors.graduationDetails.gyearOfPassing = 'Year of Passing is required';
+    } else {
+      // Validation for 4-digit numeric value
+      if (!/^\d{4}$/.test(graduationDetails.gyearOfPassing.trim())) {
+        newErrors.graduationDetails.gyearOfPassing = 'Year of Passing should be a 4-digit number';
+      } else {
+        // Additional validation for numeric value (no special characters or alphabets)
+        if (!/^\d+$/.test(graduationDetails.gyearOfPassing.trim())) {
+          newErrors.graduationDetails.gyearOfPassing = 'Year of Passing should contain only digits';
+        }
+      }
     }
- 
-    if (!graduationDetails.gCity.trim()) {
-      newErrors.graduationDetails.gCity = 'City is required';
-    }
-    if (!graduationDetails.gState.trim()) {
-      newErrors.graduationDetails.gState = 'State is required';
-    }
+
+    // if (!graduationDetails.gCity.trim()) {
+    //   newErrors.graduationDetails.gCity = 'City is required';
+    // }
+    // if (!graduationDetails.gState.trim()) {
+    //   newErrors.graduationDetails.gState = 'State is required';
+    // }
+
+    // Validation for Graduation City
+if (!graduationDetails.gCity) {
+  newErrors.graduationDetails.gCity = 'City is required';
+} else {
+  // Validation for text only
+  if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gCity.trim())) {
+    newErrors.graduationDetails.gCity = 'City should contain text only';
+  }
+}
+
+// Validation for Graduation State
+if (!graduationDetails.gState) {
+  newErrors.graduationDetails.gState = 'State is required';
+} else {
+  // Validation for text only
+  if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gState.trim())) {
+    newErrors.graduationDetails.gState = 'State should contain text only';
+  }
+}
  
     // Add similar validations for other Graduation details...
  
     // Skills
-    skillsRequired.forEach((skill, index) => {
+   /*  skillsRequired.forEach((skill, index) => {
       if (!skill.skillName.trim()) {
         newErrors.skillsRequired[index] = { skillName: 'Skill Name is required' };
-      }
+      }       
  
       if (!skill.experience.trim()) {
         newErrors.skillsRequired[index].experience = 'Experience is required';
       }
+    }); */
+    //Skills
+    skillsRequired.forEach((skill, index) => {
+      // Validation for Skill Name
+      if (!skill.skillName) {
+        newErrors.skillsRequired[index] = { skillName: 'Skill Name is required' };
+      } else {
+        // Validation for not containing digits in Skill Name
+        if (/\d/.test(skill.skillName.trim())) {
+          newErrors.skillsRequired[index] = { skillName: 'Skill Name should not contain digits' };
+        }
+      }
+
+    //Experience
+      // Validation for Experience
+      if (!skill.experience) {
+        newErrors.skillsRequired[index]={experience :'Experience is required'};
+      } 
     });
  
     // Experience
-    experienceDetails.forEach((experience, index) => {
-      if (!experience.company.trim()) {
-        newErrors.experienceDetails[index] = { company: 'Company Name is required' };
-      }
+    // experienceDetails.forEach((experience, index) => {
+    //   if (!experience.company.trim()) {
+    //     newErrors.experienceDetails[index] = { company: 'Company Name is required' };
+    //   }
  
-      if (!experience.position.trim()) {
-        newErrors.experienceDetails[index].position = 'Position is required';
-      }
+    //   if (!experience.position.trim()) {
+    //     newErrors.experienceDetails[index].position = 'Position is required';
+    //   }
  
-      if (!experience.startDate.trim()) {
-        newErrors.experienceDetails[index].startDate = 'Start Date is required';
-      }
+    //   if (!experience.startDate.trim()) {
+    //     newErrors.experienceDetails[index].startDate = 'Start Date is required';
+    //   }
  
-      if (!experience.endDate.trim()) {
-        newErrors.experienceDetails[index].endDate = 'End Date is required';
-      }
-    });
+    //   if (!experience.endDate.trim()) {
+    //     newErrors.experienceDetails[index].endDate = 'End Date is required';
+    //   }
+    // });
  
     setErrors(newErrors);
  
@@ -279,7 +530,7 @@ function ApplicantUpdateProfile() {
   });
  
   const [skillsRequired, setSkillsRequired] = useState([
- 
+     
     { skillName: "", experience: "" },
  
   ]);
@@ -300,9 +551,11 @@ function ApplicantUpdateProfile() {
   const [selectedSkill, setSelectedSkill] = useState("");
  
   const handleSkillChange = (e, index, field) => {
- 
+    
     const updatedSkillsRequired = [...skillsRequired];
- 
+    //if(field == "experience" && e.target.value=="")
+   // updatedSkillsRequired[index][field] = 0;
+  //  else
     updatedSkillsRequired[index][field] = e.target.value;
  
     setSkillsRequired(updatedSkillsRequired);
@@ -316,7 +569,15 @@ function ApplicantUpdateProfile() {
     setSkillsRequired([...skillsRequired, { skillName: "", experience: "" }]);
  
   };
- 
+  const removeSkills = () => {
+    // Check if there are skills to remove
+    if (skillsRequired.length > 1) {
+      // Create a copy of the skillsRequired array without the last item
+      const updatedSkills = [...skillsRequired.slice(0, -1)];
+      // Update the state with the new skills array
+      setSkillsRequired(updatedSkills);
+    }
+  };
  
  
   const handleExperienceChange = (e, index, field) => {
@@ -330,9 +591,16 @@ function ApplicantUpdateProfile() {
       { company: "", position: "", startDate: "", endDate: "" }
     ]);
   };
- 
- 
- 
+
+  const removeExperience = (index) => {
+    if(experienceDetails.length>1){
+      const updatedExperienceDetails = [...experienceDetails];
+      updatedExperienceDetails.splice(index, 1);
+      setExperienceDetails(updatedExperienceDetails);
+    }
+   
+  };
+  
  
   const handleFileDrop = (e) => {
     e.preventDefault();
@@ -374,26 +642,28 @@ function ApplicantUpdateProfile() {
           Authorization: `Bearer ${jwtToken}`, // Include the JWT token in the Authorization header
         },
       });
- 
-     
+   
       if (response.status === 200) {
         // Successful response
-        if (response.data === 'Profile saved successfully') {
+        if (response.data === 'profile saved sucessfully') {
           console.log(response.body);
-          window.alert('Profile sent successfully!');
+          window.alert('Profile saved successfully!');
           navigate('/applicanthome');
-        } else if (response.data === 'your Profile was updated already') {
-          // Handle duplicate entry error (HTTP 409 Conflict)
-          window.alert("Your profile has already been updated.");
-        } else {
+        }  else {
           console.error('An unexpected success response:', response.body);
         }
-      } else {
+         
+      }
+      else {
         // Handle other error cases
         console.error('An error occurred:', response.status, response.body);
       }
      
     } catch (error) {
+ 
+     
+        window.alert("Your profile has already been updated.");
+        navigate('/applicanthome');
       console.error('An error occurred:', error);
     }
   };  */
@@ -484,8 +754,8 @@ function ApplicantUpdateProfile() {
 </div>
 <div>
  
-  {/*  <input type="submit" class="submit-button"  value="Save Profile"  /> */}
-  <button type="submit" className='button-status'>Save Profile</button>
+  {/*  <input type="submit" class="submit-button"  value="Save Profile"  />
+  <button type="submit" className='button-status'>Save Profile</button>*/}
   </div>
 </div>
             <div className="form-infor-profile">
@@ -504,11 +774,8 @@ function ApplicantUpdateProfile() {
                              value={basicDetails.dateOfBirth}
                              onChange={(e) =>
                              setBasicDetails({...basicDetails,dateOfBirth: e.target.value,})}
-                             
-                       />
-                        {errors.basicDetails.dateOfBirth && (
-              <div className="error-message">{errors.basicDetails.dateOfBirth}</div>
-            )}
+                             onBlur={validateForm}                             
+                       /> 
                   </fieldset>
                   <fieldset>
                   <label class="title-user fw-7">City <span className="color-red">*</span></label>
@@ -518,6 +785,7 @@ function ApplicantUpdateProfile() {
                            value={basicDetails.city}
                            onChange={(e) =>
                            setBasicDetails({ ...basicDetails, city: e.target.value })}
+                           onBlur={validateForm}
                   />
                    {errors.basicDetails.city && (
               <div className="error-message">{errors.basicDetails.city}</div>
@@ -532,6 +800,7 @@ function ApplicantUpdateProfile() {
                             value={basicDetails.pincode}
                             onChange={(e) =>
                             setBasicDetails({ ...basicDetails, pincode: e.target.value })}
+                            onBlur={validateForm}
                     />
                      {errors.basicDetails.pincode && (
               <div className="error-message">{errors.basicDetails.pincode}</div>
@@ -548,6 +817,7 @@ function ApplicantUpdateProfile() {
                             value={basicDetails.address}
                             onChange={(e) =>
                             setBasicDetails({ ...basicDetails, address: e.target.value })}
+                            onBlur={validateForm}
                      />
                       {errors.basicDetails.address && (
               <div className="error-message">{errors.basicDetails.address}</div>
@@ -562,6 +832,7 @@ function ApplicantUpdateProfile() {
                         value={basicDetails.state}
                         onChange={(e) =>
                         setBasicDetails({ ...basicDetails, state: e.target.value })}
+                        onBlur={validateForm}
                    />
                     {errors.basicDetails.state && (
               <div className="error-message">{errors.basicDetails.state}</div>
@@ -595,6 +866,7 @@ function ApplicantUpdateProfile() {
                           value={xClassDetails.xschoolName}
                           onChange={(e) =>
                            setXClassDetails({...xClassDetails,xschoolName: e.target.value,})}
+                           onBlur={validateForm}
                   />
                   <div className="validation-errors">
             {errors.xClassDetails.xschoolName && (
@@ -610,6 +882,7 @@ function ApplicantUpdateProfile() {
                            value={xClassDetails.xboard}
                            onChange={(e) =>
                            setXClassDetails({ ...xClassDetails, xboard: e.target.value })}
+                           onBlur={validateForm}
               />
               <div className="validation-errors">
             {errors.xClassDetails.xboard && (
@@ -623,6 +896,7 @@ function ApplicantUpdateProfile() {
                           className="input-form"
                           value={xClassDetails.xpercentage}
                           onChange={(e) =>setXClassDetails({...xClassDetails,xpercentage: e.target.value,})}
+                          onBlur={validateForm}
                    />
                    <div className="validation-errors">
             {errors.xClassDetails.xpercentage && (
@@ -637,6 +911,7 @@ function ApplicantUpdateProfile() {
                          className="input-form"
                          value={xClassDetails.xPincode}
                          onChange={(e) =>setXClassDetails({...xClassDetails,xPincode: e.target.value,})}
+                         onBlur={validateForm}
                   />
                    <div className="validation-errors">
             {errors.xClassDetails.xPincode && (
@@ -654,6 +929,7 @@ function ApplicantUpdateProfile() {
                            value={xClassDetails.xyearOfPassing}
                            onChange={(e) =>
                            setXClassDetails({...xClassDetails,xyearOfPassing: e.target.value,})}
+                           onBlur={validateForm}
                   />
                    <div className="validation-errors">
             {errors.xClassDetails.xyearOfPassing && (
@@ -668,6 +944,7 @@ function ApplicantUpdateProfile() {
                           value={xClassDetails.xCity}
                           onChange={(e) =>
                           setXClassDetails({ ...xClassDetails, xCity: e.target.value })}
+                          onBlur={validateForm}
                   />
                   <div className="validation-errors">
             {errors.xClassDetails.xCity && (
@@ -682,6 +959,7 @@ function ApplicantUpdateProfile() {
                           value={xClassDetails.xState}
                           onChange={(e) =>
                           setXClassDetails({ ...xClassDetails, xState: e.target.value })}
+                          onBlur={validateForm}
                    />
                    <div className="validation-errors">
             {errors.xClassDetails.xState && (
@@ -707,7 +985,8 @@ function ApplicantUpdateProfile() {
                           onChange={(e) =>
                             setIntermediateDetails({
                               ...intermediateDetails,
-                              icollegeName: e.target.value,})}      
+                              icollegeName: e.target.value,})} 
+                              onBlur={validateForm}     
                   />
                  
                   <div className="validation-errors">
@@ -724,6 +1003,7 @@ function ApplicantUpdateProfile() {
                            value={intermediateDetails.iboard}
                            onChange={(e) =>
                              setIntermediateDetails({...intermediateDetails,iboard: e.target.value,})}
+                             onBlur={validateForm}
                     />
                     <div className="validation-errors">
             {errors.intermediateDetails.iboard && (
@@ -738,7 +1018,9 @@ function ApplicantUpdateProfile() {
                           value={intermediateDetails.iprogram}
                           onChange={(e) =>
                             setIntermediateDetails({...intermediateDetails,iprogram: e.target.value,})
-                          }    
+                            
+                          }   
+                          onBlur={validateForm} 
                    />
                    <div className="validation-errors">
             {errors.intermediateDetails.iprogram && (
@@ -754,6 +1036,7 @@ function ApplicantUpdateProfile() {
                           value={intermediateDetails.ipercentage}
                           onChange={(e) =>
                           setIntermediateDetails({...intermediateDetails,ipercentage: e.target.value,})}
+                          onBlur={validateForm}
                    />
                    <div className="validation-errors">
             {errors.intermediateDetails.ipercentage && (
@@ -771,6 +1054,7 @@ function ApplicantUpdateProfile() {
                            value={intermediateDetails.iyearOfPassing}
                            onChange={(e) =>
                             setIntermediateDetails({...intermediateDetails,iyearOfPassing: e.target.value,})}
+                            onBlur={validateForm}
                   />
                   <div className="validation-errors">
             {errors.intermediateDetails.iyearOfPassing && (
@@ -785,6 +1069,7 @@ function ApplicantUpdateProfile() {
                           value={intermediateDetails.iCity}
                           onChange={(e) =>
                             setIntermediateDetails({ ...intermediateDetails, iCity: e.target.value })}
+                            onBlur={validateForm}
                          
                   />
                   <div className="validation-errors">
@@ -800,6 +1085,7 @@ function ApplicantUpdateProfile() {
                           value={intermediateDetails.iState}
                           onChange={(e) =>
                             setIntermediateDetails({ ...intermediateDetails, iState: e.target.value })}
+                            onBlur={validateForm}
                    />
                    <div className="validation-errors">
             {errors.intermediateDetails.iState && (
@@ -822,6 +1108,7 @@ function ApplicantUpdateProfile() {
                            className="input-form"
                            value={graduationDetails.gcollegeName}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gcollegeName: e.target.value,})}
+                           onBlur={validateForm}
                   />
                    <div className="validation-errors">
             {errors.graduationDetails.gcollegeName && (
@@ -836,6 +1123,7 @@ function ApplicantUpdateProfile() {
                            className="input-form"
                            value={graduationDetails.gboard}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gboard: e.target.value,})}
+                           onBlur={validateForm}
                     />
                     <div className="validation-errors">
             {errors.graduationDetails.gboard && (
@@ -853,6 +1141,7 @@ function ApplicantUpdateProfile() {
                               gprogram: e.target.value,
                             })
                           }
+                          onBlur={validateForm}
                    />
                    <div className="validation-errors">
             {errors.graduationDetails.gprogram && (
@@ -868,6 +1157,7 @@ function ApplicantUpdateProfile() {
                           value={graduationDetails.gpercentage}
                 onChange={(e) =>setGraduationDetails({
                     ...graduationDetails,gpercentage: e.target.value,})}
+                    onBlur={validateForm}
                    />
                    <div className="validation-errors">
             {errors.graduationDetails.gpercentage && (
@@ -884,6 +1174,7 @@ function ApplicantUpdateProfile() {
                            className="input-form"
                            value={graduationDetails.gyearOfPassing}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gyearOfPassing: e.target.value,})}
+                           onBlur={validateForm}
                   />
                   <div className="validation-errors">
             {errors.graduationDetails.gyearOfPassing && (
@@ -898,6 +1189,7 @@ function ApplicantUpdateProfile() {
                           value={graduationDetails.gCity}
                           onChange={(e) =>
                             setGraduationDetails({...graduationDetails,gCity: e.target.value,})}
+                            onBlur={validateForm}
                   />
                   <div className="validation-errors">
             {errors.graduationDetails.gCity && (
@@ -911,6 +1203,7 @@ function ApplicantUpdateProfile() {
                           className="input-form"
                           value={graduationDetails.gState}
                           onChange={(e) =>setGraduationDetails({...graduationDetails,gState: e.target.value,})}
+                          onBlur={validateForm}
                    />
                    <div className="validation-errors">
             {errors.graduationDetails.gState && (
@@ -976,6 +1269,11 @@ function ApplicantUpdateProfile() {
           <button type="button" onClick={addExperience}>
             Add Experience
           </button>
+          {experienceDetails.length > 0 && (
+          <button type="button" onClick={() => removeExperience(experienceDetails.length - 1)}>
+            Remove Experience
+          </button>
+        )}
                       </div>
                     </div>
                     <div class="form-box  wg-box">
@@ -991,6 +1289,7 @@ function ApplicantUpdateProfile() {
   className="input-form"
   value={skill.skillName}
   onChange={(e) => handleSkillChange(e, index, "skillName")}
+  onBlur={validateForm}
 />
 {errors.skillsRequired[index]?.skillName && (
                     <div className="error-message">{errors.skillsRequired[index].skillName}</div>
@@ -1004,6 +1303,8 @@ function ApplicantUpdateProfile() {
   className="input-form"
   value={skill.experience}
   onChange={(e) => handleSkillChange(e, index, "experience")}
+  onBlur={validateForm}
+  
 />
 {errors.skillsRequired[index]?.experience && (
                     <div className="error-message">{errors.skillsRequired[index].experience}</div>
@@ -1014,17 +1315,25 @@ function ApplicantUpdateProfile() {
   Add Skill
 </button>
 )}
+{index === skillsRequired.length - 1 && (
+        <button type="button" onClick={removeSkills}>
+          {/* Remove Skill */}
+          Remove Skill
+        </button>
+      )}
 </div>
 ))}
                       </fieldset>
                     </div>
                   </div>
-                 
                 </div>
- 
-              
- 
- 
+                <div className="tt-button button-style">
+                {/* <button type="submit" className="btn-3">Submit</button> */}
+              </div>
+                <div>
+                  {/*  <input type="submit" class="submit-button"  value="Save Profile"  /> */}
+                  <button type="submit" className='button-status'>Save Profile</button>
+</div>
     </div>
    
     </div>

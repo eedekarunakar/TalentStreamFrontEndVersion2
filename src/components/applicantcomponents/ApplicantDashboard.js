@@ -101,12 +101,13 @@ const ApplicantDashboard = () =>
               </span>
             </div>
             <div className="content">
-              <div
+              {/* <div
                 className="count-dash counter-number"
                 data-speed={2000}
-                data-to={jobCount}
-              />
-              <h4 className="title-count">Posted Jobs</h4>
+                data-to={j}
+              /> */}
+              <h3>20</h3>
+              <h4 className="title-count">Recommended jobs</h4>
             </div>
           </div>
           <div className="box-icon wrap-counter flex">
@@ -143,12 +144,13 @@ const ApplicantDashboard = () =>
               </span>
             </div>
             <div className="content">
-              <div
+              {/* <div
                 className="count-dash counter-number"
                 data-speed={2000}
                 data-to={applicationCount}
-              />
-              <h4 className="title-count">Application</h4>
+              /> */}
+              <h3>15</h3>
+              <h4 className="title-count">Active Jobs</h4>
             </div>
           </div>
           <div className="box-icon wrap-counter flex">
@@ -171,12 +173,13 @@ const ApplicantDashboard = () =>
               </span>
             </div>
             <div className="content style3">
-              <div
+              {/* <div
                 className="count-dash counter-number"
                 data-speed={2000}
                 data-to={reviewCount}
-              />
-              <h4 className="title-count">Review</h4>
+              /> */}
+              <h3>8</h3>
+              <h4 className="title-count">Applied Jobs</h4>
             </div>
           </div>
           <div className="box-icon wrap-counter flex">
@@ -197,12 +200,13 @@ const ApplicantDashboard = () =>
               </span>
             </div>
             <div className="content">
-              <div
+              {/* <div
                 className="count-dash counter-number"
                 data-speed={2000}
                 data-to={wishlistCount}
-              />
-              <h4 className="title-count">Wishlist</h4>
+              /> */}
+              <h3>5</h3>
+              <h4 className="title-count">Saved Jobs</h4>
             </div>
           </div>
         </div>

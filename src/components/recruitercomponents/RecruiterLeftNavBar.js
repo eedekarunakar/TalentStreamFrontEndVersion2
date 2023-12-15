@@ -50,9 +50,9 @@ const RecruiterLeftNavBar = () => {
           </li>
 
           <li>
-            <Link to="/messages" className="tf-effect">
+            <Link to="/recruiter-team-member" className="tf-effect">
               <span className="icon-meeting dash-icon"></span>
-              <span className="dash-titles">Teams Members</span>
+              <span className="dash-titles">Team Members</span>
             </Link>
           </li>
 

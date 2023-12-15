@@ -13,6 +13,7 @@ import RecruiterAllApplicants from '../../components/recruitercomponents/Recruit
 import RecruiterAppliedApplicants from '../../components/recruitercomponents/RecruiterAppliedApplicants';
 import RecruiterApplicantInterviews from '../../components/recruitercomponents/RecruiterApplicantInterviews';
 import RecruiterChangePassword from '../../components/recruitercomponents/RecruiterChangePassword';
+import TeamMember from '../../components/recruitercomponents/TeamMember';
 
 function RecruiterHomePage() {
   const [activeRoute, setActiveRoute] = useState('');
@@ -48,6 +49,9 @@ function RecruiterHomePage() {
                   case '/recruiter-change-password':
                   setActiveRoute('changepassword');
                   break;
+                  case '/recruiter-team-member':
+                    setActiveRoute('teammember');
+                    break;
       default:
         setActiveRoute('');
         break;
@@ -72,6 +76,7 @@ function RecruiterHomePage() {
      {activeRoute === 'allapplicants' && <RecruiterAllApplicants />}
      {activeRoute === 'applicantinterviews' && <RecruiterApplicantInterviews />}
      {activeRoute === 'changepassword' && <RecruiterChangePassword />}
+     {activeRoute === 'teammember' && <TeamMember />}
       <ApplicantFooter />    
 
     </div>

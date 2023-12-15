@@ -150,47 +150,53 @@ function RecruiterPostJob() {
       errors.jobTitle = '';
     }
  
-    // Minimum Experience Validation
+    
+
     if (!minimumExperience.trim()) {
       isValid = false;
       errors.minimumExperience = 'Minimum Experience is required.';
-     
     } else {
       errors.minimumExperience = '';
     }
- 
+     
     // Maximum Experience Validation
     if (!maximumExperience.trim()) {
       errors.maximumExperience = 'Maximum Experience is required.';
       isValid = false;
+    } else if (parseInt(minimumExperience) > parseInt(maximumExperience)) {
+      errors.maximumExperience = 'Maximum Experience should be greater than or equal to Minimum Experience.';
+      isValid = false;
     } else {
       errors.maximumExperience = '';
     }
- 
-    // Minimum Salary Validation
+     
+        // Minimum Salary Validation
     if (!minSalary.trim()) {
       errors.minSalary = 'Minimum Salary is required.';
       isValid = false;
     } else {
       errors.minSalary = '';
     }
- 
+     
     // Maximum Salary Validation
     if (!maxSalary.trim()) {
       errors.maxSalary = 'Maximum Salary is required.';
       isValid = false;
+    } else if (parseInt(minSalary) > parseInt(maxSalary)) {
+      errors.maxSalary = 'Maximum Salary should be greater than or equal to Minimum Salary.';
+      isValid = false;
     } else {
       errors.maxSalary = '';
     }
- 
-    // Location Validation
     if (!location.trim()) {
       errors.location = 'Location is required.';
+      isValid = false;
+    } else if (!/^[a-zA-Z]+$/.test(location.trim())) {
+      errors.location = 'Location should contain only alphabets.';
       isValid = false;
     } else {
       errors.location = '';
     }
- 
     // Employee Type Validation
     if (!employeeType.trim()) {
       errors.employeeType = 'Employee Type is required.';
@@ -475,7 +481,7 @@ const handleMaxSalaryChange = (e) => {
       <div className="row">
         <div className="col-lg-12 col-md-12 ">
           <div className="title-dashboard">
-            <div className="title-dash flex2">Post A New Job</div>
+            <div className="title-dash flex2">Post Job</div>
           </div>
         </div>
       </div>
@@ -489,9 +495,7 @@ const handleMaxSalaryChange = (e) => {
           <div className="post-new profile-setting bg-white">
            
             <div className="wrap-titles">
-              <h3 className="title-img">
-                Job Title <span className="color-red">*</span>{" "}
-              </h3>
+            <label className="title-user fw-7">Job Title<span className="color-red">*</span></label>
               <fieldset className="info-wd">
               <input
                       type="text"
@@ -506,9 +510,7 @@ const handleMaxSalaryChange = (e) => {
               </fieldset>
             </div>
             <div className="text-editor-wrap">
-              <h3 className="title-img">
-                Job Description <span className="color-red">*</span>{" "}
-              </h3>
+            <label className="title-user fw-7">Job Description<span className="color-red">*</span></label>
               <div className="text-editor-main">
                 <textarea
                     className="input-form"
@@ -678,7 +680,7 @@ const handleMaxSalaryChange = (e) => {
                              type="text"
                              value={minimumQualification}
                              className="input-form"
-                             placeholder="B tech"
+                             placeholder="BTech"
                              onChange={handleMinimumQualificationChange}
                              required
                  />
@@ -690,7 +692,7 @@ const handleMaxSalaryChange = (e) => {
                   <label className="title-user fw-7">Job Highlights</label>
                   <input type="text"
                          className="input-form"
-                         placeholder="Job Key points"
+                         placeholder="Job key points"
                          value={jobHighlights}
                          onChange={handleJobHighlightsChange}
                   />

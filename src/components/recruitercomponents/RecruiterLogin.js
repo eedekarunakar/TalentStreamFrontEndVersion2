@@ -142,7 +142,7 @@ function RecruiterLogin({handleLogin}) {
             Registration successful! Please log in to continue.
           </div>
         )}
-              <h4>Recruiter's Log In</h4>
+              <h4>Recruiter's Login</h4>
               <form  onSubmit={handleSubmit}>
                 <div className="ip">
                   <label>

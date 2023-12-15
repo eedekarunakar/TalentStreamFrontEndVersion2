@@ -116,7 +116,7 @@ function RecruiterNavBar() {
                 </div>
               </div>
               <div className="header-customize-item button">
-                <a href="/recruiter-postjob">Post a Job</a>
+                <a href="/recruiter-postjob">Post Job</a>
               </div>
             </div>
             <div className="nav-filter">
