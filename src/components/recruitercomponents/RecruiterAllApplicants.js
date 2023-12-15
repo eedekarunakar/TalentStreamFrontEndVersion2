@@ -3,8 +3,6 @@ import { useUserContext } from '../common/UserProvider';
 import { apiUrl } from '../../services/ApplicantAPIService';
 import { Modal, Button, Form, Col } from "react-bootstrap";
 import axios from 'axios';
-
- 
 function RecruiterAllApplicants() {
   const [applicants, setApplicants] = useState([]);
   const { user } = useUserContext();
