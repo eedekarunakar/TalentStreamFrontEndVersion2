@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useUserContext } from '../common/UserProvider';
 import axios from 'axios';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 
 function RecruiterForgotPassword() {
@@ -13,7 +14,12 @@ function RecruiterForgotPassword() {
     const [otpSent, setOtpSent] = useState(false);
     const [otpVerified, setOtpVerified] = useState(false);
     const [isPasswordValid, setIsPasswordValid] = useState(true); // Track password validation
+    const [showPassword, setShowPassword] = useState(false);
   
+    const handleTogglePassword = () => {
+      setShowPassword(!showPassword);
+    };
+
     const validatePassword = (value) => {
       // Password must be at least 6 characters long
       const isLengthValid = value.length >= 6;
@@ -159,23 +165,29 @@ function RecruiterForgotPassword() {
                       </div>
                       {otpSent ? (
                         otpVerified ? (
-                          <div>
-                             <div className="ip">
+                          <div className="ip">
+                             <div className="inputs-group auth-pass-inputgroup">
                             <input
-                              type="password"
+                              type={showPassword ? 'text' : 'password'}
                               placeholder="New Password"
                               value={password}
                               onChange={(e) => setPassword(e.target.value)}
                             />
-                           </div>
-                           <div className="ip">
+                            <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
+        {showPassword ? <FaEye /> : <FaEyeSlash />}
+</div>
+                           </div><br />
+                           <div className="inputs-group auth-pass-inputgroup">
                             <input
-                              type="password"
+                              type={showPassword ? 'text' : 'password'}
                               placeholder="Confirm New Password"
                               value={confirmedPassword}
                               onChange={(e) => setConfirmedPassword(e.target.value)}
                             />
-                            </div>
+                           <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
+        {showPassword ? <FaEye /> : <FaEyeSlash />}
+</div> 
+                            </div><br></br>
                             <div className="helpful-line">
                               Password must be at least 6 characters long, contain one uppercase letter,
                               one lowercase letter, one number, one special character, and no spaces.

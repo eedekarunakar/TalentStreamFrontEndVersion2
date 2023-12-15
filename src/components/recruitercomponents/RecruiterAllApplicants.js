@@ -289,15 +289,15 @@ return (
                         <td>{application.jobTitle}</td>
                         <td>{application.applicantStatus}</td>
                         <td>
-                        <button variant="primary" onClick={handleShow}>
+                        <button variant="primary" onClick={handleShowForm}>
         <i className="bi bi-clock">Button</i>
-      </button>
+      
               <ScheduleInterviewPopup
                 show={showForm}
                 handleClose={() => setShowForm(false)}
                 handleSave={handleSaveForm}
                 applyJobId={application.applyjobid}
-              />
+              /></button>
                             </td>
                         <td>{application.minimumExperience}</td>
                         <td>{application.skillName}</td>

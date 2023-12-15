@@ -42,36 +42,21 @@ function RecruiterNavBar() {
         </div>
         <div className="wd-social d-flex aln-center">
           <ul className="list-social d-flex aln-center">
-            <li>
-              <a href="#">
-                <i className="icon-facebook" />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="icon-linkedin2" />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="icon-twitter" />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="icon-pinterest" />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="icon-instagram1" />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="icon-youtube" />
-              </a>
-            </li>
+          <li>
+                    <a href="https://www.facebook.com/tekworks.in"><i class="icon-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a href="https://www.linkedin.com/company/tekworks-in"><i class="icon-linkedin2"></i></a>
+                  </li>
+                  {/* <li>
+                    <a href="#"><i class="icon-twitter"></i></a>
+                  </li> */}
+                  <li>
+                    <a href="https://www.instagram.com/tekworks_hiring"><i class="icon-instagram1"></i></a>
+                  </li>
+                  <li>
+                    <a href="https://www.youtube.com/@TekWorks-in"><i class="icon-youtube"></i></a>
+                  </li>
           </ul>
         </div>
       </div>
@@ -108,21 +93,21 @@ function RecruiterNavBar() {
                 </div>
                 <div className="sub-account">
                   <div className="sub-account-item">
-                    <a href="candidates-profile-setting.html">
+                    <a href="/recruiter-my-organization">
                       <span className="icon-profile" /> Profile
                     </a>
                   </div>
                   <div className="sub-account-item">
-                    <a href="candidates-change-passwords.html">
+                    <a href="/recruiter-change-password">
                       <span className="icon-change-passwords" /> Change
                       Passwords
                     </a>
                   </div>
-                  <div className="sub-account-item">
+                  {/* <div className="sub-account-item">
                     <a href="candidates-delete-profile.html">
                       <span className="icon-trash" /> Delete Profile
                     </a>
-                  </div>
+                  </div> */}
                   <div className="sub-account-item">
                     <a href="/logout">
                       <span className="icon-log-out" /> Log Out
@@ -131,7 +116,7 @@ function RecruiterNavBar() {
                 </div>
               </div>
               <div className="header-customize-item button">
-                <a href="/recruiter-postjob">Post a Job</a>
+                <a href="/recruiter-postjob">Post Job</a>
               </div>
             </div>
             <div className="nav-filter">
