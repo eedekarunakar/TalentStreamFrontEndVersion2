@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
- 
+
 function ApplicantViewJob({ selectedJobId }) {
   const [jobDetails, setJobDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,11 +22,11 @@ function ApplicantViewJob({ selectedJobId }) {
         setLoading(false);
       }
     };
- 
+
     // Call the fetchData function
     fetchData();
   }, []);
- 
+
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
@@ -42,11 +42,11 @@ function ApplicantViewJob({ selectedJobId }) {
         setLoading(false);
       }
     };
- 
+
     // Call the fetchJobDetails function
     fetchJobDetails();
   }, [selectedJobId]);
- 
+
   const handleApplyNow = async () => {
     try {
       // Use the appropriate API endpoint and payload to apply for the job
@@ -54,16 +54,13 @@ function ApplicantViewJob({ selectedJobId }) {
       // Assuming the response contains information about the application status
       const { applied } = response.data;
       setApplied(applied);
-       if(response.status === 200){
-        window.alert('job applied successfully');
-       }
- 
     } catch (error) {
       console.error('Error applying for the job:', error);
-      window.alert('Job has already been applied by the applicant');
     }
   };
- 
+
+
+
   return (
     <div>
       {loading ? null : (
@@ -97,7 +94,7 @@ function ApplicantViewJob({ selectedJobId }) {
                               </div>
                               <div className="box-content">
                                 <h4>
-                                  <a href="#">{jobDetails.companyname}</a>
+                                  {/* <a href="#">{jobDetails.companyname}</a> */}
                                 </h4>
                                 <h3>
                                   <a href="#">{jobDetails.jobTitle}</a>
@@ -110,21 +107,20 @@ function ApplicantViewJob({ selectedJobId }) {
                                   </li>
                                   <li>
                                     <span className="icon-calendar"></span>
-                                    {jobDetails.datePosted}
+                                    {jobDetails.datePosted} 
                                   </li>
                                 </ul>
                                 <div className="button-readmore">
                                   <span className="icon-heart"></span>
                                   <a className="btn-apply btn-popup">
-              <button
-                className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
-                onClick={handleApplyNow}
-                disabled={applied}
-              >
-                <span className="icon-send"></span>
-                {applied ? 'Already Applied' : 'Apply Now'}
-              </button>
-            </a>
+                                    <button
+                                           className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
+                                          onClick={handleApplyNow}
+                                           disabled={applied}>
+                                    <span className="icon-send"></span>
+                                         {applied ? 'Already Applied' : 'Apply Now'}
+                                   </button>
+                                  </a>
                                 </div>
                               </div>
                             </div>
@@ -156,7 +152,7 @@ function ApplicantViewJob({ selectedJobId }) {
                         </div>
                       </div>
                     )}
- 
+
                     {jobDetails && (
                       <div className="inner-content">
                         <h5>Full Job Description</h5>
@@ -173,5 +169,5 @@ function ApplicantViewJob({ selectedJobId }) {
     </div>
   );
 }
- 
+
 export default ApplicantViewJob;

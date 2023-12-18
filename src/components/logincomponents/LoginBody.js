@@ -141,7 +141,7 @@ function LoginBody({handleLogin}) {
             Registration successful! Please log in to continue.
           </div>
         )}
-              <h4>Candiadate's Login</h4>
+              <h4>Candiadate's Log In</h4>
               <form  onSubmit={handleSubmit}>
                 <div className="ip">
                   <label>
@@ -176,7 +176,7 @@ function LoginBody({handleLogin}) {
                     Remember me */}
                   </div>
                   <a href="/applicant-forgot-password" className="forgot">
-                    Forgot password?
+                    Fogot password?
                   </a>
                 </div>
                 <button type="submit">Login</button>

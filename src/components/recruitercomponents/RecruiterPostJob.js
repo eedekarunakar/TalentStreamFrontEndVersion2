@@ -150,53 +150,47 @@ function RecruiterPostJob() {
       errors.jobTitle = '';
     }
  
-    
-
+    // Minimum Experience Validation
     if (!minimumExperience.trim()) {
       isValid = false;
       errors.minimumExperience = 'Minimum Experience is required.';
+     
     } else {
       errors.minimumExperience = '';
     }
-     
+ 
     // Maximum Experience Validation
     if (!maximumExperience.trim()) {
       errors.maximumExperience = 'Maximum Experience is required.';
       isValid = false;
-    } else if (parseInt(minimumExperience) > parseInt(maximumExperience)) {
-      errors.maximumExperience = 'Maximum Experience should be greater than or equal to Minimum Experience.';
-      isValid = false;
     } else {
       errors.maximumExperience = '';
     }
-     
-        // Minimum Salary Validation
+ 
+    // Minimum Salary Validation
     if (!minSalary.trim()) {
       errors.minSalary = 'Minimum Salary is required.';
       isValid = false;
     } else {
       errors.minSalary = '';
     }
-     
+ 
     // Maximum Salary Validation
     if (!maxSalary.trim()) {
       errors.maxSalary = 'Maximum Salary is required.';
       isValid = false;
-    } else if (parseInt(minSalary) > parseInt(maxSalary)) {
-      errors.maxSalary = 'Maximum Salary should be greater than or equal to Minimum Salary.';
-      isValid = false;
     } else {
       errors.maxSalary = '';
     }
+ 
+    // Location Validation
     if (!location.trim()) {
       errors.location = 'Location is required.';
-      isValid = false;
-    } else if (!/^[a-zA-Z]+$/.test(location.trim())) {
-      errors.location = 'Location should contain only alphabets.';
       isValid = false;
     } else {
       errors.location = '';
     }
+ 
     // Employee Type Validation
     if (!employeeType.trim()) {
       errors.employeeType = 'Employee Type is required.';
@@ -237,7 +231,7 @@ function RecruiterPostJob() {
     });
     errors.skillsRequired = skillsErrors;
  
-    if (industryType && industryType.trim().length < 2) {
+    if (industryType && industryType.trim().length < 3) {
       isValid = false;
       setFormErrors((prevErrors) => ({
         ...prevErrors,
@@ -420,15 +414,7 @@ const handleMaxSalaryChange = (e) => {
  
   };
  
-  const removeExperience = () => {
-    // Check if there are skills to remove
-    if (skillsRequired.length > 1) {
-      // Create a copy of the skillsRequired array without the last item
-      const updatedSkills = [...skillsRequired.slice(0, -1)];
-      // Update the state with the new skills array
-      setSkillsRequired(updatedSkills);
-    }
-  };
+ 
  
   const handleFileChange = (e) => {
  
@@ -481,7 +467,7 @@ const handleMaxSalaryChange = (e) => {
       <div className="row">
         <div className="col-lg-12 col-md-12 ">
           <div className="title-dashboard">
-            <div className="title-dash flex2">Post Job</div>
+            <div className="title-dash flex2">Post A New Job</div>
           </div>
         </div>
       </div>
@@ -495,7 +481,9 @@ const handleMaxSalaryChange = (e) => {
           <div className="post-new profile-setting bg-white">
            
             <div className="wrap-titles">
-            <label className="title-user fw-7">Job Title<span className="color-red">*</span></label>
+              <h3 className="title-img">
+                Job Title <span className="color-red">*</span>{" "}
+              </h3>
               <fieldset className="info-wd">
               <input
                       type="text"
@@ -510,7 +498,9 @@ const handleMaxSalaryChange = (e) => {
               </fieldset>
             </div>
             <div className="text-editor-wrap">
-            <label className="title-user fw-7">Job Description<span className="color-red">*</span></label>
+              <h3 className="title-img">
+                Job Description <span className="color-red">*</span>{" "}
+              </h3>
               <div className="text-editor-main">
                 <textarea
                     className="input-form"
@@ -607,7 +597,7 @@ const handleMaxSalaryChange = (e) => {
         onChange={(e) =>handleSkillChange(e, index, "skillName")}
         required
       />
-    </div><br />
+    </div>
     <div>
       <input
         type="text"
@@ -620,14 +610,9 @@ const handleMaxSalaryChange = (e) => {
     </div>
     {index === skillsRequired.length - 1 && (
       <button type="button" onClick={addExperience}>
-        +
+        Add Skill
       </button>
-    )} &nbsp;
-    {index === skillsRequired.length - 1 && (
-        <button type="button" onClick={removeExperience}>
-          -
-        </button>
-      )}
+    )}
   </div>
 ))}
                       </fieldset>
@@ -662,7 +647,7 @@ const handleMaxSalaryChange = (e) => {
                 </div>
                 <fieldset>
                   <label className="title-user fw-7">
-                    Job Type<span className="color-red">*</span>
+                    Employee Type<span className="color-red">*</span>
                   </label>
                   <select value={employeeType}
                           className="input-form"
@@ -680,7 +665,7 @@ const handleMaxSalaryChange = (e) => {
                              type="text"
                              value={minimumQualification}
                              className="input-form"
-                             placeholder="BTech"
+                             placeholder="B tech"
                              onChange={handleMinimumQualificationChange}
                              required
                  />
@@ -692,7 +677,7 @@ const handleMaxSalaryChange = (e) => {
                   <label className="title-user fw-7">Job Highlights</label>
                   <input type="text"
                          className="input-form"
-                         placeholder="Job key points"
+                         placeholder="Job Key points"
                          value={jobHighlights}
                          onChange={handleJobHighlightsChange}
                   />

@@ -22,7 +22,7 @@ function ApplicantHomePage() {
   const [activeRoute, setActiveRoute] = useState('');
   const [selectedJobId, setSelectedJobId] = useState('');
   const location = useLocation();
-  
+
   const updateActiveRoute = () => {
     const pathname = location.pathname;
 
@@ -74,15 +74,9 @@ function ApplicantHomePage() {
 
 
   return (
-    
     <div  class="dashboard show">
-      
      <ApplicantNavBar />
-
- 
-        {/* <ApplicantLeftNavBar /> */}
-      
-     {/* {!isLeftNavVisible && <ApplicantLeftNavBar />} */}
+     <ApplicantLeftNavBar />
      {activeRoute === 'dashboard' && <ApplicantDashboard />}
      {activeRoute === 'profile' && <ApplicantUpdateProfile />}
      {activeRoute === 'findjobs' && (<ApplicantFindJobs setSelectedJobId={setSelectedJobId} /> )}
@@ -95,8 +89,8 @@ function ApplicantHomePage() {
      {activeRoute === 'jobalerts' && <ApplicantJobAlerts />}
      {activeRoute === 'resume' && <ApplicantResume />}
       <ApplicantFooter />   
-      </div> 
-    
+
+    </div>
   )
 }
 

@@ -82,9 +82,9 @@ const Nav = () => {
                   <li>
                     <a href="https://www.linkedin.com/company/tekworks-in"><i class="icon-linkedin2"></i></a>
                   </li>
-                  {/* <li>
+                  <li>
                     <a href="#"><i class="icon-twitter"></i></a>
-                  </li> */}
+                  </li>
                   <li>
                     <a href="https://www.instagram.com/tekworks_hiring"><i class="icon-instagram1"></i></a>
                   </li>
@@ -202,7 +202,7 @@ const Nav = () => {
                 <div class="header-customize-item account">
                 <img src="images/user/avatar/sign-in.png" alt="" />
                 <div class="name">
-                  <span class="icon-keyboard_arrow_down"></span>
+                  Candidates<span class="icon-keyboard_arrow_down"></span>
                 </div>
                 <div class="sub-account">
                   <div class="sub-account-item">

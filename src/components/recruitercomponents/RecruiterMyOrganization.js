@@ -138,8 +138,8 @@ function RecruiterMyOrganization() {
       //Headoffice validation
       if (!headOffice.trim()) {
         errors.headOffice = 'Head office address is required';
-        isValid = false;
        // alert(errors.headOffice);
+       isValid = false;
       }
       if (instagram.trim() && !/^[a-zA-Z0-9_]+$/.test(instagram.trim())) {
         errors.instagram = 'Invalid Instagram handle';
@@ -199,43 +199,12 @@ function RecruiterMyOrganization() {
        
             if (responseData === 'CompanyProfile was already updated.') {
               window.alert('CompanyProfile was already updated.');
-              setCompanyName('');
-              setWebsite('');
-              setPhoneNumber('');
-              setEmail('');
-              setHeadOffice('');
-              setTwitter('');
-              setInstagram('');
-              setYoutube('');
-              setFormErrors({
-                companyName: '',
-                website: '',
-                phoneNumber: '',
-                email: '',
-                headOffice: '',
-                instagram: '',
-              });
+             
             } else {
               window.alert('Profile saved successfully');
               setIsProfileSubmitted(true);
               setVerificationStatus(false);
               localStorage.setItem('isProfileSubmitted', 'true'); // Save to localStorage
-              setCompanyName('');
-        setWebsite('');
-        setPhoneNumber('');
-        setEmail('');
-        setHeadOffice('');
-        setTwitter('');
-        setInstagram('');
-        setYoutube('');
-        setFormErrors({
-          companyName: '',
-          website: '',
-          phoneNumber: '',
-          email: '',
-          headOffice: '',
-          instagram: '',
-        });
             }
           } else {
             console.error('API request failed');

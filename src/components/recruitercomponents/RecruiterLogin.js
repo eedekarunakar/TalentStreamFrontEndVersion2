@@ -36,52 +36,60 @@ function RecruiterLogin({handleLogin}) {
   
     const handleSubmit = async (e) => {
       e.preventDefault();
-  
-      // Check if the form is empty
       if (!isFormValid()) {
+       // window.alert('Please enter both username and password.');
         return;
       }
-  
       try {
+  
         let loginEndpoint;
         let count;
-  
-        if (email === 'admin' && password === 'admin') {
-          count = 0;
-          loginEndpoint = `${apiUrl}/adminlogin`; // Admin login endpoint
-        } else {
-          count = 1;
-          loginEndpoint = `${apiUrl}/recuriters/recruiterLogin`; // User login endpoint
-        }
-  
+      if (email === 'admin' && password === 'admin') {
+         count=0;
+        loginEndpoint = `${apiUrl}/adminlogin`; // Admin login endpoint
+      } else {
+        count=1;
+        loginEndpoint = `${apiUrl}/recuriters/recruiterLogin`; // User login endpoint
+      }
+        // Replace 'http://localhost:5000' with your actual Spring Boot backend URL
         console.log('Email:', email);
         const response = await axios.post(loginEndpoint, {
           email,
           password,
+           // Include the selected role in the request
         });
   
         if (response.status === 200) {
+          // Assuming the response.data contains user data
           setErrorMessage('');
           const userData = response.data;
-          console.log('this is response ', userData);
-          console.log('this is token ', userData.data.jwt);
+          console.log('this is response ',userData);
+          console.log('this is token ',userData.data.jwt);
           localStorage.setItem('jwtToken', userData.data.jwt);
-          let userType1 = '';
+          let userType1='';
   
-          if (userData.message.includes('ROLE_JOBAPPLICANT')) {
-            userType1 = 'jobseeker';
-          } else if (userData.message.includes('ROLE_JOBRECRUITER')) {
-            userType1 = 'employer';
-          } else {
-            userType1 = 'unknown';
-          }
-          console.log('this userType ', userType1);
+  if (userData.message.includes("ROLE_JOBAPPLICANT") ) {
+      userType1 = "jobseeker";
+  } else if (userData.message.includes("ROLE_JOBRECRUITER")) {
+      userType1 = "employer";
+  } else {
+      // Handle the case when neither role is found in userData.message
+      userType1 = "unknown"; // You can choose a default value here
+  }
+  console.log('this userType ',userType1);
           localStorage.setItem('userType', userType1);
-  
+          // Access and store the JWT token from the Authorization header
           const jwtToken = response.headers.authorization;
+         
+  
+        
+          // Set JWT token in localStorage
+          //setJwtToken(jwtToken);
   
           setErrorMessage('');
           handleLogin();
+  
+          // Set user data in the context
           setUser(userData);
           setUserType(userData.userType);
           console.log('Login successful', userData);
@@ -89,24 +97,17 @@ function RecruiterLogin({handleLogin}) {
           if (count === 0) {
             navigate('/admin');
           } else {
-            navigate('/recruiterhome');
+            navigate("/recruiterhome");
           }
-        } else {
-          // Check if the error message contains information about invalid username or password
-          if (response.data && response.data.message) {
-            if (response.data.message.includes('Invalid username')) {
-              setErrorMessage('Invalid email');
-            } else if (response.data.message.includes('Invalid password')) {
-              setErrorMessage('Invalid password');
-            } else {
-              setErrorMessage('Login failed. Please check your user name and password.');
-            }
-          } else {
-            setErrorMessage('Login failed. Please check your user name and password.');
-          }
+  
+          // You can now use `jwtToken` for making authenticated requests.
+          //console.log('JWT Token:', jwtToken);
+        } 
+        else {
+          setErrorMessage('Login failed. Please check your user name and password.');
           console.error('Login failed');
         }
-      } catch (error) {
+      }catch (error) {
         setErrorMessage('Login failed. Please check your user name and password.');
         console.error('Login failed', error);
       }
@@ -142,7 +143,7 @@ function RecruiterLogin({handleLogin}) {
             Registration successful! Please log in to continue.
           </div>
         )}
-              <h4>Recruiter's Login</h4>
+              <h4>Recruiter's Log In</h4>
               <form  onSubmit={handleSubmit}>
                 <div className="ip">
                   <label>
@@ -182,7 +183,6 @@ function RecruiterLogin({handleLogin}) {
                 </div>
                 <button type="submit">Login</button>
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
-                
                 <div className="sign-up">
                   Not registered yet? <a href="/register" >Sign Up</a>
                 </div>

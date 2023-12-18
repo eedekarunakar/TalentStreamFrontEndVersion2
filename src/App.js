@@ -86,16 +86,12 @@ function App() {
                 <Route path="/recruiter-jobopenings" element={<RecruiterHomePage />} />
                 <Route path="/recruiter-allapplicants" element={<RecruiterHomePage />} />
                 <Route path="/recruiter-appliedapplicants" element={<RecruiterHomePage />} />
-                <Route path="/recruiter-applicantinterviews" element={<RecruiterHomePage />} />
-                <Route path="/recruiter-change-password" element={<RecruiterHomePage />} />
-                <Route path="/recruiter-team-member" element={<RecruiterHomePage />} />
                 </>
               ) : (
                 // Redirect to login page if not authenticated
                 <Route path="/login" element={<Navigate to="/login" />} />
               )}
-              {/* <Route path="/logout" element={<Logout onLogout={handleLogout} />} /> */}
-              <Route path="/logout" element={<Navigate to="/" />} />
+              <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
             
             </Routes>
           </Router>

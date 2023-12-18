@@ -456,7 +456,6 @@ textarea {
   width: 100%;
   height: 166px;
   padding: 15px 30px;
-  
 }
 
 input[type="checkbox"] {
@@ -519,17 +518,9 @@ input[type="color"],
 .tf-container.ctn-full {
   width: 100%;
 }
-/* Common styles for the dashboard */
-.flat-dashboard-setting {
-  background-color: #f8f8f8; /* Set the common background color */
-  padding: 20px; /* Add padding for content spacing */
-}
 
-  .menu-item {
-    margin-right: 0; /* Remove right margin for menu items on smaller screens */
-    margin-bottom: 8px; /* Add bottom margin to separate menu items vertically */
-  }
-}
+
+
 
 /* Header
 ---------------------------------------------- */
@@ -616,29 +607,6 @@ input[type="color"],
   margin-right: 8px;
   position: relative;
   top: 4px;
-}
-
-.flat-dashboard-setting {
-  margin: 10px; /* Adjust margin as needed */
-  padding: 10px; /* Adjust padding as needed */
-  border-radius: 8px; /* Optional: Add border-radius for rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add box-shadow for a subtle shadow effect */
-}
-
-.menu-list {
-  display: flex;
-  gap: 10px; /* Adjust gap between menu items */
-}
-
-.menu-item {
-  cursor: pointer;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.filter-option {
-  /* Add styles for filter options */
 }
 
 /*Header fixed
@@ -3079,7 +3047,11 @@ input[type="color"],
 }
 
 
-
+.error-message {
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
+}
 
 .success-message {
   color: green;
@@ -3126,10 +3098,9 @@ input[type="color"],
 
 .error-message {
   color: red;
-  font-size: 17px;
+  font-size: 12px;
   margin-top: 4px; /* Adjust as needed for spacing */
 }
-
 .verification-status {
   padding: 10px;
   margin: 10px 0;
