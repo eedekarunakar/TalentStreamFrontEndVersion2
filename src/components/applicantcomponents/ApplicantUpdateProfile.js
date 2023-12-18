@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
+import validator from 'validator';
  
 function ApplicantUpdateProfile() {
   const [loading, setLoading] = useState(true);
@@ -36,16 +37,35 @@ function ApplicantUpdateProfile() {
       newErrors.basicDetails.firstName = 'First Name is required';
     }  */
  
-    if (!basicDetails.dateOfBirth.trim()) {
+   /* if (!validator.isDate(basicDetails.dateOfBirth)) {
+     console.log(basicDetails.dateOfBirth);
+
       newErrors.basicDetails.dateOfBirth = 'Date of Birth is required';
-    }
+    } */
+    const currentDate = new Date();
+const maxAllowedAge = 17;
+
+if (!validator.isDate(basicDetails.dateOfBirth)) {
+ 
+  newErrors.basicDetails.dateOfBirth = 'Date of Birth is required';
+} else {
+  const selectedDate = new Date(basicDetails.dateOfBirth);
+  
+  // Check if the selected date is more than 17 years ago from the current date
+  if (selectedDate > new Date(currentDate.getFullYear() - maxAllowedAge, currentDate.getMonth(), currentDate.getDate())) {
+    newErrors.basicDetails.dateOfBirth = 'The Date of Birth should be at least 17 years ago.';
+  } else {
+    // Clear any previous errors
+    newErrors.basicDetails.dateOfBirth = '';
+  }
+}
  
     if (!basicDetails.city) {
       newErrors.basicDetails.city = 'City is required';
     } else {
       // Validation for not accepting digits
       if (/\d/.test(basicDetails.city.trim())) {
-        newErrors.basicDetails.city = 'City should not contain digits';
+        newErrors.basicDetails.city = 'City should not be number';
       }
     }
  
@@ -89,7 +109,7 @@ function ApplicantUpdateProfile() {
     } else {
       // Validation for text only
       if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xschoolName.trim())) {
-        newErrors.xClassDetails.xschoolName = 'School Name should contain text only';
+        newErrors.xClassDetails.xschoolName = 'School Name should not be number';
       }
     }
 
@@ -102,7 +122,7 @@ function ApplicantUpdateProfile() {
     } else {
       // Validation for text only
       if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xboard.trim())) {
-        newErrors.xClassDetails.xboard = 'Board should contain text only';
+        newErrors.xClassDetails.xboard = 'Board should not be number';
       }
     }
    /*  if (!xClassDetails.xpercentage.trim()) {
@@ -156,7 +176,7 @@ if (!xClassDetails.xCity) {
 } else {
   // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xCity.trim())) {
-    newErrors.xClassDetails.xCity = 'City should contain text only';
+    newErrors.xClassDetails.xCity = 'City should not be number';
   }
 }
 
@@ -166,7 +186,7 @@ if (!xClassDetails.xState) {
 } else {
   // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xState.trim())) {
-    newErrors.xClassDetails.xState = 'State should contain text only';
+    newErrors.xClassDetails.xState = 'State should not be number';
   }
 }
    /*  if (!xClassDetails.xState.trim()) {
@@ -184,7 +204,7 @@ if (!intermediateDetails.icollegeName) {
 } else {
   // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.icollegeName.trim())) {
-    newErrors.intermediateDetails.icollegeName = 'College Name should contain text only';
+    newErrors.intermediateDetails.icollegeName = 'College Name should not be number';
   }
 }
    /*  if (!intermediateDetails.iboard.trim()) {
@@ -197,7 +217,7 @@ if (!intermediateDetails.iboard) {
 } else {
   // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iboard.trim())) {
-    newErrors.intermediateDetails.iboard = 'Board Name should contain text only';
+    newErrors.intermediateDetails.iboard = 'Board Name should not be number only';
   }
 }
 
@@ -283,7 +303,7 @@ if (!graduationDetails.gcollegeName) {
   newErrors.graduationDetails.gcollegeName = 'College Name is required';
 } else {
   // Validation for text only
-  if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gcollegeName.trim())) {
+  if (!/^[^\d]+$/.test(graduationDetails.gcollegeName.trim())) {
     newErrors.graduationDetails.gcollegeName = 'College Name should contain text only';
   }
 }
@@ -389,22 +409,25 @@ if (!graduationDetails.gState) {
     //Skills
     skillsRequired.forEach((skill, index) => {
       // Validation for Skill Name
-      if (!skill.skillName) {
-        newErrors.skillsRequired[index] = { skillName: 'Skill Name is required' };
-      } else {
-        // Validation for not containing digits in Skill Name
-        if (/\d/.test(skill.skillName.trim())) {
-          newErrors.skillsRequired[index] = { skillName: 'Skill Name should not contain digits' };
-        }
+      if (skill==undefined || !skill.skillName) {     
+         
+        newErrors.skillsRequired[index] =  {skillName:'Skill Name is required'};
+      } else if (validator.isNumeric(skill.skillName)) {
+          newErrors.skillsRequired[index] =  {skillName:'Skill Name should not be a numeric'}; 
       }
 
     //Experience
       // Validation for Experience
       if (!skill.experience) {
-        newErrors.skillsRequired[index]={experience :'Experience is required'};
+        
+        newErrors.skillsRequired[index].experience='Experience is required';
       } 
+      else if (!validator.isNumeric(skill.experience)) {
+        newErrors.skillsRequired[index].experience='Experience should be numeric' ;
+      }
     });
- 
+ // Log the newErrors object for debugging
+
     // Experience
     // experienceDetails.forEach((experience, index) => {
     //   if (!experience.company.trim()) {
@@ -425,7 +448,7 @@ if (!graduationDetails.gState) {
     // });
  
     setErrors(newErrors);
- 
+    
     // Check if there are no errors
     return Object.keys(newErrors).every(key => Object.keys(newErrors[key]).length === 0);
   };
@@ -551,12 +574,10 @@ if (!graduationDetails.gState) {
   const [selectedSkill, setSelectedSkill] = useState("");
  
   const handleSkillChange = (e, index, field) => {
-    
     const updatedSkillsRequired = [...skillsRequired];
-    //if(field == "experience" && e.target.value=="")
-   // updatedSkillsRequired[index][field] = 0;
-  //  else
-    updatedSkillsRequired[index][field] = e.target.value;
+
+        updatedSkillsRequired[index][field] = e.target.value;
+ console.log('After Update:', updatedSkillsRequired);
  
     setSkillsRequired(updatedSkillsRequired);
  
@@ -769,13 +790,17 @@ if (!graduationDetails.gState) {
                              placeholder="Date of Birth"
                              id="dateOfBirth"
                              className="input-form"
-                             onfocus="(this.type='date')"
-                             onblur="(this.type='text')"
+                          //   onfocus="(this.type='date')"
+                           //  onblur="(this.type='date')"
                              value={basicDetails.dateOfBirth}
-                             onChange={(e) =>
-                             setBasicDetails({...basicDetails,dateOfBirth: e.target.value,})}
-                             onBlur={validateForm}                             
+                             onChange={(e) =>{
+                              console.log(e.target.value);
+                             setBasicDetails({...basicDetails,dateOfBirth: e.target.value,})}}
+                            onBlur={validateForm}                             
                        /> 
+                       {errors.basicDetails.dateOfBirth && (
+              <div className="error-message">{errors.basicDetails.dateOfBirth}</div>
+            )}
                   </fieldset>
                   <fieldset>
                   <label class="title-user fw-7">City <span className="color-red">*</span></label>
@@ -1267,11 +1292,11 @@ if (!graduationDetails.gState) {
             </div>
           ))}
           <button type="button" onClick={addExperience}>
-            Add Experience
+            +
           </button>
           {experienceDetails.length > 0 && (
           <button type="button" onClick={() => removeExperience(experienceDetails.length - 1)}>
-            Remove Experience
+            -
           </button>
         )}
                       </div>
@@ -1292,7 +1317,7 @@ if (!graduationDetails.gState) {
   onBlur={validateForm}
 />
 {errors.skillsRequired[index]?.skillName && (
-                    <div className="error-message">{errors.skillsRequired[index].skillName}</div>
+<div className="error-message">{errors.skillsRequired[index].skillName}</div>
                   )}
 </div>
 <div>
@@ -1312,13 +1337,13 @@ if (!graduationDetails.gState) {
 </div>
 {index === skillsRequired.length - 1 && (
 <button type="button" onClick={addSkills} className="btn-3">
-  Add Skill
+  +
 </button>
 )}
 {index === skillsRequired.length - 1 && (
         <button type="button" onClick={removeSkills}>
           {/* Remove Skill */}
-          Remove Skill
+          -
         </button>
       )}
 </div>
