@@ -59,95 +59,108 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember,applyjo
 
   return (
     <div>
-
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Schedule Interview</Modal.Title>
+          <Modal.Title style={{ color: 'blue' }}>Schedule Interview</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleFormSubmit}>
-            <Form.Group controlId="interviewTitle">
-              <Form.Label>Interview Title</Form.Label>
-              <Form.Control
+            <div>
+              <label>Interview Title</label>
+              <input
                 type="text"
                 name="interviewTitle"
                 value={interviewData.interviewTitle}
                 onChange={handleFormChange}
                 placeholder="Enter interview title"
               />
-            </Form.Group>
-            <Form.Group controlId="interviewPerson">
-              <Form.Label>Interview Person</Form.Label>
-              <Form.Control
+            </div><br></br>
+<div>
+          <div>
+            <label style={{ marginRight: '60px' }}>Interview Person</label>
+            <label style={{ marginRight: '60px' }}>Type of Interview</label>
+            <label>Round</label>
+          </div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <input
                 type="text"
                 name="interviewPerson"
                 value={interviewData.interviewPerson}
                 onChange={handleFormChange}
                 placeholder="Enter interview person"
               />
-            </Form.Group>
-            <Form.Group controlId="typeOfInterview">
-              <Form.Label>Type of Interview</Form.Label>
-              <Form.Control
+              <input
                 type="text"
                 name="typeOfInterview"
                 value={interviewData.typeOfInterview}
                 onChange={handleFormChange}
                 placeholder="Enter type of interview"
               />
-            </Form.Group>
-            <Form.Group controlId="round">
-              <Form.Label>Round</Form.Label>
-              <Form.Control as="select">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="timeAndDate">
-              <Form.Label>Time and Date</Form.Label>
-              <Form.Control
-                type="datetime-local"
-                name="timeAndDate"
-                value={interviewData.timeAndDate}
+              <select
+                name="round"
+                value={interviewData.round}
                 onChange={handleFormChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="modeOfInterview">
-              <Form.Label>Mode of Interview</Form.Label>
-              <Form.Control as="select">
-                <option>Online</option>
-                <option>Face-to-Face</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="location">
-              <Form.Label>Location</Form.Label>
-              <Form.Control
-                type="text"
-                name="location"
-                value={interviewData.location}
-                onChange={handleFormChange}
-                placeholder="Enter interview location"
-              />
-            </Form.Group>
-            <Form.Group controlId="interviewLink">
-              <Form.Label>Interview Link</Form.Label>
-              <Form.Control
-                type="text"
-                name="interviewLink"
-                value={interviewData.interviewLink}
-                onChange={handleFormChange}
-                placeholder="Enter interview link"
-              />
-            </Form.Group>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+          </div><br></br>
+ 
+ 
+          <div>
+            <label style={{ marginRight: '150px' }}>Time and Date</label>
+            <label style={{ marginRight: '60px' }}>Mode of Interview</label>
+          </div>
+          <div style={{ display: 'flex', gap: '10px' }}>
+          <input
+                  type="datetime-local"
+                  name="timeAndDate"
+                  value={interviewData.timeAndDate}
+                  onChange={handleFormChange}
+                />
+ 
+            <select
+                  name="modeOfInterview"
+                  value={interviewData.modeOfInterview}
+                  onChange={handleFormChange}
+                >
+                  <option value="Online">Online</option>
+                  <option value="Face-to-Face">Face-to-Face</option>
+                </select>
+ 
+                </div><br></br>
+          <div>
+            <label style={{ marginRight: '190px' }}>Location</label>
+            <label style={{ marginRight: '60px' }}>Interview Link</label>
+          </div>
+          <div style={{ display: 'flex', gap: '10px' }}>
+              <input
+                  type="text"
+                  name="location"
+                  value={interviewData.location}
+                  onChange={handleFormChange}
+                  placeholder="Enter interview location"
+                />
+ 
+                <input
+                  type="text"
+                  name="interviewLink"
+                  value={interviewData.interviewLink}
+                  onChange={handleFormChange}
+                  placeholder="Enter interview link"
+                />
+ 
+          </div>
+            <div className="modal-footer">
+             
+              <button type="submit" style={{ color: 'white', backgroundColor: 'blue' }}>Schedule</button>
+ 
+              <button type="button" onClick={handleClose}>
                 Close
-              </Button>
-              <Button variant="primary" type="submit">
-                Schedule
-              </Button>
-            </Modal.Footer>
+              </button>
+            </div>
           </Form>
         </Modal.Body>
       </Modal>
