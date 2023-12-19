@@ -237,7 +237,7 @@ function RecruiterPostJob() {
     });
     errors.skillsRequired = skillsErrors;
  
-    if (industryType && industryType.trim().length < 3) {
+    if (industryType && industryType.trim().length < 2) {
       isValid = false;
       setFormErrors((prevErrors) => ({
         ...prevErrors,
