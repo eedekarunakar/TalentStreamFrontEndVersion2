@@ -94,7 +94,7 @@ function ApplicantHomePage() {
      {activeRoute === 'deleteprofile' && <ApplicantDeleteProfile />}
      {activeRoute === 'jobalerts' && <ApplicantJobAlerts />}
      {activeRoute === 'resume' && <ApplicantResume />}
-      <ApplicantFooter />   
+      {/* <ApplicantFooter />    */}
       </div> 
     
   )

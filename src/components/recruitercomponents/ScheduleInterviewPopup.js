@@ -4,9 +4,8 @@ import axios from "axios";
 import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 
-const ScheduleInterviewPopup = ({ applyJobId }) => {
+const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember,applyjobid }) => {
 
-  const [show, setShow] = useState(false);
   const user1 = useUserContext();
 
   const user = user1.user;
@@ -22,8 +21,6 @@ const ScheduleInterviewPopup = ({ applyJobId }) => {
     interviewLink: "",
   });
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +44,7 @@ const ScheduleInterviewPopup = ({ applyJobId }) => {
 
     // Make the API call to your backend with the JWT token in the headers
     axios
-      .post(`${apiUrl}/applyjob/recruiters/scheduleInterview/${applyJobId}`, interviewData, { headers })
+      .post(`${apiUrl}/applyjob/scheduleInterview/${applyjobid}`, interviewData, { headers })
       .then((response) => {
         // Handle the successful response here, such as showing a success message or redirecting the user
         console.log('API Response:', response.data);
@@ -62,11 +59,6 @@ const ScheduleInterviewPopup = ({ applyJobId }) => {
 
   return (
     <div>
-      {/* <Button variant="primary" onClick={handleShow}>
-        <i className="bi bi-clock"> */}
-          {/* Your icon code here 
-        </i>*/}
-     {/* </Button> */}
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

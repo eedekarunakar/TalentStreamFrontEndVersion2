@@ -5,18 +5,16 @@ import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 
 const AddTeamMemberPopup = ({ show, handleClose, handleAddTeamMember,userId }) => {
-    const apiUrl = process.env.REACT_APP_API_BASE_URL;
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
         role: "",
     });
-    const user1 = useUserContext();
+    const user = useUserContext();
 
-    const user = user1.user;
+   
 
-    console.log("Id :",userId);
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -36,7 +34,7 @@ const AddTeamMemberPopup = ({ show, handleClose, handleAddTeamMember,userId }) =
 
         // Make the API call to your backend with the JWT token in the headers
         axios
-            .post(`${apiUrl}/team/${userId}/team-members`, formData, { headers })
+            .post(`${apiUrl}/team/add/${user.id}/team-members`, formData, { headers })
             .then((response) => {
                 // Handle the successful response here, such as showing a success message or redirecting the user
                 console.log('API Response:', response.data);

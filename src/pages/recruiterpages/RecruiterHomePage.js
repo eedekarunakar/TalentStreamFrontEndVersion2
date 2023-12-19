@@ -77,7 +77,7 @@ function RecruiterHomePage() {
      {activeRoute === 'applicantinterviews' && <RecruiterApplicantInterviews />}
      {activeRoute === 'changepassword' && <RecruiterChangePassword />}
      {activeRoute === 'teammember' && <TeamMember />}
-      <ApplicantFooter />    
+      {/* <ApplicantFooter />     */}
 
     </div>
   )

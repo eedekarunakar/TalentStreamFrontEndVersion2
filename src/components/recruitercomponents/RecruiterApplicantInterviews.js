@@ -39,13 +39,19 @@ function RecruiterApplicantInterviews() {
       </div>
     </div>
   </section>
-  <section className="flat-dashboard-setting">
+  <section className="flat-dashboard-setting bg-white">
   <div className="themes-container">
+  <div className="row">
+        <div className="col-lg-12 col-md-12 ">
+  <div className="profile-setting bg-white">
   {applicants.length > 0 ? (
               <ScheduleInterviewTable interview={applicants} />
             ) : (
               <p>No Interviews are Scheduled</p>
             )}
+      </div>
+      </div>
+      </div>
       </div>
       </section>
       </div>
@@ -59,7 +65,7 @@ function ScheduleInterviewTable({ interview }) {
     return (
       <div className="table-responsive">
         <table className="table table-striped table-bordered">
-          <thead className="thead-dark">
+          <thead>
             <tr>
               <th>Applicant Name</th>
               <th>Email</th>

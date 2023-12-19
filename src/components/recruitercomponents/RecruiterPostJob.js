@@ -662,7 +662,7 @@ const handleMaxSalaryChange = (e) => {
                 </div>
                 <fieldset>
                   <label className="title-user fw-7">
-                    Employee Type<span className="color-red">*</span>
+                    Job Type<span className="color-red">*</span>
                   </label>
                   <select value={employeeType}
                           className="input-form"
