@@ -37,9 +37,6 @@ const [employerEmailError, setEmployerEmailError] = useState('');
 const [employerMobileNumberError, setEmployerMobileNumberError] = useState('');
 const [employerPasswordError, setEmployerPasswordError] = useState('');
  
- 
- 
- 
   // Recruiter OTP state
   const [recruiterOTPSent, setRecruiterOTPSent] = useState(false);
   const [recruiterOTPVerified, setRecruiterOTPVerified] = useState(false);
@@ -85,7 +82,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
     } catch (error) {
       console.error('Error sending OTP:', error);
       setCandidateOTPSendingInProgress(false); // Use setCandidateOTPSendingInProgress
-      //window.alert('Email is already registered.');
+     // window.alert('Email is already registered.');
     }
   };
  
@@ -109,7 +106,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
     } catch (error) {
       console.error('Error sending OTP:', error);
       setRecruiterOTPSendingInProgress(false); // Use setRecruiterOTPSendingInProgress
-     // window.alert('Email is already registered.');
+      //window.alert('Email is already registered.');
     }
   };
  
@@ -358,8 +355,8 @@ const isEmailValid = (email) => {
             <div className="page-title">
               <div className="widget-menu-link">
                 <ul>
-                  <li><a href="/">Home</a></li>
-                  <li><a href="/register">Create Account</a></li>
+                  {/* <li><a href="/">Home</a></li>
+                  <li><a href="/register">Create Account</a></li> */}
                 </ul>
               </div>
             </div>

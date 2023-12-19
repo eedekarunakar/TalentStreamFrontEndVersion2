@@ -117,8 +117,8 @@ function ApplicantForgotPassword() {
               <div className="page-title">
                 <div className="widget-menu-link">
                   <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/applicant-forgot-password">Fogot Password</a></li>
+                    {/* <li><a href="/">Home</a></li>
+                    <li><a href="/applicant-forgot-password">Fogot Password</a></li> */}
                   </ul>
                 </div>
               </div>

@@ -640,6 +640,7 @@ if (!graduationDetails.gState) {
  
  
   const [resumeFile, setResumeFile] = useState(null);
+  const [photoFile,setPhotoFile]=useState(null);
   const [dragging, setDragging] = useState(false);
  
   const [selectedSkill, setSelectedSkill] = useState("");
@@ -724,43 +725,7 @@ if (!graduationDetails.gState) {
       user,
     };
  
-   /* try {
-      // Get the JWT token from local storage
-      const jwtToken = localStorage.getItem('jwtToken');
-       console.log('jwt token new',jwtToken);
-      // Make a POST request to the sign-out endpoint on your backend
-      const response = await axios.post(`${apiUrl}/applicantprofile/createprofile/${user.id}`, userData, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`, // Include the JWT token in the Authorization header
-        },
-      });
-   
-      if (response.status === 200) {
-        // Successful response
-        if (response.data === 'profile saved sucessfully') {
-          console.log(response.body);
-          window.alert('Profile saved successfully!');
-          navigate('/applicanthome');
-        }  else {
-          console.error('An unexpected success response:', response.body);
-        }
-         
-      }
-      else {
-        // Handle other error cases
-        console.error('An error occurred:', response.status, response.body);
-      }
-     
-    } catch (error) {
- 
-     
-        window.alert("Your profile has already been updated.");
-        navigate('/applicanthome');
-      console.error('An error occurred:', error);
-    }
-  };  */
- 
-  try {
+   try {
     // Get the JWT token from local storage
     const jwtToken = localStorage.getItem('jwtToken');
      console.log('jwt token new',jwtToken);
@@ -800,7 +765,62 @@ if (!graduationDetails.gState) {
 };
  
  
- 
+const handleFileSelect = (e) => {
+  const file = e.target.files[0];
+  setPhotoFile(file);
+};
+const uploadPhoto = async () => {
+  try {
+    const jwtToken = localStorage.getItem('jwtToken');
+    const formData = new FormData();
+    formData.append('photo', photoFile); // Use photoFile here
+    const response = await axios.post(
+      `${apiUrl}/applicant-image/${user.id}/upload`,
+      formData,
+      {
+        headers: {
+          //'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      }
+    );
+
+    console.log(response.data);
+    window.alert('Profile picture uploaded successfully!');
+  } catch (error) {
+    console.error('Error uploading photo:', error);
+    window.alert('error in uploading Profile ');
+  }
+};
+
+const handleResumeSelect = (e) => {
+  const file = e.target.files[0];
+  setResumeFile(file);
+};
+
+const handleResumeUpload = async () => {
+  try {
+    const jwtToken = localStorage.getItem('jwtToken');
+    const formData = new FormData();
+    formData.append('resume', resumeFile); // 'resume' is the key
+    const response = await axios.post(
+      `${apiUrl}/applicant-pdf/${user.id}/upload`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      }
+    );
+
+    console.log(response.data);
+    window.alert('Resume uploaded successfully!');
+  } catch (error) {
+    console.error('Error uploading resume:', error);
+    window.alert('Error uploading resume. Please try again.');
+  }
+};
+
   return (
     <div>
        {loading ? null : (
@@ -824,24 +844,68 @@ if (!graduationDetails.gState) {
           <div className="profile-setting bg-white">
           <div class="author-profile flex2 border-bt">
  
-<div class="wrap-img flex2">
+          <div class="wrap-img flex2">
   <div class="img-box relative">
-    <img class="avatar " id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />
+    <img class="avatar" id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />
   </div>
   <div id="upload-profile">
-    <h5 class="fw-6">Upload a new avatar: </h5>
-    <h6>JPG 80x80px</h6>
-    <input class="up-file" id="tf-upload-img" type="file" name="profile" required="" />
+    <h5 class="fw-6">Upload your profile picture: </h5>
+    <h6>JPG or PNG</h6>
+    <input
+      class="up-file"
+      id="tf-upload-img"
+      type="file"
+      name="profile"
+      required=""
+      onChange={handleFileSelect}
+    />
+    <button
+      type="button"
+      onClick={uploadPhoto}
+      className="btn-3"
+      style={{
+        backgroundColor: '#4CAF50',
+        color: 'white',
+        padding: '10px 15px',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+      }}
+    >
+      Upload Photo
+    </button>
   </div>
 </div>
 <div class="wrap-img flex2">
   <div class="img-box relative">
     <img class="avatar " id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />
-  </div>
+      </div>
   <div id="upload-profile">
-    <h5 class="fw-6">Upload Your Resume: </h5>
-    <h6>Doc or PFD</h6>
-    <input class="up-file" id="tf-upload-img" type="file" name="profile" required="" />
+    <h5 class="fw-6">Upload your resume: </h5>
+    <h6>PFD only</h6>
+    <input
+      class="up-file"
+      id="tf-upload-img"
+      type="file"
+      name="profile"
+      required=""
+      onChange={handleResumeSelect}
+    />  
+    <button
+  type="button"
+  onClick={handleResumeUpload}
+  className="btn-3"
+  style={{
+    backgroundColor: '#4CAF50', // Green color, you can change this
+    color: 'white',
+    padding: '10px 15px',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  }}
+>
+  Upload Resume
+</button>
   </div>
 </div>
 <div>
