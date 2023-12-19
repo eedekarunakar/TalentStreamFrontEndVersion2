@@ -34,7 +34,7 @@ const AddTeamMemberPopup = ({ show, handleClose, handleAddTeamMember,userId }) =
 
         // Make the API call to your backend with the JWT token in the headers
         axios
-            .post(`${apiUrl}/team/add/${user.id}/team-members`, formData, { headers })
+            .post(`${apiUrl}/team/add/${userId}/team-members`, formData, { headers })
             .then((response) => {
                 // Handle the successful response here, such as showing a success message or redirecting the user
                 console.log('API Response:', response.data);
