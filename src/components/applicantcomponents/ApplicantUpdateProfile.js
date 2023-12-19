@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
-import validator from 'validator';
  
 function ApplicantUpdateProfile() {
   const [loading, setLoading] = useState(true);
@@ -45,7 +44,8 @@ function ApplicantUpdateProfile() {
     const currentDate = new Date();
 const maxAllowedAge = 17;
 
-if (!validator.isDate(basicDetails.dateOfBirth)) {
+//if (!validator.isDate(basicDetails.dateOfBirth)) 
+if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
  
   newErrors.basicDetails.dateOfBirth = 'Date of Birth is required';
 } else {
@@ -412,7 +412,7 @@ if (!graduationDetails.gState) {
       if (skill==undefined || !skill.skillName) {     
          
         newErrors.skillsRequired[index] =  {skillName:'Skill Name is required'};
-      } else if (validator.isNumeric(skill.skillName)) {
+      } else if (/^\d+$/.test(skill.skillName)) {
           newErrors.skillsRequired[index] =  {skillName:'Skill Name should not be a numeric'}; 
       }
 
@@ -422,7 +422,7 @@ if (!graduationDetails.gState) {
         
         newErrors.skillsRequired[index].experience='Experience is required';
       } 
-      else if (!validator.isNumeric(skill.experience)) {
+      else if (!/^\d+$/.test(skill.experience)) {
         newErrors.skillsRequired[index].experience='Experience should be numeric' ;
       }
     });
