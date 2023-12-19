@@ -21,7 +21,7 @@ function ApplicantUpdateProfile() {
   });
  
   // Validation function
-  const validateForm = () => {
+  const validateForm = (fielname) => {
     const newErrors = {
       basicDetails: {},
       xClassDetails: {},
@@ -42,9 +42,11 @@ function ApplicantUpdateProfile() {
       newErrors.basicDetails.dateOfBirth = 'Date of Birth is required';
     } */
     const currentDate = new Date();
-const maxAllowedAge = 17;
+const maxAllowedAge = 18;
 
 //if (!validator.isDate(basicDetails.dateOfBirth)) 
+if(fielname === "" || fielname === "dateOfBirth")
+{
 if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
  
   newErrors.basicDetails.dateOfBirth = 'Date of Birth is required';
@@ -53,13 +55,13 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
   
   // Check if the selected date is more than 17 years ago from the current date
   if (selectedDate > new Date(currentDate.getFullYear() - maxAllowedAge, currentDate.getMonth(), currentDate.getDate())) {
-    newErrors.basicDetails.dateOfBirth = 'The Date of Birth should be at least 17 years ago.';
-  } else {
-    // Clear any previous errors
-    newErrors.basicDetails.dateOfBirth = '';
+    newErrors.basicDetails.dateOfBirth = 'The Date of Birth should be at least 18 years ago.';
   }
 }
- 
+}
+
+if(fielname === "" || fielname === "city")
+{
     if (!basicDetails.city) {
       newErrors.basicDetails.city = 'City is required';
     } else {
@@ -68,23 +70,30 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
         newErrors.basicDetails.city = 'City should not be number';
       }
     }
- 
+  }
+
+  if(fielname==="" || fielname === "address")
+  {
     if (!basicDetails.address.trim()) {
       newErrors.basicDetails.address = 'Address is required';
     }
- 
+  }
    /*  if (!basicDetails.pincode.trim()) {
       newErrors.basicDetails.pincode = 'Pin Code is required';
     } */
+    if(fielname === "" || fielname === "pincode")
+{
     if (!basicDetails.pincode.trim()) {
       newErrors.basicDetails.pincode = 'Pin Code is required';
     } else if (!/^\d{6}$/.test(basicDetails.pincode.trim())) {
       newErrors.basicDetails.pincode = 'Pin Code should be 6 digits and contain only numbers';
     }
- 
+  }
    /*  if (!basicDetails.state.trim()) {
       newErrors.basicDetails.state = 'State is required';
     } */
+    if(fielname === "" || fielname === "state")
+{
     if (!basicDetails.state) {
       newErrors.basicDetails.state = 'State is required';
     } else {
@@ -93,7 +102,7 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
         newErrors.basicDetails.state = 'State should contain text only';
       }
     }
- 
+  }
    /* if (!basicDetails.address.trim()) {
       newErrors.basicDetails.pincode = 'Address is required';
     } */
@@ -103,7 +112,8 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
    /*  if (!xClassDetails.xschoolName.trim()) {
       newErrors.xClassDetails.xschoolName = 'School Name is required';
     } */
- 
+    if(fielname === "" || fielname === "xschoolName")
+    {
     if (!xClassDetails.xschoolName) {
       newErrors.xClassDetails.xschoolName = 'School Name is required';
     } else {
@@ -111,12 +121,14 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
       if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xschoolName.trim())) {
         newErrors.xClassDetails.xschoolName = 'School Name should not be number';
       }
-    }
+    }}
 
    /*  if (!xClassDetails.xboard.trim()) {
       newErrors.xClassDetails.xboard = 'Board is required';
     }
   */
+    if(fielname === "" || fielname === "xboard")
+    {
     if (!xClassDetails.xboard) {
       newErrors.xClassDetails.xboard = 'Board is required';
     } else {
@@ -125,9 +137,12 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
         newErrors.xClassDetails.xboard = 'Board should not be number';
       }
     }
+  }
    /*  if (!xClassDetails.xpercentage.trim()) {
       newErrors.xClassDetails.xpercentage = 'Percentage is required';
     } */
+    if(fielname === "" || fielname === "xpercentage")
+{
     if (!xClassDetails.xpercentage.trim()) {
       newErrors.xClassDetails.xpercentage = 'Percentage is required';
     } else {
@@ -140,19 +155,25 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
         newErrors.xClassDetails.xpercentage = 'Enter a valid percentage between 0 and 100 (only digits and period(.) are allowed)';
       }
     }
+  }
    /*  if (!xClassDetails.xPincode.trim()) {
       newErrors.xClassDetails.xPincode = 'Pin Code is required';
     }
   */
+    if(fielname === "" || fielname === "xPincode")
+    {
     if (!xClassDetails.xPincode.trim()) {
       newErrors.xClassDetails.xPincode = 'Pin Code is required';
     } else if (!/^\d{6}$/.test(xClassDetails.xPincode.trim())) {
       newErrors.xClassDetails.xPincode = 'Pin Code should be 6 digits and contain only numbers';
     }
+  }
    /*  if (!xClassDetails.xyearOfPassing.trim()) {
       newErrors.xClassDetails.xyearOfPassing = 'Year of Passing is required';
     } */
    // Validation for required field
+   if(fielname === "" || fielname === "xyearOfPassing")
+{
 if (!xClassDetails.xyearOfPassing) {
   newErrors.xClassDetails.xyearOfPassing = 'Year of Passing is required';
 } else {
@@ -166,11 +187,14 @@ if (!xClassDetails.xyearOfPassing) {
     }
   }
 }
+}
  
    /*  if (!xClassDetails.xCity.trim()) {
       newErrors.xClassDetails.xCity = 'City is required';
     } */
     // Validation for City
+    if(fielname === "" || fielname === "xCity")
+{
 if (!xClassDetails.xCity) {
   newErrors.xClassDetails.xCity = 'City is required';
 } else {
@@ -179,8 +203,11 @@ if (!xClassDetails.xCity) {
     newErrors.xClassDetails.xCity = 'City should not be number';
   }
 }
+}
 
 // Validation for State
+if(fielname === "" || fielname === "xState")
+{
 if (!xClassDetails.xState) {
   newErrors.xClassDetails.xState = 'State is required';
 } else {
@@ -188,6 +215,7 @@ if (!xClassDetails.xState) {
   if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xState.trim())) {
     newErrors.xClassDetails.xState = 'State should not be number';
   }
+}
 }
    /*  if (!xClassDetails.xState.trim()) {
       newErrors.xClassDetails.xState = 'State is required';
@@ -199,6 +227,8 @@ if (!xClassDetails.xState) {
       newErrors.intermediateDetails.icollegeName = 'College Name is required';
     } */
    // Validation for College Name
+   if(fielname === "" || fielname === "icollegeName")
+{
 if (!intermediateDetails.icollegeName) {
   newErrors.intermediateDetails.icollegeName = 'College Name is required';
 } else {
@@ -207,11 +237,14 @@ if (!intermediateDetails.icollegeName) {
     newErrors.intermediateDetails.icollegeName = 'College Name should not be number';
   }
 }
+}
    /*  if (!intermediateDetails.iboard.trim()) {
       newErrors.intermediateDetails.iboard = 'Board Name is required';
     }
   */
 // Validation for Board Name
+if(fielname === "" || fielname === "iboard")
+{
 if (!intermediateDetails.iboard) {
   newErrors.intermediateDetails.iboard = 'Board Name is required';
 } else {
@@ -220,12 +253,14 @@ if (!intermediateDetails.iboard) {
     newErrors.intermediateDetails.iboard = 'Board Name should not be number only';
   }
 }
-
+}
     /* if (!intermediateDetails.iprogram.trim()) {
       newErrors.intermediateDetails.iprogram = 'Program is required';
     } */
 
 // Validation for Program
+if(fielname === "" || fielname === "iprogram")
+{
 if (!intermediateDetails.iprogram) {
   newErrors.intermediateDetails.iprogram = 'Program is required';
 } else {
@@ -234,10 +269,12 @@ if (!intermediateDetails.iprogram) {
     newErrors.intermediateDetails.iprogram = 'Program should contain text only';
   }
 }
-
+}
    /*  if (!intermediateDetails.ipercentage.trim()) {
       newErrors.intermediateDetails.ipercentage = 'Percentage is required';
     } */
+    if(fielname === "" || fielname === "ipercentage")
+{
     if (!intermediateDetails.ipercentage.trim()) {
       newErrors.intermediateDetails.ipercentage = 'Percentage is required';
     } else {
@@ -250,9 +287,12 @@ if (!intermediateDetails.iprogram) {
         newErrors.intermediateDetails.ipercentage = 'Enter a valid percentage between 0 (only digits and period(.) are allowed)';
       }
     }
+  }
   /*  if (!intermediateDetails.iyearOfPassing.trim()) {
       newErrors.intermediateDetails.iyearOfPassing = 'Year of passing is required';
     } */
+    if(fielname === "" || fielname === "iyearOdPassing")
+{
     if (!intermediateDetails.iyearOfPassing) {
       newErrors.intermediateDetails.iyearOfPassing = 'Year of Passing is required';
     } else {
@@ -266,11 +306,13 @@ if (!intermediateDetails.iprogram) {
         }
       }
     }
- 
+  }
     /* if (!intermediateDetails.iCity.trim()) {
       newErrors.intermediateDetails.iCity = 'City is required';
     } */
 // Validation for Intermediate City
+if(fielname === "" || fielname === "iCity")
+{
 if (!intermediateDetails.iCity) {
   newErrors.intermediateDetails.iCity = 'City is required';
 } else {
@@ -279,12 +321,14 @@ if (!intermediateDetails.iCity) {
     newErrors.intermediateDetails.iCity = 'City should contain text only';
   }
 }
-
+}
    /*  if (!intermediateDetails.iState.trim()) {
       newErrors.intermediateDetails.iState = 'State is required';
     } */
 
     // Validation for Intermediate State
+    if(fielname === "" || fielname === "iState")
+{
 if (!intermediateDetails.iState) {
   newErrors.intermediateDetails.iState = 'State is required';
 } else {
@@ -293,12 +337,14 @@ if (!intermediateDetails.iState) {
     newErrors.intermediateDetails.iState = 'State should contain text only';
   }
 }
-
+}
    /*  // Graduation Details
     if (!graduationDetails.gcollegeName.trim()) {
       newErrors.graduationDetails.gcollegeName = 'College Name is required';
     } */
     // Validation for Graduation College Name
+    if(fielname === "" || fielname === "gcollegeName")
+{
 if (!graduationDetails.gcollegeName) {
   newErrors.graduationDetails.gcollegeName = 'College Name is required';
 } else {
@@ -307,11 +353,13 @@ if (!graduationDetails.gcollegeName) {
     newErrors.graduationDetails.gcollegeName = 'College Name should contain text only';
   }
 }
- 
+}
    /*  if (!graduationDetails.gboard.trim()) {
       newErrors.graduationDetails.gboard = 'Board Name is required';
     } */
     // Validation for Graduation Board Name
+    if(fielname === "" || fielname === "gboard")
+{
 if (!graduationDetails.gboard) {
   newErrors.graduationDetails.gboard = 'Board Name is required';
 } else {
@@ -320,12 +368,14 @@ if (!graduationDetails.gboard) {
     newErrors.graduationDetails.gboard = 'Board Name should contain text only';
   }
 }
- 
+}
    /*  if (!graduationDetails.gprogram.trim()) {
       newErrors.graduationDetails.gprogram = 'Program is required';
     } */
 
     // Validation for Graduation Program
+    if(fielname === "" || fielname === "gprogram")
+{
 if (!graduationDetails.gprogram) {
   newErrors.graduationDetails.gprogram = 'Program is required';
 } else {
@@ -334,9 +384,12 @@ if (!graduationDetails.gprogram) {
     newErrors.graduationDetails.gprogram = 'Program should contain text only';
   }
 }
+}
     /* if (!graduationDetails.gpercentage.trim()) {
       newErrors.graduationDetails.gpercentage = 'Percentage is required';
     } */
+    if(fielname === "" || fielname === "gpercentage")
+{
     if (!graduationDetails.gpercentage.trim()) {
       newErrors.graduationDetails.gpercentage = 'Percentage is required';
     } else {
@@ -349,10 +402,12 @@ if (!graduationDetails.gprogram) {
         newErrors.graduationDetails.gpercentage = 'Enter a valid percentage between 0 and 100 (only digits and period(.) are allowed)';
       }
     }
-
+  }
    /*  if (!graduationDetails.gyearOfPassing.trim()) {
       newErrors.graduationDetails.gyearOfPassing = 'Year of passing is required';
     } */
+    if(fielname === "" || fielname === "gyearOfPassing")
+{
     if (!graduationDetails.gyearOfPassing) {
       newErrors.graduationDetails.gyearOfPassing = 'Year of Passing is required';
     } else {
@@ -366,7 +421,7 @@ if (!graduationDetails.gprogram) {
         }
       }
     }
-
+  }
     // if (!graduationDetails.gCity.trim()) {
     //   newErrors.graduationDetails.gCity = 'City is required';
     // }
@@ -375,6 +430,8 @@ if (!graduationDetails.gprogram) {
     // }
 
     // Validation for Graduation City
+    if(fielname === "" || fielname === "gCity")
+{
 if (!graduationDetails.gCity) {
   newErrors.graduationDetails.gCity = 'City is required';
 } else {
@@ -383,8 +440,10 @@ if (!graduationDetails.gCity) {
     newErrors.graduationDetails.gCity = 'City should contain text only';
   }
 }
-
+}
 // Validation for Graduation State
+if(fielname === "" || fielname === "gState")
+{
 if (!graduationDetails.gState) {
   newErrors.graduationDetails.gState = 'State is required';
 } else {
@@ -393,7 +452,7 @@ if (!graduationDetails.gState) {
     newErrors.graduationDetails.gState = 'State should contain text only';
   }
 }
- 
+}
     // Add similar validations for other Graduation details...
  
     // Skills
@@ -409,22 +468,33 @@ if (!graduationDetails.gState) {
     //Skills
     skillsRequired.forEach((skill, index) => {
       // Validation for Skill Name
+      if(fielname === "" || fielname === "skillName")
+{
       if (skill==undefined || !skill.skillName) {     
-         
-        newErrors.skillsRequired[index] =  {skillName:'Skill Name is required'};
+        if(newErrors.skillsRequired[index]===undefined)
+        newErrors.skillsRequired[index] =  {skillName:'',experience:''};
+        newErrors.skillsRequired[index].skillName='Skill Name is required';
       } else if (/^\d+$/.test(skill.skillName)) {
-          newErrors.skillsRequired[index] =  {skillName:'Skill Name should not be a numeric'}; 
+        if(newErrors.skillsRequired[index]===undefined)
+  newErrors.skillsRequired[index] =  {skillName:'',experience:''};
+          newErrors.skillsRequired[index].skillName='Skill Name should not be a numeric'; 
       }
-
+    }
     //Experience
       // Validation for Experience
+      if(fielname === "" || fielname === "experience")
+{
       if (!skill.experience) {
-        
+        if(newErrors.skillsRequired[index]===undefined)
+  newErrors.skillsRequired[index] =  {skillName:'',experience:''};
         newErrors.skillsRequired[index].experience='Experience is required';
       } 
       else if (!/^\d+$/.test(skill.experience)) {
+        if(newErrors.skillsRequired[index]===undefined)
+  newErrors.skillsRequired[index] =  {skillName:'',experience:''};
         newErrors.skillsRequired[index].experience='Experience should be numeric' ;
       }
+    }
     });
  // Log the newErrors object for debugging
 
@@ -450,6 +520,7 @@ if (!graduationDetails.gState) {
     setErrors(newErrors);
     
     // Check if there are no errors
+    console.log(newErrors);
     return Object.keys(newErrors).every(key => Object.keys(newErrors[key]).length === 0);
   };
  
@@ -634,14 +705,14 @@ if (!graduationDetails.gState) {
  
   const handleSubmit = async (e) => {
     e.preventDefault();
- 
+    
     // Validate the form
-    const isFormValid = validateForm();
- 
+    const isFormValid = validateForm("");
     // If the form is not valid, prevent submission
     if (!isFormValid) {
       return;
     }
+    
     // Prepare data to be sent
     const userData = {
       basicDetails,
@@ -796,7 +867,7 @@ if (!graduationDetails.gState) {
                              onChange={(e) =>{
                               console.log(e.target.value);
                              setBasicDetails({...basicDetails,dateOfBirth: e.target.value,})}}
-                            onBlur={validateForm}                             
+                             onBlur={() => validateForm("dateOfBirth")}                             
                        /> 
                        {errors.basicDetails.dateOfBirth && (
               <div className="error-message">{errors.basicDetails.dateOfBirth}</div>
@@ -810,7 +881,7 @@ if (!graduationDetails.gState) {
                            value={basicDetails.city}
                            onChange={(e) =>
                            setBasicDetails({ ...basicDetails, city: e.target.value })}
-                           onBlur={validateForm}
+                           onBlur={() => validateForm("city")}
                   />
                    {errors.basicDetails.city && (
               <div className="error-message">{errors.basicDetails.city}</div>
@@ -822,10 +893,11 @@ if (!graduationDetails.gState) {
                             type="text"
                             placeholder="Pin Code"
                             className="input-form"
+                            maxLength="6"
                             value={basicDetails.pincode}
                             onChange={(e) =>
                             setBasicDetails({ ...basicDetails, pincode: e.target.value })}
-                            onBlur={validateForm}
+                            onBlur={() => validateForm("pincode")}
                     />
                      {errors.basicDetails.pincode && (
               <div className="error-message">{errors.basicDetails.pincode}</div>
@@ -842,7 +914,7 @@ if (!graduationDetails.gState) {
                             value={basicDetails.address}
                             onChange={(e) =>
                             setBasicDetails({ ...basicDetails, address: e.target.value })}
-                            onBlur={validateForm}
+                            onBlur={() => validateForm("address")}
                      />
                       {errors.basicDetails.address && (
               <div className="error-message">{errors.basicDetails.address}</div>
@@ -857,7 +929,7 @@ if (!graduationDetails.gState) {
                         value={basicDetails.state}
                         onChange={(e) =>
                         setBasicDetails({ ...basicDetails, state: e.target.value })}
-                        onBlur={validateForm}
+                        onBlur={() => validateForm("state")}
                    />
                     {errors.basicDetails.state && (
               <div className="error-message">{errors.basicDetails.state}</div>
@@ -891,7 +963,7 @@ if (!graduationDetails.gState) {
                           value={xClassDetails.xschoolName}
                           onChange={(e) =>
                            setXClassDetails({...xClassDetails,xschoolName: e.target.value,})}
-                           onBlur={validateForm}
+                           onBlur={() => validateForm("xschoolName")}
                   />
                   <div className="validation-errors">
             {errors.xClassDetails.xschoolName && (
@@ -907,7 +979,7 @@ if (!graduationDetails.gState) {
                            value={xClassDetails.xboard}
                            onChange={(e) =>
                            setXClassDetails({ ...xClassDetails, xboard: e.target.value })}
-                           onBlur={validateForm}
+                           onBlur={() => validateForm("xboard")}
               />
               <div className="validation-errors">
             {errors.xClassDetails.xboard && (
@@ -921,7 +993,7 @@ if (!graduationDetails.gState) {
                           className="input-form"
                           value={xClassDetails.xpercentage}
                           onChange={(e) =>setXClassDetails({...xClassDetails,xpercentage: e.target.value,})}
-                          onBlur={validateForm}
+                          onBlur={() => validateForm("xpercentage")}
                    />
                    <div className="validation-errors">
             {errors.xClassDetails.xpercentage && (
@@ -934,9 +1006,10 @@ if (!graduationDetails.gState) {
                          type="text"
                          placeholder="Pincode"
                          className="input-form"
+                         maxLength={6}
                          value={xClassDetails.xPincode}
                          onChange={(e) =>setXClassDetails({...xClassDetails,xPincode: e.target.value,})}
-                         onBlur={validateForm}
+                         onBlur={() => validateForm("xPincode")}
                   />
                    <div className="validation-errors">
             {errors.xClassDetails.xPincode && (
@@ -951,10 +1024,11 @@ if (!graduationDetails.gState) {
                            type="text"
                            placeholder="Year of passing"
                            className="input-form"
+                           maxLength={4}
                            value={xClassDetails.xyearOfPassing}
                            onChange={(e) =>
                            setXClassDetails({...xClassDetails,xyearOfPassing: e.target.value,})}
-                           onBlur={validateForm}
+                           onBlur={() => validateForm("xyearOfPassing")}
                   />
                    <div className="validation-errors">
             {errors.xClassDetails.xyearOfPassing && (
@@ -969,7 +1043,7 @@ if (!graduationDetails.gState) {
                           value={xClassDetails.xCity}
                           onChange={(e) =>
                           setXClassDetails({ ...xClassDetails, xCity: e.target.value })}
-                          onBlur={validateForm}
+                          onBlur={() => validateForm("xCity")}
                   />
                   <div className="validation-errors">
             {errors.xClassDetails.xCity && (
@@ -984,7 +1058,7 @@ if (!graduationDetails.gState) {
                           value={xClassDetails.xState}
                           onChange={(e) =>
                           setXClassDetails({ ...xClassDetails, xState: e.target.value })}
-                          onBlur={validateForm}
+                          onBlur={() => validateForm("xState")}
                    />
                    <div className="validation-errors">
             {errors.xClassDetails.xState && (
@@ -1011,7 +1085,7 @@ if (!graduationDetails.gState) {
                             setIntermediateDetails({
                               ...intermediateDetails,
                               icollegeName: e.target.value,})} 
-                              onBlur={validateForm}     
+                              onBlur={() => validateForm("icollegeName")}
                   />
                  
                   <div className="validation-errors">
@@ -1028,7 +1102,7 @@ if (!graduationDetails.gState) {
                            value={intermediateDetails.iboard}
                            onChange={(e) =>
                              setIntermediateDetails({...intermediateDetails,iboard: e.target.value,})}
-                             onBlur={validateForm}
+                             onBlur={() => validateForm("iboard")}
                     />
                     <div className="validation-errors">
             {errors.intermediateDetails.iboard && (
@@ -1045,7 +1119,7 @@ if (!graduationDetails.gState) {
                             setIntermediateDetails({...intermediateDetails,iprogram: e.target.value,})
                             
                           }   
-                          onBlur={validateForm} 
+                          onBlur={() => validateForm("iprogram")}
                    />
                    <div className="validation-errors">
             {errors.intermediateDetails.iprogram && (
@@ -1061,7 +1135,7 @@ if (!graduationDetails.gState) {
                           value={intermediateDetails.ipercentage}
                           onChange={(e) =>
                           setIntermediateDetails({...intermediateDetails,ipercentage: e.target.value,})}
-                          onBlur={validateForm}
+                          onBlur={() => validateForm("ipercentage")}
                    />
                    <div className="validation-errors">
             {errors.intermediateDetails.ipercentage && (
@@ -1076,10 +1150,11 @@ if (!graduationDetails.gState) {
                            type="text"
                            placeholder="Year of passing"
                            className="input-form"
+                           maxLength={4}
                            value={intermediateDetails.iyearOfPassing}
                            onChange={(e) =>
                             setIntermediateDetails({...intermediateDetails,iyearOfPassing: e.target.value,})}
-                            onBlur={validateForm}
+                            onBlur={() => validateForm("iyearOfPassing")}
                   />
                   <div className="validation-errors">
             {errors.intermediateDetails.iyearOfPassing && (
@@ -1094,7 +1169,7 @@ if (!graduationDetails.gState) {
                           value={intermediateDetails.iCity}
                           onChange={(e) =>
                             setIntermediateDetails({ ...intermediateDetails, iCity: e.target.value })}
-                            onBlur={validateForm}
+                            onBlur={() => validateForm("iCity")}
                          
                   />
                   <div className="validation-errors">
@@ -1110,7 +1185,7 @@ if (!graduationDetails.gState) {
                           value={intermediateDetails.iState}
                           onChange={(e) =>
                             setIntermediateDetails({ ...intermediateDetails, iState: e.target.value })}
-                            onBlur={validateForm}
+                            onBlur={() => validateForm("iState")}
                    />
                    <div className="validation-errors">
             {errors.intermediateDetails.iState && (
@@ -1133,7 +1208,7 @@ if (!graduationDetails.gState) {
                            className="input-form"
                            value={graduationDetails.gcollegeName}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gcollegeName: e.target.value,})}
-                           onBlur={validateForm}
+                           onBlur={() => validateForm("gcollegeName")}
                   />
                    <div className="validation-errors">
             {errors.graduationDetails.gcollegeName && (
@@ -1148,7 +1223,7 @@ if (!graduationDetails.gState) {
                            className="input-form"
                            value={graduationDetails.gboard}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gboard: e.target.value,})}
-                           onBlur={validateForm}
+                           onBlur={() => validateForm("gboard")}
                     />
                     <div className="validation-errors">
             {errors.graduationDetails.gboard && (
@@ -1166,7 +1241,7 @@ if (!graduationDetails.gState) {
                               gprogram: e.target.value,
                             })
                           }
-                          onBlur={validateForm}
+                          onBlur={() => validateForm("gprogram")}
                    />
                    <div className="validation-errors">
             {errors.graduationDetails.gprogram && (
@@ -1182,7 +1257,7 @@ if (!graduationDetails.gState) {
                           value={graduationDetails.gpercentage}
                 onChange={(e) =>setGraduationDetails({
                     ...graduationDetails,gpercentage: e.target.value,})}
-                    onBlur={validateForm}
+                    onBlur={() => validateForm("gpercentage")}
                    />
                    <div className="validation-errors">
             {errors.graduationDetails.gpercentage && (
@@ -1199,7 +1274,7 @@ if (!graduationDetails.gState) {
                            className="input-form"
                            value={graduationDetails.gyearOfPassing}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gyearOfPassing: e.target.value,})}
-                           onBlur={validateForm}
+                           onBlur={() => validateForm("gyearOfPassing")}
                   />
                   <div className="validation-errors">
             {errors.graduationDetails.gyearOfPassing && (
@@ -1214,7 +1289,7 @@ if (!graduationDetails.gState) {
                           value={graduationDetails.gCity}
                           onChange={(e) =>
                             setGraduationDetails({...graduationDetails,gCity: e.target.value,})}
-                            onBlur={validateForm}
+                            onBlur={() => validateForm("gCity")}
                   />
                   <div className="validation-errors">
             {errors.graduationDetails.gCity && (
@@ -1228,7 +1303,7 @@ if (!graduationDetails.gState) {
                           className="input-form"
                           value={graduationDetails.gState}
                           onChange={(e) =>setGraduationDetails({...graduationDetails,gState: e.target.value,})}
-                          onBlur={validateForm}
+                          onBlur={() => validateForm("gState")}
                    />
                    <div className="validation-errors">
             {errors.graduationDetails.gState && (
@@ -1314,7 +1389,7 @@ if (!graduationDetails.gState) {
   className="input-form"
   value={skill.skillName}
   onChange={(e) => handleSkillChange(e, index, "skillName")}
-  onBlur={validateForm}
+  onBlur={() => validateForm("skillName")}
 />
 {errors.skillsRequired[index]?.skillName && (
 <div className="error-message">{errors.skillsRequired[index].skillName}</div>
@@ -1328,7 +1403,7 @@ if (!graduationDetails.gState) {
   className="input-form"
   value={skill.experience}
   onChange={(e) => handleSkillChange(e, index, "experience")}
-  onBlur={validateForm}
+  onBlur={() => validateForm("experience")}
   
 />
 {errors.skillsRequired[index]?.experience && (
