@@ -1,8 +1,43 @@
-import React from 'react'
+import React, { useState,useEffect } from "react";
+import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
+import { useUserContext } from '../common/UserProvider';
+import axios from 'axios';
 
+function RecruiterNavBar() 
+{
+  const user1 = useUserContext();
+  const user=user1.user;
+  const [imageSrc, setImageSrc] = useState('');
+ 
 
+  useEffect(() => {
+    const jwtToken = localStorage.getItem('jwtToken');
+    if (jwtToken) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+    }
+  
+    const fetchImage = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/images/Recruiter/companylogo/${user.id}.jpg`, {
+          responseType: 'blob', // Set the responseType to 'blob' for binary data
+        });
+  
+        if (response.status !== 200) {
+          throw new Error('Failed to fetch image');
+        }
+  
+        const imageUrl = URL.createObjectURL(response.data);
+        setImageSrc(imageUrl);
+      } catch (error) {
+        console.error('Error fetching image:', error);
+      }
+    };
+  
+    fetchImage();
+  }, [user.id]);
 
-function RecruiterNavBar() {
+  
+
   return (
   
 <div>
@@ -36,7 +71,7 @@ function RecruiterNavBar() {
           <div className="content">
             <p>Need help? 24/7</p>
             <h6>
-              <a href="tel:0123456678">001-1234-88888</a>
+              <a href="tel:0123456678">+91 9999999999</a>
             </h6>
           </div>
         </div>
@@ -86,7 +121,13 @@ function RecruiterNavBar() {
                 </a>
               </div> */}
               <div className="header-customize-item account">
-                <img src="../images/user/avatar/image-01.jpg" alt="" />
+                {/* <img src="../images/user/avatar/image-01.jpg" alt="" /> */}
+                   
+                {/* {imageSrc && <img src={imageSrc} alt="" />} */}
+
+                <img src={imageSrc || '../images/user/avatar/image-01.jpg'} alt="Profile" onError={() => setImageSrc('../images/user/avatar/image-01.jpg')} />
+                {/* <img src={imageSrc ?? "dummyLogo"} alt="" /> */}
+
                 <div className="name">
                   {/* Candidates */}
                   <span className="icon-keyboard_arrow_down" />

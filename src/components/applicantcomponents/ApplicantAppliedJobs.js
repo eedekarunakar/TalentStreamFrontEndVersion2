@@ -48,6 +48,12 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
     fetchAppliedJobs();
   }, []);
 
+  function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+    return formattedDate;
+  }
+
   return (
     <div>
     {loading ? null : (
@@ -96,7 +102,7 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                                 </li>
                                 <li>
                                   <span className="icon-calendar"></span>
-                                  Posted on{job.datePosted}
+                                  Posted on {formatDate(job.creationDate)}
                                 </li>
                               </ul>
                               <span class="icon-heart"></span>

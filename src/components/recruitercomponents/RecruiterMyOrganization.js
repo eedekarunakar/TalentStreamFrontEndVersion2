@@ -2,7 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
- 
+import axios from 'axios';
+
 function RecruiterMyOrganization() {
    
     const [companyName, setCompanyName] = useState('');
@@ -10,6 +11,7 @@ function RecruiterMyOrganization() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
     const [verificationStatus, setVerificationStatus] = useState(false);
+    const [photoFile,setPhotoFile]=useState(null);
     const [isProfileSubmitted, setIsProfileSubmitted] = useState(localStorage.getItem('isProfileSubmitted') === 'true');
     const [socialProfiles, setSocialProfiles] = useState({
       twitter: '',
@@ -264,6 +266,36 @@ function RecruiterMyOrganization() {
     //     return updatedProfiles;
     //   });
     // };
+
+    const handleFileSelect = (e) => {
+      const file = e.target.files[0];
+      setPhotoFile(file);
+    };
+    const uploadPhoto = async () => {
+      try {
+        const jwtToken = localStorage.getItem('jwtToken');
+        const formData = new FormData();
+        formData.append('logoFile', photoFile);
+    
+        const response = await axios.post(
+          `${apiUrl}/recruiters/companylogo/upload/${user.id}`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          }
+        );
+    
+        console.log(response.data);
+        window.alert('Company logo uploaded successfully!');
+      } catch (error) {
+        console.error('Error uploading photo:', error);
+        window.alert('Error in uploading profile');
+      }
+    };
+
   return (
     <div>
 <div className="dashboard__content">
@@ -310,16 +342,32 @@ function RecruiterMyOrganization() {
                 </div>
                
                 <div id="upload-profile">
-                  <h5 className="fw-6">Upload a Logo:</h5>
-                  <h6>JPG 80x80px</h6>
-                  <input
-                    className="up-file"
-                    id="tf-upload-img"
-                    type="file"
-                    name="profile"
-                    required=""
-                  />
-                </div>
+    <h5 class="fw-6">Upload Company Logo: </h5>
+    <h6>JPG or PNG</h6>
+    <input
+      class="up-file"
+      id="tf-upload-img"
+      type="file"
+      name="logoFile"
+      required=""
+      onChange={handleFileSelect}
+    />
+    <button
+      type="button"
+      onClick={uploadPhoto}
+      className="btn-3"
+      style={{
+        backgroundColor: '#4CAF50',
+        color: 'white',
+        padding: '10px 15px',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+      }}
+    >
+      Upload Photo
+    </button>
+  </div>
               </div>
               <div className="wrap-img flex2">
               </div>

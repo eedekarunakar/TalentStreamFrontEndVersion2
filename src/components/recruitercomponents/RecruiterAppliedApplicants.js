@@ -46,6 +46,9 @@ function RecruiterAppliedApplicants({selectedJobId}) {
           <div className="profile-setting bg-white">
           <div className="table-container-wrapper">
           <div className="table-container">
+          {applicants.length === 0 ? (
+                        <p>No Applied applicants are available.</p>
+                      ) : (
         <table className="responsive-table">
           <thead>
             <tr>
@@ -62,24 +65,25 @@ function RecruiterAppliedApplicants({selectedJobId}) {
           </thead>
           <tbody>
           {applicants.map((application) => (
-                            <tr key={application.applicant.email}>
-                              <td>{application.applicant.name}</td>
-                              <td>{application.applicant.email}</td>
-                              <td>{application.applicant.mobilenumber}</td>
-                              <td>{application.job.jobTitle}</td>
-                              <td>{application.applicantStatus}</td>
-                              <td>{application.job.maximumExperience}</td>
-                              <td>
-                                {application.job.skillsRequired.map((skill) => (
-                                  <span key={skill.id}>{skill.skillName}, </span>
-                                ))}
-                              </td>
-                              <td>{application.job.minimumQualification}</td>
-                              <td>{application.job.location}</td>
-                            </tr>
-                          ))}
-          </tbody>
-        </table>
+                              <tr key={application.applicant.email}>
+                                <td>{application.applicant.name}</td>
+                                <td>{application.applicant.email}</td>
+                                <td>{application.applicant.mobilenumber}</td>
+                                <td>{application.job.jobTitle}</td>
+                                <td>{application.applicantStatus}</td>
+                                <td>{application.job.maximumExperience}</td>
+                                <td>
+                                  {application.job.skillsRequired.map((skill) => (
+                                    <span key={skill.id}>{skill.skillName}, </span>
+                                  ))}
+                                </td>
+                                <td>{application.job.minimumQualification}</td>
+                                <td>{application.job.location}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      )}
       </div>
       </div>
       </div>
