@@ -289,7 +289,7 @@ function RecruiterMyOrganization() {
         );
     
         console.log(response.data);
-        window.alert('Company logo uploaded successfully!');
+        window.alert(response.data);
       } catch (error) {
         console.error('Error uploading photo:', error);
         window.alert('Error in uploading profile');
