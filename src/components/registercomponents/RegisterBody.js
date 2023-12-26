@@ -112,15 +112,15 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
  
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+ 
     if (!isFormValid()) {
       return;
     }
-  
+ 
     //let response = null;
-  
+ 
     try {
-      
+     
       setCandidateRegistrationInProgress(true);
       const response = await axios.post(`${apiUrl}/applicant/saveApplicant`, {
         name: candidateName,
@@ -131,23 +131,23 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
      
       setErrorMessage('');
       setCandidateRegistrationSuccess(true);
-  
+ 
       console.log('Registration successful', response.data);
-      
+     
       setCandidateName('');
       setCandidateEmail('');
       setCandidateMobileNumber('');
       setCandidatePassword('');
       setCandidateRegistrationInProgress(false);
-
+ 
       if (candidateOTPSent && candidateOTPVerified) {
         navigate('/login', { state: { registrationSuccess: true } });
       }
     } catch (error) {
-      
+     
       setErrorMessage('Registration failed. Please try again later.');
       setCandidateRegistrationInProgress(false);
-  
+ 
         console.error('Registration failed', error);
         if (error.response && error.response.status === 400) {
           if (error.response.data === 'Email already registered') {
@@ -156,131 +156,124 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
             window.alert('Registration failed! Mobile number already exists');
           }
         }
-      
+     
     }
   };
-  
+ 
   const isFullNameValid = (fullName) => {
-    // Full name must not be empty
     if (!fullName.trim()) {
-      return false;
+      return 'Full name is required.';
     }
  
-    // Check if the full name contains only alphabetic characters and spaces
     if (!/^[a-zA-Z\s]+$/.test(fullName)) {
-      return false;
+      return 'Please enter a valid full name and should not have any numbers and special char.';
     }
  
-    // Additional validation logic can be added if needed
+    return '';
+  };
+  const isCompanyNameValid = (companyName) => {
+    if (!companyName.trim()) {
+      return 'Company name is required.';
+    }
  
-    return true;
+    if (!/^[a-zA-Z\s]+$/.test(companyName)) {
+      return 'Please enter a valid company name and should not have any numbers and special char.';
+    }
+ 
+    return '';
   };
  
-const isEmailValid = (email) => {
+  const isEmailValid = (email) => {
+
+    if (!email.trim()) {
+      return 'Email is required.';
+    }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return emailRegex.test(email) ? '' : 'Please enter a valid email address.';
   };
  
   const isPasswordValid = (password) => {
-    // Password must be at least 6 characters long
+    if (!password.trim()) {
+      return 'Password is required.';
+    }
+ 
     if (password.length < 6) {
-      return false;
+      return 'Password must be at least 6 characters long.';
     }
  
-    // Password must contain at least one uppercase letter
     if (!/[A-Z]/.test(password)) {
-      return false;
+      return 'Password must contain at least one uppercase letter.';
     }
  
-    // Password must contain at least one special character (non-alphanumeric)
     if (!/[^A-Za-z0-9]/.test(password)) {
-      return false;
+      return 'Password must contain at least one special character (non-alphanumeric).';
     }
  
-    // Password cannot contain spaces
     if (/\s/.test(password)) {
-      return false;
+      return 'Password cannot contain spaces.';
     }
  
-    return true;
+    return '';
   };
  
   const isMobileNumberValid = (mobilenumber) => {
-    // Mobile number must contain only numeric digits
-    if (!/^\d+$/.test(mobilenumber)) {
-      return false;
+    if (!mobilenumber.trim()) {
+      return 'Mobile number is required.';
     }
  
-    // Mobile number must have a specific length (e.g., 10 digits)
+    if (!/^\d+$/.test(mobilenumber)) {
+      return 'Mobile number must contain only numeric digits.';
+    }
+ 
     if (mobilenumber.length !== 10) {
-      return false;
+      return 'Mobile number must have a specific length (e.g., 10 digits).';
     }
-    // Check if the mobile number has a space
+ 
     if (/\s/.test(mobilenumber)) {
-      return false;
+      return 'Mobile number cannot contain spaces.';
     }
+ 
     const firstDigit = mobilenumber.charAt(0);
-  if (!['6', '7', '8', '9'].includes(firstDigit)) {
-    return false;
-  }
-    return true;
+    if (!['6', '7', '8', '9'].includes(firstDigit)) {
+      return 'Mobile number should begin with 6, 7, 8, or 9.';
+    }
+ 
+    return '';
   };
+ 
   const isFormValid = () => {
     setAllErrors(false); // Reset the allErrors state
-   
-   
  
-    if (!isFullNameValid(candidateName)) {
-      setCandidateNameError('Please enter a valid full name and should not have any numbers and special char.');
-      return false;
-    }
-    if (!isEmailValid(candidateEmail)) {
-      setCandidateEmailError('Please enter a valid email address.');
-      return false;
-    }
-    if (!isMobileNumberValid(candidateMobileNumber)) {
-      setCandidateMobileNumberError('Please enter a valid 10-digit mobile number & should begin with 6 or 7 or 8 or 9.');
-      return false;
-    }
-    if (!isPasswordValid(candidatePassword)) {
-      setCandidatePasswordError('Password must be at least 6 characters long and should have one capital letter, one small, one Specal charater, one number and no spaces are allowed.');
-      return false;
-    }
-   
+    const nameError = isFullNameValid(candidateName);
+    const emailError = isEmailValid(candidateEmail);
+    const mobileNumberError = isMobileNumberValid(candidateMobileNumber);
+    const passwordError = isPasswordValid(candidatePassword);
  
-    return true;
+    setCandidateNameError(nameError);
+    setCandidateEmailError(emailError);
+    setCandidateMobileNumberError(mobileNumberError);
+    setCandidatePasswordError(passwordError);
+ 
+    return !(nameError || emailError || mobileNumberError || passwordError);
   };
- 
  
   const isFormValid1 = () => {
     setAllErrors(false); // Reset the allErrors state
  
-   
+    const nameError = isCompanyNameValid(companyName);
+    const emailError = isEmailValid(employerEmail);
+    const mobileNumberError = isMobileNumberValid(employerMobileNumber);
+    const passwordError = isPasswordValid(employerPassword);
  
-    if (!isFullNameValid(companyName)) {
-      setEmployerNameError('Please enter a valid company name and should not have any numbers and special char.');
-      return false;
-    }
+    setEmployerNameError(nameError);
+    setEmployerEmailError(emailError);
+    setEmployerMobileNumberError(mobileNumberError);
+    setEmployerPasswordError(passwordError);
  
-    if (!isEmailValid(employerEmail)) {
-      setEmployerEmailError('Please enter a valid email address.');
-      return false;
-    }
- 
-    if (!isMobileNumberValid(employerMobileNumber)) {
-      setEmployerMobileNumberError('Please enter a valid 10-digit mobile number & should begin with 6 or 7 or 8 or 9.');
-      return false;
-    }
- 
-    if (!isPasswordValid(employerPassword)) {
-      setEmployerPasswordError('Password must be at least 6 characters long and should have one cpital letter, one small, one Specal charater, one number and no spaces are allowed.');
-      return false;
-   
-    }
- 
-   
-    return true;
+    return !(nameError || emailError || mobileNumberError || passwordError);
   };
+ 
  
   const handleCompanyNameChange = (e) => {
     setCompanyName(e.target.value);

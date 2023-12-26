@@ -64,7 +64,11 @@ function ApplicantViewJob({ selectedJobId }) {
     }
   };
  
- 
+  function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+    return formattedDate;
+  }
  
   return (
     <div>
@@ -103,7 +107,7 @@ function ApplicantViewJob({ selectedJobId }) {
                                 </h4>
                                 <h3>
                                   <a href="#">{jobDetails.jobTitle}</a>
-                                  <span className="icon-bolt"></span>
+                                  
                                 </h3>
                                 <ul>
                                   <li>
@@ -112,19 +116,19 @@ function ApplicantViewJob({ selectedJobId }) {
                                   </li>
                                   <li>
                                     <span className="icon-calendar"></span>
-                                    {jobDetails.datePosted}
+                                    {formatDate(jobDetails.creationDate)}
                                   </li>
                                 </ul>
                                 <div className="button-readmore">
-                                  <span className="icon-heart"></span>
+                                 
                                   <a className="btn-apply btn-popup">
               <button
                 className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
                 onClick={handleApplyNow}
-                disabled={applied}
+                
               >
                 <span className="icon-send"></span>
-                {applied ? 'Already Applied' : 'Apply Now'}
+                {/* {applied ? 'Already Applied' : 'Apply Now'} */}{jobDetails.jobStatus}
               </button>
             </a>
                                 </div>
@@ -149,7 +153,7 @@ function ApplicantViewJob({ selectedJobId }) {
                             </div>
                             <div className="job-footer-right">
                               <div className="price">
-                                <span></span>
+                                <span></span>Package :  &nbsp;
                                 <p>&#x20B9; {jobDetails.minSalary} - &#x20B9; {jobDetails.maxSalary} / year</p>
                               </div>
                               {/* <p className="days">{jobDetails.daysLeft} days left to apply</p> */}

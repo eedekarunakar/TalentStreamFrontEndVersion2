@@ -40,6 +40,12 @@ function ApplicantSavedJobs() {
     fetchSavedJobs();
   }, [applicantId]);
 
+  function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+    return formattedDate;
+  }
+
   return (
     <div>
       {loading ? null : (
@@ -78,7 +84,7 @@ function ApplicantSavedJobs() {
                               <h3>
                                 <a href="jobs-single.html">
                                   {job.jobTitle}
-                                  <span className="icon-bolt"></span>
+                                  
                                 </a>
                               </h3>
                               <ul>
@@ -88,10 +94,10 @@ function ApplicantSavedJobs() {
                                 </li>
                                 <li>
                                   <span className="icon-calendar"></span>
-                                  Posted on{job.datePosted}
+                                  Posted on {formatDate(job.creationDate)}
                                 </li>
                               </ul>
-                              <span className="icon-heart"></span>
+                              {/* <span className="icon-heart"></span> */}
                             </div>
                           </div>
                         </div>

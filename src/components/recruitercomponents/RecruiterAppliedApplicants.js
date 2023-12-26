@@ -1,29 +1,63 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import axios from 'axios';
 import { Link,useParams } from 'react-router-dom';
+import $ from 'jquery';
 
 function RecruiterAppliedApplicants({selectedJobId}) {
   const [applicants, setApplicants] = useState([]);
   const { user } = useUserContext();
   const { jobId } = useParams();
+  const isMounted = useRef(true);
+  const tableref=useRef(null);
+  
+
+  const fetchAllAppliedApplicants = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/applyjob/appliedapplicants/${selectedJobId}`);
+       
+        setApplicants(response.data);
+    } catch (error) {
+      console.error('Error fetching applicants:', error);
+    }
+  };
 
   useEffect(() => {
     const jwtToken = localStorage.getItem('jwtToken');
     if (jwtToken) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
     }
+    fetchAllAppliedApplicants();
+    const $table= window.$(tableref.current);
+   // $table.DataTable().destroy();
+     const timeoutId = setTimeout(() => {  
+      $table.DataTable().destroy();
+       $table.DataTable({responsive:true});
+ 
+             }, 250);
+   
+    return () => {
+       isMounted.current = false;
+     // $table.DataTable().destroy(true);
+    };
+  }, [selectedJobId]);
 
-    axios
-      .get(`${apiUrl}/applyjob/appliedapplicants/${selectedJobId}`)
-      .then((response) => {
-        setApplicants(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching job details:', error);
-      });
-  }, [user.id]);
+  // useEffect(() => {
+  //   const jwtToken = localStorage.getItem('jwtToken');
+  //   if (jwtToken) {
+  //     axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+  //   }
+
+  //   axios
+  //     .get(`${apiUrl}/applyjob/appliedapplicants/${selectedJobId}`)
+  //     .then((response) => {
+  //       setApplicants(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching job details:', error);
+  //     });
+  // }, [user.id]);
 
   return (
     <div>
@@ -49,7 +83,7 @@ function RecruiterAppliedApplicants({selectedJobId}) {
           {applicants.length === 0 ? (
                         <p>No Applied applicants are available.</p>
                       ) : (
-        <table className="responsive-table">
+        <table  ref={tableref} className="responsive-table">
           <thead>
             <tr>
               <th>Name</th>

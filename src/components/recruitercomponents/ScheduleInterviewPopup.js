@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-// import { Modal, Button, Form, Col } from "react-bootstrap";
+ 
 import axios from "axios";
 import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+ 
 import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
+ 
  
 const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember,applyjobid }) => {
-  //const [validationError, setValidationError] = useState("");
+  //const [validationError, setValidationError] = useState(""); 
   const [validationError, setValidationError] = useState({
     interviewTitle: '',
     interviewPerson: '',
@@ -18,9 +18,16 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember,applyjo
     location: '',
     interviewLink: '',
   });
+ 
+  // Add touchedFields state
+  const [touchedFields, setTouchedFields] = useState({
+    interviewLink: false,
+ 
+  });
+ 
   const user1 = useUserContext();
  
-  const user = user1.user;
+   const user = user1.user;
  
   const [interviewData, setInterviewData] = useState({
     interviewTitle: "",
@@ -33,57 +40,18 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember,applyjo
     interviewLink: "",
   });
  
- 
+
   const handleFormChange = (e) => {
+    // const errors = {};
     const { name, value } = e.target;
  
-    //Validation for interviewPerson (allow only alphabetical characters)
-    // if (name === 'interviewPerson') {
-    //   const isValid = /^[a-zA-Z\s]*$/.test(value);
-    //   if (!isValid) {
-    //     setValidationError('The name should be having only Alphabetical characters.');
-    //     // console.log('Invalid characters. Only alphabetical characters are allowed for interviewPerson.');
-    //     //return;
-    //   }else {
-    //     setValidationError('');
-    //   }
-    // }
+  // Mark the field as touched
+  setTouchedFields((prevTouchedFields) => ({
+    ...prevTouchedFields,
+    [name]: true,
+  }));
  
-    // if (name === 'interviewTitle' && value.trim() === '') {
-    //   setValidationError('Interview title cannot be empty.');
-    //   return;
-    // } else {
-    //   setValidationError('');
-    // }
  
-    // if (name === 'interviewTitle') {
-    //   if (value.trim() === '') {
-    //     setValidationError('Interview title cannot be empty.');
-    //   } else {
-    //     setValidationError('');
-    //   }
-    // }
- 
-   
- 
-  // // Validation for interviewTitle (check for empty and only whitespaces)
-  // if (name === 'interviewTitle') {
-  //   setValidationError((prevErrors) => ({
-  //     ...prevErrors,
-  //     interviewTitle: value.trim() ? '' : 'Interview title cannot be empty.',
-  //   }));
-  // }
- 
-  // // Validation for interviewPerson (allow only alphabetical characters)
-  // if (name === 'interviewPerson') {
-  //   const isValid = /^[a-zA-Z\s]*$/.test(value);
-  //   setValidationError((prevErrors) => ({
-  //     ...prevErrors,
-  //     interviewPerson: isValid ? '' : 'The name should have only alphabetical characters.',
-  //   }));
-  // }
- 
-  // Validation logic
   switch (name) {
     case 'interviewTitle':
       const isValidTitle = /^[a-zA-Z\s]*$/.test(value);
@@ -91,6 +59,8 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember,applyjo
         ...prevErrors,
         //interviewTitle: value.trim() ? '' : 'Interview title cannot be empty.',
         interviewTitle: isValidTitle ? '' : 'Interview title should have only alphabetical characters.',
+        // Check for empty or whitespace
+    ...(value.trim() ? {} : { interviewTitle: 'Field cannot be empty.' }),
       }));
       break;
  
@@ -99,42 +69,70 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember,applyjo
       setValidationError((prevErrors) => ({
         ...prevErrors,
         interviewPerson: isValidPerson ? '' : 'The name should have only alphabetical characters.',
+        // Check for empty or whitespace
+    ...(value.trim() ? {} : { interviewPerson: 'Field cannot be empty.' }),
       }));
       break;
  
-      case 'timeAndDate':
-        // Compare the entered date with the current date
-        const currentDate = new Date();
-        const selectedDate = new Date(value);
-       
-        if (selectedDate <= currentDate) {
-          setValidationError((prevErrors) => ({
-            ...prevErrors,
-            timeAndDate: 'Please select a future date and time for the interview.',
-          }));
-        } else {
-          setValidationError((prevErrors) => ({
-            ...prevErrors,
-            timeAndDate: '',
-          }));
-        }
-        break;
+     
+  case 'timeAndDate':
+  const currentDate = new Date();
+  const selectedDate = new Date(value);
  
-        case 'interviewLink':
-          // Validate if the interviewLink is a valid URL
-          const isValidURL = /^(ftp|http|https):\/\/[^ "]+$/.test(value);
-          setValidationError((prevErrors) => ({
-            ...prevErrors,
-            interviewLink: isValidURL ? '' : 'Please enter a valid interview link.',
-          }));
-          break;
+  // Check for empty field
+  if (touchedFields[name] && !value.trim()) {
+    setValidationError((prevErrors) => ({
+      ...prevErrors,
+      timeAndDate: 'Please select a date and time for the interview.',
+    }));
+  }
+  // Check if the selected date is in the future
+  else if (selectedDate <= currentDate) {
+    setValidationError((prevErrors) => ({
+      ...prevErrors,
+      timeAndDate: 'Please select a future date and time for the interview.',
+    }));
+  } else {
+    setValidationError((prevErrors) => ({
+      ...prevErrors,
+      timeAndDate: '',
+    }));
+  }
+  break;
+ 
+ 
+      
+  case 'interviewLink':
+  // Check for empty field
+  if (touchedFields[name] && !value.trim()) {
+    setValidationError((prevErrors) => ({
+      ...prevErrors,
+      interviewLink: 'Field cannot be empty.',
+    }));
+  }
+  // Validate if the interviewLink is a valid URL
+  else {
+    const isValidURL = /^(ftp|http|https):\/\/[^ "]+$/.test(value);
+    setValidationError((prevErrors) => ({
+      ...prevErrors,
+      interviewLink: isValidURL ? '' : 'Please enter a valid interview link.',
+    }));
+  }
+  break;
+ 
  
     // Add more validation cases for other fields
  
     default:
+      // Generic check for empty values
+    setValidationError((prevErrors) => ({
+      ...prevErrors,
+      [name]: value.trim() ? '' : 'This field cannot be empty.',
+    }));
       break;
   }
  
+
     setInterviewData({
       ...interviewData,
       [name]: value,
@@ -144,27 +142,25 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember,applyjo
   const handleFormSubmit = (e) => {
     e.preventDefault();
  
-    // Check for any remaining validation errors before submitting the form
-    for (const key in validationError) {
-      if (validationError[key]) {
-        console.log('Form submission aborted due to validation errors.');
-        return;
-      }
-    }
+  // Check if any required fields are not filled
+  const hasEmptyFields = Object.keys(validationError).some(
+    (field) => validationError[field] || !touchedFields[field]
+  );
  
-    // Check for any remaining validation errors before submitting the form
+  if (hasEmptyFields) {
+    console.log('Form submission aborted due to validation errors.');
+    return;
+  }
+ 
     console.log('Validation Error:', validationError);
  
     // Check for any remaining validation errors before submitting the form
-    // if (validationError) {
-    //   console.log('Form submission aborted due to validation errors.');
-    //   return;
-    // }
- 
-    if (validationError.interviewTitle) {
+  for (const key in validationError) {
+    if (validationError[key]) {
       console.log('Form submission aborted due to validation errors.');
       return;
     }
+  }
  
  
     // Get the JWT token from local storage
@@ -191,434 +187,119 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember,applyjo
       });
   };
  
-  // return (
-  //   <div>
- 
-  //     <Modal show={show} onHide={handleClose}>
-  //       <Modal.Header closeButton>
-  //         <Modal.Title>Schedule Interview</Modal.Title>
-  //       </Modal.Header>
-  //       <Modal.Body>
-  //         <Form onSubmit={handleFormSubmit}>
-  //         {/* <Form.Row> */}
-  //           {/* <Col> */}
-  //             <Form.Group controlId="interviewTitle">
-  //             <Form.Label>Interview Title</Form.Label>
-  //             <Form.Control
-  //               type="text"
-  //               name="interviewTitle"
-  //               value={interviewData.interviewTitle}
-  //               onChange={handleFormChange}
-  //               placeholder="Enter interview title"
-  //             />
-  //             </Form.Group>
-  //           {/* </Col> */}
-  //         {/* </Form.Row> */}
- 
-  //         {/* <Form.Row> */}
-  //           {/* <Col> */}
-  //           <Form.Group controlId="interviewPerson">
-  //             <Form.Label>Interview Person</Form.Label>
-  //             <Form.Control
-  //               type="text"
-  //               name="interviewPerson"
-  //               value={interviewData.interviewPerson}
-  //               onChange={handleFormChange}
-  //               placeholder="Enter interview person"
-  //             />
-  //           </Form.Group>
-  //           {/* </Col> */}
- 
-  //           {/* <Col> */}
-  //           <Form.Group controlId="typeOfInterview">
-  //             <Form.Label>Type of Interview</Form.Label>
-  //             <Form.Control
-  //               type="text"
-  //               name="typeOfInterview"
-  //               value={interviewData.typeOfInterview}
-  //               onChange={handleFormChange}
-  //               placeholder="Enter type of interview"
-  //             />
-  //           </Form.Group>
-  //           {/* </Col> */}
- 
-  //           {/* <Col> */}
-  //           <Form.Group controlId="round">
-  //             <Form.Label>Round</Form.Label>
-  //             <Form.Control as="select">
-  //               <option>1</option>
-  //               <option>2</option>
-  //               <option>3</option>
-  //             </Form.Control>
-  //           </Form.Group>
-  //           {/* </Col> */}
-  //         {/* </Form.Row> */}
-           
-  //         {/* <Form.Row> */}
-  //         {/* <Col> */}
-  //         <Form.Group controlId="timeAndDate">
-  //             <Form.Label>Time and Date</Form.Label>
-  //             <Form.Control
-  //               type="datetime-local"
-  //               name="timeAndDate"
-  //               value={interviewData.timeAndDate}
-  //               onChange={handleFormChange}
-  //             />
-  //           </Form.Group>
-  //         {/* </Col> */}
- 
-  //         {/* <Col> */}
-  //         <Form.Group controlId="modeOfInterview">
-  //             <Form.Label>Mode of Interview</Form.Label>
-  //             <Form.Control as="select">
-  //               <option>Online</option>
-  //               <option>Face-to-Face</option>
-  //             </Form.Control>
-  //           </Form.Group>
-  //         {/* </Col>   */}
-  //         {/* </Form.Row>   */}
-           
-  //         {/* <Form.Row> */}
-  //           {/* <Col> */}
-  //           <Form.Group controlId="location">
-  //             <Form.Label>Location</Form.Label>
-  //             <Form.Control
-  //               type="text"
-  //               name="location"
-  //               value={interviewData.location}
-  //               onChange={handleFormChange}
-  //               placeholder="Enter interview location"
-  //             />
-  //           </Form.Group>
-  //           {/* </Col> */}
- 
-  //           {/* <Col> */}
-  //           <Form.Group controlId="interviewLink">
-  //             <Form.Label>Interview Link</Form.Label>
-  //             <Form.Control
-  //               type="text"
-  //               name="interviewLink"
-  //               value={interviewData.interviewLink}
-  //               onChange={handleFormChange}
-  //               placeholder="Enter interview link"
-  //             />
-  //           </Form.Group>
-  //           {/* </Col> */}
-  //         {/* </Form.Row>  */}
-           
-  //           <Modal.Footer>
-  //             <Button variant="secondary" onClick={handleClose}>
-  //               Close
-  //             </Button>
-  //             <Button variant="primary" type="submit">
-  //               Schedule
-  //             </Button>
-  //           </Modal.Footer>
-  //         </Form>
-  //       </Modal.Body>
-  //     </Modal>
-  //   </div>
-  // );
- 
-  // return (
-  //   <div>
-  //     <Modal show={show} onHide={handleClose}>
-  //       <Modal.Header closeButton>
-  //         <Modal.Title>Schedule Interview</Modal.Title>
-  //       </Modal.Header>
-  //       <Modal.Body>
-  //         <form onSubmit={handleFormSubmit}>
-  //           <div className="mb-3">
-  //             <label htmlFor="interviewTitle" className="form-label">Interview Title</label>
-  //             <input
-  //               type="text"
-  //               className="form-control"
-  //               id="interviewTitle"
-  //               name="interviewTitle"
-  //               value={interviewData.interviewTitle}
-  //               onChange={handleFormChange}
-  //               placeholder="Enter interview title"
-  //             />
-  //           </div>
- 
-  //           <div className="mb-3">
-  //             <label htmlFor="interviewPerson" className="form-label">Interview Person</label>
-  //             <input
-  //               type="text"
-  //               className="form-control"
-  //               id="interviewPerson"
-  //               name="interviewPerson"
-  //               value={interviewData.interviewPerson}
-  //               onChange={handleFormChange}
-  //               placeholder="Enter interview person"
-  //             />
-  //           </div>
- 
-  //           <div className="mb-3">
-  //             <label htmlFor="typeOfInterview" className="form-label">Type of Interview</label>
-  //             <input
-  //               type="text"
-  //               className="form-control"
-  //               id="typeOfInterview"
-  //               name="typeOfInterview"
-  //               value={interviewData.typeOfInterview}
-  //               onChange={handleFormChange}
-  //               placeholder="Enter type of interview"
-  //             />
-  //           </div>
- 
-  //           <div className="mb-3">
-  //             <label htmlFor="round" className="form-label">Round</label>
-  //             <select
-  //               className="form-control"
-  //               id="round"
-  //               name="round"
-  //               value={interviewData.round}
-  //               onChange={handleFormChange}
-  //             >
-  //               <option value="1">1</option>
-  //               <option value="2">2</option>
-  //               <option value="3">3</option>
-  //             </select>
-  //           </div>
- 
-  //           <div className="mb-3">
-  //             <label htmlFor="timeAndDate" className="form-label">Time and Date</label>
-  //             <input
-  //               type="datetime-local"
-  //               className="form-control"
-  //               id="timeAndDate"
-  //               name="timeAndDate"
-  //               value={interviewData.timeAndDate}
-  //               onChange={handleFormChange}
-  //             />
-  //           </div>
- 
-  //           <div className="mb-3">
-  //             <label htmlFor="modeOfInterview" className="form-label">Mode of Interview</label>
-  //             <select
-  //               className="form-control"
-  //               id="modeOfInterview"
-  //               name="modeOfInterview"
-  //               value={interviewData.modeOfInterview}
-  //               onChange={handleFormChange}
-  //             >
-  //               <option value="Online">Online</option>
-  //               <option value="Face-to-Face">Face-to-Face</option>
-  //             </select>
-  //           </div>
- 
-  //           <div className="mb-3">
-  //             <label htmlFor="location" className="form-label">Location</label>
-  //             <input
-  //               type="text"
-  //               className="form-control"
-  //               id="location"
-  //               name="location"
-  //               value={interviewData.location}
-  //               onChange={handleFormChange}
-  //               placeholder="Enter interview location"
-  //             />
-  //           </div>
- 
-  //           <div className="mb-3">
-  //             <label htmlFor="interviewLink" className="form-label">Interview Link</label>
-  //             <input
-  //               type="text"
-  //               className="form-control"
-  //               id="interviewLink"
-  //               name="interviewLink"
-  //               value={interviewData.interviewLink}
-  //               onChange={handleFormChange}
-  //               placeholder="Enter interview link"
-  //             />
-  //           </div>
- 
-  //           <Modal.Footer>
-  //             <Button variant="secondary" onClick={handleClose}>
-  //               Close
-  //             </Button>
-  //             <Button variant="primary" type="submit">
-  //               Schedule
-  //             </Button>
-  //           </Modal.Footer>
-  //         </form>
-  //       </Modal.Body>
-  //     </Modal>
-  //   </div>
-  // );
  
   return (
-    <div>
-      <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title style={{ color: 'blue' }}>Schedule Interview</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleFormSubmit}>
-            <div>
-              <label>Interview Title<span style={{ color: 'red' }}>*</span></label>
-              <input
+<div>
+<Modal show={show} onHide={handleClose} centered>
+<Modal.Header closeButton>
+<Modal.Title style={{ color: 'blue' }}>Schedule Interview</Modal.Title>
+</Modal.Header>
+<Modal.Body>
+<Form onSubmit={handleFormSubmit}>
+<div>
+<label>Interview Title<span style={{ color: 'red' }}>*</span></label>
+<input
                 type="text"
                 name="interviewTitle"
                 value={interviewData.interviewTitle}
                 onChange={handleFormChange}
                 placeholder="Enter interview title"
-                required
+                // required
               />
-              {/* {validationError && (
-                <div style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px' }}>{validationError}</div>
-              )} */}
               {validationError.interviewTitle && (
-  <div style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px' }}>
+<div style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px' }}>
     {validationError.interviewTitle}
-  </div>
+</div>
 )}
-             
-            </div><br></br>
- 
-            {/* <div className="form-row">
-              <div>
-                <label>Interview Person</label>
-                <input
-                  type="text"
-                  name="interviewPerson"
-                  value={interviewData.interviewPerson}
-                  onChange={handleFormChange}
-                  placeholder="Enter interview person"
-                />
-              </div>
- 
-              <div>
-                <label>Type of Interview</label>
-                <input
-                  type="text"
-                  name="typeOfInterview"
-                  value={interviewData.typeOfInterview}
-                  onChange={handleFormChange}
-                  placeholder="Enter type of interview"
-                />
-              </div>
- 
-              <div>
-                <label>Round</label>
-                <select
-                  name="round"
-                  value={interviewData.round}
-                  onChange={handleFormChange}
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
-              </div>
-            </div> */}
+</div><br></br>
+
  
 <div>
-            {/* <label>
-              Interview Person      Type of Interview       Round
-            </label> */}
- 
-            {/* <label style={{ marginBottom: '10px' }}>
-              Interview Person      Type of Interview       Round
-            </label> */}
+
  
           <div>
-            <label style={{ marginRight: '60px' }}>Interview Person</label>
-            <label style={{ marginRight: '60px' }}>Type of Interview<span style={{ color: 'red' }}>*</span></label>
-            <label>Round</label>
-          </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <input
+<label style={{ marginRight: '60px' }}>Interview Person</label>
+<label style={{ marginRight: '60px' }}>Type of Interview<span style={{ color: 'red' }}>*</span></label>
+<label>Round</label>
+</div>
+<div style={{ display: 'flex', gap: '10px' }}>
+<input
                 type="text"
                 name="interviewPerson"
                 value={interviewData.interviewPerson}
                 onChange={handleFormChange}
                 placeholder="Enter interview person"
-                //required
               />
-              {/* {validationError && (
-                <div style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px' }}>{validationError}</div>
-              )} */}
-              {validationError.interviewPerson && (
-  <div style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px' }}>
-    {validationError.interviewPerson}
-  </div>
-)}
-              <input
+
+<input
                 type="text"
                 name="typeOfInterview"
                 value={interviewData.typeOfInterview}
                 onChange={handleFormChange}
                 placeholder="Enter type of interview"
-                required
               />
-              <select
+<select
                 name="round"
                 value={interviewData.round}
                 onChange={handleFormChange}
-              >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
-            </div>
-          </div><br></br>
+>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+</select>
+</div>
+ 
+            {validationError.interviewPerson && (
+<div style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px' }}>
+    {validationError.interviewPerson}
+</div>
+)}
+</div><br></br>
  
  
           <div>
-            <label style={{ marginRight: '150px' }}>Time and Date<span style={{ color: 'red' }}>*</span></label>
-           
-            <label style={{ marginRight: '60px' }}>Mode of Interview<span style={{ color: 'red' }}>*</span></label>
-          </div>
-          <div style={{ display: 'flex', gap: '10px' }}>
-          <input
+<label style={{ marginRight: '150px' }}>Time and Date<span style={{ color: 'red' }}>*</span></label>
+<label style={{ marginRight: '60px' }}>Mode of Interview<span style={{ color: 'red' }}>*</span></label>
+</div>
+<div style={{ display: 'flex', gap: '10px' }}>
+<input
                   type="datetime-local"
                   name="timeAndDate"
                   value={interviewData.timeAndDate}
                   onChange={handleFormChange}
-                  required
                 />
-            {validationError.timeAndDate && (
-    <div style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px' }}>
-      {validationError.timeAndDate}
-    </div>
-  )}
-            <select
+<select
                   name="modeOfInterview"
                   value={interviewData.modeOfInterview}
                   onChange={handleFormChange}
-                >
-                  <option value="Online">Online</option>
-                  <option value="Face-to-Face">Face-to-Face</option>
-                </select>
+>
+<option value="Online">Online</option>
+<option value="Face-to-Face">Face-to-Face</option>
+</select>
  
-                </div><br></br>
+                </div>
+                {validationError.timeAndDate && (
+<div style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px' }}>
+      {validationError.timeAndDate}
+</div>
+  )}
  
-            {/* <div className="form-row">
-              <div>
-                <label>Time and Date</label>
-               
-              </div>
  
-              <div>
-                <label>Mode of Interview</label>
-               
-              </div>
-            </div> */}
+                <br></br>
+ 
+            
  
           <div>
-            <label style={{ marginRight: '190px' }}>Location<span style={{ color: 'red' }}>*</span></label>
-            <label style={{ marginRight: '60px' }}>Interview Link<span style={{ color: 'red' }}>*</span></label>
-          </div>
-          <div style={{ display: 'flex', gap: '10px' }}>
-              <input
+<label style={{ marginRight: '190px' }}>Location<span style={{ color: 'red' }}>*</span></label>
+<label style={{ marginRight: '60px' }}>Interview Link<span style={{ color: 'red' }}>*</span></label>
+</div>
+<div style={{ display: 'flex', gap: '10px' }}>
+<input
                   type="text"
                   name="location"
                   value={interviewData.location}
                   onChange={handleFormChange}
                   placeholder="Enter interview location"
-                  required
                 />
  
                 <input
@@ -627,42 +308,31 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember,applyjo
                   value={interviewData.interviewLink}
                   onChange={handleFormChange}
                   placeholder="Enter interview link"
-                  required
+              className={validationError.interviewLink && !touchedFields.interviewTitle ? 'error' : ''}
                 />
-                {validationError.interviewLink && (
-    <div style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px' }}>
-      {validationError.interviewLink}
-    </div>
-  )}
+
  
           </div>
-            {/* <div className="form-row">
-              <div>
-                <label>Location</label>
-               
-              </div>
  
-              <div>
-                <label>Interview Link</label>
-               
-              </div>
-            </div> */}
- 
-            <div className="modal-footer">
-             
-              <button type="submit" style={{ color: 'white', backgroundColor: 'blue' }}>Schedule</button>
+          {validationError.interviewLink && touchedFields.interviewLink &&(
+<div style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px', marginLeft: '250px' }}>
+      {validationError.interviewLink}
+</div>
+  )}
+
+<div className="modal-footer">
+<button type="submit" style={{ color: 'white', backgroundColor: 'blue' }}>Schedule</button>
  
               <button type="button" onClick={handleClose}>
                 Close
-              </button>
-            </div>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    </div>
+</button>
+</div>
+</Form>
+</Modal.Body>
+</Modal>
+</div>
   );
- 
- 
+
 };
  
 export default ScheduleInterviewPopup;

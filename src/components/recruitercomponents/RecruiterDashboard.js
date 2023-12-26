@@ -70,7 +70,7 @@ function RecruiterDashboard() {
 
         // Fetch team members data
         axios
-            .get(`${apiUrl}/applyjob/recruiters/countShortlistedAndInterviewed`)
+            .get(`${apiUrl}/applyjob/recruiters/countShortlistedAndInterviewed/${user.id}`)
             .then((response) => {
                 setInterviews(response.data);
             })

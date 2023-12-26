@@ -141,7 +141,7 @@ function LoginBody({handleLogin}) {
             Registration successful! Please log in to continue.
           </div>
         )}
-              <h4>Candiadate's Login</h4>
+              <h4>Candidate’s Login</h4>
               <form  onSubmit={handleSubmit}>
                 <div className="ip">
                   <label>

@@ -7,33 +7,26 @@ function RecruiterNavBar()
 {
   const user1 = useUserContext();
   const user=user1.user;
+
   const [imageSrc, setImageSrc] = useState('');
  
-
   useEffect(() => {
-    const jwtToken = localStorage.getItem('jwtToken');
-    if (jwtToken) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
-    }
-  
-    const fetchImage = async () => {
-      try {
-        const response = await axios.get(`${apiUrl}/images/Recruiter/companylogo/${user.id}.jpg`, {
-          responseType: 'blob', // Set the responseType to 'blob' for binary data
-        });
-  
-        if (response.status !== 200) {
-          throw new Error('Failed to fetch image');
-        }
-  
-        const imageUrl = URL.createObjectURL(response.data);
+ 
+    fetch(`${apiUrl}/recruiters/companylogo/download/${user.id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+      },
+    })
+      .then(response => response.blob()) // Use response.blob() instead of response.json()
+      .then(blob => {
+        const imageUrl = URL.createObjectURL(blob);
         setImageSrc(imageUrl);
-      } catch (error) {
-        console.error('Error fetching image:', error);
-      }
-    };
-  
-    fetchImage();
+      })
+      .catch(error => {
+        console.error('Error fetching image URL:', error);
+        setImageSrc(null);
+      });
+   
   }, [user.id]);
 
   
@@ -133,6 +126,7 @@ function RecruiterNavBar()
                   <span className="icon-keyboard_arrow_down" />
                 </div>
                 <div className="sub-account">
+                <h4>Welcome {user.username}</h4>
                   <div className="sub-account-item">
                     <a href="/recruiter-my-organization">
                       <span className="icon-profile" /> Profile

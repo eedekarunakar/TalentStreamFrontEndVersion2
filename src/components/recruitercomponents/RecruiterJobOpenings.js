@@ -77,7 +77,7 @@ function RecruiterJobOpenings({setSelectedJobId}) {
                               <h3>
                                 <a href="jobs-single.html">
                                   {job.jobTitle}
-                                  <span className="icon-bolt"></span>
+                                  {/* <span className="icon-bolt"></span> */}
                                 </a>
                               </h3>
                               <ul>
@@ -90,7 +90,7 @@ function RecruiterJobOpenings({setSelectedJobId}) {
                                   Posted on {formatDate(job.creationDate)}
                                 </li>
                               </ul>
-                              <span class="icon-heart"></span>
+                              {/* <span class="icon-heart"></span> */}
                             </div>
                           </div>
                         </div>

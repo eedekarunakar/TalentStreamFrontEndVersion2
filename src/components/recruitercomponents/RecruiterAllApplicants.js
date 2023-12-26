@@ -20,11 +20,9 @@ function RecruiterAllApplicants() {
   const fetchAllApplicants = async () => {
     try {
       const response = await axios.get(`${apiUrl}/applyjob/recruiter/${user.id}/appliedapplicants`);
-       
-        setApplicants(response.data);
-       
-     
-     
+       // Convert the object into an array of applicants
+    const applicantsArray = Object.values(response.data).flat();
+        setApplicants(applicantsArray);
     } catch (error) {
       console.error('Error fetching applicants:', error);
     }
@@ -38,12 +36,11 @@ function RecruiterAllApplicants() {
     fetchAllApplicants();
     const $table= window.$(tableref.current);
    // $table.DataTable().destroy();
-   
      const timeoutId = setTimeout(() => {  
       $table.DataTable().destroy();
        $table.DataTable({responsive:true});
  
-             }, 100);
+             }, 300);
    
     return () => {
        isMounted.current = false;
@@ -66,12 +63,14 @@ function RecruiterAllApplicants() {
         if (isMounted.current) {
           const updatedApplicants = applicants.map((application) => {
             if (application.applyjobid === applyJobId) {
+             
               return { ...application, applicantStatus: newStatus };
             }
             return application;
           });
  
           setApplicants(updatedApplicants);
+          fetchAllApplicants();
           setSelectedStatus(newStatus);
           setSelectedApplicant(null);
         }
@@ -123,6 +122,10 @@ function RecruiterAllApplicants() {
               <div className="profile-setting">
               <div className="table-container-wrapper">
                 <div className="table-container">
+                {Array.isArray(applicants) && applicants.length === 0 ? (
+   
+                        <p>No Applicants are available.</p>
+                      ) : (
                   <table ref={tableref} className="responsive-table">
                     <thead>
                       <tr>
@@ -140,7 +143,7 @@ function RecruiterAllApplicants() {
                       </tr>
                     </thead>
                     <tbody>
-                      {applicants.map((application) => (
+                    {Array.isArray(applicants) && applicants.map((application) => (
                         <tr key={application.email}>
                           <td>
                             <input
@@ -175,6 +178,7 @@ function RecruiterAllApplicants() {
                       ))}
                     </tbody>
                   </table>
+                      )}
                 </div>
               </div>
               </div>

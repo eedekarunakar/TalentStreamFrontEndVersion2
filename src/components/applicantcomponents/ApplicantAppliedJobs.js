@@ -92,7 +92,7 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                               <h3>
                                 <a href="jobs-single.html">
                                   {job.jobTitle}
-                                  <span className="icon-bolt"></span>
+                                  {/* <span className="icon-bolt"></span> */}
                                 </a>
                               </h3>
                               <ul>
@@ -105,7 +105,7 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                                   Posted on {formatDate(job.creationDate)}
                                 </li>
                               </ul>
-                              <span class="icon-heart"></span>
+                              {/* <span class="icon-heart"></span> */}
                             </div>
                           </div>
                         </div>
@@ -134,7 +134,12 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                               {/* <Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)}>
                               <button type="button" style={{borderRadius:20}} className="btn-primary">Check Status</button>
                               </Link> */}
-                              {job && (<Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)} className="button-status">Check Status</Link> )}
+                              <button class="button-status">
+                              {job && (<Link to={`/applicant-interview-status?jobId=${job.id}`} style={{ color: 'white' }} onClick={() => setSelectedJobId(job.applyJobId)}>
+  Check Status
+</Link>
+ )}
+                              </button>
                             </div>
                           </div>
                       </div>

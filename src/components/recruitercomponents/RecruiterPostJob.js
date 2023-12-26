@@ -144,27 +144,27 @@ function RecruiterPostJob() {
     // Job Title Validation
     if (!jobTitle.trim()) {
       isValid = false;
-      errors.jobTitle = 'Job Title is required.';
+      errors.jobTitle = 'Job title is required.';
      
     } else {
       errors.jobTitle = '';
     }
  
-    
-
+   
+ 
     if (!minimumExperience.trim()) {
       isValid = false;
-      errors.minimumExperience = 'Minimum Experience is required.';
+      errors.minimumExperience = 'Minimum experience is required.';
     } else {
       errors.minimumExperience = '';
     }
      
     // Maximum Experience Validation
     if (!maximumExperience.trim()) {
-      errors.maximumExperience = 'Maximum Experience is required.';
+      errors.maximumExperience = 'Maximum experience is required.';
       isValid = false;
     } else if (parseInt(minimumExperience) > parseInt(maximumExperience)) {
-      errors.maximumExperience = 'Maximum Experience should be greater than or equal to Minimum Experience.';
+      errors.maximumExperience = 'Maximum experience should be greater than or equal to minimum experience.';
       isValid = false;
     } else {
       errors.maximumExperience = '';
@@ -172,7 +172,7 @@ function RecruiterPostJob() {
      
         // Minimum Salary Validation
     if (!minSalary.trim()) {
-      errors.minSalary = 'Minimum Salary is required.';
+      errors.minSalary = 'Minimum salary is required.';
       isValid = false;
     } else {
       errors.minSalary = '';
@@ -180,10 +180,10 @@ function RecruiterPostJob() {
      
     // Maximum Salary Validation
     if (!maxSalary.trim()) {
-      errors.maxSalary = 'Maximum Salary is required.';
+      errors.maxSalary = 'Maximum salary is required.';
       isValid = false;
     } else if (parseInt(minSalary) > parseInt(maxSalary)) {
-      errors.maxSalary = 'Maximum Salary should be greater than or equal to Minimum Salary.';
+      errors.maxSalary = 'Maximum salary should be greater than or equal to minimum salary.';
       isValid = false;
     } else {
       errors.maxSalary = '';
@@ -199,7 +199,7 @@ function RecruiterPostJob() {
     }
     // Employee Type Validation
     if (!employeeType.trim()) {
-      errors.employeeType = 'Employee Type is required.';
+      errors.employeeType = 'Job type is required.';
       isValid = false;
     } else {
       errors.employeeType = '';
@@ -209,7 +209,7 @@ function RecruiterPostJob() {
  
     // Minimum Qualification Validation
     if (!minimumQualification.trim()) {
-      errors.minimumQualification = 'Minimum Qualification is required.';
+      errors.minimumQualification = 'Minimum qualification is required.';
       isValid = false;
     } else {
       errors.minimumQualification = '';
@@ -261,7 +261,7 @@ function RecruiterPostJob() {
       isValid = false;
       setFormErrors((prevErrors) => ({
         ...prevErrors,
-        jobHighlights: 'Job Highlights must be at least 3 characters long.',
+        jobHighlights: 'Job highlights must be at least 3 characters long.',
       }));
       return isValid;
     }
@@ -576,6 +576,7 @@ const handleMaxSalaryChange = (e) => {
                         placeholder="Sector"
                         onChange={handleIndustryTypeChange}
                        
+                       
                       />
                        {formErrors.industryType && (
                   <div className="error-message">{formErrors.industryType}</div>
@@ -589,48 +590,55 @@ const handleMaxSalaryChange = (e) => {
                             className="input-form"
                             placeholder="Other courses"
                             onChange={handleSpecializationChange}
+                         
                   />
                   {formErrors.specialization && (
                   <div className="error-message">{formErrors.specialization}</div>
                 )}
                 </fieldset>
-                <fieldset class="">
-                        <label class="title-user fw-7">Skills<span className="color-red">*</span></label>
-                        {skillsRequired.map((skill, index) => (
-  <div key={index} className="experience-table">
-    <div>
-      <input
-        type="text"
-        placeholder="Skill"
-        className="input-form"
-        value={skill.skillName}
-        onChange={(e) =>handleSkillChange(e, index, "skillName")}
-        required
-      />
-    </div><br />
-    <div>
-      <input
-        type="text"
-        placeholder="Experience"
-        className="input-form"
-        value={skill.minimumExperience}
-        onChange={(e) =>handleExperienceChange(e, index, "minimumExperience")}
-        required
-      />
-    </div>
-    {index === skillsRequired.length - 1 && (
-      <button type="button" onClick={addExperience}>
-        +
-      </button>
-    )} &nbsp;
-    {index === skillsRequired.length - 1 && (
+                <fieldset className="">
+  <label className="title-user fw-7">Skills<span className="color-red">*</span></label>
+  {skillsRequired.map((skill, index) => (
+    <div key={index} className="experience-table">
+      <div>
+        <input
+          type="text"
+          placeholder="Skill"
+          className="input-form"
+          value={skill.skillName}
+          onChange={(e) => handleSkillChange(e, index, "skillName")}
+          required
+        />
+        {formErrors.skillsRequired && formErrors.skillsRequired[index] && formErrors.skillsRequired[index].skillName && (
+          <div className="error-message">{formErrors.skillsRequired[index].skillName}</div>
+        )}
+      </div><br />
+      <div>
+        <input
+          type="text"
+          placeholder="Experience"
+          className="input-form"
+          value={skill.minimumExperience}
+          onChange={(e) => handleExperienceChange(e, index, "minimumExperience")}
+          required
+        />
+        {formErrors.skillsRequired && formErrors.skillsRequired[index] && formErrors.skillsRequired[index].minimumExperience && (
+          <div className="error-message">{formErrors.skillsRequired[index].minimumExperience}</div>
+        )}
+      </div>
+      {index === skillsRequired.length - 1 && (
+        <button type="button" onClick={addExperience}>
+          +
+        </button>
+      )} &nbsp;
+      {index === skillsRequired.length - 1 && (
         <button type="button" onClick={removeExperience}>
           -
         </button>
       )}
-  </div>
-))}
-                      </fieldset>
+    </div>
+  ))}
+</fieldset>
               </div>
               <div className="info-box info-wd">
                 <div id="item_1" className="dropdown titles-dropdown ">
@@ -640,6 +648,7 @@ const handleMaxSalaryChange = (e) => {
                          className="input-form"
                          value={maximumExperience}
                          onChange={handleMaximumExperienceChange}
+                     
                          required
                   />
                    {formErrors.maximumExperience&& (
@@ -654,6 +663,7 @@ const handleMaxSalaryChange = (e) => {
                              className="input-form"
                              value={maxSalary}
                              onChange={handleMaxSalaryChange}
+                         
                              required
                   />
                   {formErrors.maxSalary && (
@@ -667,12 +677,16 @@ const handleMaxSalaryChange = (e) => {
                   <select value={employeeType}
                           className="input-form"
                           onChange={handleEmployeeTypeChange}
+                       
                           required>
                        <option value="">Select</option>
                        <option value="Full-time">Full-time</option>
                        <option value="Part-time">Part-time</option>
                        <option value="Contract">Contract</option>
                  </select>
+                 {formErrors.employeeType && (
+                  <div className="error-message">{formErrors.employeeType}</div>
+                )}
                 </fieldset>
                 <div id="item_3" className="dropdown titles-dropdown ">
                   <label className="title-user fw-7">Minimum Qualification<span className="color-red">*</span></label>
@@ -682,6 +696,7 @@ const handleMaxSalaryChange = (e) => {
                              className="input-form"
                              placeholder="BTech"
                              onChange={handleMinimumQualificationChange}
+                           
                              required
                  />
                   {formErrors.minimumQualification && (
@@ -695,6 +710,7 @@ const handleMaxSalaryChange = (e) => {
                          placeholder="Job key points"
                          value={jobHighlights}
                          onChange={handleJobHighlightsChange}
+                       
                   />
                   {formErrors.jobHighlights && (
                   <div className="error-message">{formErrors.jobHighlights}</div>

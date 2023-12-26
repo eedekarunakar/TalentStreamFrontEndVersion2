@@ -5,7 +5,6 @@ import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
  
 const AddTeamMemberPopup = ({ show, handleClose, handleAddTeamMember,userId }) => {
-
     const user = useUserContext();
    
     const [formData, setFormData] = useState({
@@ -15,15 +14,12 @@ const AddTeamMemberPopup = ({ show, handleClose, handleAddTeamMember,userId }) =
         role: "",
     });
    
- 
     const [validationErrors, setValidationErrors] = useState({
         name: "",
         email: "",
         password: "",
         role: "",
       });
- 
-   
  
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -74,7 +70,7 @@ const AddTeamMemberPopup = ({ show, handleClose, handleAddTeamMember,userId }) =
  
     const errors = validateForm();
  
-
+   
     if (Object.keys(errors).length > 0) {
       return;
     }
@@ -117,15 +113,15 @@ return (
               value={formData.name}
               onChange={handleInputChange}
               placeholder="Enter Name"
-              required
               style={{ width: '385px' }} // Adjust the width as needed
             />
-            {validationErrors.name && (
+           
+          </div>
+          {validationErrors.name && (
               <div style={{ color: "red", fontSize: "0.8rem", marginTop: "5px" }}>
                 {validationErrors.name}
               </div>
             )}
-          </div>
           <div style={{ marginBottom: '15px' }}>
             <label htmlFor="email" style={{ marginRight: '33px' }}>Email<span style={{ color: 'red' }}>*</span></label>
             <input
@@ -135,15 +131,15 @@ return (
               value={formData.email}
               onChange={handleInputChange}
               placeholder="Enter Email"
-              required
               style={{ width: '385px' }} // Adjust the width as needed
             />
-            {validationErrors.email && (
+           
+          </div>
+          {validationErrors.email && (
               <div style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px' }}>
                 {validationErrors.email}
               </div>
             )}
-          </div>
           <div style={{ marginBottom: '15px' }}>
             <label htmlFor="password" style={{ marginRight: '10px' }}>Password<span style={{ color: 'red' }}>*</span></label>
             <input
@@ -153,15 +149,15 @@ return (
               value={formData.password}
               onChange={handleInputChange}
               placeholder="Enter Password"
-              required
               style={{ width: '385px' }} // Adjust the width as needed
             />
-            {validationErrors.password && (
+           
+          </div>
+          {validationErrors.password && (
               <div style={{ color: 'red', fontSize: '0.8rem', marginTop: '5px' }}>
                 {validationErrors.password}
               </div>
             )}
-          </div>
           <div style={{ marginBottom: '15px' }}>
             <label htmlFor="role" style={{ marginRight: '40px' }}>Role<span style={{ color: 'red' }}>*</span></label>
             <select
@@ -169,7 +165,6 @@ return (
               name="role"
               value={formData.role}
               onChange={handleInputChange}
-              required
               style={{ width: '385px' }} // Adjust the width as needed
             >
               <option value="">Select Role</option>
@@ -178,28 +173,9 @@ return (
             </select>
           </div>
  
-{/* <div style={{ marginBottom: '15px' }}>
-   <label htmlFor="role" style={{ marginRight: '10px' }}>Role</label>
-   <select
-    id="role"
-    name="role"
-    value={formData.role}
-    onChange={handleInputChange}
-    required
-    style={{ width: '200px' }} // Adjust the width as needed
-  >
-    <option value="">Select Role</option>
-    <option value="Admin">HR</option>
-    <option value="Recruiter">Recruiter</option>
-  </select>
-</div> */}
+
           <br />
-          {/* <Button variant="primary" type="submit">
-            Add Team Member
-          </Button>
-          <Button variant="primary" type="button" onClick={handleClose}>
-            Close
-          </Button> */}
+       
  
 <div style={{ marginTop: '10px' }}>
   <Button variant="primary" type="submit" style={{ marginRight: '20px' }}>

@@ -140,11 +140,11 @@ const Nav = () => {
               </div>
             </div>
               <div className="header-ct-right st-1">
-                <div className="header-customize-item help">
+                {/* <div className="header-customize-item help">
                   <a href="/login">
                     <span className="icon-help-circle" />
                   </a>
-                </div>
+                </div> */}
                 {/* <div className="header-customize-item bell">
                   <span className="icon-bell" />
                   <div className="sub-notification">

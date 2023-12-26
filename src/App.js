@@ -25,11 +25,7 @@ function App() {
   const handleLogin = () => {
     setIsLoggedIn(true);
     // Retrieve the JWT token from localStorage
-    const jwtToken = localStorage.getItem('jwtToken');
-    // Include the token in the Axios default headers
-    if (jwtToken) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
-    }
+   
   };
 
   const handleLogout = () => {

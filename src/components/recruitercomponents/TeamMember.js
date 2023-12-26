@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import axios from "axios";
@@ -9,6 +9,8 @@ function TeamMember() {
 
     const [teamMembers, setTeamMembers] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
+    const tableref=useRef(null);
+    const isMounted = useRef(true);
    
     useEffect(() => {
         
@@ -22,6 +24,18 @@ function TeamMember() {
           .get(`${apiUrl}/team/get/teammembers/${user.id}`)
           .then((response) => {
             setTeamMembers(response.data);
+            const $table= window.$(tableref.current);
+   // $table.DataTable().destroy();
+     const timeoutId = setTimeout(() => {  
+      $table.DataTable().destroy();
+       $table.DataTable({responsive:true});
+ 
+             }, 250);
+   
+    return () => {
+       isMounted.current = false;
+     // $table.DataTable().destroy(true);
+    };
     
           })
           .catch((error) => {
@@ -66,8 +80,8 @@ return (
     </section>
     <section className="flat-dashboard-setting bg-white">
       <div className="themes-container">
-<button onClick={() => setShowPopup(true)}>Add Team Member</button>
-          <Table data={teamMembers} handleDelete={handleDeleteTeamMember} />
+<button onClick={() => setShowPopup(true)} className='button-status'>Add Team Member</button>
+          <Table data={teamMembers} handleDelete={handleDeleteTeamMember}  ref={tableref}/>
           <AddTeamMemberPopup
             show={showPopup}
             handleClose={() => setShowPopup(false)}
@@ -90,7 +104,6 @@ const Table = ({ data, handleDelete }) => {
               <th>Name</th>
               <th>Role</th>
               <th>Email</th>
-              <th>Mobile Number</th>
               <th>Password</th>
               <th>Action</th>
             </tr>
@@ -101,7 +114,6 @@ const Table = ({ data, handleDelete }) => {
                 <td>{teamMember.name}</td>
                 <td>{teamMember.role}</td>
                 <td>{teamMember.email}</td>
-                <td>{teamMember.mobilenumber}</td>
                 <td>{teamMember.password}</td>
                 <td>
                   <a

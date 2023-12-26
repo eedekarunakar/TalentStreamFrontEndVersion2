@@ -1,42 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from 'react';
+import axios from "axios";
+import { useUserContext } from '../common/UserProvider';
+import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 
 const ApplicantDashboard = () => 
 {
+  const [token, setToken] = useState('');
+  const { user } = useUserContext();
   const [loading, setLoading] = useState(true);
-  const [jobCount, setJobCount] = useState(0);
-  const [applicationCount, setApplicationCount] = useState(0);
-  const [reviewCount, setReviewCount] = useState(0);
-  const [wishlistCount, setWishlistCount] = useState(0);
+  const [contRecJobs, setCountRecJobs] = useState(0);
+  const [contAppliedJob, setAppliedJobs] = useState(0);
+  const [contSavedJobs, setSavedJobs] = useState(0);
 
-  // Simulating data fetching
   useEffect(() => {
-    // Replace the following lines with your actual data fetching logic
-    // For example, you can use fetch() or axios to get data from an API
-    const fetchJobCount = () => {
-      // Simulating fetching job count from an API
-      setJobCount(15);
-    };
-
-    const fetchApplicationCount = () => {
-      // Simulating fetching application count from an API
-      setApplicationCount(2068);
-    };
-
-    const fetchReviewCount = () => {
-      // Simulating fetching review count from an API
-      setReviewCount(21);
-    };
-
-    const fetchWishlistCount = () => {
-      // Simulating fetching wishlist count from an API
-      setWishlistCount(320);
-    };
-
-    fetchJobCount();
-    fetchApplicationCount();
-    fetchReviewCount();
-    fetchWishlistCount();
+    // Get the JWT token from local storage
+    const storedToken = localStorage.getItem('jwtToken');
+    if (storedToken) {
+      setToken(storedToken);
+    }
   }, []);
+
   useEffect(() => {
     // Simulate an asynchronous operation (e.g., fetching data from an API)
     const fetchData = async () => {
@@ -50,11 +34,63 @@ const ApplicantDashboard = () =>
         setLoading(false);
       }
     };
-
+ 
     // Call the fetchData function
     fetchData();
   }, []);
 
+  useEffect(() => {
+      const jwtToken = localStorage.getItem('jwtToken');
+      if (jwtToken) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+      }
+
+      // Fetch team members data
+      axios
+          .get(`${apiUrl}/recommendedjob/countRecommendedJobsForApplicant/${user.id}`)
+          .then((response) => {
+              setCountRecJobs(response.data);
+          })
+          .catch((error) => {
+              console.error('Error fetching team members:', error);
+          });
+  }, [user.id]); // Include id as a dependency if you use it in the effect
+
+  useEffect(() => {
+      const jwtToken = localStorage.getItem('jwtToken');
+      if (jwtToken) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+      }
+
+      // Fetch team members data
+      axios
+          .get(`${apiUrl}/applyjob/countAppliedJobs/${user.id}`)
+          .then((response) => {
+              setAppliedJobs(response.data);
+          })
+          .catch((error) => {
+              console.error('Error fetching team members:', error);
+          });
+  }, [user.id]); // Include id as a dependency if you use it in the effect
+
+  useEffect(() => {
+      const jwtToken = localStorage.getItem('jwtToken');
+      if (jwtToken) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+      }
+
+      // Fetch team members data
+      axios
+          .get(`${apiUrl}/savedjob/countSavedJobs/${user.id}`)
+          .then((response) => {
+              setSavedJobs(response.data);
+          })
+          .catch((error) => {
+              console.error('Error fetching team members:', error);
+          });
+  }, [user.id]); // Include id as a dependency if you use it in the effect
+
+  
   return (
     <div>
     {loading ? null : (
@@ -101,12 +137,8 @@ const ApplicantDashboard = () =>
               </span>
             </div>
             <div className="content">
-              {/* <div
-                className="count-dash counter-number"
-                data-speed={2000}
-                data-to={j}
-              /> */}
-              <h3>20</h3>
+            
+              <h3>{contRecJobs}</h3>
               <h4 className="title-count">Recommended jobs</h4>
             </div>
           </div>
@@ -173,12 +205,7 @@ const ApplicantDashboard = () =>
               </span>
             </div>
             <div className="content style3">
-              {/* <div
-                className="count-dash counter-number"
-                data-speed={2000}
-                data-to={reviewCount}
-              /> */}
-              <h3>8</h3>
+              <h3>{contAppliedJob}</h3>
               <h4 className="title-count">Applied Jobs</h4>
             </div>
           </div>
@@ -200,12 +227,7 @@ const ApplicantDashboard = () =>
               </span>
             </div>
             <div className="content">
-              {/* <div
-                className="count-dash counter-number"
-                data-speed={2000}
-                data-to={wishlistCount}
-              /> */}
-              <h3>5</h3>
+              <h3>{contSavedJobs}</h3>
               <h4 className="title-count">Saved Jobs</h4>
             </div>
           </div>
