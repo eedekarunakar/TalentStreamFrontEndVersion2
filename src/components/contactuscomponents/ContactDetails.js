@@ -26,9 +26,10 @@ export default function ContactDetails() {
   
     // Validate that all required fields are filled
     if (!formData.name || !formData.subject || !formData.email || !formData.questions) {
+         // You can show an alert or error message to the user here if needed
         window.alert("please fill all the fields");
-      console.error('Please fill in all required fields');
-      // You can show an alert or error message to the user here if needed
+    
+     
       return;
     }
   
