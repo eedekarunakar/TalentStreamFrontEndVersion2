@@ -90,8 +90,8 @@ function App() {
                 // Redirect to login page if not authenticated
                 <Route path="/login" element={<Navigate to="/login" />} />
               )}
-              {/* <Route path="/logout" element={<Logout onLogout={handleLogout} />} /> */}
-              <Route path="/logout" element={<Navigate to="/" />} />
+              <Route path="/logout" element={<Logout />} />
+              {/* <Route path="/logout" element={<Navigate to="/" />} />  */}
             
             </Routes>
           </Router>
