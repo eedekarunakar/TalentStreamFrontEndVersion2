@@ -82,7 +82,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
     } catch (error) {
       console.error('Error sending OTP:', error);
       setCandidateOTPSendingInProgress(false); // Use setCandidateOTPSendingInProgress
-     // window.alert('Email is already registered.');
+      //window.alert('Email is already registered.');
     }
   };
  

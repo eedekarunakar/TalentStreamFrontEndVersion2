@@ -4,6 +4,9 @@ import logoCompany1 from '../../images/cty12.png';
 import { useUserContext } from '../common/UserProvider';
 import { apiUrl } from '../../services/ApplicantAPIService';
 import { useLocation } from 'react-router-dom';
+import { Timeline, TimelineHeaders, TodayMarker, CustomHeader } from 'react-calendar-timeline';
+import 'react-calendar-timeline/lib/Timeline.css';
+
 
 const ApplicantInterviewStatus = ({ selectedJobId }) => {
   const [jobDetails, setJobDetails] = useState(null);
@@ -57,7 +60,7 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
         const body = response.data;
         setLoading(false);
         if (Array.isArray(body) && body.length > 0) {
-          setJobStatus(body[0]); // Access the first element of the array
+          setJobStatus(body); // Access the first element of the array
         }
       } catch (error) {
         console.error('Error fetching job status:', error);
@@ -157,14 +160,38 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
                     </div>
                   )}
 
-
-{jobStatus && (
+{/* 
+  {jobStatus && (
 <ul class="events">
   <li>
-    <time datetime="10:03">Date:{formatDate(jobStatus.changeDate)}</time> 
-    <span><strong>Status:{jobStatus.status}</strong> </span></li>
+    <time>Date:{formatDate(jobStatus[0].changeDate)}</time> 
+    <span><strong>Status:{jobStatus[0].status}</strong> </span>
+    </li>
+    <li>
+    <time>Date:{formatDate(jobStatus[1].changeDate)}</time> 
+    <span><strong>Status:{jobStatus[1].status}</strong> </span>
+    </li>
 </ul>
+)}  */}
+<h4>Status History</h4>
+{jobStatus && jobStatus.length > 0 && (
+  <ul className="events">
+    {jobStatus.slice().reverse().map((status, index) => (
+      <li key={index}>
+        {status && status.changeDate && status.status && (
+          <>
+            <time>Date: {formatDate(status.changeDate)}</time>
+            <span>
+              <strong>Status: {status.status === 'New' ? 'Job Applied' : status.status}</strong>
+            </span>
+          </>
+        )}
+      </li>
+    ))}
+  </ul>
 )}
+
+
  </article>
               </div>
             </div>

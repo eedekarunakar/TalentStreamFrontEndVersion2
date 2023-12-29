@@ -287,10 +287,10 @@ function RecruiterMyOrganization() {
             },
           }
         );
-    
+        
         console.log(response.data);
         window.alert(response.data);
-         window.location.reload();
+        window.location.reload();
       } catch (error) {
         console.error('Error uploading photo:', error);
         window.alert('Error in uploading profile');

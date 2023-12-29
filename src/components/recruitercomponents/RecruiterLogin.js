@@ -177,7 +177,7 @@ function RecruiterLogin({handleLogin}) {
                     Remember me */}
                   </div>
                   <a href="/recruiter-forgot-password" className="forgot">
-                    Fogot password?
+                    Forgot password?
                   </a>
                 </div>
                 <button type="submit">Login</button>

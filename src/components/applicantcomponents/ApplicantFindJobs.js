@@ -89,7 +89,7 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                   <br />
                   <div className="group-col-2">
                   {jobs.length === 0 ? (
-                      <div style={{marginLeft:30}}><h4>Kindly Update your profile, and as per your skill set, we will provide job recommendations.</h4><br/></div>
+                      <div style={{marginLeft:30}}><h4>Kindly Update your profile, and as per your skill set, you will get job recommendations.</h4><br/></div>
                     ) : (
                       jobs.map((job) => (
                         <div className="features-job cl2" key={job.id}>

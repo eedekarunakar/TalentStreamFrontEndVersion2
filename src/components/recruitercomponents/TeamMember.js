@@ -54,7 +54,7 @@ function TeamMember() {
           .then((response) => {
             // Update the state to reflect the deletion
             window.alert('Team member deleted successfully');
-    
+            
             setTeamMembers((prevTeamMembers) =>
               prevTeamMembers.filter((member) => member.id !== teamMemberId)
                       );
@@ -81,7 +81,13 @@ return (
     <section className="flat-dashboard-setting bg-white">
       <div className="themes-container">
 <button onClick={() => setShowPopup(true)} className='button-status'>Add Team Member</button>
-          <Table data={teamMembers} handleDelete={handleDeleteTeamMember}  ref={tableref}/>
+
+
+{teamMembers.length === 0 ? (
+            <p>No team members are available.</p>
+          ) : (
+            <Table data={teamMembers} handleDelete={handleDeleteTeamMember} ref={tableref} />
+          )}
           <AddTeamMemberPopup
             show={showPopup}
             handleClose={() => setShowPopup(false)}
@@ -97,8 +103,8 @@ return (
 
 const Table = ({ data, handleDelete }) => {
     return (
-      <div className="table-responsive">
-        <table className="table table-striped table-bordered">
+      <div className="table-container">
+        <table className="responsive-table">
           <thead className="thead-dark">
             <tr>
               <th>Name</th>
