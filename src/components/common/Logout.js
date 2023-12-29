@@ -1,40 +1,24 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
+import clearJWTToken from './clearJWTToken';
 
-const Logout = () => {
-  const navigate = useNavigate();
-
+const Logout = ({ onLogout }) => {
   useEffect(() => {
-    const signOutUser = async () => {
+    const logoutUser = async () => {
       try {
-        const response = await fetch(`${apiUrl}/applicant/applicantsignOut`, {
-          method: 'POST',
-          credentials: 'include',
-        });
+        // Assuming you have a function to clear the JWT token
+        await clearJWTToken();
 
-        if (response.status === 204) {
-          // Redirect to the home page after logging out
-          navigate('/');
-          console.log('Redirecting to the home page...');
-
-          // Use setTimeout to ensure that localStorage is cleared after the redirect
-          setTimeout(() => {
-            localStorage.removeItem('jwtToken');
-            localStorage.removeItem('userType');
-          }, 0);
-        } else {
-          console.error('Sign-out request failed.');
-        }
+        // Call the callback function to handle redirection
+        onLogout();
       } catch (error) {
-        console.error('Error signing out:', error);
+        console.error('Logout failed', error);
       }
     };
 
-    signOutUser();
-  }, [navigate]);
+    logoutUser();
+  }, [onLogout]);
 
-  return <p>Logging out...</p>;
+  return <div>Logging out...</div>;
 };
 
 export default Logout;

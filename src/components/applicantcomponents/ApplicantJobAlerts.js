@@ -43,6 +43,7 @@ export default function ApplicantJobAlerts() {
         <div className="row">
           <div className="col-lg-12 col-md-12 ">
               <div className="box-notifications bg-white">
+              {jobAlerts.length > 0 ? (
                 <ul className="inner-box">
                   {jobAlerts.map(alert => (
                     <li key={alert.alertsId} className="inner">
@@ -55,6 +56,12 @@ export default function ApplicantJobAlerts() {
                     </li>
                   ))}
                 </ul>
+                 ) : (
+                  <h3>No alerts are found.
+                
+
+                  </h3>
+                )}
               </div>
             </div>
           </div>

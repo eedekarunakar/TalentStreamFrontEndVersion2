@@ -8,9 +8,18 @@ import { useState, useEffect } from "react";
 import { useUserContext } from '../common/UserProvider';
 import { apiUrl } from '../../services/ApplicantAPIService';
 
+
 function ApplicantNavBar() {
+  const [isOpen, setIsOpen] = useState(true);
   const { user } = useUserContext();
   const [imageSrc, setImageSrc] = useState('');
+  const [alertCount, setAlertCount] = useState(1);
+
+  const handleToggleMenu = () => {
+    console.log("function called..")
+    setIsOpen(!isOpen);
+  };
+
   useEffect(() => {
     // Your custom JavaScript code for hamburger icon
     $("#left-menu-btn").on("click", function(e) {
@@ -173,13 +182,14 @@ function ApplicantNavBar() {
       </div>
     </div>
     <div className="btn header-item " id="left-menu-btn">
-      <span className="hamburger-icon">
+      <span className="hamburger-icon"  onClick={handleToggleMenu}>
         <span />
         <span />
         <span />
       </span>
     </div>
   </header>
+  {(isOpen &&
   <div className="left-menu" >
       {/* Sidemenu */}
       <div id="sidebar-menu">
@@ -219,7 +229,9 @@ function ApplicantNavBar() {
 
           <li>
             <Link to="/applicant-job-alerts" className="tf-effect">
-              <span className="icon-bell1 dash-icon"></span>
+            <span className="icon-bell1 dash-icon">
+          {alertCount > 0 && <sup className="alert-count" style={{'fontSize':'16px','color':'red','fontWeight':'900'}}>{alertCount}</sup>}
+        </span>
               <span className="dash-titles">Job Alerts</span>
             </Link>
           </li>
@@ -251,6 +263,7 @@ function ApplicantNavBar() {
         </ul>
       </div>
     </div>
+  )}
 </div>
   )
 }

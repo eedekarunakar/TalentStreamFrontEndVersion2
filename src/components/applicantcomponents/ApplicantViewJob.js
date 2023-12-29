@@ -30,7 +30,7 @@ function ApplicantViewJob({ selectedJobId }) {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/viewjob/applicant/viewjob/${selectedJobId}`);
+        const response = await axios.get(`${apiUrl}/viewjob/applicant/viewjob/${selectedJobId}/${user.id}`);
         const {body} = response.data;
         setLoading(false);
         if (body) {
@@ -56,6 +56,7 @@ function ApplicantViewJob({ selectedJobId }) {
       setApplied(applied);
        if(response.status === 200){
         window.alert('job applied successfully');
+        
        }
  
     } catch (error) {
@@ -125,10 +126,9 @@ function ApplicantViewJob({ selectedJobId }) {
               <button
                 className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
                 onClick={handleApplyNow}
-                
               >
                 <span className="icon-send"></span>
-                {/* {applied ? 'Already Applied' : 'Apply Now'} */}{jobDetails.jobStatus}
+                 {jobDetails.jobStatus}
               </button>
             </a>
                                 </div>

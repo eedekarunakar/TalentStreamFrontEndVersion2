@@ -200,11 +200,11 @@ const Nav = () => {
                   </div>
                 </div> */}
                 <div class="header-customize-item account">
-                <img src="images/user/avatar/sign-in.png" alt="" />
+                {/* <img src="images/user/avatar/sign-in.png" alt="" />
                 <div class="name">
                   <span class="icon-keyboard_arrow_down"></span>
-                </div>
-                <div class="sub-account">
+                </div> */}
+                {/* <div class="sub-account"> */}
                   <div class="sub-account-item">
                     <a href="/register"><span class="icon-resumes"></span>Register</a>
                   </div>
@@ -214,11 +214,11 @@ const Nav = () => {
                   {/* <div class="sub-account-item">
                     <a href="/recruiterlogin"><span class="icon-profile"></span>Recruiter's Login</a>
                   </div> */}
-                </div>
+                {/* </div> */}
               </div>
-                <div className="header-customize-item button">
+                {/* <div className="header-customize-item button">
                   <a href="/recruiterlogin">Recruiter Login</a>
-                </div>
+                </div> */}
                  </div>
               <div className="nav-filter">
                 <div className="nav-mobile">

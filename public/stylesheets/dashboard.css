@@ -689,7 +689,7 @@ tbody tr td:nth-child(2) {
 }
 
 /* dashboard menu */
-.hamburger-icon {
+/* .hamburger-icon {
     width: 20px;
     height: 14px;
     position: relative;
@@ -720,7 +720,66 @@ tbody tr td:nth-child(2) {
 .hamburger-icon span:nth-child(3) {
     bottom: 0;
     width: 60%;
+} */
+
+.hamburger-icon {
+    width: 20px;
+    height: 14px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
 }
+
+.hamburger-icon span {
+    background-color: #010902d0;
+    position: absolute;
+    border-radius: 2px;
+    -webkit-transition: 0.3s cubic-bezier(0.8, 0.5, 0.2, 1.4);
+    transition: 0.3s cubic-bezier(0.8, 0.5, 0.2, 1.4);
+    width: 100%;
+    height: 2px;
+    display: block;
+}
+
+.hamburger-icon span:nth-child(1) {
+    top: 0;
+    width: 80%;
+}
+
+.hamburger-icon span:nth-child(2) {
+    top: 6px;
+}
+
+.hamburger-icon span:nth-child(3) {
+    bottom: 0;
+    width: 60%;
+}
+
+/* Media query for screen sizes between 550px and 1400px */
+@media screen and (min-width: 450px) and (max-width: 1400px) {
+    .hamburger-icon {
+        /* Adjust your styles for this screen size range */
+        /* For example, you can change width or height */
+        width: 15px;
+        height: 10px;
+    }
+    .dashboard .btn {
+        left: 240px;
+    }
+
+    .hamburger-icon span:nth-child(1) {
+        /* Adjust styles for span 1 */
+        width: 100%;
+    }
+
+    .hamburger-icon span:nth-child(3) {
+        /* Adjust styles for span 3 */
+        width: 100%;
+        top:15px;
+    }
+}
+
+
 
 .dashboard .dashboard__sidebar .sidebar__menu::-webkit-scrollbar {
     width: 3px;
@@ -3645,17 +3704,18 @@ input[type="radio"]:checked:after {
     }
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1300px) {
 
-    .dashboard .btn {
+    /* .dashboard .btn {
         left: 200px;
-    }
+    } */
     .left-menu  {
         display: none;
     }
 
     .sidebar-enable .left-menu {
         display: block;
+        left: 100% !important;
         box-shadow: 0 3.811px 8.0551px rgba(0, 0, 0, 0.5);
     }
 
@@ -4348,7 +4408,7 @@ font-size: 14px;
      top: 0;
      transform: translateX(50%);
      border-radius: 50%;
-     background: #fff;
+     background: #2837d3;
      border: 1px #2837d3 solid;
      width: .8em;
      height: .8em;
@@ -4378,3 +4438,61 @@ font-size: 14px;
   .events, 
   .events *::before, 
   .events *::after { box-sizing: border-box; font-family: arial; }
+
+  /* Media query for mobile devices */
+@media only screen and (max-width: 1400px) {
+    .btn.header-item {
+      cursor: pointer;
+      /*background-color: red;  Test background color */
+      padding: 10px;
+    }
+  
+    .left-menu {
+     /* width: 100%; */
+      z-index: 100;
+      display: block !important; /* Force display for testing */
+      background: #fff;
+      position: fixed;
+      /* top: 0;
+      left: 0; */
+      height: 100%;
+      display: none;
+    }
+  
+    .left-menu.active {
+      display: block;
+    }
+  
+    #sidebar-menu {
+      /* padding: 21px 17px 17px; */
+      padding: 17px 17px;
+    }
+  
+    #side-menu {
+      content: "\e9a2";
+      font-family: "icomoon";
+      position: absolute;
+      right: 15px;
+      font-size: 1rem;
+    }
+  
+    .dash-icon {
+      margin-right: 12px;
+      font-size: 24px;
+    }
+  
+    .dash-titles {
+      display: flex;
+      align-items: center;
+      position: relative;
+      color: #121212;
+      padding: 13.5px 10px;
+      background-color: #fff;
+      width: 100%;
+      font-weight: 600;
+      font-size: 16px;
+      text-transform: capitalize;
+      justify-content: flex-start;
+      transition: all 0.4s;
+    }
+  }

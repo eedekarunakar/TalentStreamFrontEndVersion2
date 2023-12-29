@@ -31,8 +31,7 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     // Remove the JWT token from localStorage
-    localStorage.removeItem('jwtToken');
-    localStorage.removeItem('userType');
+    window.location.href = '/';
   };
 
   useEffect(() => {
@@ -91,7 +90,7 @@ function App() {
                 <Route path="/login" element={<Navigate to="/login" />} />
               )}
               {/* <Route path="/logout" element={<Logout onLogout={handleLogout} />} /> */}
-              <Route path="/logout" element={<Navigate to="/" />} />
+              <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
             
             </Routes>
           </Router>

@@ -14,6 +14,13 @@ const AddTeamMemberPopup = ({ show, handleClose, handleAddTeamMember,userId }) =
         role: "",
     });
    
+    const initialFormData = {
+      name: '',
+      email: '',
+      password: '',
+      role: '',
+    };
+
     const [validationErrors, setValidationErrors] = useState({
         name: "",
         email: "",
@@ -90,6 +97,12 @@ const AddTeamMemberPopup = ({ show, handleClose, handleAddTeamMember,userId }) =
                 // Handle the successful response here, such as showing a success message or redirecting the user
                 console.log('API Response:', response.data);
                 window.alert('Team member added successfully');
+                resetForm();
+
+                // Close the popup after 2 seconds (2000 milliseconds)
+                setTimeout(() => {
+                  handleClose();
+                }, 1000);
             })
             .catch((error) => {
                 // Handle any errors that occur during the API call, such as displaying an error message
@@ -97,6 +110,16 @@ const AddTeamMemberPopup = ({ show, handleClose, handleAddTeamMember,userId }) =
             });
     };
  
+    const resetForm = () => {
+      setFormData(initialFormData);
+      setValidationErrors({
+        name: '',
+        email: '',
+        password: '',
+        role: '',
+      });
+    };
+
 return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>

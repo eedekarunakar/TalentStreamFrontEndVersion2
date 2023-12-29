@@ -102,12 +102,11 @@ return (
     </section>
     <section className="flat-dashboard-setting bg-white">
       <div className="themes-container">
-  <iframe
-        title="PDF Viewer"
-        width="100%"
-        height="800px"
-        src={pdfData}
-      />
+      {pdfData ? (
+            <iframe title="PDF Viewer" width="100%" height="800px" src={pdfData} />
+          ) : (
+            <p>No resumes are uploaded.</p>
+          )}
       {/* <Document file={pdfData} onLoadSuccess={onDocumentLoadSuccess}>
       <Page pageNumber={pageNumber} />
         </Document>   */}
