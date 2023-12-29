@@ -128,7 +128,9 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
         mobilenumber: candidateMobileNumber,
         password: candidatePassword,
       });
-     
+     if (response.data === 'Email is already registered.') {
+        window.alert('Email is already registered.');
+      }
       setErrorMessage('');
       setCandidateRegistrationSuccess(true);
  
