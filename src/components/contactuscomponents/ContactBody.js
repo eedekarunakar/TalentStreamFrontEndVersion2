@@ -2,6 +2,7 @@ import React from 'react';
 import './ContactStyle.css';
 
 export default function ContactBody() {
+  
   return (
     <div>
      <section className="bg-f5">

@@ -325,7 +325,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
       setRecruiterRegistrationInProgress(false);
  
       if (recruiterOTPSent && recruiterOTPVerified) {
-        navigate('/recruiterlogin', { state: { registrationSuccess: true } });
+        navigate('/login', { state: { registrationSuccess: true } });
       }
     } catch (error) {
       setErrorMessage('Registration failed. Please try again later.');
