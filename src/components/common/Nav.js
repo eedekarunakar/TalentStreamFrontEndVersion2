@@ -6,7 +6,7 @@ const Nav = () => {
 
   const navigate = useNavigate();
 
-
+  
   return (
     <div>
   <>
@@ -40,7 +40,7 @@ const Nav = () => {
                       <a className="iteam-menu" href='/aboutus'>About Us </a>
                     </li>
                     <li>
-                      <a href='/login'>Find Jobs</a>
+                      <a href='/candidatelogin'>Find Jobs</a>
                     </li>
                     <li>
                       <a href='/recruiterlogin'>Find Candidates</a>
@@ -127,7 +127,7 @@ const Nav = () => {
                     </li>
 
                     <li>
-                      <a href="/login">Find Jobs</a>
+                      <a href="/candidatelogin">Find Jobs</a>
                     </li>
                     <li>
                       <a href="/recruiterlogin">Find Candidate</a>
@@ -206,10 +206,20 @@ const Nav = () => {
                 </div> */}
                 {/* <div class="sub-account"> */}
                   <div class="sub-account-item">
-                    <a href="/register"><span class="icon-resumes"></span>Register</a>
+                  <a href="/register" style={{ color: 'blue', backgroundColor: 'white', border: '1px solid blue', padding: '5px 10px', borderRadius: '5px', display: 'inline-flex', alignItems: 'center' }}>
+  <span className="icon-resumes" style={{color: 'blue !important', marginRight: '5px', fontSize: '1.2em',filter: 'brightness(1) invert(0) sepia(1) saturate(5) hue-rotate(175deg)' }}></span>
+  Register
+</a>
                   </div>
                   <div class="sub-account-item">
-                    <a href="/login"><span class="icon-profile"></span>Login</a>
+                    {/* <a href="/login"><span class="icon-profile"></span>Login</a> */}
+                    
+ <a href="/login" style={{ color: 'white', backgroundColor: 'blue', border: '1px solid blue', padding: '5px 10px', borderRadius: '5px', display: 'inline-flex', alignItems: 'center' }}>
+  <span className="icon-profile" style={{ color: 'white', marginRight: '5px', filter: 'brightness(0) invert(1)', fontSize: '1.2em'  }}></span>
+  Login
+</a> 
+
+
                   </div>
                   {/* <div class="sub-account-item">
                     <a href="/recruiterlogin"><span class="icon-profile"></span>Recruiter's Login</a>

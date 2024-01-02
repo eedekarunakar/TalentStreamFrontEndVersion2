@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useUserContext } from '../common/UserProvider';
-import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
+import { apiUrl } from '../../services/ApplicantAPIService';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function RecruiterLogin({handleLogin}) {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+  const [recruiterEmail, setRecruiterEmail] = useState('');
+  const [recruiterPassword, setRecruiterPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const location = useLocation();
     const registrationSuccess = location.state?.registrationSuccess;
@@ -17,16 +17,36 @@ function RecruiterLogin({handleLogin}) {
     const { setUser } = useUserContext();
     const { setUserType } = useUserContext();
     const [showPassword, setShowPassword] = useState(false);
+    const [recruiterEmailError, setRecruiterEmailError] = useState('');
+  const [recruiterPasswordError, setRecruiterPasswordError] = useState('');
 
     const handleTogglePassword = () => {
       setShowPassword(!showPassword);
     };
   
-    const isFormValid = () => {
-      if (!email.trim() || !password.trim()) {
-        setErrorMessage('Please enter required details to login');
-        return false; // Username and password should not be empty or whitespace only
+    const isRecruiterFormValid = () => {
+      // Validate email
+      const emailError = validateEmail(recruiterEmail);
+      setRecruiterEmailError(emailError);
+    
+      // Validate password
+      const passwordError = validatePassword(recruiterPassword);
+      setRecruiterPasswordError(passwordError);
+    
+      // Check if either email or password is empty
+      if (!recruiterEmail.trim()) {
+        setRecruiterEmailError('Email is required.');
       }
+    
+      if (!recruiterPassword.trim()) {
+        setRecruiterPasswordError('Password is required.');
+      }
+    
+      // Check if there are any validation errors
+      if (emailError || passwordError) {
+        return false;
+      }
+    
       return true;
     };
     // Helper function to set JWT token in localStorage
@@ -34,38 +54,59 @@ function RecruiterLogin({handleLogin}) {
       localStorage.setItem('jwtToken', token);
     };
   
+
+    const validateEmail = (email) => {
+      if (!email.trim()) {
+        return 'Email is required.';
+      }
+  
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email) ? '' : 'Please enter a valid email address.';
+    };
+  
+    const validatePassword = (password) => {
+      if (!password.trim()) {
+        return 'Password is required.';
+      }
+  
+      if (password.length < 6) {
+        return 'Password must be at least 6 characters long.';
+      }
+  
+      if (!/[A-Z]/.test(password)) {
+        return 'Password must contain at least one uppercase letter.';
+      }
+   
+      if (!/[^A-Za-z0-9]/.test(password)) {
+        return 'Password must contain at least one special character (non-alphanumeric).';
+      }
+   
+      if (/\s/.test(password)) {
+        return 'Password cannot contain spaces.';
+      }
+   
+      return '';
+    };
+  
     const handleSubmit = async (e) => {
       e.preventDefault();
-  
-      // Check if the form is empty
-      if (!isFormValid()) {
+      if (!isRecruiterFormValid()) {
         return;
       }
   
       try {
-        let loginEndpoint;
-        let count;
-  
-        if (email === 'admin' && password === 'admin') {
-          count = 0;
-          loginEndpoint = `${apiUrl}/adminlogin`; // Admin login endpoint
-        } else {
-          count = 1;
-          loginEndpoint = `${apiUrl}/recuriters/recruiterLogin`; // User login endpoint
-        }
-  
-        console.log('Email:', email);
+        let loginEndpoint = `${apiUrl}/recuriters/recruiterLogin`;
         const response = await axios.post(loginEndpoint, {
-          email,
-          password,
+          email: recruiterEmail,
+          password: recruiterPassword,
         });
   
-        if (response.status === 200) {
+              if (response.status === 200) {
           setErrorMessage('');
           const userData = response.data;
-          console.log('this is response ', userData);
-          console.log('this is token ', userData.data.jwt);
+  
           localStorage.setItem('jwtToken', userData.data.jwt);
+  
           let userType1 = '';
   
           if (userData.message.includes('ROLE_JOBAPPLICANT')) {
@@ -75,40 +116,24 @@ function RecruiterLogin({handleLogin}) {
           } else {
             userType1 = 'unknown';
           }
-          console.log('this userType ', userType1);
-          localStorage.setItem('userType', userType1);
   
-          const jwtToken = response.headers.authorization;
+          localStorage.setItem('userType', userType1);
   
           setErrorMessage('');
           handleLogin();
+  
           setUser(userData);
           setUserType(userData.userType);
-          console.log('Login successful', userData);
+          console.log('Recruiter Login successful', userData);
   
-          if (count === 0) {
-            navigate('/admin');
-          } else {
-            navigate('/recruiterhome');
-          }
-        } else {
-          // Check if the error message contains information about invalid username or password
-          if (response.data && response.data.message) {
-            if (response.data.message.includes('Invalid username')) {
-              setErrorMessage('Invalid email');
-            } else if (response.data.message.includes('Invalid password')) {
-              setErrorMessage('Invalid password');
-            } else {
-              setErrorMessage('Login failed. Please check your user name and password.');
-            }
-          } else {
-            setErrorMessage('Login failed. Please check your user name and password.');
-          }
-          console.error('Login failed');
+          navigate('/recruiterhome');
+        }else {
+          setErrorMessage('Recruiter Login failed. Please check your user name and password.');
+          console.error('Recruiter Login failed');
         }
       } catch (error) {
-        setErrorMessage('Login failed. Please check your user name and password.');
-        console.error('Login failed', error);
+        setErrorMessage('Recruiter Login failed. Please check your user name and password.');
+        console.error('Recruiter Login failed', error);
       }
     };
 
@@ -149,11 +174,15 @@ function RecruiterLogin({handleLogin}) {
                     Email address<span>*</span>
                   </label>
                   <input
-                        type="text"
-                        placeholder="Enter your Email"
-                         value={email}
-                         onChange={(e) => setEmail(e.target.value)}
+                          type="text"
+                          placeholder="Enter your Email"
+                          value={recruiterEmail}
+                          onChange={(e) => {
+                            setRecruiterEmail(e.target.value);
+                            setRecruiterEmailError(''); // Clear the error when the input changes
+                          }}
                    />
+                   {recruiterEmailError && <div className="error-message">{recruiterEmailError}</div>}
                 </div>
                 <div className="ip">
                   <label>
@@ -161,15 +190,20 @@ function RecruiterLogin({handleLogin}) {
                   </label>
                   <div className="inputs-group auth-pass-inputgroup">
                   <input
-                       type={showPassword ? 'text' : 'password'}
-                         placeholder="Password"
-                         value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                    />
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder="Password"
+                            value={recruiterPassword}
+                            onChange={(e) => {
+                              setRecruiterPassword(e.target.value);
+                               setRecruiterPasswordError(''); // Clear the error when the input changes
+                                }}
+                            
+                       />
                   <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
         {showPassword ? <FaEye /> : <FaEyeSlash />}
       </div>
                   </div>
+                  {recruiterPasswordError && <div className="error-message">{recruiterPasswordError}</div>}
                 </div>
                 <div className="group-ant-choice">
                   <div className="sub-ip">

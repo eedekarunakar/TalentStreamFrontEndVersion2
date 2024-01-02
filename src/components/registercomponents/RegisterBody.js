@@ -595,7 +595,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
         <button
           type="button"
           onClick={handleSendOTP1}
-          disabled={recruiterOTPSent || recruiterRegistrationInProgress || recruiterOTPSendingInProgress}
+          disabled={recruiterOTPSent || recruiterRegistrationSuccess|| recruiterOTPSendingInProgress}
         >
           {recruiterOTPSendingInProgress ? (
              <div className="status-container">
