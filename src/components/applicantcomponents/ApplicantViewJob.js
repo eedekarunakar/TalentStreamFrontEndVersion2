@@ -56,7 +56,8 @@ function ApplicantViewJob({ selectedJobId }) {
       setApplied(applied);
        if(response.status === 200){
         window.alert('job applied successfully');
-        
+        // Disable the button after successful application
+        setApplied(true);
        }
  
     } catch (error) {
@@ -126,6 +127,7 @@ function ApplicantViewJob({ selectedJobId }) {
               <button
                 className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
                 onClick={handleApplyNow}
+                disabled={applied} // Add the disabled attribute
               >
                 <span className="icon-send"></span>
                  {jobDetails.jobStatus}
