@@ -49,7 +49,7 @@ function RecruiterNavBar()
         </a>
       </div>
       <div className="header-customize-item button">
-        <a href="">Post a Job</a>
+        <a href="/recruiter-postjob">Post Job</a>
       </div>
       <div className="mobile-footer">
         <div className="icon-infor d-flex aln-center">

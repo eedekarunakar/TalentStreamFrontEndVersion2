@@ -40,7 +40,7 @@ export default function Banner() {
                 </div>
                 <div className="form-group-4">
                   <button type="submit" className="btn btn-find">
-                    Find Jobs
+                    <a href="/login" style={{'color':'white'}}>Find Jobs</a>
                   </button>
                 </div>
               </div>

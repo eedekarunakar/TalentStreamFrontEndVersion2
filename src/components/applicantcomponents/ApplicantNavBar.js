@@ -64,7 +64,7 @@ function ApplicantNavBar() {
   }, [user.id]);
   return (
     <div>
-  <a id="scroll-top" />
+  
   <div className="menu-mobile-popup">
     <div className="modal-menu__backdrop" />
     <div className="widget-filter">
@@ -216,7 +216,7 @@ function ApplicantNavBar() {
           <li>
             <Link to="/applicant-applied-jobs" className="tf-effect">
               <span className="icon-my-apply dash-icon"></span>
-              <span className="dash-titles">My Applied</span>
+              <span className="dash-titles">Jobs Applied</span>
             </Link>
           </li>
 
