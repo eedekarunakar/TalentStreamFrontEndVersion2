@@ -163,7 +163,28 @@ function RecruiterAllApplicants() {
                           <td>{application.jobTitle}</td>
                           <td>{application.applicantStatus}</td>
                           <td>
-                        <button onClick={() => setShowPopup(true)}>Schedule</button>
+                          <button
+        onClick={() => setShowPopup(true)}
+        style={{
+            border: 'none',  // Remove border
+            background: 'none',  // Remove background
+            padding: '0',  // Remove padding
+            cursor: 'pointer',  // Add cursor pointer
+            outline: 'none', // Remove outline
+        }}
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            className="bi bi-clock"
+            fill="#3498db"
+        >
+            <path d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zM9 4a.5.5 0 0 1 1 0v4.5h3a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5V4z"/>
+            <path d="M7.5 15a.5.5 0 0 1-.5-.5V9a.5.5 0 0 1 1 0v5.5a.5.5 0 0 1-.5.5z"/>
+        </svg>
+    </button>
           <ScheduleInterviewPopup
             show={showPopup}
             handleClose={() => setShowPopup(false)}

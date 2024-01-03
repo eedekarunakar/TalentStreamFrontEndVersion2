@@ -13,6 +13,7 @@ const OTPVerification = ({ email, onOTPVerified, candidateOTPVerifyingInProgress
       await axios.post(`${apiUrl}/applicant/applicantverify-otp`, { email, otp });
       setOTPVerified(true); // Set OTP verified state to true
       onOTPVerified(); // Notify parent component
+      
     } catch (error) {
       setVerificationError('Invalid OTP. Please try again.');
     } finally {

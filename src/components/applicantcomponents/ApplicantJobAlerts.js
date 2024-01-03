@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
-
+ 
 export default function ApplicantJobAlerts() {
   const [jobAlerts, setJobAlerts] = useState([]);
   const { user } = useUserContext();
-  
+ 
   useEffect(() => {
     const fetchJobAlerts = async () => {
       try {
@@ -17,7 +17,7 @@ export default function ApplicantJobAlerts() {
         console.error('Error fetching job alerts:', error);
       }
     };
-
+ 
     fetchJobAlerts();
   }, []);
   function formatDate(dateString) {
@@ -48,8 +48,15 @@ export default function ApplicantJobAlerts() {
                   {jobAlerts.map(alert => (
                     <li key={alert.alertsId} className="inner">
                       <a className="noti-icon"><span className="icon-bell1"></span></a>
-                      <h4>{alert.companyName} is set the status as {alert.status} 
-                      <p>on {formatDate(alert.changeDate)}</p></h4>
+                      <h4>
+  <span style={{ fontWeight: 'bold', fontSize: '1.2em', color: 'purple' }}>Success!</span> {' '}
+  <span style={{ color: 'orange' }}>{alert.companyName}</span> has updated the job status to {' '}
+  <span style={{ color: 'green' }}>{alert.status}</span> on {' '}
+  <span style={{ color: 'red' }}>{formatDate(alert.changeDate)}</span>. For the role of {' '}
+  <span style={{ color: 'blue' }}>{alert.jobTitle}</span>. Stay tuned for further updates and notifications. {' '}
+  <span role="img" aria-label="smiley">😊</span>
+</h4>
+ 
                       {alert.applyJob && (
                         <a href="#" className="p-16 color-3">{alert.applyJob.jobTitle}</a>
                       )}
@@ -58,8 +65,8 @@ export default function ApplicantJobAlerts() {
                 </ul>
                  ) : (
                   <h3>No alerts are found.
-                
-
+               
+ 
                   </h3>
                 )}
               </div>
@@ -70,3 +77,4 @@ export default function ApplicantJobAlerts() {
     </div>
   );
 }
+ 

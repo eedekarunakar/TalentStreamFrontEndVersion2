@@ -14,6 +14,7 @@ const OTPVerification1 = ({ email, onOTPVerified, recruiterOTPVerifyingInProgres
       await axios.post(`${apiUrl}/forgotpassword/recuriterverify-otp`, { email, otp });
       setOTPVerified(true); // Set OTP verified state to true
       onOTPVerified(); // Notify parent component
+      
     } catch (error) {
       setVerificationError('Invalid OTP. Please try again.');
     } finally {

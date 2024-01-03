@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import axios from 'axios';
@@ -52,12 +53,10 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
   const [candidateOTPSent, setCandidateOTPSent] = useState(false);
   const [candidateOTPVerified, setCandidateOTPVerified] = useState(false);
   const [candidateOTPVerifyingInProgress, setCandidateOTPVerifyingInProgress] = useState(false);
- 
-const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useState(false);
- 
+  const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useState(false);
   const [candidateRegistrationSuccess, setCandidateRegistrationSuccess] = useState(false);
   const [candidateRegistrationInProgress, setCandidateRegistrationInProgress] = useState(false);
- 
+  const [allFieldsDisabled, setAllFieldsDisabled] = useState(false);
  
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -81,9 +80,19 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
       setCandidateOTPSendingInProgress(false); // Use setCandidateOTPSendingInProgress
     } catch (error) {
       console.error('Error sending OTP:', error);
-      setCandidateOTPSendingInProgress(false); // Use setCandidateOTPSendingInProgress
-      //window.alert('Email is already registered.');
+      
+
+      if (error.response && error.response.status === 400) {
+        // Assuming 400 status code indicates that the email is already registered
+        window.alert('Email is already registered.');
+      } else {
+        // Handle other errors as needed
+        window.alert('An error occurred while sending OTP.');
+      }
+  
+      setCandidateOTPSendingInProgress(false);
     }
+    
   };
  
   const handleSendOTP1 = async () => {
@@ -105,8 +114,17 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
       }
     } catch (error) {
       console.error('Error sending OTP:', error);
+     
+
+      if (error.response && error.response.status === 400) {
+        // Assuming 400 status code indicates that the email is already registered
+        window.alert('Email is already registered.');
+      } else {
+        // Handle other errors as needed
+        window.alert('An error occurred while sending OTP.');
+      }
+
       setRecruiterOTPSendingInProgress(false); // Use setRecruiterOTPSendingInProgress
-      //window.alert('Email is already registered.');
     }
   };
  
@@ -186,11 +204,11 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
   };
  
   const isEmailValid = (email) => {
-
+ 
     if (!email.trim()) {
       return 'Email is required.';
     }
-
+ 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email) ? '' : 'Please enter a valid email address.';
   };
@@ -325,7 +343,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
       setRecruiterRegistrationInProgress(false);
  
       if (recruiterOTPSent && recruiterOTPVerified) {
-        navigate('/recruiterlogin', { state: { registrationSuccess: true } });
+        navigate('/login', { state: { registrationSuccess: true } });
       }
     } catch (error) {
       setErrorMessage('Registration failed. Please try again later.');
@@ -387,7 +405,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
                         setCandidateNameError(''); // Clear the error when the input changes
                       }}
                       required
-                   
+                      disabled={allFieldsDisabled}
                     />
                     {candidateNameError && <div className="error-message">{candidateNameError}</div>}
                   </div>
@@ -403,6 +421,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
                     setCandidateEmailError(''); // Clear the error when the input changes
                   }}
                   required
+                  disabled={allFieldsDisabled}
                 />
                     {candidateEmailError && <div className="error-message">{candidateEmailError}</div>}
                   </div>
@@ -418,6 +437,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
                       setCandidateMobileNumberError(''); // Clear the error when the input changes
                       }}
                       required
+                      disabled={allFieldsDisabled}
                     />
                     {candidateMobileNumberError && <div className="error-message">{candidateMobileNumberError}</div>}
                   </div>
@@ -434,6 +454,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
                           setCandidatePasswordError(''); // Clear the error when the input changes
                            }}
                         required
+                        disabled={allFieldsDisabled}
                   />
                        <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
         {showPassword ? <FaEye /> : <FaEyeSlash />}
@@ -447,9 +468,13 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
     <p style={{ color: 'green' }}>OTP sent to your email. Please check and enter below:</p>
     <OTPVerification
             email={candidateEmail}
-            onOTPVerified={() => setCandidateOTPVerified(true)}
+            onOTPVerified={() => {
+              setCandidateOTPVerified(true);
+              setAllFieldsDisabled(true);
+            }}
             candidateOTPVerifyingInProgress={candidateOTPVerifyingInProgress}
             setCandidateOTPVerifyingInProgress={setCandidateOTPVerifyingInProgress}
+           
           />
    
   </div>
@@ -509,6 +534,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
                         setCompanyName(e.target.value);
                         setEmployerNameError(''); // Clear the error when the input changes
                       }}
+                      disabled={allFieldsDisabled}
                     />
                      {employerNameError && <div className="error-message">{employerNameError}</div>}
                   </div>
@@ -523,6 +549,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
                         setEmployerEmail(e.target.value);
                         setEmployerEmailError(''); // Clear the error when the input changes
                       }}
+                      disabled={allFieldsDisabled}
                     />
                      {employerEmailError && <div className="error-message">{employerEmailError}</div>}
                   </div>
@@ -537,6 +564,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
                         setEmployerMobileNumber(e.target.value);
                         setEmployerMobileNumberError(''); // Clear the error when the input changes
                       }}
+                      disabled={allFieldsDisabled}
                     />
                     {employerMobileNumberError && <div className="error-message">{employerMobileNumberError}</div>}
                   </div>
@@ -552,6 +580,7 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
                           setEmployerPassword(e.target.value);
                           setEmployerPasswordError(''); // Clear the error when the input changes
                         }}
+                        disabled={allFieldsDisabled}
                       />
  
                         <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
@@ -565,7 +594,10 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
     <p style={{ color: 'green' }}>OTP sent to your email. Please check and enter below:</p>
     <OTPVerification1
             email={employerEmail}
-            onOTPVerified={() => setRecruiterOTPVerified(true)}
+            onOTPVerified={() => {
+              setRecruiterOTPVerified(true);
+              setAllFieldsDisabled(true);
+            }}
             recruiterOTPVerifyingInProgress={recruiterOTPVerifyingInProgress}
             setRecruiterOTPVerifyingInProgress={setRecruiterOTPVerifyingInProgress}
           />
@@ -638,3 +670,4 @@ const [candidateOTPSendingInProgress, setCandidateOTPSendingInProgress] = useSta
 }
  
 export default RegisterBody;
+ 
