@@ -18,7 +18,7 @@ export default function Body() {
         <div className="column-6 background2">
           <div className="group-iconbox">
             <div className="title-iconbox">
-              <h1>What Can I Do With TalentStream?</h1>
+            <h1>What Can I Do With TalentStream?</h1>
              
             </div>
             <div className="text-iconbox wow fadeInRight">
@@ -688,7 +688,7 @@ export default function Body() {
                     </svg>
                   </div>
                   <div className="content">
-                    <h6 className="number">1 million+</h6>
+                    <h6 className="number">20k+</h6>
                     <div className="des">Candidates</div>
                   </div>
                 </div>

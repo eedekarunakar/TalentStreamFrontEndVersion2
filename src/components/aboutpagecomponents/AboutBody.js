@@ -31,9 +31,9 @@ export default function AboutBody() {
                 <div className="trader-box">
                   <div className="content">
                     <h3 className="number wrap-counter">
-                      <span className="number counter-number" data-speed="2000" data-to="25"></span><span>M+</span>
+                      <span className="number counter-number" data-speed="1000" data-to="50"></span><span>+</span>
                     </h3>
-                    <div className="des">Jobs Available</div>
+                    <div className="des">Live Jobs</div>
                   </div>
                   <div className="shape ani7">
                     <img src="images/review/shape.png" alt="images" />
@@ -47,9 +47,9 @@ export default function AboutBody() {
                     </div>
                     <div className="content">
                       <h6 className="number wrap-counter">
-                        <span className="number counter-number" data-speed="2000" data-to="480"></span><span>+</span>
+                        <span className="number counter-number" data-speed="1000" data-to="20"></span><span>k+</span>
                       </h6>
-                      <div className="des">Happy Candidates</div>
+                      <div className="des">Candidates</div>
                     </div>
                   </div>
                 </div>
@@ -66,7 +66,7 @@ export default function AboutBody() {
             </div>
             <div className="col-lg-5 col-md-12 wow fadeInRight">
               <div className="wd-review-job contentbox1 page-text stc">
-                <h3>About Us</h3>
+                <h3>About</h3>
                 <p>
                 We Are A Leading Global Executive Search Firm Specializing In Leadership And Senior Technical Hires.
 
@@ -98,41 +98,41 @@ We Leverage Seamless Networking And Data-Driven Search Strategies In Recruiting 
                   <div className="wd-counter widget-counter">
                     <div className="inner wrap-counter">
                       <h2>
-                        <span className="counter-number" data-speed="2000" data-to="25"></span>
-                        <span>M+</span>
+                        <span className="counter-number" data-speed="1000" data-to="50"></span>
+                        <span>+</span>
                       </h2>
                     </div>
-                    <p className="description">Jobs Available</p>
+                    <p className="description">Live Jobs</p>
                   </div>
                 </div>
                 <div className="col-lg-3 col-md-6">
                   <div className="wd-counter widget-counter">
                     <div className="inner wrap-counter">
                       <h2>
-                        <span className="counter-number" data-speed="2000" data-to="177"></span>
+                        <span className="counter-number" data-speed="1000" data-to="10"></span>
                         <span>k+</span>
                       </h2>
                     </div>
-                    <p className="description">New Jobs This Week!</p>
+                    <p className="description">Hiring Companies</p>
                   </div>
                 </div>
                 <div className="col-lg-3 col-md-6">
                   <div className="wd-counter widget-counter">
                     <div className="inner wrap-counter">
                       <h2>
-                        <span className="counter-number" data-speed="2000" data-to="298"></span>
-                        <span>k+</span>
+                        <span className="counter-number" data-speed="1000" data-to="7"></span>
+                        <span> Days</span>
                       </h2>
                     </div>
-                    <p className="description">Companies Hiring</p>
+                    <p className="description">Hiring Process</p>
                   </div>
                 </div>
                 <div className="col-lg-3 col-md-6">
                   <div className="wd-counter widget-counter br-none">
                     <div className="inner wrap-counter">
                       <h2>
-                        <span className="counter-number" data-speed="2000" data-to="5"></span>
-                        <span>M+</span>
+                        <span className="counter-number" data-speed="1000" data-to="20"></span>
+                        <span>k+</span>
                       </h2>
                     </div>
                     <p className="description">Candidates</p>
@@ -156,7 +156,7 @@ We Leverage Seamless Networking And Data-Driven Search Strategies In Recruiting 
                 qualified candidates
               </p>
             <div class="group-btn">
-              <a href="/login"><button class="tf-btn">Search Job</button></a>
+              <a href="/login"><button class="tf-btn">Find Jobs</button></a>
               <a href="/recruiterlogin"><button class="tf-btn">Find Candidates</button></a>
             </div>
           </div>

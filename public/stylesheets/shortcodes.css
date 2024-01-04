@@ -5033,7 +5033,7 @@
     margin-top: 7px;
   }
   
-  .form-candidate .ip input::placeholder {
+  .form-candidate .ip input::placeholder textarea::placeholder {
     color: #b1b1b1;
   }
   
@@ -9126,7 +9126,7 @@
   }
   
   .wd-form-rating-page textarea::placeholder {
-    color: #b1b1b1;
+    color: #121212;
   }
   
   .wd-form-rating-page input[type="text"],
