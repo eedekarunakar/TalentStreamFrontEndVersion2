@@ -4438,6 +4438,8 @@ font-size: 14px;
   .events, 
   .events *::before, 
   .events *::after { box-sizing: border-box; font-family: arial; }
+  
+.info-wd select option{color:#000;}
 
   /* Media query for mobile devices */
 @media only screen and (max-width: 1400px) {
@@ -4495,4 +4497,8 @@ font-size: 14px;
       justify-content: flex-start;
       transition: all 0.4s;
     }
+
+   
   }
+
+  

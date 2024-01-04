@@ -35,12 +35,6 @@ function ApplicantViewJob({ selectedJobId }) {
         setLoading(false);
         if (body) {
           setJobDetails(body);
- 
-          // Set the applied status in local storage
-          const appliedStatus = localStorage.getItem(`appliedStatus-${selectedJobId}`);
-          if (appliedStatus) {
-            setApplied(appliedStatus === 'true');
-          }
         }
       } catch (error) {
         console.error('Error fetching job details:', error);
@@ -59,29 +53,12 @@ function ApplicantViewJob({ selectedJobId }) {
       const response = await axios.post(`${apiUrl}/applyjob/applicants/applyjob/${applicantId}/${selectedJobId}`);
       // Assuming the response contains information about the application status
       const { applied } = response.data;
- 
-      if (applied === "") {
+      setApplied(applied);
+       if(response.status === 200){
+        window.alert('job applied successfully');
         // Disable the button after successful application
         setApplied(true);
-       
-        // Update local storage
-        localStorage.setItem(`appliedStatus-${selectedJobId}`, 'true');
-       
-        window.alert('Job applied successfully');
-      } else {
-        // Disable the button after successful application
-        setApplied(true);
-        // If already applied, show a different message
-        window.alert('Job has already been applied by the applicant');
- 
-      }
-      // setApplied(applied);
-      //  if(response.status === 200){
-      //   window.alert('job applied successfully');
-      //   localStorage.setItem(`appliedStatus-${selectedJobId}`, 'true');
-      //   // Disable the button after successful application
-      //   setApplied(true);
-      //  }
+       }
  
     } catch (error) {
       console.error('Error applying for the job:', error);
@@ -147,28 +124,14 @@ function ApplicantViewJob({ selectedJobId }) {
                                 <div className="button-readmore">
                                  
                                   <a className="btn-apply btn-popup">
-              {/* <button
+              <button
                 className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
                 onClick={handleApplyNow}
                 disabled={applied} // Add the disabled attribute
-                style={{ backgroundColor: applied ? 'green' : '' }} // Add this line for background color
               >
                 <span className="icon-send"></span>
                  {jobDetails.jobStatus}
-              </button> */}
-              <button
-  className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
-  onClick={handleApplyNow}
-  disabled={applied}
-  style={{
-    backgroundColor: jobDetails.jobStatus === 'Already Applied' ? 'green' : '',
-  }}
->
-  <span className="icon-send"></span>
-  {jobDetails.jobStatus}
-  {/* {applied ? 'Already Applied' : 'Apply Now'} */}
-</button>
- 
+              </button>
             </a>
                                 </div>
                               </div>

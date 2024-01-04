@@ -17,7 +17,7 @@ export default function Banner() {
               registrations daily, with no subscriptions or user licences.
             </p>
           </div>
-          {/* <div className="form-sl">
+          <div className="form-sl">
             <form method="post">
               <div className="row-group-search home1 st">
                 <div className="form-group-1">
@@ -40,7 +40,7 @@ export default function Banner() {
                 </div>
                 <div className="form-group-4">
                   <button type="submit" className="btn btn-find">
-                    <a href="/login" style={{'color':'white'}}>Find Jobs</a>
+                    Find Jobs
                   </button>
                 </div>
               </div>
@@ -60,7 +60,7 @@ export default function Banner() {
             <li>
               <a href="#">Writing...</a>
             </li>
-          </ul> */}
+          </ul>
         </div>
       </div>
       <div className="col-lg-5">

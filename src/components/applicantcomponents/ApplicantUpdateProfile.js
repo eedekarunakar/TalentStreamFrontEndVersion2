@@ -877,7 +877,7 @@ const handleResumeUpload = async () => {
       Upload Photo
     </button>
   </div>
-</div>&nbsp;&nbsp;&nbsp;
+</div>
 <div class="wrap-img flex2">
   <div class="img-box relative">
     <img class="avatar " id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />
@@ -1411,7 +1411,7 @@ const handleResumeUpload = async () => {
                 />
               </fieldset>
               <div id="item_date" className="dropdown titles-dropdown">
-                <label class="title-user color-1 fw-7" htmlFor={`startDate-${index}`}>Start Date</label>
+                <label htmlFor={`startDate-${index}`}>Start Date</label>
                 <input
                   type="date"
                   className="input-form"
@@ -1421,7 +1421,7 @@ const handleResumeUpload = async () => {
                 />
               </div>
               <div id="item_date" className="dropdown titles-dropdown">
-                <label class="title-user color-1 fw-7" htmlFor={`endDate-${index}`}>End Date</label>
+                <label htmlFor={`endDate-${index}`}>End Date</label>
                 <input
                   type="date"
                   className="input-form"
@@ -1444,7 +1444,7 @@ const handleResumeUpload = async () => {
                     </div>
                     <div class="form-box  wg-box">
                       <fieldset class="">
-                        <label class="title-user fw-7">Skills<span className="color-red"> *</span></label>
+                        <label class="title-user fw-7">Skills</label>
                         {skillsRequired.map((skill, index) => (
 <div key={index} className="experience-table">
 <div>

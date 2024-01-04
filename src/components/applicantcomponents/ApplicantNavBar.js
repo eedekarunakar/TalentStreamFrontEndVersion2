@@ -64,7 +64,7 @@ function ApplicantNavBar() {
   }, [user.id]);
   return (
     <div>
-  
+  <a id="scroll-top" />
   <div className="menu-mobile-popup">
     <div className="modal-menu__backdrop" />
     <div className="widget-filter">
@@ -140,7 +140,7 @@ function ApplicantNavBar() {
             <div className="header-ct-center"></div>
             <div className="header-ct-right">
               <div className="header-customize-item account">
-              <img src={imageSrc} alt="" width="40px" height="30px"/>
+              <img src={imageSrc} alt="" />
                 <div className="name">
                   <span className="icon-keyboard_arrow_down" />
                 </div>

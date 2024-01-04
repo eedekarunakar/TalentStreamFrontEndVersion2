@@ -479,7 +479,7 @@ input:-ms-input-placeholder {
 
 textarea::-webkit-input-placeholder,
 input::-webkit-input-placeholder {
-  color: c7c2c2;
+  color: #c7c2c2;
   opacity: 1;
 }
 
@@ -3135,7 +3135,7 @@ input[type="color"],
   color: red;
   margin-top: 5px;
   font-size: 17px;
-}
+ }
 
 .success-message {
   color: green;
@@ -3182,7 +3182,7 @@ input[type="color"],
 
 .error-message {
   color: red;
-  font-size: 17px;
+  font-size: 14px;
   margin-top: 4px; /* Adjust as needed for spacing */
 }
 
@@ -3210,3 +3210,10 @@ input[type="color"],
   transform: translateY(-50%);
   cursor: pointer;
 }
+
+/*
+.error-placeholder {
+  height: 1em;  Adjust height as needed 
+  visibility: hidden;
+}
+ */
