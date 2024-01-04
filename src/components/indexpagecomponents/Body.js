@@ -18,7 +18,7 @@ export default function Body() {
         <div className="column-6 background2">
           <div className="group-iconbox">
             <div className="title-iconbox">
-              <h1>What can I do with TalentStream?</h1>
+              <h1>What Can I Do With TalentStream?</h1>
              
             </div>
             <div className="text-iconbox wow fadeInRight">
