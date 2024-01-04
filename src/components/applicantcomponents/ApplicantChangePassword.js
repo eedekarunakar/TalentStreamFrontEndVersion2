@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useUserContext } from '../common/UserProvider';
 import axios from 'axios';
- 
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
  
 function ApplicantChangePassword() {
@@ -107,9 +107,17 @@ function ApplicantChangePassword() {
     <div>
       <>
         <div class="dashboard__content">
-          <section className="page-title-dashboard">
-            {/* ... your existing JSX code ... */}
-          </section>
+        <section className="page-title-dashboard">
+      <div className="themes-container">
+        <div className="row">
+          <div className="col-lg-12 col-md-12">
+            <div className="title-dashboard">
+              <div className="title-dash flex2">Change Password</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
           <section className="flat-dashboard-password">
             <div className="themes-container">
               <div className="row">
@@ -117,26 +125,26 @@ function ApplicantChangePassword() {
                   <div className="change-password bg-white">
                     <form action="https://themesflat.co/html/jobtex/dashboard/dashboard.html">
                       <div className="form-password">
-                        <h3>Change Password</h3>
+                        
                         {/* Old Password */}
                         <div className="inner info-wd">
                           <label className="title-url fs-16">
                             Old Password<span className="color-red">*</span>
                           </label>
-                          <div className="inputs-group auth-pass-inputgroup relative flex2">
-                            <input
-                              type={showOldPassword ? 'text' : 'password'}
-                              className="input-form password-input"
-                              value={oldPassword}
-                              onChange={(e) => setOldPassword(e.target.value)}
-                              onBlur={() => validateForm()}
-                              required=""
-                            />
-                            <a
-                              className="icon-eye-off password-addon"
-                              onClick={() => handleTogglePassword('old')}
-                            />
-                          </div>
+                          
+<div className="inputs-group auth-pass-inputgroup relative flex2">
+        <input
+          type={showOldPassword ? 'text' : 'password'}
+          className="input-form password-input"
+          value={oldPassword}
+          onChange={(e) => setOldPassword(e.target.value)}
+          onBlur={() => validateForm()}
+          required=""
+        />
+        <div className="password-toggle-icon" onClick={() => handleTogglePassword('old')} id="password-addon">
+          {showOldPassword ? <FaEye /> : <FaEyeSlash />}
+        </div>
+      </div>
                           {formErrors.oldPassword && (
                             <div className="error-message">{formErrors.oldPassword}</div>
                           )}
@@ -146,20 +154,20 @@ function ApplicantChangePassword() {
                           <label className="title-url fs-16">
                             New Password <span className="color-red">*</span>
                           </label>
+                          
                           <div className="inputs-group auth-pass-inputgroup relative flex2">
-                            <input
-                              type={showNewPassword ? 'text' : 'password'}
-                              className="input-form"
-                              value={newPassword}
-                              onChange={(e) => setNewPassword(e.target.value)}
-                              onBlur={() => validateForm()}
-                              required=""
-                            />
-                            <a
-                              className="icon-eye-off password-addon"
-                              onClick={() => handleTogglePassword('new')}
-                            />
-                          </div>
+        <input
+          type={showNewPassword ? 'text' : 'password'}
+          className="input-form"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          onBlur={() => validateForm()}
+          required=""
+        />
+        <div className="password-toggle-icon" onClick={() => handleTogglePassword('new')} id="password-addon">
+          {showNewPassword ? <FaEye /> : <FaEyeSlash />}
+        </div>
+      </div>
                           {formErrors.newPassword && (
                             <div className="error-message">{formErrors.newPassword}</div>
                           )}
@@ -169,20 +177,20 @@ function ApplicantChangePassword() {
                           <label className="title-url fs-16">
                             Confirm Password<span className="color-red">*</span>
                           </label>
+                          
                           <div className="inputs-group auth-pass-inputgroup relative flex2">
-                            <input
-                              type={showConfirmedPassword ? 'text' : 'password'}
-                              className="input-form password-input"
-                              value={confirmedPassword}
-                              onChange={(e) => setConfirmedPassword(e.target.value)}
-                              onBlur={() => validateForm()}
-                              required=""
-                            />
-                            <a
-                              className="icon-eye-off password-addon"
-                              onClick={() => handleTogglePassword('confirmed')}
-                            />
-                          </div>
+        <input
+          type={showConfirmedPassword ? 'text' : 'password'}
+          className="input-form password-input"
+          value={confirmedPassword}
+          onChange={(e) => setConfirmedPassword(e.target.value)}
+          onBlur={() => validateForm()}
+          required=""
+        />
+        <div className="password-toggle-icon" onClick={() => handleTogglePassword('confirmed')} id="password-addon">
+          {showConfirmedPassword ? <FaEye /> : <FaEyeSlash />}
+        </div>
+      </div>
                           {formErrors.confirmedPassword && (
                             <div className="error-message">{formErrors.confirmedPassword}</div>
                           )}

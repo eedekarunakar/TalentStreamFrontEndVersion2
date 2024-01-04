@@ -140,7 +140,7 @@ function ApplicantNavBar() {
             <div className="header-ct-center"></div>
             <div className="header-ct-right">
               <div className="header-customize-item account">
-              <img src={imageSrc} alt="" />
+              <img src={imageSrc} alt="" width="40px" height="30px"/>
                 <div className="name">
                   <span className="icon-keyboard_arrow_down" />
                 </div>

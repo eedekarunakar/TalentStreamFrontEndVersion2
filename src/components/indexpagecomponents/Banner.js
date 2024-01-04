@@ -17,7 +17,7 @@ export default function Banner() {
               registrations daily, with no subscriptions or user licences.
             </p>
           </div>
-          <div className="form-sl">
+          {/* <div className="form-sl">
             <form method="post">
               <div className="row-group-search home1 st">
                 <div className="form-group-1">
@@ -60,7 +60,7 @@ export default function Banner() {
             <li>
               <a href="#">Writing...</a>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </div>
       <div className="col-lg-5">
