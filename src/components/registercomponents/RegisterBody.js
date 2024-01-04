@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import axios from 'axios';
@@ -57,6 +56,7 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
   const [candidateRegistrationSuccess, setCandidateRegistrationSuccess] = useState(false);
   const [candidateRegistrationInProgress, setCandidateRegistrationInProgress] = useState(false);
   const [allFieldsDisabled, setAllFieldsDisabled] = useState(false);
+  const [resendOtpMessage, setResendOtpMessage] = useState('');
  
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -74,14 +74,34 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
     try {
       setCandidateOTPSendingInProgress(true); // Use setCandidateOTPSendingInProgress
       console.log("email is:", candidateEmail);
-      await axios.post(`${apiUrl}/applicant/applicantsendotp`, { email: candidateEmail });
+      const response=await axios.post(`${apiUrl}/applicant/applicantsendotp`, { email: candidateEmail , mobilenumber: candidateMobileNumber});
       console.log("email is:", candidateEmail);
       setCandidateOTPSent(true);
       setCandidateOTPSendingInProgress(false); // Use setCandidateOTPSendingInProgress
+      if (response.data === "Email already registered recruiter"){
+        setCandidateOTPSent(false);
+     
+        window.alert('Email already registered, please try to login');
+       }
+       if(response.data === ('Email already registered as applicant')){
+        setCandidateOTPSent(false);
+     
+        window.alert('Email already registered, please try to login');
+       }
+       if(response.data === "Mobile number already existed in recruiter"){
+        setCandidateOTPSent(false);
+     
+        window.alert('Mobile number already existed');
+       }
+       if(response.data === 'Mobile number already existed in applicant'){
+        setCandidateOTPSent(false);
+     
+        window.alert('Mobile number already existed');
+       }
     } catch (error) {
       console.error('Error sending OTP:', error);
-      
-
+     
+ 
       if (error.response && error.response.status === 400) {
         // Assuming 400 status code indicates that the email is already registered
         window.alert('Email is already registered.');
@@ -89,10 +109,10 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
         // Handle other errors as needed
         window.alert('An error occurred while sending OTP.');
       }
-  
+ 
       setCandidateOTPSendingInProgress(false);
     }
-    
+   
   };
  
   const handleSendOTP1 = async () => {
@@ -103,19 +123,33 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
  
     try {
       setRecruiterOTPSendingInProgress(true); // Use setRecruiterOTPSendingInProgress
-      const response = await axios.post(`${apiUrl}/recuriters/registration-send-otp`, { email: employerEmail });
+      const response = await axios.post(`${apiUrl}/recuriters/registration-send-otp`, { email: employerEmail, mobilenumber : employerMobileNumber });
       setRecruiterOTPSent(true);
       setRecruiterOTPSendingInProgress(false); // Use setRecruiterOTPSendingInProgress
-      if (response.data === 'Email is already registered.') {
-        window.alert('Email is already registered.');
-      }
-      if (response.data === 'Mobile number already existed, enter a new mobile number') {
-        window.alert('Mobile Number is already registered.');
-      }
+      if (response.data === "Email already registered recruiter"){
+        setRecruiterOTPSent(false);
+     
+        window.alert('Email already registered, please try to login');
+       }
+       if(response.data === ('Email already registered as applicant')){
+        setRecruiterOTPSent(false);
+     
+        window.alert('Email already registered, please try to login');
+       }
+       if(response.data === "Mobile number already existed in recruiter"){
+        setRecruiterOTPSent(false);
+     
+        window.alert('Mobile number already existed');
+       }
+       if(response.data === 'Mobile number already existed in applicant'){
+        setRecruiterOTPSent(false);
+     
+        window.alert('Mobile number already existed');
+       }
     } catch (error) {
       console.error('Error sending OTP:', error);
      
-
+ 
       if (error.response && error.response.status === 400) {
         // Assuming 400 status code indicates that the email is already registered
         window.alert('Email is already registered.');
@@ -123,7 +157,7 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
         // Handle other errors as needed
         window.alert('An error occurred while sending OTP.');
       }
-
+ 
       setRecruiterOTPSendingInProgress(false); // Use setRecruiterOTPSendingInProgress
     }
   };
@@ -189,6 +223,9 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
       return 'Please enter a valid full name and should not have any numbers and special char.';
     }
  
+    if (fullName.trim().length < 3) {
+      return 'Full name should be at least three characters long.';
+    }
     return '';
   };
   const isCompanyNameValid = (companyName) => {
@@ -199,7 +236,9 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
     if (!/^[a-zA-Z\s]+$/.test(companyName)) {
       return 'Please enter a valid company name and should not have any numbers and special char.';
     }
- 
+    if (companyName.trim().length < 3) {
+      return 'Company name should be at least three characters long.';
+    }
     return '';
   };
  
@@ -358,7 +397,16 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
       }
     }
   };
- 
+  const handleOTPSendSuccess = () => {
+    // Handle success, e.g., show a success message
+   window.alert('OTP Resend successfully');
+   setResendOtpMessage('OTP Resent successfully. Check your email.');
+  };
+  const handleOTPSendFail = () => {
+   
+   window.alert('Failed to Resend OTP. Please try again.');
+   setResendOtpMessage('Failed to Resent OTP. Please try again.');
+  };
   return (
     <div>
     <section className="bg-f5">
@@ -472,6 +520,8 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
               setCandidateOTPVerified(true);
               setAllFieldsDisabled(true);
             }}
+            onOTPSendSuccess={handleOTPSendSuccess}
+            onOTPSendFail={handleOTPSendFail}
             candidateOTPVerifyingInProgress={candidateOTPVerifyingInProgress}
             setCandidateOTPVerifyingInProgress={setCandidateOTPVerifyingInProgress}
            
@@ -598,6 +648,8 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
               setRecruiterOTPVerified(true);
               setAllFieldsDisabled(true);
             }}
+            onOTPSendSuccess={handleOTPSendSuccess}
+            onOTPSendFail={handleOTPSendFail}
             recruiterOTPVerifyingInProgress={recruiterOTPVerifyingInProgress}
             setRecruiterOTPVerifyingInProgress={setRecruiterOTPVerifyingInProgress}
           />
@@ -670,4 +722,3 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
 }
  
 export default RegisterBody;
- 

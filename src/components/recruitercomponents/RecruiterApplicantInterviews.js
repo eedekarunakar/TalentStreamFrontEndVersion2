@@ -25,6 +25,8 @@ function RecruiterApplicantInterviews() {
       });
   }, []); // Replace with the actual user identifier
 
+ 
+
   return (
     <div>
       <div className="dashboard__content">
@@ -62,6 +64,11 @@ function RecruiterApplicantInterviews() {
 export default RecruiterApplicantInterviews;
 
 function ScheduleInterviewTable({ interview }) {
+  function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+    return formattedDate;
+  }
     return (
       <div className="table-responsive">
         <table className="table table-striped table-bordered">

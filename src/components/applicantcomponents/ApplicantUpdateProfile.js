@@ -877,7 +877,7 @@ const handleResumeUpload = async () => {
       Upload Photo
     </button>
   </div>
-</div>
+</div>&nbsp;&nbsp;&nbsp;
 <div class="wrap-img flex2">
   <div class="img-box relative">
     <img class="avatar " id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />

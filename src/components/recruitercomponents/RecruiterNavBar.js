@@ -118,7 +118,7 @@ function RecruiterNavBar()
                    
                 {/* {imageSrc && <img src={imageSrc} alt="" />} */}
 
-                <img src={imageSrc || '../images/user/avatar/image-01.jpg'} alt="Profile" onError={() => setImageSrc('../images/user/avatar/image-01.jpg')} />
+                <img src={imageSrc || '../images/user/avatar/image-01.jpg'} alt="Profile" onError={() => setImageSrc('../images/user/avatar/image-01.jpg')} width="40px" height="30px" />
                 {/* <img src={imageSrc ?? "dummyLogo"} alt="" /> */}
 
                 <div className="name">
