@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import axios from 'axios';
-
+ 
 function RecruiterMyOrganization() {
    
     const [companyName, setCompanyName] = useState('');
@@ -143,6 +143,11 @@ function RecruiterMyOrganization() {
         isValid = false;
        // alert(errors.headOffice);
       }
+      else if (headOffice.trim().length < 3) {
+        errors.headOffice = 'Head office address must be at least 3 characters';
+        isValid = false;
+    }
+ 
       if (instagram.trim() && !/^[a-zA-Z0-9_]+$/.test(instagram.trim())) {
         errors.instagram = 'Invalid Instagram handle';
         isValid = false;
@@ -266,7 +271,7 @@ function RecruiterMyOrganization() {
     //     return updatedProfiles;
     //   });
     // };
-
+ 
     const handleFileSelect = (e) => {
       const file = e.target.files[0];
       setPhotoFile(file);
@@ -276,7 +281,7 @@ function RecruiterMyOrganization() {
         const jwtToken = localStorage.getItem('jwtToken');
         const formData = new FormData();
         formData.append('logoFile', photoFile);
-    
+   
         const response = await axios.post(
           `${apiUrl}/recruiters/companylogo/upload/${user.id}`,
           formData,
@@ -287,7 +292,7 @@ function RecruiterMyOrganization() {
             },
           }
         );
-        
+       
         console.log(response.data);
         window.alert(response.data);
         window.location.reload();
@@ -296,7 +301,7 @@ function RecruiterMyOrganization() {
         window.alert('Error in uploading profile');
       }
     };
-
+ 
   return (
     <div>
 <div className="dashboard__content">
@@ -312,7 +317,7 @@ function RecruiterMyOrganization() {
     </div>
   </section>
  
-  <section className="flat-dashboard-setting">
+  <section className="flat-dashboard-post flat-dashboard-setting">
     <form name="f1">
    
     <div className="themes-container">
@@ -380,9 +385,10 @@ function RecruiterMyOrganization() {
             </div>
             <div className="form-infor-profile">
               <h3 className="title-info">Information</h3>
-              <div className="form-infor flex flat-form">
-                <div className="info-box info-wd">
-                  <fieldset>
+              <div className="row">
+              <div className="col-lg-6 col-md-6">
+             
+              <div className="dropdown titles-dropdown info-wd">
                     <label className="title-user fw-7">Company Full Name<span className="color-red">*</span></label>
                     <input
                   type="text"
@@ -396,8 +402,10 @@ function RecruiterMyOrganization() {
                 {formErrors.companyName && (
                       <div className="error-message">{formErrors.companyName}</div>
                     )}
-                  </fieldset>
-                  <fieldset>
+                  </div>
+                </div>
+                <div className="col-lg-6 col-md-6">
+                <div className="dropdown titles-dropdown info-wd">
                     <label className="title-user fw-7">Alternate Phone Number</label>
                     <input
                              type="text"
@@ -410,9 +418,11 @@ function RecruiterMyOrganization() {
                 {formErrors.phoneNumber && (
                       <div className="error-message">{formErrors.phoneNumber}</div>
                     )}
-                  </fieldset>
+                  </div>
                 </div>
-                <div className="info-box info-wd">
+               
+                <div className="col-lg-6 col-md-6">
+                <div className="dropdown titles-dropdown info-wd">
                   <fieldset>
                     <label className="title-user fw-7">Alternate Email</label>
                     <input
@@ -427,7 +437,11 @@ function RecruiterMyOrganization() {
                       <div className="error-message">{formErrors.email}</div>
                     )}
                   </fieldset>
-                  <fieldset>
+                  </div>
+                  </div>
+ 
+                  <div className="col-lg-6 col-md-6">
+                  <div className="dropdown titles-dropdown info-wd">
                     <label className="title-user fw-7">Website<span className="color-red">*</span></label>
                     <input
                   type="text"
@@ -441,15 +455,17 @@ function RecruiterMyOrganization() {
                  {formErrors.website && (
                       <div className="error-message">{formErrors.website}</div>
                     )}
-                  </fieldset>
+                  </div>
                 </div>
-              </div>
+               
+            <div className="col-lg-6 col-md-6">
               <div className="text-editor-wrap border-bt">
-                <h3>Head Office Address<span className="color-red">*</span></h3>
+                <label className="title-user fw-7">Head Office Address<span className="color-red">*</span></label>
+                <fieldset className="info-wd">
                 <input
                   type="text"
                   id="address"
-                  className="input-form2"
+                  className="input-form"
                   placeholder="Head Office Address"
                   value={headOffice}
                   onChange={handleHeadOfficeChange}
@@ -458,12 +474,15 @@ function RecruiterMyOrganization() {
                  {formErrors.headOffice && (
                       <div className="error-message">{formErrors.headOffice}</div>
                     )}
+                    </fieldset>
               </div>
-             
+             </div>
+             <div className="row">
               <div className="social-wrap">
                 <h3>Social Network</h3>
-                <div className="form-social form-wg flex flat-form">
-                  <div className="form-box info-wd wg-box">
+ 
+                <div className="form-box info-wd wg-box">
+                  <div className="col-lg-6 col-md-6">
                     <fieldset className="flex2">
                     <span className="icon-youtube" />
                     <input
@@ -475,6 +494,8 @@ function RecruiterMyOrganization() {
                     onChange={handleYoutubeChange}
                   />
                     </fieldset>
+                  </div>
+                  <div className="col-lg-6 col-md-6">
                     <fieldset className="flex2">
                       <span className="icon-twitter" />
                       <input
@@ -489,6 +510,8 @@ function RecruiterMyOrganization() {
                       <div className="error-message">{formErrors.twitter}</div>
                     )}
                     </fieldset>
+                  </div>
+                  <div className="col-lg-6 col-md-6">
                     <fieldset className="flex2">
                       <span className="icon-instagram1" />
                       <input
@@ -512,6 +535,9 @@ function RecruiterMyOrganization() {
           </div>
         </div>
       </div>
+    </div>
+    </div>
+   
     </div>
     </form>
   </section>

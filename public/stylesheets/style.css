@@ -193,6 +193,7 @@ textarea {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  font-style: unset;
 }
 
 button,
@@ -3131,11 +3132,11 @@ input[type="color"],
 }
 
 
-.error-message {
+/* .error-message {
   color: red;
   margin-top: 5px;
-  font-size: 17px;
-}
+  font-size: 15px;
+} */
 
 .success-message {
   color: green;
@@ -3182,7 +3183,7 @@ input[type="color"],
 
 .error-message {
   color: red;
-  font-size: 17px;
+  font-size: 14px;
   margin-top: 4px; /* Adjust as needed for spacing */
 }
 

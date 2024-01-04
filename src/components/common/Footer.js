@@ -54,18 +54,26 @@ export default function Footer() {
                   </div>
                 </div>
                 <p>
-                  Job Searching Just Got Easy. Use TalentSteram to run a hiring site
+                  Job searching just got easy. Use <strong>TalentStream</strong> to run a hiring site
                   and earn money in the process!
                 </p>
                 <div class="ft-icon">
                   <i class="icon-map-pin"></i> 54-15-18E, Gurunanak Colony Road, 3rd Floor, Sai Odessey Complex, Gurunanak Colony, Vijayawada
                 </div>
-                <form action="#" id="subscribe-form">
+                {/* <form action="#" id="subscribe-form">
                   <input type="email" placeholder="Your email address" required="" id="subscribe-email" />
                   <button class="tf-button" type="submit" id="subscribe-button">
                     <i class="icon-paper-plane-o"></i>
                   </button>
-                </form>
+                </form><br /> */}
+                <div class="bottom">
+        <div class="tf-container">
+          
+                <div class="copyright">
+                  ©2023 TekWorks. All Rights Reserved.
+                </div>
+        </div>
+      </div>
               </div>
             </div>
             <div class="col-lg-2 col-md-6 col-6">
@@ -81,7 +89,7 @@ export default function Footer() {
             </div>
             <div class="col-lg-2 col-md-6 col-6">
               <div class="footer-cl-3">
-                <h6 class="ft-title">Quick Links</h6>
+                <h6 class="ft-title">     </h6>
                 <ul class="navigation-menu-footer">
                   <li><a href="/login">Terms Of Services</a></li>
                   <li><a href="/login">Privacy Policy</a></li>
@@ -112,39 +120,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div class="bottom">
-        <div class="tf-container">
-          <div class="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="bt-left">
-                <div class="copyright">
-                  ©2023 TekWorks. All Rights Reserved.
-                </div>
-                {/* <span class="select-language">
-                  <select class="image-select">
-                    <option data-thumbnail="images/review/flag.png">
-                      English
-                    </option>
-                    <option data-thumbnail="images/review/flag3.png">
-                      USA
-                    </option>
-                    <option data-thumbnail="images/review/flag2.png">
-                      VN
-                    </option>
-                  </select>
-                </span> */}
-              </div>
-            </div>
-            {/* <div class="col-lg-6 col-md-6">
-              <ul class="menu-bottom d-flex aln-center">
-                <li><a href="term-of-use.html">Terms Of Services</a></li>
-                <li><a href="pricing.html">Privacy Policy</a></li>
-                <li><a href="contact-us.html">Cookie Policy</a></li>
-              </ul>
-            </div> */}
-          </div>
-        </div>
-      </div>
+     
     </footer>
 
 

@@ -137,37 +137,37 @@ export default function Banner() {
               <div className="wd-counter style-light widget-counter">
                 <div className="inner wrap-counter">
                   <h2>
-                    <span className="counter-number" data-speed="2000" data-to="25"></span><span>M+</span>
+                    <span className="counter-number" data-speed="1000" data-to="50"></span><span>+</span>
                   </h2>
                 </div>
-                <p className="description">Jobs Available</p>
+                <p className="description">Live Jobs</p>
               </div>
             </div>
             <div className="col-lg-3 col-md-6 col-lg-3 col-md-6" data-wow-delay="0.3s">
               <div className="wd-counter style-light widget-counter">
                 <div className="inner wrap-counter">
                   <h2>
-                    <span className="counter-number" data-speed="2000" data-to="177"></span><span>k+</span>
+                    <span className="counter-number" data-speed="1000" data-to="10"></span><span>+</span>
                   </h2>
                 </div>
-                <p className="description">New Jobs This Week!</p>
+                <p className="description">Hiring Companies</p>
               </div>
             </div>
             <div className="col-lg-3 col-md-6 col-lg-3 col-md-6" data-wow-delay="0.4s">
               <div className="wd-counter style-light widget-counter">
                 <div className="inner wrap-counter">
                   <h2>
-                    <span className="counter-number" data-speed="2000" data-to="298"></span><span>k+</span>
+                    <span className="counter-number" data-speed="1000" data-to="7"></span><span> Days</span>
                   </h2>
                 </div>
-                <p className="description">Companies Hiring</p>
+                <p className="description">Hiring Process</p>
               </div>
             </div>
             <div className="col-lg-3 col-md-6 col-lg-3 col-md-6" data-wow-delay="0.5s">
               <div className="wd-counter style-light widget-counter">
                 <div className="inner wrap-counter">
                   <h2>
-                    <span className="counter-number" data-speed="2000" data-to="5"></span><span>M+</span>
+                    <span className="counter-number" data-speed="1000" data-to="20"></span><span>k+</span>
                   </h2>
                 </div>
                 <p className="description">Candidates</p>
