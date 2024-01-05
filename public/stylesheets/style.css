@@ -3211,3 +3211,22 @@ input[type="color"],
   transform: translateY(-50%);
   cursor: pointer;
 }
+
+.filterContainer {
+  text-align:right
+   
+}
+.filterContainer select {
+  padding: 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3498db;
+  color: #ffffff;
+  cursor: pointer;
+  max-width: 200px;
+}
+ 
+.filterLabel {
+  margin-right: 10px;
+}

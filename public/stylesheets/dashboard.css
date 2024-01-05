@@ -579,7 +579,7 @@ tbody tr td:nth-child(2) {
     align-items: center;
     height: 40px;
     color:#fff;
-    font-size:16px;
+    font-size:15px;
     text-transform:capitalize;
 }
 
@@ -748,16 +748,17 @@ tbody tr td:nth-child(2) {
 
 .hamburger-icon span:nth-child(1) {
     top: 0;
-    width: 80%;
+    width: 100%;
 }
 
 .hamburger-icon span:nth-child(2) {
     top: 6px;
+    width: 100%;
 }
 
 .hamburger-icon span:nth-child(3) {
     bottom: 0;
-    width: 60%;
+    width: 100%;
 }
 
 /* Media query for screen sizes between 550px and 1400px */
@@ -868,8 +869,9 @@ tbody tr td:nth-child(2) {
 
 #sidebar-menu ul li a {
     display: flex;
-    align-items: center;
-    position: relative;
+    /* align-items: center; */
+    vertical-align: baseline;
+   position: relative;
     color: #121212;
     padding: 13.5px 10px;
     background-color: #fff;
@@ -4037,13 +4039,25 @@ input[type="radio"]:checked:after {
     }
 }
 
+@media only screen and (min-width: 50px) and (max-width: 300px) {
+    .dashboard .btn {
+        top: 20px;
+    }
+}
+
+@media only screen and (min-width: 50px) and (max-width: 300px) {
+    .dashboard .btn {
+        top: 19px;
+    }
+}
+
 @media only screen and (max-width: 767px) {
     .left-menu {
         top: 81px;
     }
 
     .dashboard .btn {
-        top: 18px;
+        top: 23px;
     }
 
     .flat-dashboard-bottom {
@@ -4477,10 +4491,10 @@ font-size: 14px;
   
     #side-menu {
       content: "\e9a2";
-      font-family: "icomoon";
-      position: absolute;
+      font-family: inherit;
+      /* position: absolute; */
       right: 15px;
-      font-size: 1rem;
+      font-size: 100%;
     }
   
     .dash-icon {
@@ -4489,17 +4503,19 @@ font-size: 14px;
     }
   
     .dash-titles {
-      display: flex;
-      align-items: center;
-      position: relative;
-      color: #121212;
-      padding: 13.5px 10px;
-      background-color: #fff;
-      width: 100%;
-      font-weight: 600;
-      font-size: 16px;
-      text-transform: capitalize;
-      justify-content: flex-start;
-      transition: all 0.4s;
-    }
+        display: flex;
+        align-items: center;
+        position: relative;
+        color: #121212;
+        /* padding: 13.5px 10px; */
+        padding: 0%;
+        background-color:transparent;
+        width: 100%;
+        font-weight: 600;
+        font-size: 16px;
+        text-transform: capitalize;
+        justify-content: flex-start;
+        -webkit-transition: all 0.4s;
+        transition: all 0.4s;
+   }
   }

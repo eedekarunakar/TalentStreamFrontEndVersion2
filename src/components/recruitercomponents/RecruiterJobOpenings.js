@@ -122,7 +122,7 @@ function RecruiterJobOpenings({setSelectedJobId}) {
                               {/* {job && (<Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)}>Check Status</Link> )} */}
 
                               <Link to="/recruiter-appliedapplicants" onClick={() => handleButtonClick(job.id)}>
-                              <button type="button" style={{borderRadius:20}} className="btn-primary">View Applicants</button>
+                              <button type="button" style={{borderRadius:20}} className="button-status">View Applicants</button>
                               </Link>
                             </div>
                           </div>

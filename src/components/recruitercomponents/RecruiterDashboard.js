@@ -11,6 +11,8 @@ function RecruiterDashboard() {
     const [contJobApplicants, setJobApplicants] = useState(0);
     const [contJobHires, setJobHires] = useState(0);
     const [countInterviews, setInterviews] = useState(0);
+    const [applicants, setApplicants] = useState([]);
+
     useEffect(() => {
         const jwtToken = localStorage.getItem('jwtToken');
         if (jwtToken) {
@@ -85,6 +87,23 @@ function RecruiterDashboard() {
         if (storedToken) {
           setToken(storedToken);
         }
+      }, []);
+
+      useEffect(() => {
+        const jwtToken = localStorage.getItem('jwtToken');
+        if (jwtToken) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+        }
+    
+        // You may need to replace 'userId' with the appropriate identifier for your user
+        axios
+        .get(`${apiUrl}/applyjob/recruiter/${user.id}/interviews/interviewing`)
+          .then((response) => {
+            setApplicants(response.data);
+          })
+          .catch((error) => {
+            console.error('Error fetching job details:', error);
+          });
       }, []);
 
 
@@ -226,6 +245,85 @@ function RecruiterDashboard() {
       </div>
     </div>
   </section>
+  <section className="flat-dashboard-applicants">
+  <div className="themes-container">
+    <div className="row">
+      <div className="col-lg-12 col-md-12 ">
+        <div className="applicants bg-white">
+          <h3 className="title-appli">Upcoming Interviews</h3>
+          <div className="table-content">
+            <div className="wrap-applicants table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Candidates</th>
+                    <th>Status</th>
+                    <th>Applied date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="file-delete">
+                    <td>
+                      <div className="candidates-wrap flex2">
+                        <div className="images">
+                          <img src="../images/dashboard/user-1.jpg" alt="" />
+                        </div>
+                        <div className="content">
+                          <h5 className="fw-6 color-3">Computational Wizard</h5>
+                          <h3>Arlene McCoy</h3>
+                          <div className="now-box flex2">
+                            <div className="button-now">
+                              <a className="#"> Available now </a>
+                            </div>
+                            <div className="map color-4">Tokyo, Japan</div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="status-wrap">
+                        <div className="button-status color-3"> Approved</div>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="title-day color-1">December 18, 2023</div>
+                    </td>
+                    <td>
+                      <div className="action-wrap">
+                        <ul className="flex2">
+                          <li className="hv-tool" data-tooltip="Plus">
+                            <a className="action-icon icon-plus" />
+                          </li>
+                          <li className="hv-tool" data-tooltip="Check">
+                            <a className="action-icon icon-check" />
+                          </li>
+                          <li className="hv-tool" data-tooltip="Reject">
+                            <a className="action-icon icon-refect" />
+                          </li>
+                          <li className="hv-tool" data-tooltip="Download CV">
+                            <a className="action-icon icon-download" />
+                          </li>
+                          <li>
+                            <a className="button-cancel fw-7 remove-file">
+                              Cancel
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                    
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </div>
 
 

@@ -197,7 +197,7 @@ function ApplicantChangePassword() {
                         </div>
                         <div className="tt-button submit">
                           <button type="button" class="button-status" onClick={handleChangePassword}>
-                            Change Password
+                            Update Password
                           </button>
                         </div>
                       </div>

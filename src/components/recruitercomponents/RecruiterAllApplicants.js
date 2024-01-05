@@ -40,7 +40,7 @@ function RecruiterAllApplicants() {
       $table.DataTable().destroy();
        $table.DataTable({responsive:true});
  
-             }, 300);
+             }, 500);
    
     return () => {
        isMounted.current = false;
@@ -49,166 +49,183 @@ function RecruiterAllApplicants() {
   }, [user.id]);
  
  
-  const handleSelectChange = async (e) => {
-    const newStatus = e.target.value;
+    const handleSelectChange = async (e) => {
+      const newStatus = e.target.value;
  
-    try {
-      if (selectedApplicant && newStatus) {
-        const applyJobId = selectedApplicant.applyjobid;
+      try {
+        if (selectedApplicant && newStatus) {
+          const applyJobId = selectedApplicant.applyjobid;
  
-        const response = await axios.put(
-          `${apiUrl}/applyjob/recruiters/applyjob-update-status/${applyJobId}/${newStatus}`
-        );
+          const response = await axios.put(
+            `${apiUrl}/applyjob/recruiters/applyjob-update-status/${applyJobId}/${newStatus}`
+          );
  
-        if (isMounted.current) {
-          const updatedApplicants = applicants.map((application) => {
-            if (application.applyjobid === applyJobId) {
+          if (isMounted.current) {
+            const updatedApplicants = applicants.map((application) => {
+              if (application.applyjobid === applyJobId) {
              
-              return { ...application, applicantStatus: newStatus };
-            }
-            return application;
-          });
+                return { ...application, applicantStatus: newStatus };
+              }
+              return application;
+            });
  
-          setApplicants(updatedApplicants);
-          fetchAllApplicants();
-          setSelectedStatus(newStatus);
-          setSelectedApplicant(null);
+            setApplicants(updatedApplicants);
+            //fetchAllApplicants();
+            setSelectedStatus(newStatus);
+            setSelectedApplicant(null);
+           
+          }
+          alert(`Status changed to ${newStatus}`);
+          window.location.reload();
         }
+      } catch (error) {
+        console.error('Error updating status:', error);
+        // Handle error gracefully, e.g., show a notification to the user
       }
-    } catch (error) {
-      console.error('Error updating status:', error);
-      // Handle error gracefully, e.g., show a notification to the user
-    }
-  };
+    };
  
  
-  return (
-    <div className="dashboard__content">
-      <section className="page-title-dashboard">
-        <div className="themes-container">
-          <div className="row">
-            <div className="col-lg-12 col-md-12">
-              <div className="title-dashboard">
-                <div className="title-dash flex2">All Applicants</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="flat-dashboard-setting bg-white">
-        <div className="themes-container">
-          <div className="row">
-            <div className="col-lg-4 col-md-4">
-              <div className="dropdown-container">
-              <select value={selectedStatus} onChange={handleSelectChange}>
-          <option value="" disabled>
-            Change Status
-          </option>
-          <option value="screening">Screening</option>
-          <option value="shortlisted">Shortlisted</option>
-          <option value="interviewing">Interviewing</option>
-          <option value="selected">Selected</option>
-        </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
- 
-      <section className="flat-dashboard-setting bg-white">
-        <div className="themes-container">
-          <div className="row">
-            <div className="col-lg-12 col-md-12">
-              <div className="profile-setting">
-              <div className="table-container-wrapper">
-                <div className="table-container">
-                {Array.isArray(applicants) && applicants.length === 0 ? (
-   
-                        <p>No Applicants are available.</p>
-                      ) : (
-                  <table ref={tableref} className="responsive-table">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Mobile Number</th>
-                        <th>Job Title</th>
-                        <th>Applicant Status</th>
-                        <th>Schedule InterView</th>
-                        <th>Experience</th>
-                        <th>Skill Name</th>
-                        <th>Qualification</th>
-                        <th>Location</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {Array.isArray(applicants) && applicants.map((application) => (
-                        <tr key={application.email}>
-                          <td>
-                            <input
-                              type="radio"
-                              value={application.applyjobid}
-                              checked={
-                                selectedApplicant &&
-                                selectedApplicant.applyjobid === application.applyjobid
-                              }
-                              onChange={() => setSelectedApplicant(application)}
-                              name={`applicantRadio-${application.applyjobid}`}
-                            />
-                          </td>
-                          <td>{application.name}</td>
-                          <td>{application.email}</td>
-                          <td>{application.mobilenumber}</td>
-                          <td>{application.jobTitle}</td>
-                          <td>{application.applicantStatus}</td>
-                          <td>
-                          <button
-        onClick={() => setShowPopup(true)}
-        style={{
-            border: 'none',  // Remove border
-            background: 'none',  // Remove background
-            padding: '0',  // Remove padding
-            cursor: 'pointer',  // Add cursor pointer
-            outline: 'none', // Remove outline
-        }}
-    >
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            className="bi bi-clock"
-            fill="#3498db"
-        >
-            <path d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zM9 4a.5.5 0 0 1 1 0v4.5h3a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5V4z"/>
-            <path d="M7.5 15a.5.5 0 0 1-.5-.5V9a.5.5 0 0 1 1 0v5.5a.5.5 0 0 1-.5.5z"/>
-        </svg>
-    </button>
-          <ScheduleInterviewPopup
-            show={showPopup}
-            handleClose={() => setShowPopup(false)}
-            applyjobid={application.applyjobid}
-          />
-                            </td>
-                          <td>{application.minimumExperience}</td>
-                          <td>{application.skillName}</td>
-                          <td>{application.minimumQualification}</td>
-                          <td>{application.location}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                      )}
+    return (
+      <div className="dashboard__content">
+        <section className="page-title-dashboard">
+          <div className="themes-container">
+            <div className="row">
+              <div className="col-lg-12 col-md-12">
+                <div className="title-dashboard">
+                  <div className="title-dash flex2">All Applicants</div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+        <section className="flat-dashboard-setting bg-white">
+          <div className="themes-container">
+            <div className="row">
+              <div className="col-lg-4 col-md-4">
+                <div className="dropdown-container">
+                <select value={selectedStatus} onChange={handleSelectChange}>
+            <option value="" disabled>
+              Change Status
+            </option>
+            <option value="screening">Screening</option>
+            <option value="shortlisted">Shortlisted</option>
+            <option value="interviewing">Interviewing</option>
+            <option value="selected">Selected</option>
+          </select>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
-  );
-}
+        </section>
  
-export default RecruiterAllApplicants;
+        <section className="flat-dashboard-setting bg-white">
+          <div className="themes-container">
+            <div className="row">
+              <div className="col-lg-12 col-md-12">
+                <div className="profile-setting">
+                <div className="table-container-wrapper">
+                  <div className="table-container">
+                  {Array.isArray(applicants) && applicants.length === 0 ? (
+   
+                          <p>No Applicants are available.</p>
+                        ) : (
+                    <table ref={tableref} className="responsive-table">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Mobile Number</th>
+                          <th>Job Title</th>
+                          <th>Applicant Status</th>
+                          <th>Schedule InterView</th>
+                          <th>Experience</th>
+                          <th>Skill Name</th>
+                          <th>Qualification</th>
+                          <th>Location</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {Array.isArray(applicants) && applicants.map((application) => (
+                          <tr key={application.email}>
+                            <td>
+                              <input
+                                type="radio"
+                                value={application.applyjobid}
+                                checked={
+                                  selectedApplicant &&
+                                  selectedApplicant.applyjobid === application.applyjobid
+                                }
+                                onChange={() => setSelectedApplicant(application)}
+                                name={`applicantRadio-${application.applyjobid}`}
+                              />
+                            </td>
+                            <td>{application.name}</td>
+                            <td>{application.email}</td>
+                            <td>{application.mobilenumber}</td>
+                            <td>{application.jobTitle}</td>
+                            <td>{application.applicantStatus}</td>
+                            <td>
+                                  <button
+                                    onClick={() =>
+                                      application.applicantStatus ===
+                                      'interviewing'
+                                        ? setShowPopup(true)
+                                        : null
+                                    }
+                                    style={{
+                                      border: 'none',
+                                      background: 'none',
+                                      padding: '0',
+                                      cursor:
+                                        application.applicantStatus ===
+                                        'interviewing'
+                                          ? 'pointer'
+                                          : 'default',
+                                      outline: 'none',
+                                    }}
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="16"
+                                      height="16"
+                                      viewBox="0 0 16 16"
+                                      className="bi bi-clock"
+                                      fill={
+                                        application.applicantStatus ===
+                                        'interviewing'
+                                          ? '#3498db' // Active color
+                                          : '#d3d3d3' // Light color for inactive
+                                      }
+                                    >
+                                      <path d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zM9 4a.5.5 0 0 1 1 0v4.5h3a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5V4z" />
+                                      <path d="M7.5 15a.5.5 0 0 1-.5-.5V9a.5.5 0 0 1 1 0v5.5a.5.5 0 0 1-.5.5z" />
+                                    </svg>
+                                  </button>
+                                  <ScheduleInterviewPopup
+                                    show={showPopup}
+                                    handleClose={() => setShowPopup(false)}
+                                    applyjobid={application.applyjobid}
+                                  />
+                                </td>
+                            <td>{application.minimumExperience}</td>
+                            <td>{application.skillName}</td>
+                            <td>{application.minimumQualification}</td>
+                            <td>{application.location}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                        )}
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+ 
+  export default RecruiterAllApplicants;

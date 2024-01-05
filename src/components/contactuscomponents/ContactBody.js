@@ -147,7 +147,7 @@ export default function ContacBody() {
             <div class="ip">
               <input
                 type="text"
-                placeholder="Your Name"
+                placeholder="*Your Name"
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
@@ -156,7 +156,7 @@ export default function ContacBody() {
             <div class="ip">
               <input
                 type="text"
-                placeholder="Subject"
+                placeholder="*Subject"
                 name="subject"
                 value={formData.subject}
                 onChange={handleInputChange}
@@ -166,7 +166,7 @@ export default function ContacBody() {
           <div class="ip out s1">
             <input
               type="email"
-              placeholder="Your Email"
+              placeholder="*Your Email"
               name="email"
               value={formData.email}
               onChange={handleInputChange}
@@ -174,7 +174,7 @@ export default function ContacBody() {
           </div>
           <div class="ip out">
             <textarea
-              placeholder="Your question..."
+              placeholder="*Your question..."
               name="questions"
               value={formData.questions}
               onChange={handleInputChange}

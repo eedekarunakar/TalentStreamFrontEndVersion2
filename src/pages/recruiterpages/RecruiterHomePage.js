@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes,Outlet } from 'react-router-dom'
 import { Link, useLocation } from 'react-router-dom';
 import RecruiterNavBar from '../../components/recruitercomponents/RecruiterNavBar';
 import { useState } from 'react';
-import RecruiterLeftNavBar from '../../components/recruitercomponents/RecruiterLeftNavBar';
 import RecruiterDashboard from '../../components/recruitercomponents/RecruiterDashboard';
 import ApplicantFooter from '../../components/applicantcomponents/ApplicantFooter';
 import RecruiterMyOrganization from '../../components/recruitercomponents/RecruiterMyOrganization';
@@ -67,7 +66,7 @@ function RecruiterHomePage() {
   return (
     <div  class="dashboard show ">
     <RecruiterNavBar />
-    <RecruiterLeftNavBar />
+    {/* <RecruiterLeftNavBar /> */}
      {activeRoute === 'dashboard' && <RecruiterDashboard />}
      {activeRoute === 'organization' && <RecruiterMyOrganization />}
      {activeRoute === 'postjob' && <RecruiterPostJob />}

@@ -89,12 +89,13 @@ export default function Footer() {
             </div>
             <div class="col-lg-2 col-md-6 col-6">
               <div class="footer-cl-3">
-                <h6 class="ft-title">     </h6>
+              <h6 class="ft-title">     </h6>
                 <ul class="navigation-menu-footer">
-                  <li><a href="/login">Terms Of Services</a></li>
-                  <li><a href="/login">Privacy Policy</a></li>
+                <li><br /></li>
+                  <li><a href="/termsofservices">Terms Of Services</a></li>
+                  <li><a href="/privacypolicy">Privacy Policy</a></li>
                   <li>
-                    <a href="/login">Cookie Policy</a>
+                    <a href="/cookiepolicy">Cookie Policy</a>
                   </li>
                 </ul>
               </div>

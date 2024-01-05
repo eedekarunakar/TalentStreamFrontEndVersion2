@@ -7,6 +7,7 @@ import 'metismenu';
 import { useState, useEffect } from "react";
 import { useUserContext } from '../common/UserProvider';
 import { apiUrl } from '../../services/ApplicantAPIService';
+import clearJWTToken from '../common/clearJWTToken';
 
 
 function ApplicantNavBar() {
@@ -62,6 +63,20 @@ function ApplicantNavBar() {
       });
    
   }, [user.id]);
+
+  const logout = () => {
+    clearJWTToken();
+     const confirm = window.confirm("Are you sure want to logout?");
+     if(confirm){
+       clearJWTToken();
+         window.location.href = "/login";
+     }else {
+         // same as clicking a link         // not optimal solution though        window.location.href = window.location.href;
+     }
+ }
+
+
+
   return (
     <div>
   
@@ -147,7 +162,7 @@ function ApplicantNavBar() {
                 <div className="sub-account">
                   <h4>Welcome {user.username}</h4>
                   <div className="sub-account-item">
-                    <a href="/applicant-update-profile">
+                    <a href="/applicant-view-profile">
                       <span className="icon-profile" /> Profile
                     </a>
                   </div>
@@ -162,7 +177,7 @@ function ApplicantNavBar() {
                     </a>
                   </div> */}
                   <div className="sub-account-item">
-                    <a href="/logout">
+                    <a onClick={logout}>
                       <span className="icon-log-out" /> Log Out
                     </a>
                   </div>
@@ -230,7 +245,7 @@ function ApplicantNavBar() {
           <li>
             <Link to="/applicant-job-alerts" className="tf-effect">
             <span className="icon-bell1 dash-icon">
-          {alertCount > 0 && <sup className="alert-count" style={{'fontSize':'16px','color':'red','fontWeight':'900'}}>{alertCount}</sup>}
+          {/* {alertCount > 0 && <sup className="alert-count" style={{'fontSize':'16px','color':'red','fontWeight':'900'}}>{alertCount}</sup>} */}
         </span>
               <span className="dash-titles">Job Alerts</span>
             </Link>
@@ -242,24 +257,24 @@ function ApplicantNavBar() {
               <span className="dash-titles">My Resume</span>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/applicant-change-password" className="tf-effect">
               <span className="icon-change-passwords dash-icon"></span>
               <span className="dash-titles">Change password</span>
             </Link>
-          </li>
+          </li> */}
           {/* <li>
             <Link to="/applicant-delete-profile" className="tf-effect">
               <span className="icon-trash dash-icon"></span>
               <span className="dash-titles">Delete Profile</span>
             </Link>
           </li> */}
-          <li>
+          {/* <li>
             <Link to="/logout" className="tf-effect">
               <span className="icon-log-out dash-icon"></span>
               <span className="dash-titles">Log out</span>
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

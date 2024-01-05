@@ -14,8 +14,9 @@ import RecruiterLoginPage from './pages/recruiterpages/RecruiterLoginPage';
 import RecruiterHomePage from './pages/recruiterpages/RecruiterHomePage';
 import ApplicantForgotPasswordPage from './pages/loginpage/ApplicantForgotPasswordPage';
 import RecruiterForgotPasswordPage from './pages/recruiterpages/RecruiterForgotPasswordPage';
-
-
+import PrivacyPolicy from './components/common/PrivacyPolicy';
+import CookiePolicy from './components/common/CookiePolicy';
+import TermsOfServices from './components/common/TermsOfServices';
 
 
 function App() {
@@ -61,10 +62,14 @@ function App() {
               <Route path="/recruiter-forgot-password" element={<RecruiterForgotPasswordPage />} />
               <Route path="/recruiterlogin" element={<RecruiterLoginPage onLogin={handleLogin} />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+              <Route path="/cookiepolicy" element={<CookiePolicy />} />
+              <Route path="/termsofservices" element={<TermsOfServices />} />
               {isLoggedIn ? (
                 <>
                 <Route path="/applicanthome" element={<ApplicantHomePage />} />
                 <Route path="/applicant-update-profile" element={<ApplicantHomePage />} />
+                <Route path="/applicant-view-profile" element={<ApplicantHomePage />} />
                 <Route path="/applicant-find-jobs" element={<ApplicantHomePage />} />
                 <Route path="/applicant-overview" element={<ApplicantHomePage />} />
                 <Route path="/applicant-view-job" element={<ApplicantHomePage />} />
