@@ -53,55 +53,24 @@ function ApplicantViewJob({ selectedJobId }) {
     fetchJobDetails();
   }, [selectedJobId]);
  
-  // const handleApplyNow = async () => {
-  //   try {
-  //     // Use the appropriate API endpoint and payload to apply for the job
-  //     const response = await axios.post(`${apiUrl}/applyjob/applicants/applyjob/${applicantId}/${selectedJobId}`);
-  //     // Assuming the response contains information about the application status
-  //     const { applied } = response.data;
- 
-  //     if (applied) {
-  //       // Disable the button after successful application
-  //       setApplied(true);
-       
-  //       // Update local storage
-  //       localStorage.setItem(`appliedStatus-${selectedJobId}`, 'true');
-       
-  //       window.alert('Job applied successfully');
-  //     } else {
-  //       // Disable the button after successful application
-  //       // setApplied(true);
-       
-  //       // If already applied, show a different message
-  //       // window.alert('Job has already been applied by the applicant');
- 
-  //     }
-  //     // setApplied(applied);
-  //     //  if(response.status === 200){
-  //     //   window.alert('job applied successfully');
-  //     //   localStorage.setItem(`appliedStatus-${selectedJobId}`, 'true');
-  //     //   // Disable the button after successful application
-  //     //   setApplied(true);
-  //     //  }
- 
-  //   } catch (error) {
-  //     console.error('Error applying for the job:', error);
-  //     window.alert('Job has already been applied by the applicant');
-  //   }
-  // };
  
   const handleApplyNow = async () => {
     try {
+      setApplied(true);
       const response = await axios.post(`${apiUrl}/applyjob/applicants/applyjob/${applicantId}/${selectedJobId}`);
       const { applied } = response.data;
       window.alert('Job applied successfully');
+      localStorage.setItem(`jobDetails-${selectedJobId}`, JSON.stringify(jobDetails));
+      
       if (applied) {
         // Disable the button after successful application
-        setApplied(true);
+        
         // Update local storage
         localStorage.setItem(`appliedStatus-${selectedJobId}`, 'true');
+        setApplied(true);
         // Display window alert
         window.alert('Job applied successfully');
+        
       }
     } catch (error) {
       console.error('Error applying for the job:', error);
@@ -168,28 +137,7 @@ function ApplicantViewJob({ selectedJobId }) {
                                 <div className="button-readmore">
                                  
                                   <a className="btn-apply btn-popup">
-              {/* <button
-                className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
-                onClick={handleApplyNow}
-                disabled={applied} // Add the disabled attribute
-                style={{ backgroundColor: applied ? 'green' : '' }} // Add this line for background color
-              >
-                <span className="icon-send"></span>
-                 {jobDetails.jobStatus}
-              </button> */}
-              {/* <button
-  className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
-  onClick={handleApplyNow}
-  disabled={applied}
-  style={{
-    backgroundColor: jobDetails.jobStatus === 'Already Applied' ? 'green' : '',
-  }}
->
-  <span className="icon-send"></span>
-  {jobDetails.jobStatus}
-  {applied ? 'Already Applied' : 'Apply Now'}
-</button> */}
- 
+            
 <button
       className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
       onClick={handleApplyNow}

@@ -1,3 +1,5 @@
+**Responsive.css**
+
 /* respondsive */
 @media only screen and (min-width: 1920px) {
   .dashboard .btn {
@@ -27,6 +29,23 @@
     max-width: 40px;
     height: 40px;
   }
+
+  @media only screen and (min-width: 50px) and (max-width: 300px) {
+    .sticky-area-wrap .header-ct-right .account img {
+        max-width: 32px;
+        height: 32px;
+    }
+    .sticky-area-wrap .header-ct-right .account {
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      padding-right: 2px;
+      position: relative;
+      cursor: pointer;
+      height: 80px;
+  }
+}
+
 
   .sticky-area-wrap .header-ct-left .categories {
     margin-top: 8px;
@@ -2147,6 +2166,26 @@
   .dashboard #header .btn {
     left: 145px;
   }
+  @media only screen and (min-width: 50px) and (max-width: 300px) {
+    .dashboard #header .btn {
+        left: 100px;
+    }
+    .dashboard .btn {
+      position: absolute;
+      z-index: 9999999;
+      top: 20px;
+      left: 388px;
+      height: 45px;
+      width: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: left 0.4s ease;
+  }
+}
+
 
   .dashboard .sticky-area-wrap .header-ct-right .header-customize-item.help {
     display: none;
@@ -2168,7 +2207,17 @@
   #header .sticky-area-wrap .header-ct-left .logo .site-logo {
     width: 140px;
     display: block;
+    margin-top:10px;
   }
+
+  @media only screen and (min-width: 50px) and (max-width: 300px) {
+    #header .sticky-area-wrap .header-ct-left .logo .site-logo {
+        width: 100px;
+        display: block;
+        margin-top:10px;
+        
+    }
+}
 
 
 
@@ -2191,9 +2240,14 @@
   }
 
   #header .sticky-area-wrap .header-ct-right .account {
-    margin-right: 10px;
+    margin-right: 1px;
   }
 
+  @media only screen and (min-width: 50px) and (max-width: 300px) {
+    #header .sticky-area-wrap .header-ct-right .account {
+        margin-right: 5px;
+    }
+}
 
 
   .sticky-area-wrap .header-ct-right .header-customize-item.help,

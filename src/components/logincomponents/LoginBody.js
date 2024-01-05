@@ -74,29 +74,25 @@ function LoginBody({ handleLogin }) {
         console.log('Login successful', userData);
  
  
-         // Clear login form fields and reset in-progress state
-      //  setCandidateEmail('');
-      //  setCandidatePassword('');
-      // setCandidateLoginInProgress(false);
- 
-      //   if (activeTab === 'Recruiter') {
-      //     navigate('/recruiterhome');
-      //   } else {
-      //     navigate('/applicanthome');
-      //   }
-      // } else {
-      //   setErrorMessage('Login failed. Please check your user name and password.');
-      //   console.error('Login failed');
-      // }
- 
       navigate('/applicanthome');
-    }else {
-      setErrorMessage('Login failed. Please check your user name and password.');
-   //   setCandidateLoginInProgress(false);
-      console.error('login failed');
-    }
+            }
+ 
     } catch (error) {
-      setErrorMessage('login failed. Please check your user name and password.');
+      console.log(error.response.data);
+      if(error.response.data==="Incorrect password") {
+        setErrorMessage('Incorrect password.');
+     //   setCandidateLoginInProgress(false);
+        console.error('login failed');
+      }
+      else if(error.response.data==="No account found with this email address") {
+        setErrorMessage('No account found with this email address.');
+     //   setCandidateLoginInProgress(false);
+        console.error('login failed');
+      }
+      else{
+        setErrorMessage('login failed. Please check your user name and password.');
+      }
+     
    //   setCandidateLoginInProgress(false);
       console.error('Login failed', error);
     }
@@ -230,12 +226,21 @@ function LoginBody({ handleLogin }) {
         console.log('Recruiter Login successful', userData);
  
         navigate('/recruiterhome');
-      }else {
-        setErrorMessage('Login failed. Please check your user name and password.');
-        console.error('Login failed');
       }
     } catch (error) {
-      setErrorMessage('Login failed. Please check your user name and password.');
+      if(error.response.data==="Incorrect password") {
+        setErrorMessage('Incorrect password.');
+     //   setCandidateLoginInProgress(false);
+        console.error('login failed');
+      }
+      else if(error.response.data==="No account found with this email address") {
+        setErrorMessage('No account found with this email address.');
+     //   setCandidateLoginInProgress(false);
+        console.error('login failed');
+      }
+      else{
+        setErrorMessage('login failed. Please check your user name and password.');
+      }
       console.error('Login failed', error);
     }
   };

@@ -9,6 +9,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.0",
+    "datatables.net": "^1.13.8",
     "jquery": "^3.7.1",
     "jquery.cookie": "^1.4.1",
     "metismenu": "^3.0.7",

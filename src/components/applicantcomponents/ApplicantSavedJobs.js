@@ -82,7 +82,7 @@ function ApplicantSavedJobs() {
                                 <a href="#">{job.companyname}</a>
                               </h4>
                               <h3>
-                                <a href="jobs-single.html">
+                                <a href="#">
                                   {job.jobTitle}
                                   
                                 </a>

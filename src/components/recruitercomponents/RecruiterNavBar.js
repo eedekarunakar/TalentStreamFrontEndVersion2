@@ -2,9 +2,12 @@ import React, { useState,useEffect } from "react";
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
 import axios from 'axios';
+import clearJWTToken from '../common/clearJWTToken';
+import { Link } from 'react-router-dom';
 
 function RecruiterNavBar() 
 {
+
   const user1 = useUserContext();
   const user=user1.user;
 
@@ -29,12 +32,21 @@ function RecruiterNavBar()
    
   }, [user.id]);
 
-  
+  const logout = () => {
+    clearJWTToken();
+     const confirm = window.confirm("Are you sure want to logout?");
+     if(confirm){
+       clearJWTToken();
+         window.location.href = "/login";
+     }else {
+         // same as clicking a link         // not optimal solution though        window.location.href = window.location.href;
+     }
+ }
 
   return (
   
 <div>
-  <a id="scroll-top" />
+ 
   <div className="menu-mobile-popup">
     <div className="modal-menu__backdrop" />
     <div className="widget-filter">
@@ -144,7 +156,7 @@ function RecruiterNavBar()
                     </a>
                   </div> */}
                   <div className="sub-account-item">
-                    <a href="/logout">
+                    <a onClick={logout}>
                       <span className="icon-log-out" /> Log Out
                     </a>
                   </div>
@@ -171,6 +183,69 @@ function RecruiterNavBar()
       </span>
     </div>
   </header>
+  <div className="left-menu">
+      {/* Sidemenu */}
+      <div id="sidebar-menu">
+        <ul className="downmenu list-unstyled" id="side-menu">
+          <li>
+            <Link to="/recruiterhome" className="tf-effect">
+              <span className="icon-dashboard dash-icon"></span>
+              <span className="dash-titles">Dashboard</span>
+            </Link>
+          </li>
+          {/* <li>
+            <Link to="/applicant-update-profile">
+              <span className="icon-profile dash-icon"></span>
+              <span className="dash-titles">Profile</span>
+            </Link>
+            {/* <ul className="sub-menu2" aria-expanded="false">
+              <li><Link to="/applicant-overview">Overview</Link></li>
+              <li><Link to="/applicant-update-profile">Update Profile</Link></li>
+            </ul> </li>*/}
+           
+          <li>
+            <Link to="/recruiter-postjob" className="tf-effect">
+              <span className="icon-work dash-icon"></span>
+              <span className="dash-titles">Post Job</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/recruiter-jobopenings" className="tf-effect">
+              <span className="icon-submit dash-icon"></span>
+              <span className="dash-titles">Job Openings</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/recruiter-allapplicants" className="tf-effect">
+              <span className="icon-applicant dash-icon"></span>
+              <span className="dash-titles">Applicants</span>
+            </Link>
+          </li>
+ 
+          <li>
+            <Link to="/recruiter-applicantinterviews" className="tf-effect">
+              <span className="icon-chat dash-icon"></span>
+              <span className="dash-titles">Interviews</span>
+            </Link>
+          </li>
+ 
+          <li>
+            <Link to="/recruiter-team-member" className="tf-effect">
+              <span className="icon-meeting dash-icon"></span>
+              <span className="dash-titles">Team Members</span>
+            </Link>
+          </li>
+ 
+          <li>
+            <Link to="/recruiter-my-organization" className="tf-effect">
+              <span className="icon-mypackage dash-icon"></span>
+              <span className="dash-titles">My Organization</span>
+            </Link>
+          </li>
+         
+        </ul>
+      </div>
+    </div>
 </div>
 
   )

@@ -1,6 +1,14 @@
 import React from 'react'
+import { useState} from 'react';
 
 export default function AboutBody() {
+
+  const [showAdditionalContent, setShowAdditionalContent] = useState(false);
+ 
+  const toggleContent = () => {
+    setShowAdditionalContent(!showAdditionalContent);
+  };
+
   return (
     <div>
   <section className="bg-f5">
@@ -66,19 +74,24 @@ export default function AboutBody() {
             </div>
             <div className="col-lg-5 col-md-12 wow fadeInRight">
               <div className="wd-review-job contentbox1 page-text stc">
-                <h3>About</h3>
-                <p>
+              <h3>About</h3>
+              <p>
                 We Are A Leading Global Executive Search Firm Specializing In Leadership And Senior Technical Hires.
-
-Through Our Range Of Value-Added Services, We Help You Make Smart Hiring Decisions That Will Let You Build A Growing Organization.
-</p>
-<p>
-We Understand Your Organizational Needs, Culture, And Help You Find The Best Talent With Unique Leadership Attributes.
-
-We Leverage Seamless Networking And Data-Driven Search Strategies In Recruiting Executive Talent Across A Broad Range Of Industries, Business Functions, And Job Levels.
-                </p>
-                
-                <a href="/aboutus" className="tf-button style-1">Read more</a>
+ 
+                Through Our Range Of Value-Added Services, We Help You Make Smart Hiring Decisions That Will Let You Build A Growing Organization.
+              </p>
+              <p>
+                We Understand Your Organizational Needs, Culture, And Help You Find The Best Talent With Unique Leadership Attributes.
+ 
+                {showAdditionalContent && (
+                  <>
+                    We Leverage Seamless Networking And Data-Driven Search Strategies In Recruiting Executive Talent Across A Broad Range Of Industries, Business Functions, And Job Levels.
+                  </>
+                )}
+              </p>
+              <a  className="tf-button style-1" onClick={toggleContent}>
+                {showAdditionalContent ? 'Read less' : 'Read more'}
+              </a>
               </div>
             </div>
           </div>

@@ -2,33 +2,100 @@ import React, { useState, useEffect } from 'react';
 import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import axios from 'axios';
-
-
+ 
+function formatDateTime(dateTimeArray) {
+  const [year, month, day, hour, minute] = dateTimeArray;
+ 
+  // Format date as "day/month/year"
+  const formattedDate = new Date(year, month - 1, day).toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'short', // Use 'short' for abbreviated month names
+    year: 'numeric',
+  });
+ 
+  // Format time as "hour:minute AM/PM"
+  const formattedTime = new Date(year, month - 1, day, hour, minute).toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  });
+ 
+  return `${formattedDate} ${formattedTime}`;
+}
+ 
 function RecruiterApplicantInterviews() {
   const [applicants, setApplicants] = useState([]);
+  const [filteredApplicants, setFilteredApplicants] = useState([]);
+  const [filterOption, setFilterOption] = useState('all'); // Default to 'all'
   const { user } = useUserContext();
-  
+ 
   useEffect(() => {
     const jwtToken = localStorage.getItem('jwtToken');
     if (jwtToken) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
     }
-
+ 
     // You may need to replace 'userId' with the appropriate identifier for your user
     axios
-    .get(`${apiUrl}/applyjob/recruiter/${user.id}/interviews/shortlisted`)
+    .get(`${apiUrl}/applyjob/recruiter/${user.id}/interviews/interviewing`)
       .then((response) => {
         setApplicants(response.data);
       })
       .catch((error) => {
         console.error('Error fetching job details:', error);
       });
-  }, []); // Replace with the actual user identifier
-
+  }, [user.id]); // Replace with the actual user identifier
  
-
+  const todayApplicants = applicants.filter(applicant => {
+    const [year, month, day, hour, minute] = applicant.timeAndDate;
+    const interviewTimestamp = new Date(year, month - 1, day, hour, minute).getTime();
+    const todayTimestamp = new Date().setHours(0, 0, 0, 0);
+ 
+    return interviewTimestamp >= todayTimestamp && interviewTimestamp < todayTimestamp + 24 * 60 * 60 * 1000;
+  });
+ 
+  // Filter applicants for this week
+  const thisWeekApplicants = applicants.filter(applicant => {
+    const [year, month, day, hour, minute] = applicant.timeAndDate;
+    const interviewTimestamp = new Date(year, month - 1, day, hour, minute).getTime();
+    const today = new Date();
+    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
+    const startOfWeekTimestamp = startOfWeek.getTime();
+ 
+    return interviewTimestamp >= startOfWeekTimestamp && interviewTimestamp < startOfWeekTimestamp + 7 * 24 * 60 * 60 * 1000;
+  });
+ 
+  // Filter applicants for this month
+  const thisMonthApplicants = applicants.filter(applicant => {
+    const [year, month, day, hour, minute] = applicant.timeAndDate;
+    const interviewTimestamp = new Date(year, month - 1, day, hour, minute).getTime();
+    const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    const startOfMonthTimestamp = startOfMonth.getTime();
+ 
+    return interviewTimestamp >= startOfMonthTimestamp && interviewTimestamp < startOfMonthTimestamp + 30 * 24 * 60 * 60 * 1000; // Assuming a month has 30 days
+  });
+ 
+  useEffect(() => {
+    // Update filtered applicants based on the selected option
+    switch (filterOption) {
+      case 'today':
+        setFilteredApplicants(todayApplicants);
+        break;
+      case 'thisWeek':
+        setFilteredApplicants(thisWeekApplicants);
+        break;
+      case 'thisMonth':
+        setFilteredApplicants(thisMonthApplicants);
+        break;
+      default:
+        setFilteredApplicants(applicants); // 'all' option or default
+    }
+  }, [filterOption, todayApplicants, thisWeekApplicants, thisMonthApplicants, applicants]);
+ 
+ 
   return (
     <div>
+     
       <div className="dashboard__content">
   <section className="page-title-dashboard">
     <div className="themes-container">
@@ -41,16 +108,26 @@ function RecruiterApplicantInterviews() {
       </div>
     </div>
   </section>
+ 
   <section className="flat-dashboard-setting bg-white">
   <div className="themes-container">
   <div className="row">
         <div className="col-lg-12 col-md-12 ">
   <div className="profile-setting bg-white">
-  {applicants.length > 0 ? (
-              <ScheduleInterviewTable interview={applicants} />
-            ) : (
-              <p>No Interviews are Scheduled</p>
-            )}
+  <div className="filterContainer">
+        <label htmlFor="filterSelect">Filter by:</label>
+        <select id="filterSelect" value={filterOption} onChange={(e) => setFilterOption(e.target.value)}>
+          <option value="all">All</option>
+          <option value="today">Today</option>
+          <option value="thisWeek">This Week</option>
+          <option value="thisMonth">This Month</option>
+        </select>
+      </div>
+      {filteredApplicants.length > 0 ? (
+        <ScheduleInterviewTable interview={filteredApplicants} />
+      ) : (
+        <p>No Interviews are Scheduled</p>
+      )}
       </div>
       </div>
       </div>
@@ -60,9 +137,9 @@ function RecruiterApplicantInterviews() {
       </div>
   );
 }
-
+ 
 export default RecruiterApplicantInterviews;
-
+ 
 function ScheduleInterviewTable({ interview }) {
   function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -93,7 +170,7 @@ function ScheduleInterviewTable({ interview }) {
                 <td>{applicant.email}</td>
                 <td>{applicant.mobilenumber}</td>
                 <td>{applicant.jobTitle}</td>
-                <td>{applicant.timeAndDate}</td>
+                <td>{formatDateTime(applicant.timeAndDate)}</td>
                 <td>{applicant.location}</td>
                 <td>{applicant.modeOfInterview}</td>
                 <td>{applicant.round}</td>
