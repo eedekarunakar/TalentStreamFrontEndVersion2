@@ -6,6 +6,7 @@ import { useUserContext } from '../common/UserProvider';
 export default function ApplicantJobAlerts() {
   const [jobAlerts, setJobAlerts] = useState([]);
   const { user } = useUserContext();
+  
  
   useEffect(() => {
     const fetchJobAlerts = async () => {

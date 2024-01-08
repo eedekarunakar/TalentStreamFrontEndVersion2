@@ -11,22 +11,22 @@ export default function AboutBody() {
 
   return (
     <div>
-  <section className="bg-f5">
+  {/* <section className="bg-f5">
         <div className="tf-container">
           <div className="row">
             <div className="col-lg-12">
               <div className="page-title">
                 <div className="widget-menu-link">
-                  <ul>
+                  <ul> */}
                     {/* <li><a href="/">Home</a></li>
                     <li><a href="/aboutus">About Us</a></li> */}
-                  </ul>
+                  {/* </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="inner-review-section">
         <div className="tf-container">

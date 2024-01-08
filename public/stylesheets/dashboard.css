@@ -682,7 +682,7 @@ tbody tr td:nth-child(2) {
     position: absolute;
     z-index: 9999999;
     top: 20px;
-    left: 388px;
+    left: 250px;
     height: 45px;
     width: 45px;
     display: flex;

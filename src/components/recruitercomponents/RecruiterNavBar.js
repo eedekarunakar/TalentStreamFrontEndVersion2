@@ -5,9 +5,10 @@ import axios from 'axios';
 import clearJWTToken from '../common/clearJWTToken';
 import { Link } from 'react-router-dom';
 
+
 function RecruiterNavBar() 
 {
-
+  const [isOpen, setIsOpen] = useState(true);
   const user1 = useUserContext();
   const user=user1.user;
 
@@ -42,6 +43,11 @@ function RecruiterNavBar()
          // same as clicking a link         // not optimal solution though        window.location.href = window.location.href;
      }
  }
+
+ const handleToggleMenu = () => {
+  console.log("function called..")
+  setIsOpen(!isOpen);
+};
 
   return (
   
@@ -176,13 +182,14 @@ function RecruiterNavBar()
       </div>
     </div>
     <div className="btn header-item " id="left-menu-btn">
-      <span className="hamburger-icon">
+      <span className="hamburger-icon" onClick={handleToggleMenu}>
         <span />
         <span />
         <span />
       </span>
     </div>
   </header>
+  {(isOpen &&
   <div className="left-menu">
       {/* Sidemenu */}
       <div id="sidebar-menu">
@@ -246,6 +253,7 @@ function RecruiterNavBar()
         </ul>
       </div>
     </div>
+  )}
 </div>
 
   )

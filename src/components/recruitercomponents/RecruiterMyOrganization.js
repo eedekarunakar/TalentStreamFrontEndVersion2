@@ -324,7 +324,7 @@ function RecruiterMyOrganization() {
       <div className="row">
         <div className="col-lg-12 col-md-12 ">
           <div className="profile-setting bg-white">
-          {!isProfileSubmitted && verificationStatus === false && (
+          {/* {!isProfileSubmitted && verificationStatus === false && (
             <div className="verification-status profile-not-verified">
               Profile not verified
             </div>
@@ -333,7 +333,7 @@ function RecruiterMyOrganization() {
             <div className="verification-status profile-under-process">
               Profile verification is under process
             </div>
-          )}
+          )} */}
             <div className="author-profile flex2 border-bt">
            
               <div className="wrap-img flex2">

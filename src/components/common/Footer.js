@@ -43,37 +43,17 @@ export default function Footer() {
           <div class="row">
             <div class="col-lg-4 col-md-6">
               <div class="footer-cl-1">
-                <div class="icon-infor d-flex aln-center">
-                  <div class="icon">
-                    <span class="icon-call-calling"><span class="path1"></span><span class="path2"></span><span
-                        class="path3"></span><span class="path4"></span></span>
-                  </div>
-                  <div class="content">
-                    <p>Need help? 24/7</p>
-                    <h6><a href="tel:9966662524">+91-9966662524</a></h6>
-                  </div>
-                </div>
+               
                 <p>
-                  Job searching just got easy. Use <strong>TalentStream</strong> to run a hiring site
-                  and earn money in the process!
+                  Job Searching Just Hot Easy. Use <strong>TalentStream</strong> To Run A Hiring Site
+                  And Earn Money In The Process!
                 </p>
-                <div class="ft-icon">
-                  <i class="icon-map-pin"></i> 54-15-18E, Gurunanak Colony Road, 3rd Floor, Sai Odessey Complex, Gurunanak Colony, Vijayawada
-                </div>
-                {/* <form action="#" id="subscribe-form">
-                  <input type="email" placeholder="Your email address" required="" id="subscribe-email" />
-                  <button class="tf-button" type="submit" id="subscribe-button">
-                    <i class="icon-paper-plane-o"></i>
-                  </button>
-                </form><br /> */}
-                <div class="bottom">
-        <div class="tf-container">
-          
-                <div class="copyright">
-                  ©2023 TekWorks. All Rights Reserved.
-                </div>
-        </div>
-      </div>
+                <p>
+                We Serve Corporates And Start-Ups, Who Find Themselves Overextended, Trying To Find The Right Leadership 
+                Talent To Achieve Their Goals And Milestones.
+              
+                </p>
+                
               </div>
             </div>
             <div class="col-lg-2 col-md-6 col-6">
@@ -100,28 +80,41 @@ export default function Footer() {
                 </ul>
               </div>
             </div>
-            <div class="col-lg-4 col-6">
+            {/* <div class="col-lg-4 col-6">
                            
                <img src="images/review/jobsearch.gif" width="350px" alt="images" />
-                         </div>
-            {/* <div class="col-lg-2 col-md-4 col-6">
-               <div class="footer-cl-5">
-                <h6 class="ft-title">Download App</h6>
-                <ul class="ft-download">
-                  <li>
-                    <a href="#"><img src="images/review/btn3.png" alt="images" /></a>
-                  </li>
-                  <li>
-                    <a href="#"><img src="images/review/btn4.png" alt="images" /></a>
-                  </li>
-                </ul>
-              </div> 
-              <img src="images/review/jobsearch.gif" width="600px" alt="images" />
-            </div> */}
+                         </div> */}
+            <div class="col-lg-4 col-md-4 col-6">
+            <h6 class="ft-title">Reach us</h6>
+              
+              <div class="icon-infor d-flex aln-center">
+                  <div class="icon">
+                    <span class="icon-call-calling"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span><span class="path4"></span></span>
+                  </div>
+                  <div class="content">
+                    <p>Need help? 24/7</p>
+                    <h6><a href="tel:9966662524">+91-9966662524</a></h6>
+                  </div>
+                </div>
+                <div class="ft-icon">
+                  <i class="icon-map-pin"></i> 54-15-18E, Gurunanak Colony Road, 3rd Floor, Sai Odessey Complex, Gurunanak Colony, Vijayawada
+                </div>
+            </div>
           </div>
+          <div class="bottom">
+        <div class="tf-container" align="center">
+          
+                <div class="copyright">
+                  <br /><br />
+                  ©2023 TekWorks. All Rights Reserved.
+                </div>
         </div>
       </div>
-     
+        </div>
+       
+      </div>
+    
     </footer>
 
 

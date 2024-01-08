@@ -6,6 +6,7 @@ import axios from 'axios';
  
 function RecruiterPostJob() {
   const [jobTitle, setJobTitle] = useState("");
+  const [formLoaded, setFormLoaded] = useState(false);
   const [minimumExperience, setMinimumExperience] = useState("");
   const [maximumExperience, setMaximumExperience] = useState("");
   const [minSalary, setMinSalary] = useState("");
@@ -22,6 +23,7 @@ function RecruiterPostJob() {
   const [description, setDescription] = useState("");
   const [uploadDocument, setUploadDocument] = useState(null);
   const [image, setImage] = useState(null);
+  const [approvalStatus, setApprovalStatus] = useState(null);
   const [fileName, setFileName] = useState("No selected file")
   const fileInputRef = useRef(null);
   const user1 = useUserContext();
@@ -103,6 +105,36 @@ function RecruiterPostJob() {
       });
  
   };
+
+  useEffect(() => {
+    const fetchApprovalStatus = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/companyprofile/companyprofile/approval-status/${user.id}`);
+      
+
+        setApprovalStatus(response.data);
+        
+     
+        setFormLoaded(true);
+      } catch (error) {
+        console.error('Approval Status Error:', error);
+        // Handle error, e.g., show alert or redirect to myorganization page
+      }
+    };
+  
+    if (!formLoaded) {
+      fetchApprovalStatus();
+    }
+  }, [user.id, formLoaded]);
+  
+  useEffect(() => {
+    if (approvalStatus && approvalStatus !== 'approved') {
+      alert("Sorry, you can't post the job until your profile is verified");
+      // Redirect to myorganization page or handle it according to your needs
+      window.location.href = '/recruiter-my-organization';
+    }
+  }, [approvalStatus]);
+
   const [formErrors, setFormErrors] = useState({
     jobTitle: '',
     minSalary: '',

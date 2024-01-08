@@ -81,22 +81,22 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
       if (response.data === "Email already registered recruiter"){
         setCandidateOTPSent(false);
      
-        window.alert('Email already registered, please try to login');
+        window.alert('Email already registered as candidate, please try to login');
        }
        if(response.data === ('Email already registered as applicant')){
         setCandidateOTPSent(false);
      
-        window.alert('Email already registered, please try to login');
+        window.alert('Email already registered as candidate, please try to login');
        }
        if(response.data === "Mobile number already existed in recruiter"){
         setCandidateOTPSent(false);
      
-        window.alert('Mobile number already existed');
+        window.alert('Mobile number already existed as candidate');
        }
        if(response.data === 'Mobile number already existed in applicant'){
         setCandidateOTPSent(false);
      
-        window.alert('Mobile number already existed');
+        window.alert('Mobile number already existed as candidate');
        }
     } catch (error) {
       console.error('Error sending OTP:', error);
@@ -129,22 +129,22 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
       if (response.data === "Email already registered recruiter"){
         setRecruiterOTPSent(false);
      
-        window.alert('Email already registered, please try to login');
+        window.alert('Email already registered as recruiter, please try to login');
        }
        if(response.data === ('Email already registered as applicant')){
         setRecruiterOTPSent(false);
      
-        window.alert('Email already registered, please try to login');
+        window.alert('Email already registered as recruiter, please try to login');
        }
        if(response.data === "Mobile number already existed in recruiter"){
         setRecruiterOTPSent(false);
      
-        window.alert('Mobile number already existed');
+        window.alert('Mobile number already existed as recruiter');
        }
        if(response.data === 'Mobile number already existed in applicant'){
         setRecruiterOTPSent(false);
      
-        window.alert('Mobile number already existed');
+        window.alert('Mobile number already existed as recruiter');
        }
     } catch (error) {
       console.error('Error sending OTP:', error);
@@ -252,6 +252,33 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
     return emailRegex.test(email) ? '' : 'Please enter a valid email address.';
   };
  
+  
+  const isEmailValid1 = (email) => {
+    if (!email.trim()) {
+      return 'Email is required.';
+    }
+ 
+    const excludedDomains = [
+      'gmail.com',
+      'yahoo.com',
+      'outlook.com',
+      'aol.com',
+      'mail.com',
+      'icloud.com',
+      'zoho.com',
+      'yandex.com',
+      'protonmail.com',
+      'tutanota.com',
+    ];
+ 
+    const domain = email.split('@')[1];
+    if (excludedDomains.includes(domain)) {
+      return 'Please enter your official email ID.';
+    }
+ 
+    return '';
+  };
+
   const isPasswordValid = (password) => {
     if (!password.trim()) {
       return 'Password is required.';
@@ -321,7 +348,7 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
     setAllErrors(false); // Reset the allErrors state
  
     const nameError = isCompanyNameValid(companyName);
-    const emailError = isEmailValid(employerEmail);
+    const emailError = isEmailValid1(employerEmail);
     const mobileNumberError = isMobileNumberValid(employerMobileNumber);
     const passwordError = isPasswordValid(employerPassword);
  
