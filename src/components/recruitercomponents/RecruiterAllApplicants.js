@@ -23,6 +23,18 @@ function RecruiterAllApplicants() {
        // Convert the object into an array of applicants
     const applicantsArray = Object.values(response.data).flat();
         setApplicants(applicantsArray);
+        const $table= window.$(tableref.current);
+        // $table.DataTable().destroy();
+          const timeoutId = setTimeout(() => {  
+           $table.DataTable().destroy();
+            $table.DataTable({responsive:true});
+      
+                  }, 500);
+        
+         return () => {
+            isMounted.current = false;
+          // $table.DataTable().destroy(true);
+         };
     } catch (error) {
       console.error('Error fetching applicants:', error);
     }
@@ -34,18 +46,7 @@ function RecruiterAllApplicants() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
     }
     fetchAllApplicants();
-    const $table= window.$(tableref.current);
-   // $table.DataTable().destroy();
-     const timeoutId = setTimeout(() => {  
-      $table.DataTable().destroy();
-       $table.DataTable({responsive:true});
- 
-             }, 500);
-   
-    return () => {
-       isMounted.current = false;
-     // $table.DataTable().destroy(true);
-    };
+  
   }, [user.id]);
  
  

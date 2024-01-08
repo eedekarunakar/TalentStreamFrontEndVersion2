@@ -54,9 +54,9 @@ const Nav = () => {
             </div>
           </div>
         </div>
-      <div className="header-customize-item button">
+      {/* <div className="header-customize-item button">
       <a href="/recruiterlogin">Recruiter Login</a>
-      </div>
+      </div> */}
       <div className="mobile-footer">
         <div className="icon-infor d-flex aln-center">
           <div className="icon">

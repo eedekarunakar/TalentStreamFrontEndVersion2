@@ -53,31 +53,56 @@ function ApplicantViewJob({ selectedJobId }) {
     fetchJobDetails();
   }, [selectedJobId]);
  
+  const fetchJobDetails = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/viewjob/applicant/viewjob/${selectedJobId}/${user.id}`);
+      const {body} = response.data;
+      setLoading(false);
+      if (body) {
+        setJobDetails(body);
  
+        // Set the applied status in local storage
+        const appliedStatus = localStorage.getItem(`appliedStatus-${selectedJobId}`);
+        if (appliedStatus) {
+          setApplied(appliedStatus === 'true');
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching job details:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
   const handleApplyNow = async () => {
     try {
       setApplied(true);
+ 
       const response = await axios.post(`${apiUrl}/applyjob/applicants/applyjob/${applicantId}/${selectedJobId}`);
       const { applied } = response.data;
+ 
       window.alert('Job applied successfully');
-      localStorage.setItem(`jobDetails-${selectedJobId}`, JSON.stringify(jobDetails));
-      
-      if (applied) {
-        // Disable the button after successful application
-        
-        // Update local storage
-        localStorage.setItem(`appliedStatus-${selectedJobId}`, 'true');
-        setApplied(true);
-        // Display window alert
-        window.alert('Job applied successfully');
-        
-      }
+     
+      // Update local storage
+      localStorage.setItem(`appliedStatus-${selectedJobId}`, 'true');
+ 
+      // Update the state based on the response
+      setApplied(applied);
+ 
+      // Fetch job details again to reflect the changes
+      fetchJobDetails();
     } catch (error) {
       console.error('Error applying for the job:', error);
+     
       // You may want to show a different alert for cases where the job has already been applied
       window.alert('Job has already been applied by the applicant');
+     
+      // Reset the state to false in case of an error
+      setApplied(false);
     }
   };
+ 
+ 
+ 
  
   function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -137,7 +162,7 @@ function ApplicantViewJob({ selectedJobId }) {
                                 <div className="button-readmore">
                                  
                                   <a className="btn-apply btn-popup">
-            
+           
 <button
       className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
       onClick={handleApplyNow}
@@ -153,7 +178,23 @@ function ApplicantViewJob({ selectedJobId }) {
       {/* {applied ? 'Already Applied' : 'Apply Now'} */}
     </button>
  
-            </a>
+            </a>&nbsp;
+            <a
+  href="/applicant-find-jobs"
+  className="btn-apply btn-popup"
+  style={{
+    display: 'inline-block',
+    padding: '5px 20px',
+    backgroundColor: '#1967d2',  // Set your desired blue color here
+    color: 'white',  // Set the text color
+    textDecoration: 'none',
+    borderRadius: '10px',
+    cursor: 'pointer',
+   
+  }}
+>
+  Cancel
+</a>
                                 </div>
                               </div>
                             </div>

@@ -106,7 +106,13 @@ function RecruiterDashboard() {
           });
       }, []);
 
-
+      const todayApplicants = applicants.filter(applicant => {
+        const [year, month, day, hour, minute] = applicant.timeAndDate;
+        const interviewTimestamp = new Date(year, month - 1, day, hour, minute).getTime();
+        const todayTimestamp = new Date().setHours(0, 0, 0, 0);
+     
+        return interviewTimestamp >= todayTimestamp && interviewTimestamp < todayTimestamp + 24 * 60 * 60 * 1000;
+      });
   return (
     <div>
 <div className="dashboard__content">
@@ -246,84 +252,104 @@ function RecruiterDashboard() {
     </div>
   </section>
   <section className="flat-dashboard-applicants">
-  <div className="themes-container">
-    <div className="row">
-      <div className="col-lg-12 col-md-12 ">
-        <div className="applicants bg-white">
-          <h3 className="title-appli">Upcoming Interviews</h3>
-          <div className="table-content">
-            <div className="wrap-applicants table-responsive">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Candidates</th>
-                    <th>Status</th>
-                    <th>Applied date</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="file-delete">
-                    <td>
-                      <div className="candidates-wrap flex2">
-                        <div className="images">
-                          <img src="../images/dashboard/user-1.jpg" alt="" />
-                        </div>
-                        <div className="content">
-                          <h5 className="fw-6 color-3">Computational Wizard</h5>
-                          <h3>Arlene McCoy</h3>
-                          <div className="now-box flex2">
-                            <div className="button-now">
-                              <a className="#"> Available now </a>
-                            </div>
-                            <div className="map color-4">Tokyo, Japan</div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="status-wrap">
-                        <div className="button-status color-3"> Approved</div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="title-day color-1">December 18, 2023</div>
-                    </td>
-                    <td>
-                      <div className="action-wrap">
-                        <ul className="flex2">
-                          <li className="hv-tool" data-tooltip="Plus">
-                            <a className="action-icon icon-plus" />
-                          </li>
-                          <li className="hv-tool" data-tooltip="Check">
-                            <a className="action-icon icon-check" />
-                          </li>
-                          <li className="hv-tool" data-tooltip="Reject">
-                            <a className="action-icon icon-refect" />
-                          </li>
-                          <li className="hv-tool" data-tooltip="Download CV">
-                            <a className="action-icon icon-download" />
-                          </li>
-                          <li>
-                            <a className="button-cancel fw-7 remove-file">
-                              Cancel
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-                    
-                </tbody>
-              </table>
+        <div className="themes-container">
+          <div className="row">
+            <div className="col-lg-12 col-md-12">
+              <div className="applicants bg-white">
+                <h3 className="title-appli">Today Interviews</h3>
+                <div className="table-content">
+                {todayApplicants.length > 0 ? (
+                  <div className="wrap-applicants">
+                    <table className="table-responsive">
+                      <thead>
+                        <tr>
+                          <th>Candidates</th>
+                          <th>Job Title</th>
+                          <th>Interview Date and Time</th>
+                          <th>Location</th>
+                          <th>Interview Link</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {todayApplicants.map((interview) => (
+                          <tr key={interview.id} className="file-delete">
+                            <td>
+                                 {interview.name}
+                          
+                            </td>
+                            <td> <h6>{interview.jobTitle}</h6></td>
+                            <td>{formatDateTime(interview.timeAndDate)}</td>
+                            <td className="map color-4">{interview.location}</td>
+                            <td>
+                              <a href={interview.interviewLink} target="_blank" rel="noopener noreferrer">
+                                {interview.interviewLink}
+                              </a>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ): (
+                  <p align="center">No today interviews are available.</p>
+                )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+      </section>
+      <br />
+  <section className="flat-dashboard-applicants">
+        <div className="themes-container">
+          <div className="row">
+            <div className="col-lg-12 col-md-12">
+              <div className="applicants bg-white">
+                <h3 className="title-appli">Upcoming Interviews</h3>
+                <div className="table-content">
+                {applicants.length > 0 ? (
+                  <div className="wrap-applicants">
+                    <table className="table-responsive">
+                      <thead>
+                        <tr>
+                          <th>Candidates</th>
+                          <th>Job Title</th>
+                          <th>Interview Date and Time</th>
+                          <th>Location</th>
+                          <th>Interview Link</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {applicants.map((interview) => (
+                          <tr key={interview.id} className="file-delete">
+                            <td>
+                                 {interview.name}
+                          
+                            </td>
+                            <td> <h6>{interview.jobTitle}</h6></td>
+                            <td>{formatDateTime(interview.timeAndDate)}</td>
+                            <td className="map color-4">{interview.location}</td>
+                            <td>
+                              <a href={interview.interviewLink} target="_blank" rel="noopener noreferrer">
+                                {interview.interviewLink}
+                              </a>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                              ) : (
+                                <p align="center">No upcoming interviews are available.</p>
+                              )}
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+<br />
 </div>
 
 
@@ -334,3 +360,23 @@ function RecruiterDashboard() {
 }
 
 export default RecruiterDashboard;
+
+function formatDateTime(dateTimeArray) {
+  const [year, month, day, hour, minute] = dateTimeArray;
+ 
+  // Format date as "day/month/year"
+  const formattedDate = new Date(year, month - 1, day).toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'short', // Use 'short' for abbreviated month names
+    year: 'numeric',
+  });
+ 
+  // Format time as "hour:minute AM/PM"
+  const formattedTime = new Date(year, month - 1, day, hour, minute).toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  });
+ 
+  return `${formattedDate} ${formattedTime}`;
+}

@@ -1432,11 +1432,11 @@ const handleResumeUpload = async () => {
               </div>
             </div>
           ))}
-          <button type="button" onClick={addExperience}>
+          <button type="button" onClick={addExperience} style={{'color':'#FFFFFF','backgroundColor':'#1967d2'}}>
             +
           </button>
           {experienceDetails.length > 0 && (
-          <button type="button" onClick={() => removeExperience(experienceDetails.length - 1)}>
+          <button type="button" onClick={() => removeExperience(experienceDetails.length - 1)} style={{'color':'#FFFFFF','backgroundColor':'#FF0000'}}>
             -
           </button>
         )}
@@ -1477,12 +1477,12 @@ const handleResumeUpload = async () => {
                   )}
 </div>
 {index === skillsRequired.length - 1 && (
-<button type="button" onClick={addSkills} className="btn-3">
+<button type="button" onClick={addSkills} className="btn-3" style={{'color':'#FFFFFF','backgroundColor':'#1967d2'}}>
   +
 </button>
 )}
 {index === skillsRequired.length - 1 && (
-        <button type="button" onClick={removeSkills}>
+        <button type="button" onClick={removeSkills} style={{'color':'#FFFFFF','backgroundColor':'#FF0000'}}>
           {/* Remove Skill */}
           -
         </button>

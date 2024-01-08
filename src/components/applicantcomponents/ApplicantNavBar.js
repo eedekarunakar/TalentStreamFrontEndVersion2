@@ -14,7 +14,7 @@ function ApplicantNavBar() {
   const [isOpen, setIsOpen] = useState(true);
   const { user } = useUserContext();
   const [imageSrc, setImageSrc] = useState('');
-  const [alertCount, setAlertCount] = useState(1);
+  const [alertCount, setAlertCount] = useState(5);
 
   const handleToggleMenu = () => {
     console.log("function called..")
@@ -244,9 +244,29 @@ function ApplicantNavBar() {
 
           <li>
             <Link to="/applicant-job-alerts" className="tf-effect">
+              <div  style={{ position: 'relative', display: 'inline-block' }}>
             <span className="icon-bell1 dash-icon">
-          {/* {alertCount > 0 && <sup className="alert-count" style={{'fontSize':'16px','color':'red','fontWeight':'900'}}>{alertCount}</sup>} */}
+
+      {alertCount > 0 && (
+        <span
+          style={{
+            position: 'absolute',
+            top: '0px',
+            right: '0px',
+            background: 'red',
+            borderRadius: '50%',
+            padding: '2px 5px',
+            color: 'white',
+            fontSize: '10px',
+            textAlign: 'center',
+            lineHeight: '1',
+          }}
+        >
+          {alertCount}
         </span>
+      )}
+          {/* {alertCount > 0 && <sup className="alert-count" style={{'fontSize':'16px','color':'red','fontWeight':'900'}}>{alertCount}</sup>} */}
+        </span></div>
               <span className="dash-titles">Job Alerts</span>
             </Link>
           </li>
