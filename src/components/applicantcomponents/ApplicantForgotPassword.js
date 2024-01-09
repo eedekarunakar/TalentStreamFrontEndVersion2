@@ -3,7 +3,7 @@ import { useUserContext } from '../common/UserProvider';
 import axios from 'axios';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import { useNavigate} from 'react-router-dom';
-
+ 
 function ApplicantForgotPassword() {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
@@ -15,26 +15,39 @@ function ApplicantForgotPassword() {
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [otpResendTimer, setOTPTimerResend] = useState(0);
+  const [resendButtonDisabled, setResendButtonDisabled] = useState(false);
+ 
   const user1 = useUserContext();
   const user = user1.user;
-
+ 
   const validatePassword = (value) => {
     const isLengthValid = value.length >= 6;
     const hasUppercase = /[A-Z]/.test(value);
     const hasSpecialChar = /[^A-Za-z0-9]/.test(value);
     const hasNoSpaces = !/\s/.test(value);
-
+ 
     const isValid = isLengthValid && hasUppercase && hasSpecialChar && hasNoSpaces;
-
+ 
     setIsPasswordValid(isValid);
-
+ 
     return isValid;
   };
-
+ 
   const handleSendOTP = async () => {
     try {
       const response = await axios.post(`${apiUrl}/applicant/forgotpasswordsendotp`, { email });
-
+      setOTPTimerResend(60); // Reset the timer
+      const timerInterval = setInterval(() => {
+        setOTPTimerResend((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
+      }, 1000);
+ 
+      // Clear the interval after 60 seconds
+      setTimeout(() => {
+        clearInterval(timerInterval);
+        setResendButtonDisabled(false);
+      }, 60000);
+ 
       if (response.data === 'OTP sent successfully') {
         setOtpSent(true);
         setResetSuccess(false);
@@ -51,11 +64,12 @@ function ApplicantForgotPassword() {
       setResetError('Enter valid email address');
     }
   };
-
+ 
+ 
   const handleVerifyOTP = async () => {
     try {
       const response = await axios.post(`${apiUrl}/applicant/applicantverify-otp`, { email, otp });
-
+ 
       if (response.data === 'OTP verified successfully') {
         setOtpVerified(true);
         setResetError('');
@@ -69,20 +83,44 @@ function ApplicantForgotPassword() {
       setResetError('OTP verification failed. Please enter a valid OTP.');
     }
   };
-
+ 
+  const handleResendOTP = async () => {
+    try {
+      setResendButtonDisabled(true);
+      await axios.post(`${apiUrl}/applicant/forgotpasswordsendotp`, { email });
+      setOTPTimerResend(60); // Reset the timer
+      const timerInterval = setInterval(() => {
+        setOTPTimerResend((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
+      }, 1000);
+ 
+      // Clear the interval after 60 seconds
+      setTimeout(() => {
+        clearInterval(timerInterval);
+        setResendButtonDisabled(false);
+      }, 60000);
+      window.alert('OTP Resent successfully');
+ 
+      // Perform actions on successful OTP send, if needed
+    } catch (error) {
+      console.error('Error resending OTP:', error);
+      // Perform actions on failed OTP send, if needed
+    }
+  };
+ 
+ 
   const handleResetPassword = async () => {
     if (password !== confirmPassword) {
       setResetSuccess(false);
       setResetError('Passwords do not match. Please make sure the passwords match.');
       return;
     }
-
+ 
     if (!validatePassword(password)) {
       setResetSuccess(false);
       setResetError('Password Should not be empty.');
       return;
     }
-
+ 
     try {
       const response = await axios.post(
         `${apiUrl}/applicant/applicantreset-password/${email}`,
@@ -91,7 +129,7 @@ function ApplicantForgotPassword() {
           confirmPassword,
         }
       );
-
+ 
       if (response.data === 'Password reset was done successfully') {
         setResetSuccess(true);
         setResetError('');
@@ -106,27 +144,26 @@ function ApplicantForgotPassword() {
       setResetError('An error occurred. Please try again later.');
     }
   };
-
+ 
   return (
     <div>
       <div>
-        <section className="bg-f5">
+        {/* <section className="bg-f5">
         <div className="tf-container">
           <div className="row">
             <div className="col-lg-12">
               <div className="page-title">
                 <div className="widget-menu-link">
                   <ul>
-                    {/* <li><a href="/">Home</a></li>
-                    <li><a href="/applicant-forgot-password">Fogot Password</a></li> */}
+                  
                   </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        </section>
-  
+        </section> */}
+ 
         <section className="account-section">
           <div className="tf-container">
             <div className="row">
@@ -172,7 +209,7 @@ function ApplicantForgotPassword() {
                               Password must be at least 6 characters long, contain one uppercase letter,
                               one lowercase letter, one number, one special character, and no spaces.
                             </div>
-  
+ 
                             <button type="submit" onClick={handleResetPassword}>Reset Password</button>
                             <p style={{ color: 'green' }}>OTP verified successfully!</p>
                           </div>
@@ -187,15 +224,27 @@ function ApplicantForgotPassword() {
                             <button type="button" onClick={handleVerifyOTP}>
                               Verify OTP
                             </button>
+                            {otpResendTimer > 0 ? (
+                                    <div style={{ color: 'red' }}>
+                                      Please verify OTP within {otpResendTimer} seconds.
+                                    </div>
+                                    ) : (
+                                    <div>        
+                                      <button type="button" onClick={handleResendOTP} disabled={resendButtonDisabled}>
+                                        Resend OTP
+                                      </button>
+                                    </div>
+                            )}
                           </div>
                         )
                       ) : (
                         <button type="button" onClick={handleSendOTP}>
                           <div>Send OTP</div>
                         </button>
+                       
                       )}
                       {resetError && <div className="error-message">{resetError}</div>}
-                    
+                   
                   </div>
                 )}
               </div>
@@ -205,7 +254,7 @@ function ApplicantForgotPassword() {
       </div>
     </div>
   );
-  
+ 
 }
-
+ 
 export default ApplicantForgotPassword;
