@@ -630,8 +630,19 @@ input[type="color"],
 }
 
 .sticky-area-wrap .header-ct-left .logo .site-logo {
-  width: 250px;
+  width: 220px;
   display: block;
+}
+
+@media only screen and (min-width: 991px) and (max-width: 1092px) {
+  .sticky-area-wrap .header-ct-left .logo .site-logo {
+      width: 160px; 
+      display: block;
+  }
+}
+
+.custom-input {
+  color: #000 !important;
 }
 
 .sticky-area-wrap .header-ct-left .logo {
@@ -956,10 +967,30 @@ input[type="color"],
 .sticky-area-wrap .header-ct-center {
   flex-grow: 1;
   justify-content: center;
-  /*width: 100%;*/
+  width: 100%;
   display: flex;
   align-items: center;
-  padding-left: 178px;
+  padding-left: 178px; /* Adjust as needed for larger screens */
+}
+ 
+/* Media query for screen sizes below 915px */
+@media screen and (max-width: 915px) {
+  .sticky-area-wrap .header-ct-center {
+    padding-left: 10px; /* Adjust the padding for smaller screens */
+  }
+ 
+  /* Adjust icon styles to prevent overlapping */
+  #menu-primary-menu li a {
+    margin-right: 9px; /* Add margin to create spacing between icons */
+    font-size: 10px;
+  }
+}
+ 
+/* Media query for screen sizes between 916px and 1800px */
+@media screen and (min-width: 916px) and (max-width: 1800px) {
+  .sticky-area-wrap .header-ct-center {
+    padding-left: 178px; /* Reset the padding for larger screens */
+  }
 }
 
 .header-landing .sticky-area-wrap .header-ct-center {
