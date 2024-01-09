@@ -8,13 +8,14 @@ import { useState, useEffect } from "react";
 import { useUserContext } from '../common/UserProvider';
 import { apiUrl } from '../../services/ApplicantAPIService';
 import clearJWTToken from '../common/clearJWTToken';
+import axios from "axios";
 
 
 function ApplicantNavBar() {
   const [isOpen, setIsOpen] = useState(true);
   const { user } = useUserContext();
   const [imageSrc, setImageSrc] = useState('');
-  const [alertCount, setAlertCount] = useState(5);
+  const [alertCount, setAlertCount] = useState(0);
 
   const handleToggleMenu = () => {
     console.log("function called..")
@@ -75,7 +76,20 @@ function ApplicantNavBar() {
      }
  }
 
-
+ useEffect(() => {
+  const jwtToken = localStorage.getItem('jwtToken');
+  if (jwtToken) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+  }
+  axios
+      .get(`${apiUrl}/applyJob/applicants//${user.id}/unread-alert-count`)
+      .then((response) => {
+        setAlertCount(response.data);
+      })
+      .catch((error) => {
+          console.error('Error fetching team members:', error);
+      });
+}, [user.id]);
 
   return (
     <div>
@@ -245,26 +259,18 @@ function ApplicantNavBar() {
           <li>
             <Link to="/applicant-job-alerts" className="tf-effect">
               <div  style={{ position: 'relative', display: 'inline-block' }}>
-            <span className="icon-bell1 dash-icon">
+            <span className="icon-bell1 dash-icon"><sup style={{
+           background: 'red',
+           borderRadius: '50%',
+           padding: '2px 5px',
+           color: 'white',
+           fontSize: '10px',
+           textAlign: 'center',
+           lineHeight: '1',
+           marginLeft:'-10px'
+         }}>{alertCount}</sup>
 
-      {alertCount > 0 && (
-        <span
-          style={{
-            position: 'absolute',
-            top: '0px',
-            right: '0px',
-            background: 'red',
-            borderRadius: '50%',
-            padding: '2px 5px',
-            color: 'white',
-            fontSize: '10px',
-            textAlign: 'center',
-            lineHeight: '1',
-          }}
-        >
-          {alertCount}
-        </span>
-      )}
+    
           {/* {alertCount > 0 && <sup className="alert-count" style={{'fontSize':'16px','color':'red','fontWeight':'900'}}>{alertCount}</sup>} */}
         </span></div>
               <span className="dash-titles">Job Alerts</span>

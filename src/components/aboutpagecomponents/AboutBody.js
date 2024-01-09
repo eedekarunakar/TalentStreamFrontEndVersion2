@@ -85,7 +85,7 @@ export default function AboutBody() {
  
                 {showAdditionalContent && (
                   <>
-                    We Leverage Seamless Networking And Data-Driven Search Strategies In Recruiting Executive Talent Across A Broad Range Of Industries, Business Functions, And Job Levels.
+                     &nbsp;We Leverage Seamless Networking And Data-Driven Search Strategies In Recruiting Executive Talent Across A Broad Range Of Industries, Business Functions, And Job Levels.
                   </>
                 )}
               </p>

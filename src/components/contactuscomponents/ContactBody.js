@@ -13,12 +13,20 @@ export default function ContacBody() {
 
     const [showAlert, setShowAlert] = useState(false);
 
+    
+
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const isEmailValid = (email) => {
+    // Regular expression for a simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   const handleSubmit = async (e) => {
@@ -28,11 +36,13 @@ export default function ContacBody() {
     if (!formData.name || !formData.subject || !formData.email || !formData.questions) {
          // You can show an alert or error message to the user here if needed
         window.alert("Please complete all the fields.");
-    
-     
       return;
     }
-  
+    if (!isEmailValid(formData.email)) {
+      window.alert("Please enter a valid email address.");
+      return;
+    }
+
     try {
       const response = await axios.post(`${apiUrl}/send-message`, formData, {
         headers: {
@@ -63,22 +73,6 @@ export default function ContacBody() {
 
   return (
     <div>
-     {/* <section className="bg-f5">
-        <div className="tf-container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="page-title">
-                <div className="widget-menu-link">
-                  <ul> */}
-                    {/* <li><a href="/">Home</a></li>
-                    <li><a href="/contactus">Contact Us</a></li> */}
-                  {/* </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
      <section>
      <div className="tf-container">
       <div class="row">
@@ -165,7 +159,7 @@ export default function ContacBody() {
           </div>
           <div class="ip out s1">
             <input
-              type="email"
+              type="text"
               placeholder="*Your Email"
               name="email"
               value={formData.email}

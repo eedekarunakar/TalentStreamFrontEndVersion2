@@ -28,7 +28,27 @@ function RecruiterApplicantInterviews() {
   const [filteredApplicants, setFilteredApplicants] = useState([]);
   const [filterOption, setFilterOption] = useState('all'); // Default to 'all'
   const { user } = useUserContext();
+  const [selectedApplicant, setSelectedApplicant] = useState(null);
+  const handleCancelButtonClick = async (applicant) => {
+    const { id: scheduleInterviewId } = applicant;
  
+    // Display confirmation dialog
+    const confirmation = window.confirm('Do you want to cancel the interview?');
+ 
+    if (confirmation) {
+      try {
+        await axios.delete(`${apiUrl}/applyjob/scheduleInterview/${scheduleInterviewId}`);
+        alert('Interview cancelled successfully');
+        window.location.reload();
+ 
+        // Optionally, you can update the state or fetch data again after cancellation
+        // fetchAllApplicants();
+      } catch (error) {
+        console.error('Error cancelling interview:', error);
+        // Handle error gracefully, e.g., show a notification to the user
+      }
+    }
+  };
   useEffect(() => {
     const jwtToken = localStorage.getItem('jwtToken');
     if (jwtToken) {
@@ -123,11 +143,15 @@ function RecruiterApplicantInterviews() {
           <option value="thisMonth">This Month</option>
         </select>
       </div>
-      {filteredApplicants.length > 0 ? (
-        <ScheduleInterviewTable interview={filteredApplicants} />
-      ) : (
-        <p>No Interviews are Scheduled</p>
-      )}
+      {applicants.length > 0 ? (
+          <ScheduleInterviewTable
+            interview={applicants}
+            setSelectedApplicant={setSelectedApplicant}
+            handleCancelButtonClick={handleCancelButtonClick}
+          />
+        ) : (
+          <p>No Interviews are Scheduled</p>
+        )}
       </div>
       </div>
       </div>
@@ -140,7 +164,7 @@ function RecruiterApplicantInterviews() {
  
 export default RecruiterApplicantInterviews;
  
-function ScheduleInterviewTable({ interview }) {
+function ScheduleInterviewTable({  interview, setSelectedApplicant, handleCancelButtonClick } ) {
   function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
@@ -161,6 +185,7 @@ function ScheduleInterviewTable({ interview }) {
               <th>Round</th>
               <th>Interviewer Link</th>
               <th>Interviewer Name</th>
+              <th>Action</th> {/* New column for the Cancel button */}
             </tr>
           </thead>
           <tbody>
@@ -180,6 +205,15 @@ function ScheduleInterviewTable({ interview }) {
                   </a>
                 </td>
                 <td>{applicant.interviewPerson}</td>
+                <td>
+                <a href="#" style={{color:'red'}}
+  onClick={() => {
+    handleCancelButtonClick(applicant); // Pass the selected applicant to the function
+  }}
+>
+  Cancel Interview
+</a>
+              </td>
               </tr>
             ))}
           </tbody>

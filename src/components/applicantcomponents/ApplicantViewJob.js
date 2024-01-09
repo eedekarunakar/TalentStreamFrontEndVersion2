@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import logoCompany1 from '../../images/cty12.png';
 import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
  
@@ -138,9 +139,13 @@ function ApplicantViewJob({ selectedJobId }) {
                         <div className="features-job style-2 stc-apply">
                           <div className="job-archive-header">
                             <div className="inner-box">
-                              <div className="logo-company">
+                              {/* <div className="logo-company">
                                 <img src="images/logo-company/cty12.png" alt="images/logo-company/cty12.png" />
-                              </div>
+                              </div> */}
+                               <div className="logo-company">                             
+                               {jobDetails.logoFile ? ( <img src={`data:image/png;base64,${jobDetails.logoFile}`} alt="Company Logo" /> ) 
+                               : (<img src="images/logo-company/cty12.png" alt={`Default Company Logo`} /> )}
+                            </div>
                               <div className="box-content">
                                 <h4>
                                   <a href="#">{jobDetails.companyname}</a>
