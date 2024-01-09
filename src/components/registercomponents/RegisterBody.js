@@ -436,15 +436,14 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
   };
   return (
     <div>
-   {/* <section className="bg-f5">
+    {/* <section className="bg-f5">
       <div className="tf-container">
         <div className="row">
           <div className="col-lg-12">
             <div className="page-title">
               <div className="widget-menu-link">
                 <ul>
-                   <li><a href="/">Home</a></li>
-                  <li><a href="/register">Create Account</a></li>
+                 
                 </ul>
               </div>
             </div>

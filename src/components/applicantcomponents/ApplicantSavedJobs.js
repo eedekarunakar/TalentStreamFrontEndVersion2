@@ -74,9 +74,14 @@ function ApplicantSavedJobs() {
                       <div className="features-job cl2" key={job.id}>
                         <div className="job-archive-header">
                           <div className="inner-box">
-                            <div className="logo-company">
-                              <img src={logoCompany1} alt={`Company Logo ${job.id}`} />
-                            </div>
+                          <div className="logo-company">
+                              {/* Conditional rendering for the logo */}
+                              {job.logoFile ? (
+                                  <img src={`data:image/png;base64,${job.logoFile}`} alt="Company Logo" />
+                              ) : (
+                              <img src={logoCompany1} alt={`Default Company Logo ${job.id}`} />
+                              )}
+                          </div>
                             <div className="box-content">
                               <h4>
                                 <a href="#">{job.companyname}</a>
