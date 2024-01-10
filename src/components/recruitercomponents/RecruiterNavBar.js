@@ -4,19 +4,44 @@ import { useUserContext } from '../common/UserProvider';
 import axios from 'axios';
 import clearJWTToken from '../common/clearJWTToken';
 import { Link } from 'react-router-dom';
+import $ from 'jquery';
 
-
-function RecruiterNavBar() 
-{
-  const [isOpen, setIsOpen] = useState(true);
-  const user1 = useUserContext();
-  const user=user1.user;
-
+function RecruiterNavBar() {
+  const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
+  const { user } = useUserContext();
   const [imageSrc, setImageSrc] = useState('');
+  const [alertCount, setAlertCount] = useState(1);
+
  
   useEffect(() => {
- 
-    fetch(`${apiUrl}/recruiters/companylogo/download/${user.id}`, {
+    const handleResize = () => {
+      // Update isOpen state when window is resized
+      setIsOpen(window.innerWidth >= 768);
+    };
+     // Add event listener for window resize
+     window.addEventListener('resize', handleResize);
+    // Your custom JavaScript code for hamburger icon
+    $("#left-menu-btn").on("click", function(e) {
+      e.preventDefault();
+      if ($("body").hasClass("sidebar-enable") == true) {
+        $("body").removeClass("sidebar-enable");
+        $.cookie("isButtonActive", "0");
+      } else {
+        $("body").addClass("sidebar-enable");
+        $.cookie("isButtonActive", "1");
+      }
+      1400 <= $(window).width()
+        ? $("body").toggleClass("show-job")
+        : $("body").removeClass("show-job");
+      var width = $(window).width();
+      if (width < 1400) {
+        $.cookie('isButtonActive', null);
+      }
+    });
+    if ($.cookie("isButtonActive") == 1) {
+      $("body").addClass("sidebar-enable show-job");
+    }
+    fetch(`${apiUrl}/applicant-image/getphoto/${user.id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
       },
@@ -30,7 +55,9 @@ function RecruiterNavBar()
         console.error('Error fetching image URL:', error);
         setImageSrc(null);
       });
-   
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
   }, [user.id]);
 
   const logout = () => {

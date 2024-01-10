@@ -575,25 +575,10 @@ tbody tr td:nth-child(2) {
     border-radius: 24px;
     display: inline-flex;
     justify-content: center;
-    width: 180px;
-    align-items: center;
-    height: 40px;
-    color:#fff;
-    font-size:15px;
-    text-transform:capitalize;
-}
-
-.dashboard .button-status1 {
-    background-color: #1967d2;
-    font-weight: 700;
-    border-radius: 24px;
-    display: inline-flex;
-    justify-content: center;
-    width: 130px;
+    width: 100px;
     align-items: center;
     height: 34px;
     color:#fff;
-    font-size:15px;
 }
 
 .dashboard .button-status:hover
@@ -663,8 +648,6 @@ tbody tr td:nth-child(2) {
     border-bottom: 2px solid #ddd;
     border-radius: 2px;
     padding: 4px 17px;
-    text-transform:capitalize;
-    font-size:16px;
 }
 
 .dashboard button.active {
@@ -693,8 +676,8 @@ tbody tr td:nth-child(2) {
     transition: left 0.4s ease;
 }
 
-/* dashboard menu */
-/* .hamburger-icon {
+/* dashboard menu 
+.hamburger-icon {
     width: 20px;
     height: 14px;
     position: relative;
@@ -725,7 +708,9 @@ tbody tr td:nth-child(2) {
 .hamburger-icon span:nth-child(3) {
     bottom: 0;
     width: 60%;
-} */
+}
+*/
+/* Default styles for the hamburger icon */
 
 .hamburger-icon {
     width: 20px;
@@ -871,7 +856,7 @@ tbody tr td:nth-child(2) {
     display: flex;
     /* align-items: center; */
     vertical-align: baseline;
-   position: relative;
+    position: relative;
     color: #121212;
     padding: 13.5px 10px;
     background-color: #fff;
@@ -2154,7 +2139,7 @@ textarea:focus,
 }
 
 .flat-dashboard-setting .message-wrap textarea::placeholder {
-    color: #b9b5b5;
+    color: #b1b1b1;
 }
 
 .member-button a {
@@ -3698,9 +3683,6 @@ input[type="radio"]:checked:after {
 }
 
 /* responsive dashboard */
-
-.info-wd select option{color:#000;}
-
 @media only screen and (max-width: 1700px) {
     .dashboard.show .dashboard__content {
         margin-left: 280px;
@@ -3713,10 +3695,11 @@ input[type="radio"]:checked:after {
     }
 }
 
+
 @media only screen and (max-width: 1300px) {
 
     /* .dashboard .btn {
-        left: 200px;
+        left: 250px;
     } */
     .left-menu  {
         display: none;
@@ -4057,7 +4040,7 @@ input[type="radio"]:checked:after {
     }
 
     .dashboard .btn {
-        top: 23px;
+        top: 15px;
     }
 
     .flat-dashboard-bottom {
@@ -4379,88 +4362,10 @@ input[type="radio"]:checked:after {
     transition: margin-left 0.3s ease; /* Add a smooth transition effect */
   }
 
-  @media only screen and (max-width: 768px) {
-    /* Adjustments for small screens */
-    .left-menu {
-      width: 100%;
-      position: fixed;
-      top: 0;
-      left: -100%; /* Initially hide the left menu off-screen */
-      height: 100%;
-      background-color: #fff; /* Add your background color */
-      transition: left 0.3s ease; /* Add a smooth transition effect */
-    }
   
-    .left-menu.active {
-      left: 0; /* Show the left menu */
-    }
-  
-    .dashboard-container.left-nav-visible {
-      margin-left: 0; /* Adjust the dashboard margin for small screens */
-    }
-  }
-
-  
-  .bold{font-weight:bold;}
-.time{position:absolute; left:-110px;}
-.timeline-wrapper {
-padding-left:80px;
-min-width: 400px;
-font-family: 'Helvetica';
-font-size: 14px;
-/*border: 1px solid #CCC;*/
-}
 
 
-.events li { 
-    display: flex; 
-    color: #000;
-  }
-  
-  .events time { 
-    position: relative;
-    padding: 0 1.5em;  }
-  
-  .events time::after { 
-     content: "";
-     position: absolute;
-     z-index: 2;
-     right: 0;
-     top: 0;
-     transform: translateX(50%);
-     border-radius: 50%;
-     background: #2837d3;
-     border: 1px #2837d3 solid;
-     width: .8em;
-     height: .8em;
-  }
-  
-  
-  .events span {
-    padding: 0 1.5em 1.5em 1.5em;
-    position: relative;
-  }
-  
-  .events span::before {
-     content: "";
-     position: absolute;
-     z-index: 1;
-     left: 0;
-     height: 100%;
-     border-left: 1px #2837d3 solid;
-  }
-  
-  .events strong {
-     display: block;
-     font-weight: bolder;
-  }
-  
-  .events { margin: 1em; width: 50%; }
-  .events, 
-  .events *::before, 
-  .events *::after { box-sizing: border-box; font-family: arial; }
-
-  /* Media query for mobile devices */
+/* Media query for mobile devices */
 @media only screen and (max-width: 1400px) {
     .btn.header-item {
       cursor: pointer;
@@ -4517,5 +4422,8 @@ font-size: 14px;
         justify-content: flex-start;
         -webkit-transition: all 0.4s;
         transition: all 0.4s;
-   }
+    }
+
   }
+  
+    

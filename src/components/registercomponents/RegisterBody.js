@@ -81,7 +81,7 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
       if (response.data === "Email already registered recruiter"){
         setCandidateOTPSent(false);
      
-        window.alert('Email already registered as candidate, please try to login');
+        window.alert('Email already registered as recruiter, please try to login');
        }
        if(response.data === ('Email already registered as applicant')){
         setCandidateOTPSent(false);
@@ -91,7 +91,7 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
        if(response.data === "Mobile number already existed in recruiter"){
         setCandidateOTPSent(false);
      
-        window.alert('Mobile number already existed as candidate');
+        window.alert('Mobile number already existed as recruiter');
        }
        if(response.data === 'Mobile number already existed in applicant'){
         setCandidateOTPSent(false);
@@ -134,7 +134,7 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
        if(response.data === ('Email already registered as applicant')){
         setRecruiterOTPSent(false);
      
-        window.alert('Email already registered as recruiter, please try to login');
+        window.alert('Email already registered as candidate, please try to login');
        }
        if(response.data === "Mobile number already existed in recruiter"){
         setRecruiterOTPSent(false);
@@ -144,7 +144,7 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
        if(response.data === 'Mobile number already existed in applicant'){
         setRecruiterOTPSent(false);
      
-        window.alert('Mobile number already existed as recruiter');
+        window.alert('Mobile number already existed as candidate');
        }
     } catch (error) {
       console.error('Error sending OTP:', error);
@@ -484,7 +484,7 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
                     {candidateNameError && <div className="error-message">{candidateNameError}</div>}
                   </div>
                   <div className="ip">
-                    <label>Email address<span>*</span></label>
+                    <label>Email Address<span>*</span></label>
                  
                 <input
                   type="email"
@@ -615,7 +615,7 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
                      {employerNameError && <div className="error-message">{employerNameError}</div>}
                   </div>
                   <div className="ip">
-                    <label>Email address<span>*</span></label>
+                    <label>Email Address<span>*</span></label>
                     <input
                       type="email"
                       placeholder="Email"

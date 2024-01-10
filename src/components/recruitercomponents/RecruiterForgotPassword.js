@@ -3,7 +3,7 @@ import { useUserContext } from '../common/UserProvider';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
-
+ 
 function RecruiterForgotPassword() {
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
@@ -15,36 +15,50 @@ function RecruiterForgotPassword() {
     const [otpVerified, setOtpVerified] = useState(false);
     const [isPasswordValid, setIsPasswordValid] = useState(true); // Track password validation
     const [showPassword, setShowPassword] = useState(false);
-  
+    const [otpResendTimer, setOTPTimerResend] = useState(0);
+    const [resendButtonDisabled, setResendButtonDisabled] = useState(false);
+ 
     const handleTogglePassword = () => {
       setShowPassword(!showPassword);
     };
-
+ 
     const validatePassword = (value) => {
       // Password must be at least 6 characters long
       const isLengthValid = value.length >= 6;
-  
+ 
       // Password must contain at least one uppercase letter
       const hasUppercase = /[A-Z]/.test(value);
-  
+ 
       // Password must contain at least one special character (non-alphanumeric)
       const hasSpecialChar = /[^A-Za-z0-9]/.test(value);
-  
+ 
       // Password cannot contain spaces
       const hasNoSpaces = !/\s/.test(value);
-  
+ 
       const isValid = isLengthValid && hasUppercase && hasSpecialChar && hasNoSpaces;
-  
+ 
       setIsPasswordValid(isValid);
-  
+ 
       return isValid;
     };
-  
+ 
     const handleSendOTP = async () => {
       try {
         // Send a request to the server to send an OTP to the provided email
         const response = await axios.post(`${apiUrl}/forgotpassword/recuritersend-otp`, { email });
-  
+ 
+        setOTPTimerResend(60); // Reset the timer
+      const timerInterval = setInterval(() => {
+        setOTPTimerResend((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
+      }, 1000);
+ 
+      // Clear the interval after 60 seconds
+      setTimeout(() => {
+        clearInterval(timerInterval);
+        setResendButtonDisabled(false);
+      }, 60000);
+ 
+ 
         if (response.data === 'OTP sent successfully') {
           setOtpSent(true);
           setResetSuccess(false);
@@ -61,12 +75,33 @@ function RecruiterForgotPassword() {
         setResetError('Enter valid email address');
       }
     };
-  
+    const handleResendOTP = async () => {
+      try {
+        setResendButtonDisabled(true);
+        await axios.post(`${apiUrl}/forgotpassword/recuritersend-otp`, { email });
+        setOTPTimerResend(60); // Reset the timer
+        const timerInterval = setInterval(() => {
+          setOTPTimerResend((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
+        }, 1000);
+   
+        // Clear the interval after 60 seconds
+        setTimeout(() => {
+          clearInterval(timerInterval);
+          setResendButtonDisabled(false);
+        }, 60000);
+        window.alert('OTP Resent successfully');
+        // Perform actions on successful OTP send, if needed
+      } catch (error) {
+        console.error('Error resending OTP:', error);
+        // Perform actions on failed OTP send, if needed
+      }
+    };
+ 
     const handleVerifyOTP = async () => {
       try {
         // Send a request to the server to verify the OTP
         const response = await axios.post(`${apiUrl}/forgotpassword/recuriterverify-otp`, { email, otp });
-  
+ 
         if (response.data === 'OTP verified successfully') {
           setOtpVerified(true);
           setResetError('');
@@ -80,33 +115,33 @@ function RecruiterForgotPassword() {
         setResetError('OTP verification failed. Please enter a valid OTP.');
       }
     };
-  
+ 
     const handleResetPassword = async () => {
-  
+ 
       if (password !== confirmedPassword) {
         setResetSuccess(false);
         setResetError('Passwords do not match. Please make sure the passwords match.');
         return;
       }
-      
+     
   // Validate the password as the user types
   if (!validatePassword(password)) {
     setResetSuccess(false);
     setResetError('Password Should not be empty.');
     return;
   }
-  
+ 
       try {
         // Send a request to the server to reset the password with the new password
         const response = await axios.post(`${apiUrl}/forgotpassword/recuriterreset-password/set-new-password/${email}`, {
-        
+       
           password,
           confirmedPassword,
-          
+         
         });
-  
+ 
         if (response.data === 'Password reset was done successfully') {
-
+ 
           setResetSuccess(true);
           console.log("Api is called");
           setResetError('');
@@ -120,27 +155,26 @@ function RecruiterForgotPassword() {
         setResetError('An error occurred. Please try again later.');
       }
     };
-
+ 
   return (
     <div>
       <div>
-        <section className="bg-f5">
+        {/* <section className="bg-f5">
         <div className="tf-container">
           <div className="row">
             <div className="col-lg-12">
               <div className="page-title">
                 <div className="widget-menu-link">
                   <ul>
-                    {/* <li><a href="/">Home</a></li>
-                    <li><a href="/recruiter-forgot-password">Fogot Password</a></li> */}
+                   
                   </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        </section>
-  
+        </section> */}
+ 
         <section className="account-section">
           <div className="tf-container">
             <div className="row">
@@ -186,13 +220,13 @@ function RecruiterForgotPassword() {
                             />
                            <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
         {showPassword ? <FaEye /> : <FaEyeSlash />}
-</div> 
+</div>
                             </div><br></br>
                             <div className="helpful-line">
                               Password must be at least 6 characters long, contain one uppercase letter,
                               one lowercase letter, one number, one special character, and no spaces.
                             </div>
-  
+ 
                             <button type="button" onClick={handleResetPassword}>Reset Password </button>
                             <p style={{ color: 'green',textAlign:'center' }}>OTP verified successfully!</p>
                           </div>
@@ -207,6 +241,18 @@ function RecruiterForgotPassword() {
                             <button type="button" onClick={handleVerifyOTP}>
                               Verify OTP
                             </button>
+                            {otpResendTimer > 0 ? (
+                                    <div style={{ color: 'red' }}>
+                                      Please verify OTP within {otpResendTimer} seconds.
+                                    </div>
+                                    ) : (
+                                    <div>        
+                                      <button type="button" onClick={handleResendOTP} disabled={resendButtonDisabled}>
+                                        Resend OTP
+                                      </button>
+                                    </div>
+                            )}
+ 
                           </div>
                         )
                       ) : (
@@ -215,7 +261,7 @@ function RecruiterForgotPassword() {
                         </button>
                       )}
                       {resetError && <div className="error-message">{resetError}</div>}
-                    
+                   
                   </div>
                 )}
               </div>
@@ -225,7 +271,7 @@ function RecruiterForgotPassword() {
       </div>
     </div>
   );
-  
+ 
 }
-
+ 
 export default RecruiterForgotPassword;

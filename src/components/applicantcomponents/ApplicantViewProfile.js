@@ -6,20 +6,33 @@ import { Link } from 'react-router-dom';
 const ApplicantViewProfile = () => {
   const [profileData, setProfileData] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [alertShown, setAlertShown] = useState(false);
   const { user } = useUserContext();
   const id = user.id;
- 
+  
+  const checkAndShowAlert = (message) => {
+    const alertShownBefore = localStorage.getItem('alertShown');
+
+    if (!alertShownBefore && !loading) {
+      const userResponse = window.confirm(message);
+      if (userResponse) {
+        localStorage.setItem('alertShown', 'true');
+        setAlertShown(true);
+      }
+    }
+  };
   useEffect(() => {
-    axios.get(`${apiUrl}/applicantprofile/getdetails/${id}`)
-      .then(response => {
-        setProfileData(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching applicant profile:', error);
-      });
- 
-      axios.get(`${apiUrl}/applicant-image/getphoto/${id}`, { responseType: 'arraybuffer' })
-      .then(imageResponse => {
+    let count = 0;
+    let profileResponse = null;
+    let isMounted = true;
+  
+    const fetchData = async () => {
+      try {
+        profileResponse = await axios.get(`${apiUrl}/applicantprofile/getdetails/${id}`);
+        setProfileData(profileResponse.data);
+        count = 1;
+        const imageResponse = await axios.get(`${apiUrl}/applicant-image/getphoto/${id}`, { responseType: 'arraybuffer' });
         const base64Image = btoa(
           new Uint8Array(imageResponse.data).reduce(
             (data, byte) => data + String.fromCharCode(byte),
@@ -27,14 +40,40 @@ const ApplicantViewProfile = () => {
           )
         );
         setImageSrc(`data:${imageResponse.headers['content-type']};base64,${base64Image}`);
-      })
-      .catch(imageError => {
-        console.error('Error fetching applicant image:', imageError);
-      });
+  
+        setLoading(false);
+        
+      } catch (error) {
+        setLoading(false);
+        if (count === 0 && isMounted) {
+          window.alert('Profile not found. Please fill in your profile');
+        }
+        
+      }
+    };
+  
+    fetchData();
+  
+    // Cleanup function to set isMounted to false when component unmounts
+    return () => {
+      isMounted = false;
+    };
   }, [user]);
- 
-  if (!profileData) {
+  
+  
+
+  
+  if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (!profileData ||  alertShown) {
+    return (
+      <div>
+        {(!profileData ) && <p>Please fill in your bio data and upload a profile pic.</p>}
+        {alertShown && <p>Alert already shown.</p>}
+      </div>
+    );
   }
  
   return (
@@ -63,16 +102,10 @@ const ApplicantViewProfile = () => {
                 <h5 style={{ fontSize: '24px' }} className="fw-6 color-3 ">Applicant</h5>
                 <div className="check-box flex2">
                   <h3>{profileData.basicDetails.firstName} {profileData.basicDetails.lastName}</h3>
-                  
-                  {/* <div className="status-wrap">
-                    <div className="button-status fs-12 color-3 style-bt">
-                      {" "}
-                      Available now
-                    </div>
-                  </div> */}
+                                 
                 </div>
                 <div className="tag-wrap flex">
-                <div className="tag-box flex" style={{ fontSize: '18px' }}> 
+                <div className="tag-box flex" style={{ fontSize: '18px' }}>
                     {profileData.skillsRequired.map(skill => (
                       <div key={skill.id} className="tag-box-item flex">
                         <span><a href="#"><ul className="job-tag"><li>{skill.skillName}</li></ul></a></span>
@@ -85,7 +118,7 @@ const ApplicantViewProfile = () => {
               </div>
             </div>
             <div className="tt-button">
-            <Link to="/applicant-update-profile">Edit Profile</Link>
+            <Link to="/applicant-edit-profile">Update Profile</Link>
             </div>
           </div>
         </div>
@@ -122,18 +155,7 @@ const ApplicantViewProfile = () => {
                 <div className="title-box flex">
                   <div className="p-16">Qualification</div>
                   <h4> {profileData.graduationDetails.gprogram}</h4>
-                </div>
-                {/* <div className="wrap-icon">
-                  <h4>Socials:</h4>
-                  <div className="box-icon flex">
-                    <a href="#" className="icon-facebook" />
-                    <a href="#" className="icon-linkedin2" />
-                    <a href="#" className="icon-twitter" />
-                    <a href="#" className="icon-pinterest" />
-                    <a href="#" className="icon-instagram1" />
-                    <a href="#" className="icon-youtube" />
-                  </div>
-                </div> */}
+                </div>                
               </div>
            
             </div>
@@ -177,10 +199,11 @@ const ApplicantViewProfile = () => {
       </div>
     </div>
   </section>
-  
+ 
 </div>
  
   );
+  
 };
  
 export default ApplicantViewProfile;
