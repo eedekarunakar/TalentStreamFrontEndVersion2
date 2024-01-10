@@ -1502,6 +1502,50 @@ input[type="color"],
   font-size: 16px;
   line-height: 26px;
 }
+@media only screen and (min-width: 50px) and (max-width: 462px) {
+  #header .sticky-area-wrap .header-ct-right .account {
+      /* margin-right: 10px; */
+      padding-right: 10px; /* Adjust the padding as needed */
+        height: auto; /* Allow the height to adjust based on content */
+  }
+  .nav-filter .nav-mobile {
+    display: none;
+    position: relative;
+    width: 20px!important;
+    height: 20px!important;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 30px;
+ 
+  }
+  .sticky-area-wrap .header-ct-right .account
+.sub-account-item{
+    padding: 2px!important;
+    font-size: 7px!important;
+   
+    /* width: 100%; */
+  /* padding: 12px; */
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 500!important;
+  /* font-size: 16px; */
+  line-height: 2px!important;
+  margin-right: 2px!important;
+  margin-left: 2px!important;
+  }
+  #header .sticky-area-wrap .header-ct-left .logo .site-logo {
+    width: 140px!important;
+    display: block!important;
+  }
+  #header .sticky-area-wrap .header-ct-right .account {
+    margin-right: 0.5px!important;
+}
+ 
+ 
+  .sticky-area-wrap .header-ct-right .account {
+      padding-right: 10px;
+  }
+}
 
 .sticky-area-wrap .header-ct-right .bell .sub-notification-button a {
   color: #fff;
@@ -1907,7 +1951,7 @@ input[type="color"],
   text-align: center;
   display: block;
   padding: 15px;
-  width: 50%;
+  width: 100%;
   position: relative;
   transition: all 0.3s ease;
   cursor: pointer;

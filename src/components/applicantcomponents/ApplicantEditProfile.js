@@ -4,13 +4,22 @@ import axios from 'axios';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
  
-function ApplicantUpdateProfile() {
+function ApplicantEditProfile() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const user1 = useUserContext();
   const user=user1.user;
   let error = "";
- 
+  const [userData, setUserData] = useState({
+    basicDetails: {},
+    xClassDetails: {},
+    intermediateDetails: {},
+    graduationDetails: {},
+    skillsRequired: [],
+    experienceDetails: [],
+  });
+
+  
   const [errors, setErrors] = useState({
     basicDetails: {},
     xClassDetails: {},
@@ -30,30 +39,18 @@ function ApplicantUpdateProfile() {
       skillsRequired: [],
       experienceDetails: [],
     };
- 
-    // Basic Details
-   /* if (!basicDetails.firstName.trim()) {
-      newErrors.basicDetails.firstName = 'First Name is required';
-    }  */
- 
-   /* if (!validator.isDate(basicDetails.dateOfBirth)) {
-     console.log(basicDetails.dateOfBirth);
+    
 
-      newErrors.basicDetails.dateOfBirth = 'Date of Birth is required';
-    } */
-    const currentDate = new Date();
+   
+const currentDate = new Date();
 const maxAllowedAge = 18;
 
-//if (!validator.isDate(basicDetails.dateOfBirth)) 
 if(fielname === "" || fielname === "dateOfBirth")
 {
-if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
- 
+if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){ 
   newErrors.basicDetails.dateOfBirth = 'Date of Birth is required';
 } else {
-  const selectedDate = new Date(basicDetails.dateOfBirth);
-  
-  // Check if the selected date is more than 17 years ago from the current date
+  const selectedDate = new Date(basicDetails.dateOfBirth);    
   if (selectedDate > new Date(currentDate.getFullYear() - maxAllowedAge, currentDate.getMonth(), currentDate.getDate())) {
     newErrors.basicDetails.dateOfBirth = 'The Date of Birth should be at least 18 years ago.';
   }
@@ -64,8 +61,7 @@ if(fielname === "" || fielname === "city")
 {
     if (!basicDetails.city) {
       newErrors.basicDetails.city = 'City is required';
-    } else {
-      // Validation for not accepting digits
+    } else {    
       if (/\d/.test(basicDetails.city.trim())) {
         newErrors.basicDetails.city = 'City should not be number';
       }
@@ -78,10 +74,7 @@ if(fielname === "" || fielname === "city")
       newErrors.basicDetails.address = 'Address is required';
     }
   }
-   /*  if (!basicDetails.pincode.trim()) {
-      newErrors.basicDetails.pincode = 'Pin Code is required';
-    } */
-    if(fielname === "" || fielname === "pincode")
+       if(fielname === "" || fielname === "pincode")
 {
     if (!basicDetails.pincode.trim()) {
       newErrors.basicDetails.pincode = 'Pin Code is required';
@@ -89,30 +82,17 @@ if(fielname === "" || fielname === "city")
       newErrors.basicDetails.pincode = 'Pin Code should be 6 digits and contain only numbers';
     }
   }
-   /*  if (!basicDetails.state.trim()) {
-      newErrors.basicDetails.state = 'State is required';
-    } */
-    if(fielname === "" || fielname === "state")
+       if(fielname === "" || fielname === "state")
 {
     if (!basicDetails.state) {
       newErrors.basicDetails.state = 'State is required';
     } else {
-      // Validation for not accepting digits
-      if (/\d/.test(basicDetails.state.trim())) {
+           if (/\d/.test(basicDetails.state.trim())) {
         newErrors.basicDetails.state = 'State should contain text only';
       }
     }
   }
-   /* if (!basicDetails.address.trim()) {
-      newErrors.basicDetails.pincode = 'Address is required';
-    } */
-    // Add similar validations for other basic details...
- 
-    // X Class Details
-   /*  if (!xClassDetails.xschoolName.trim()) {
-      newErrors.xClassDetails.xschoolName = 'School Name is required';
-    } */
-    if(fielname === "" || fielname === "xschoolName")
+       if(fielname === "" || fielname === "xschoolName")
     {
     if (!xClassDetails.xschoolName) {
       newErrors.xClassDetails.xschoolName = 'School Name is required';
@@ -122,33 +102,24 @@ if(fielname === "" || fielname === "city")
         newErrors.xClassDetails.xschoolName = 'School Name should not be number';
       }
     }}
-
-   /*  if (!xClassDetails.xboard.trim()) {
-      newErrors.xClassDetails.xboard = 'Board is required';
-    }
-  */
+  
     if(fielname === "" || fielname === "xboard")
     {
     if (!xClassDetails.xboard) {
       newErrors.xClassDetails.xboard = 'Board is required';
     } else {
-      // Validation for text only
-      if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xboard.trim())) {
+          if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xboard.trim())) {
         newErrors.xClassDetails.xboard = 'Board should not be number';
       }
     }
   }
-   /*  if (!xClassDetails.xpercentage.trim()) {
-      newErrors.xClassDetails.xpercentage = 'Percentage is required';
-    } */
+  
     if(fielname === "" || fielname === "xpercentage")
 {
     if (!xClassDetails.xpercentage.trim()) {
       newErrors.xClassDetails.xpercentage = 'Percentage is required';
     } else {
-      const percentageValue = xClassDetails.xpercentage.trim();
-   
-      // Regular expression to match digits and an optional decimal point
+      const percentageValue = xClassDetails.xpercentage.trim();   
       const validPercentageRegex = /^\d+(\.\d+)?$/;
    
       if (!validPercentageRegex.test(percentageValue) || parseFloat(percentageValue) < 0 || parseFloat(percentageValue) > 100) {
@@ -156,10 +127,7 @@ if(fielname === "" || fielname === "city")
       }
     }
   }
-   /*  if (!xClassDetails.xPincode.trim()) {
-      newErrors.xClassDetails.xPincode = 'Pin Code is required';
-    }
-  */
+  
     if(fielname === "" || fielname === "xPincode")
     {
     if (!xClassDetails.xPincode.trim()) {
@@ -168,65 +136,44 @@ if(fielname === "" || fielname === "city")
       newErrors.xClassDetails.xPincode = 'Pin Code should be 6 digits and contain only numbers';
     }
   }
-   /*  if (!xClassDetails.xyearOfPassing.trim()) {
-      newErrors.xClassDetails.xyearOfPassing = 'Year of Passing is required';
-    } */
-   // Validation for required field
-   if(fielname === "" || fielname === "xyearOfPassing")
+     if(fielname === "" || fielname === "xyearOfPassing")
 {
 if (!xClassDetails.xyearOfPassing) {
   newErrors.xClassDetails.xyearOfPassing = 'Year of Passing is required';
 } else {
-  // Validation for 4-digit numeric value
   if (!/^\d{4}$/.test(xClassDetails.xyearOfPassing.trim())) {
     newErrors.xClassDetails.xyearOfPassing = 'Year of Passing should be a 4-digit number';
   } else {
-    // Additional validation for numeric value (no special characters or alphabets)
-    if (!/^\d+$/.test(xClassDetails.xyearOfPassing.trim())) {
+       if (!/^\d+$/.test(xClassDetails.xyearOfPassing.trim())) {
       newErrors.xClassDetails.xyearOfPassing = 'Year of Passing should contain only digits';
     }
   }
 }
 }
- 
-   /*  if (!xClassDetails.xCity.trim()) {
-      newErrors.xClassDetails.xCity = 'City is required';
-    } */
-    // Validation for City
+    
     if(fielname === "" || fielname === "xCity")
 {
 if (!xClassDetails.xCity) {
   newErrors.xClassDetails.xCity = 'City is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xCity.trim())) {
     newErrors.xClassDetails.xCity = 'City should not be number';
   }
 }
 }
 
-// Validation for State
 if(fielname === "" || fielname === "xState")
 {
 if (!xClassDetails.xState) {
   newErrors.xClassDetails.xState = 'State is required';
 } else {
-  // Validation for text only
+ 
   if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xState.trim())) {
     newErrors.xClassDetails.xState = 'State should not be number';
   }
 }
 }
-   /*  if (!xClassDetails.xState.trim()) {
-      newErrors.xClassDetails.xState = 'State is required';
-    } */
-    // Add similar validations for other X Class details...
- 
-    // Intermediate Details
-    /* if (!intermediateDetails.icollegeName.trim()) {
-      newErrors.intermediateDetails.icollegeName = 'College Name is required';
-    } */
-   // Validation for College Name
+   
    if(fielname === "" || fielname === "icollegeName")
 {
 if (!intermediateDetails.icollegeName) {
@@ -238,49 +185,35 @@ if (!intermediateDetails.icollegeName) {
   }
 }
 }
-   /*  if (!intermediateDetails.iboard.trim()) {
-      newErrors.intermediateDetails.iboard = 'Board Name is required';
-    }
-  */
-// Validation for Board Name
+  
 if(fielname === "" || fielname === "iboard")
 {
 if (!intermediateDetails.iboard) {
   newErrors.intermediateDetails.iboard = 'Board Name is required';
-} else {
-  // Validation for text only
+} else { 
   if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iboard.trim())) {
     newErrors.intermediateDetails.iboard = 'Board Name should not be number only';
   }
 }
 }
-    /* if (!intermediateDetails.iprogram.trim()) {
-      newErrors.intermediateDetails.iprogram = 'Program is required';
-    } */
-
-// Validation for Program
+  
 if(fielname === "" || fielname === "iprogram")
 {
 if (!intermediateDetails.iprogram) {
   newErrors.intermediateDetails.iprogram = 'Program is required';
-} else {
-  // Validation for text only
+} else {  
   if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iprogram.trim())) {
     newErrors.intermediateDetails.iprogram = 'Program should contain text only';
   }
 }
 }
-   /*  if (!intermediateDetails.ipercentage.trim()) {
-      newErrors.intermediateDetails.ipercentage = 'Percentage is required';
-    } */
-    if(fielname === "" || fielname === "ipercentage")
+      if(fielname === "" || fielname === "ipercentage")
 {
     if (!intermediateDetails.ipercentage.trim()) {
       newErrors.intermediateDetails.ipercentage = 'Percentage is required';
     } else {
       const percentageValue = intermediateDetails.ipercentage.trim();
-   
-      // Regular expression to match digits and an optional decimal point
+       
       const validPercentageRegex = /^\d+(\.\d+)?$/;
    
       if (!validPercentageRegex.test(percentageValue) || parseFloat(percentageValue) < 0 || parseFloat(percentageValue) > 100) {
@@ -288,107 +221,74 @@ if (!intermediateDetails.iprogram) {
       }
     }
   }
-  /*  if (!intermediateDetails.iyearOfPassing.trim()) {
-      newErrors.intermediateDetails.iyearOfPassing = 'Year of passing is required';
-    } */
+ 
     if(fielname === "" || fielname === "iyearOdPassing")
 {
     if (!intermediateDetails.iyearOfPassing) {
       newErrors.intermediateDetails.iyearOfPassing = 'Year of Passing is required';
-    } else {
-      // Validation for 4-digit numeric value
+    } else {     
       if (!/^\d{4}$/.test(intermediateDetails.iyearOfPassing.trim())) {
         newErrors.intermediateDetails.iyearOfPassing = 'Year of Passing should be a 4-digit number';
       } else {
-        // Additional validation for numeric value (no special characters or alphabets)
-        if (!/^\d+$/.test(intermediateDetails.iyearOfPassing.trim())) {
+               if (!/^\d+$/.test(intermediateDetails.iyearOfPassing.trim())) {
           newErrors.intermediateDetails.iyearOfPassing = 'Year of Passing should contain only digits';
         }
       }
     }
   }
-    /* if (!intermediateDetails.iCity.trim()) {
-      newErrors.intermediateDetails.iCity = 'City is required';
-    } */
-// Validation for Intermediate City
+   
 if(fielname === "" || fielname === "iCity")
 {
 if (!intermediateDetails.iCity) {
   newErrors.intermediateDetails.iCity = 'City is required';
 } else {
-  // Validation for text only
-  if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iCity.trim())) {
+    if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iCity.trim())) {
     newErrors.intermediateDetails.iCity = 'City should contain text only';
   }
 }
-}
-   /*  if (!intermediateDetails.iState.trim()) {
-      newErrors.intermediateDetails.iState = 'State is required';
-    } */
-
-    // Validation for Intermediate State
+}  
     if(fielname === "" || fielname === "iState")
 {
 if (!intermediateDetails.iState) {
   newErrors.intermediateDetails.iState = 'State is required';
 } else {
-  // Validation for text only
-  if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iState.trim())) {
+    if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iState.trim())) {
     newErrors.intermediateDetails.iState = 'State should contain text only';
   }
 }
 }
-   /*  // Graduation Details
-    if (!graduationDetails.gcollegeName.trim()) {
-      newErrors.graduationDetails.gcollegeName = 'College Name is required';
-    } */
-    // Validation for Graduation College Name
-    if(fielname === "" || fielname === "gcollegeName")
+       if(fielname === "" || fielname === "gcollegeName")
 {
 if (!graduationDetails.gcollegeName) {
   newErrors.graduationDetails.gcollegeName = 'College Name is required';
-} else {
-  // Validation for text only
+} else { 
   if (!/^[^\d]+$/.test(graduationDetails.gcollegeName.trim())) {
     newErrors.graduationDetails.gcollegeName = 'College Name should contain text only';
   }
 }
 }
-   /*  if (!graduationDetails.gboard.trim()) {
-      newErrors.graduationDetails.gboard = 'Board Name is required';
-    } */
-    // Validation for Graduation Board Name
+  
     if(fielname === "" || fielname === "gboard")
 {
 if (!graduationDetails.gboard) {
   newErrors.graduationDetails.gboard = 'Board Name is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gboard.trim())) {
     newErrors.graduationDetails.gboard = 'Board Name should contain text only';
   }
 }
 }
-   /*  if (!graduationDetails.gprogram.trim()) {
-      newErrors.graduationDetails.gprogram = 'Program is required';
-    } */
-
-    // Validation for Graduation Program
-    if(fielname === "" || fielname === "gprogram")
+     if(fielname === "" || fielname === "gprogram")
 {
 if (!graduationDetails.gprogram) {
   newErrors.graduationDetails.gprogram = 'Program is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gprogram.trim())) {
     newErrors.graduationDetails.gprogram = 'Program should contain text only';
   }
 }
 }
-    /* if (!graduationDetails.gpercentage.trim()) {
-      newErrors.graduationDetails.gpercentage = 'Percentage is required';
-    } */
-    if(fielname === "" || fielname === "gpercentage")
+      if(fielname === "" || fielname === "gpercentage")
 {
     if (!graduationDetails.gpercentage.trim()) {
       newErrors.graduationDetails.gpercentage = 'Percentage is required';
@@ -403,72 +303,45 @@ if (!graduationDetails.gprogram) {
       }
     }
   }
-   /*  if (!graduationDetails.gyearOfPassing.trim()) {
-      newErrors.graduationDetails.gyearOfPassing = 'Year of passing is required';
-    } */
+  
     if(fielname === "" || fielname === "gyearOfPassing")
 {
     if (!graduationDetails.gyearOfPassing) {
       newErrors.graduationDetails.gyearOfPassing = 'Year of Passing is required';
     } else {
-      // Validation for 4-digit numeric value
-      if (!/^\d{4}$/.test(graduationDetails.gyearOfPassing.trim())) {
+          if (!/^\d{4}$/.test(graduationDetails.gyearOfPassing.trim())) {
         newErrors.graduationDetails.gyearOfPassing = 'Year of Passing should be a 4-digit number';
       } else {
-        // Additional validation for numeric value (no special characters or alphabets)
-        if (!/^\d+$/.test(graduationDetails.gyearOfPassing.trim())) {
+              if (!/^\d+$/.test(graduationDetails.gyearOfPassing.trim())) {
           newErrors.graduationDetails.gyearOfPassing = 'Year of Passing should contain only digits';
         }
       }
     }
   }
-    // if (!graduationDetails.gCity.trim()) {
-    //   newErrors.graduationDetails.gCity = 'City is required';
-    // }
-    // if (!graduationDetails.gState.trim()) {
-    //   newErrors.graduationDetails.gState = 'State is required';
-    // }
-
-    // Validation for Graduation City
+   
     if(fielname === "" || fielname === "gCity")
 {
 if (!graduationDetails.gCity) {
   newErrors.graduationDetails.gCity = 'City is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gCity.trim())) {
     newErrors.graduationDetails.gCity = 'City should contain text only';
   }
 }
 }
-// Validation for Graduation State
+
 if(fielname === "" || fielname === "gState")
 {
 if (!graduationDetails.gState) {
   newErrors.graduationDetails.gState = 'State is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gState.trim())) {
     newErrors.graduationDetails.gState = 'State should contain text only';
   }
 }
 }
-    // Add similar validations for other Graduation details...
- 
-    // Skills
-   /*  skillsRequired.forEach((skill, index) => {
-      if (!skill.skillName.trim()) {
-        newErrors.skillsRequired[index] = { skillName: 'Skill Name is required' };
-      }       
- 
-      if (!skill.experience.trim()) {
-        newErrors.skillsRequired[index].experience = 'Experience is required';
-      }
-    }); */
-    //Skills
-    skillsRequired.forEach((skill, index) => {
-      // Validation for Skill Name
-      if(fielname === "" || fielname === "skillName")
+       skillsRequired.forEach((skill, index) => {
+         if(fielname === "" || fielname === "skillName")
 {
       if (skill==undefined || !skill.skillName) {     
         if(newErrors.skillsRequired[index]===undefined)
@@ -480,9 +353,7 @@ if (!graduationDetails.gState) {
           newErrors.skillsRequired[index].skillName='Skill Name should not be a numeric'; 
       }
     }
-    //Experience
-      // Validation for Experience
-      if(fielname === "" || fielname === "experience")
+          if(fielname === "" || fielname === "experience")
 {
       if (!skill.experience) {
         if(newErrors.skillsRequired[index]===undefined)
@@ -496,178 +367,120 @@ if (!graduationDetails.gState) {
       }
     }
     });
- // Log the newErrors object for debugging
-
-    // Experience
-    // experienceDetails.forEach((experience, index) => {
-    //   if (!experience.company.trim()) {
-    //     newErrors.experienceDetails[index] = { company: 'Company Name is required' };
-    //   }
  
-    //   if (!experience.position.trim()) {
-    //     newErrors.experienceDetails[index].position = 'Position is required';
-    //   }
- 
-    //   if (!experience.startDate.trim()) {
-    //     newErrors.experienceDetails[index].startDate = 'Start Date is required';
-    //   }
- 
-    //   if (!experience.endDate.trim()) {
-    //     newErrors.experienceDetails[index].endDate = 'End Date is required';
-    //   }
-    // });
- 
-    setErrors(newErrors);
-    
-    // Check if there are no errors
-    console.log(newErrors);
+    setErrors(newErrors);   
+    // console.log(newErrors);
     return Object.keys(newErrors).every(key => Object.keys(newErrors[key]).length === 0);
   };
  
  
-  useEffect(() => {
-    // Simulate an asynchronous operation (e.g., fetching data from an API)
+  useEffect(() => {    
     const fetchData = async () => {
-      try {
-        // Simulate fetching data after a delay (replace this with your actual data fetching logic)
-        await new Promise(resolve => setTimeout(resolve, 100));
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        // Set loading to false to indicate the end of the operation, whether successful or not
-        setLoading(false);
-      }
-    };
- 
-    // Call the fetchData function
-    fetchData();
-  }, []);
- 
-  const [basicDetails, setBasicDetails] = useState({
- 
-    firstName: "",
- 
-    lastName: "",
- 
-    dateOfBirth: "",
- 
-    address: "",
- 
-    city: "",
- 
-    state: "",
- 
-    pincode: "",
- 
-    alternatePhoneNumber: "",
- 
-  });
- 
- 
- 
-  const [xClassDetails, setXClassDetails] = useState({
- 
-    xschoolName: "",
- 
-    xboard: "",
- 
-    xpercentage: "",
- 
-    xyearOfPassing: "",
- 
-    xCity: "",
- 
-    xState: "",
- 
-    xPincode: "",
- 
-  });
- 
- 
- 
-  const [intermediateDetails, setIntermediateDetails] = useState({
- 
-    icollegeName: "",
- 
-    iboard: "",
- 
-    iprogram: "",
- 
-    ipercentage: "",
- 
-    iyearOfPassing: "",
- 
-    iCity: "",
- 
-    iState: "",
- 
-  });
- 
- 
- 
-  const [graduationDetails, setGraduationDetails] = useState({
- 
-    gcollegeName: "",
- 
-    gboard: "",
- 
-    gprogram: "",
- 
-    gpercentage: "",
- 
-    gyearOfPassing: "",
- 
-    gCity: "",
- 
-    gState: "",
- 
-  });
- 
-  const [skillsRequired, setSkillsRequired] = useState([
-     
-    { skillName: "", experience: "" },
- 
-  ]);
-  const [experienceDetails, setExperienceDetails] = useState([
-    {
-      company: "",
-      position: "",
-      startDate: "",
-      endDate: "",
-    },
-  ]);
- 
- 
- 
-  const [resumeFile, setResumeFile] = useState(null);
-  const [photoFile,setPhotoFile]=useState(null);
-  const [dragging, setDragging] = useState(false);
- 
-  const [selectedSkill, setSelectedSkill] = useState("");
- 
-  const handleSkillChange = (e, index, field) => {
-    const updatedSkillsRequired = [...skillsRequired];
+        try {
+          const jwtToken = localStorage.getItem('jwtToken');
+      console.log('jwt token new', jwtToken);
 
+      const response = await axios.get(`${apiUrl}/applicantprofile/getdetails/${user.id}`, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      });
+          setBasicDetails(response.data.basicDetails);
+             setXClassDetails(response.data.xClassDetails);
+            setIntermediateDetails(response.data.intermediateDetails);
+    setGraduationDetails(response.data.graduationDetails);
+    setSkillsRequired(response.data.skillsRequired);
+    setExperienceDetails(response.data.experienceDetails);
+          setLoading(false);
+        } catch (error) {
+          console.error('Error fetching user profile data:', error);
+          setLoading(false);
+        }
+      };
+    
+      fetchData(); 
+    
+    }, []);
+
+   
+ 
+      const [basicDetails, setBasicDetails] = useState({
+        firstName: "",
+        lastName: "",
+        dateOfBirth: "",
+        address: "",
+        city: "",
+        state: "",
+        pincode: "",
+        alternatePhoneNumber: "",
+      });
+   
+     const [xClassDetails, setXClassDetails] = useState({
+        xschoolName: "",
+        xboard: "",
+        xpercentage: "",
+        xyearOfPassing: "",
+        xCity: "",
+        xState: "",
+        xPincode: "",
+      });
+    
+       const [intermediateDetails, setIntermediateDetails] = useState({
+        icollegeName: "",
+        iboard: "",
+        iprogram: "",
+        ipercentage: "",
+        iyearOfPassing: "",
+        iCity: "",
+        iState: "",
+    
+     });
+    
+    
+    
+     const [graduationDetails, setGraduationDetails] = useState({
+           gcollegeName: "",
+           gboard: "",
+           gprogram: "",
+           gpercentage: "",    
+       gyearOfPassing: "",    
+       gCity: "",    
+       gState: "",    
+     });
+    
+     const [skillsRequired, setSkillsRequired] = useState([
+        
+       { skillName: "", experience: "" },
+    
+     ]);
+     const [experienceDetails, setExperienceDetails] = useState([
+       {
+         company: "",
+         position: "",
+         startDate: "",
+         endDate: "",
+       },
+     ]);
+    //  const [formData, setFormData] = useState({
+     
+    // });  
+  const [dragging, setDragging] = useState(false);
+   const [selectedSkill, setSelectedSkill] = useState("");
+   const handleSkillChange = (e, index, field) => {
+    const updatedSkillsRequired = [...skillsRequired];
         updatedSkillsRequired[index][field] = e.target.value;
  console.log('After Update:', updatedSkillsRequired);
- 
-    setSkillsRequired(updatedSkillsRequired);
- 
+     setSkillsRequired(updatedSkillsRequired); 
   };
- 
  
  
   const addSkills = () => {
- 
-    setSkillsRequired([...skillsRequired, { skillName: "", experience: "" }]);
+     setSkillsRequired([...skillsRequired, { skillName: "", experience: "" }]);
  
   };
   const removeSkills = () => {
-    // Check if there are skills to remove
-    if (skillsRequired.length > 1) {
-      // Create a copy of the skillsRequired array without the last item
-      const updatedSkills = [...skillsRequired.slice(0, -1)];
-      // Update the state with the new skills array
+        if (skillsRequired.length > 1) {
+           const updatedSkills = [...skillsRequired.slice(0, -1)];   
       setSkillsRequired(updatedSkills);
     }
   };
@@ -693,52 +506,38 @@ if (!graduationDetails.gState) {
     }
    
   };
-  
- 
-  const handleFileDrop = (e) => {
-    e.preventDefault();
-    setDragging(false);
-    const file = e.dataTransfer.files[0];
-    setResumeFile(file);
-  };
- 
- 
- 
+  console.log(basicDetails,"basicDetails")
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Validate the form
-    const isFormValid = validateForm("");
-    // If the form is not valid, prevent submission
+  console.log("in handleSubmit")
+    const isFormValid = validateForm(""); 
+
     if (!isFormValid) {
       return;
     }
-    
-    // Prepare data to be sent
-    const userData = {
-      basicDetails,
-      xClassDetails,
-      intermediateDetails,
-      graduationDetails,
-      skillsRequired,
-      experienceDetails,
-      user,
-    };
- 
-   try {
-    // Get the JWT token from local storage
+   
+    const formData={
+      basicDetails: basicDetails,
+      xClassDetails:xClassDetails,
+      intermediateDetails: intermediateDetails ,
+      graduationDetails: graduationDetails,
+      skillsRequired: skillsRequired,
+      experienceDetails: experienceDetails,
+    }
+    console.log(formData,"payload")
+   try { 
     const jwtToken = localStorage.getItem('jwtToken');
-     console.log('jwt token new',jwtToken);
-    // Make a POST request to the sign-out endpoint on your backend
-    const response = await axios.post(`${apiUrl}/applicantprofile/createprofile/${user.id}`, userData, {
+     console.log('jwt token new',jwtToken);  
+     console.log('formData',formData,"userData",userData);
+    const response = await axios.put(`${apiUrl}/applicantprofile/updateprofile/${user.id}`, formData, {
       headers: {
-        Authorization: `Bearer ${jwtToken}`, // Include the JWT token in the Authorization header
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${jwtToken}`, 
       },
     });
  
    
-    if (response.status === 201) {
-      // Successful response
+    if (response.status === 200) {
       if (response.data === 'profile saved sucessfully') {
         console.log(response.body);
         window.alert('Profile saved successfully!');
@@ -750,79 +549,16 @@ if (!graduationDetails.gState) {
     }
    
    
-    else {
-      // Handle other error cases
+    else {     
       console.error('An error occurred:', response.status, response.body);
     }
    
-  } catch (error) {
- 
-   
-      window.alert("Your profile has already been updated.");
+  } catch (error) {      
       navigate('/applicanthome');
     console.error('An error occurred:', error);
   }
 };
  
- 
-const handleFileSelect = (e) => {
-  const file = e.target.files[0];
-  setPhotoFile(file);
-};
-const uploadPhoto = async () => {
-  try {
-    const jwtToken = localStorage.getItem('jwtToken');
-    const formData = new FormData();
-    formData.append('photo', photoFile); // Use photoFile here
-    const response = await axios.post(
-      `${apiUrl}/applicant-image/${user.id}/upload`,
-      formData,
-      {
-        headers: {
-          //'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      }
-    );
-
-    console.log(response.data);
-    window.alert(response.data);
-    window.location.reload();
-  } catch (error) {
-    console.error('Error uploading photo:', error);
-    window.alert('error in uploading Profile ');
-  }
-};
-
-const handleResumeSelect = (e) => {
-  const file = e.target.files[0];
-  setResumeFile(file);
-};
-
-const handleResumeUpload = async () => {
-  try {
-    const jwtToken = localStorage.getItem('jwtToken');
-    const formData = new FormData();
-    formData.append('resume', resumeFile); // 'resume' is the key
-    const response = await axios.post(
-      `${apiUrl}/applicant-pdf/${user.id}/upload`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      }
-    );
-
-    console.log(response.data);
-    window.alert(response.data);
-    window.location.reload();
-  } catch (error) {
-    console.error('Error uploading resume:', error);
-    window.alert('Error uploading resume. Please try again.');
-  }
-};
-
   return (
     <div>
        {loading ? null : (
@@ -833,7 +569,7 @@ const handleResumeUpload = async () => {
       <div className="row">
         <div className="col-lg-12 col-md-12 ">
           <div className="title-dashboard">
-            <div className="title-dash flex2">Profile Setting</div>
+            <div className="title-dash flex2">Edit Your Profile</div>
           </div>
         </div>
       </div>
@@ -844,79 +580,7 @@ const handleResumeUpload = async () => {
       <div className="row">
         <div className="col-lg-12 col-md-12 ">
           <div className="profile-setting bg-white">
-          <div class="author-profile flex2 border-bt">
- 
-          <div class="wrap-img flex2">
-  <div class="img-box relative">
-    <img class="avatar" id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />
-  </div>
-  <div id="upload-profile">
-    <h5 class="fw-6">Upload your profile picture: </h5>
-    <h6>JPG or PNG</h6>
-    <input
-      class="up-file"
-      id="tf-upload-img"
-      type="file"
-      name="profile"
-      required=""
-      onChange={handleFileSelect}
-    />
-    <button
-      type="button"
-      onClick={uploadPhoto}
-      className="btn-3"
-      style={{
-        backgroundColor: '#4CAF50',
-        color: 'white',
-        padding: '10px 15px',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-      }}
-    >
-      Upload Photo
-    </button>
-  </div>
-</div>&nbsp;&nbsp;&nbsp;
-<div class="wrap-img flex2">
-  <div class="img-box relative">
-    <img class="avatar " id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />
-      </div>
-  <div id="upload-profile">
-    <h5 class="fw-6">Upload your resume: </h5>
-    <h6>PDF only</h6>
-    <input
-      class="up-file"
-      id="tf-upload-img"
-      type="file"
-      name="profile"
-      required=""
-      onChange={handleResumeSelect}
-    />  
-    <button
-  type="button"
-  onClick={handleResumeUpload}
-  className="btn-3"
-  style={{
-    backgroundColor: '#4CAF50', // Green color, you can change this
-    color: 'white',
-    padding: '10px 15px',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  }}
->
-  Upload Resume
-</button>
-  </div>
-</div>
-<div>
- 
-  {/*  <input type="submit" class="submit-button"  value="Save Profile"  />
-  <button type="submit" className='button-status'>Save Profile</button>*/}
-  </div>
-</div>
-            <div className="form-infor-profile">
+                     <div className="form-infor-profile">
               <h3 className="title-info">Information</h3>
               <div className="form-infor flex flat-form">
                 <div className="info-box info-wd">
@@ -926,9 +590,7 @@ const handleResumeUpload = async () => {
                              type="date"
                              placeholder="Date of Birth"
                              id="dateOfBirth"
-                             className="input-form"
-                          //   onfocus="(this.type='date')"
-                           //  onblur="(this.type='date')"
+                             className="input-form"                          
                              value={basicDetails.dateOfBirth}
                              onChange={(e) =>{
                               console.log(e.target.value);
@@ -1411,7 +1073,7 @@ const handleResumeUpload = async () => {
                 />
               </fieldset>
               <div id="item_date" className="dropdown titles-dropdown">
-                <label class="title-user color-1 fw-7" htmlFor={`startDate-${index}`}>Start Date</label>
+                <label htmlFor={`startDate-${index}`}>Start Date</label>
                 <input
                   type="date"
                   className="input-form"
@@ -1421,7 +1083,7 @@ const handleResumeUpload = async () => {
                 />
               </div>
               <div id="item_date" className="dropdown titles-dropdown">
-                <label class="title-user color-1 fw-7" htmlFor={`endDate-${index}`}>End Date</label>
+                <label htmlFor={`endDate-${index}`}>End Date</label>
                 <input
                   type="date"
                   className="input-form"
@@ -1432,11 +1094,11 @@ const handleResumeUpload = async () => {
               </div>
             </div>
           ))}
-          <button type="button" onClick={addExperience} style={{'color':'#FFFFFF','backgroundColor':'#1967d2'}}>
+          <button type="button" onClick={addExperience}>
             +
           </button>
           {experienceDetails.length > 0 && (
-          <button type="button" onClick={() => removeExperience(experienceDetails.length - 1)} style={{'color':'#FFFFFF','backgroundColor':'#FF0000'}}>
+          <button type="button" onClick={() => removeExperience(experienceDetails.length - 1)}>
             -
           </button>
         )}
@@ -1444,7 +1106,7 @@ const handleResumeUpload = async () => {
                     </div>
                     <div class="form-box  wg-box">
                       <fieldset class="">
-                        <label class="title-user fw-7">Skills<span className="color-red"> *</span></label>
+                        <label class="title-user fw-7">Skills</label>
                         {skillsRequired.map((skill, index) => (
 <div key={index} className="experience-table">
 <div>
@@ -1477,12 +1139,12 @@ const handleResumeUpload = async () => {
                   )}
 </div>
 {index === skillsRequired.length - 1 && (
-<button type="button" onClick={addSkills} className="btn-3" style={{'color':'#FFFFFF','backgroundColor':'#1967d2'}}>
+<button type="button" onClick={addSkills} className="btn-3">
   +
 </button>
 )}
 {index === skillsRequired.length - 1 && (
-        <button type="button" onClick={removeSkills} style={{'color':'#FFFFFF','backgroundColor':'#FF0000'}}>
+        <button type="button" onClick={removeSkills}>
           {/* Remove Skill */}
           -
         </button>
@@ -1498,7 +1160,7 @@ const handleResumeUpload = async () => {
               </div>
                 <div>
                   {/*  <input type="submit" class="submit-button"  value="Save Profile"  /> */}
-                  <button type="submit" className='button-status'>Save Profile</button>
+                  <button type="submit" className='button-status'>Update Profile</button>
 </div>
     </div>
    
@@ -1518,4 +1180,4 @@ const handleResumeUpload = async () => {
   )
 }
  
-export default ApplicantUpdateProfile;
+export default ApplicantEditProfile;

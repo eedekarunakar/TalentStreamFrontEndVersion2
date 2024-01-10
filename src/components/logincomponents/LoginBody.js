@@ -272,7 +272,7 @@ function LoginBody({ handleLogin }) {
                   <div className="inner" style={{ display: activeTab === 'Candidate' ? 'block' : 'none' }}>
                     <form onSubmit={handleCandidateSubmit}>
                       <div className="ip">
-                        <label>Email address<span>*</span></label>
+                        <label>Email Address<span>*</span></label>
                         <input
                   type="text"
                   placeholder="Email"

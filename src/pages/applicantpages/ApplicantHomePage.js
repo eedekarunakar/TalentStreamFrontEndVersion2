@@ -16,7 +16,7 @@ import ApplicantChangePassword from '../../components/applicantcomponents/Applic
 import ApplicantDeleteProfile from '../../components/applicantcomponents/ApplicantDeleteProfile';
 import ApplicantJobAlerts from '../../components/applicantcomponents/ApplicantJobAlerts';
 import ApplicantResume from '../../components/applicantcomponents/ApplicantResume';
-
+import ApplicantEditProfile from '../../components/applicantcomponents/ApplicantEditProfile';
 
 function ApplicantHomePage() {
   const [activeRoute, setActiveRoute] = useState('');
@@ -37,6 +37,9 @@ function ApplicantHomePage() {
         case '/applicant-view-profile':
           setActiveRoute('viewprofile');
           break;
+          case '/applicant-edit-profile':
+            setActiveRoute('editprofile');
+            break;
         case '/applicant-find-jobs':
         setActiveRoute('findjobs');
         break;
@@ -89,6 +92,7 @@ function ApplicantHomePage() {
      {activeRoute === 'dashboard' && <ApplicantDashboard />}
      {activeRoute === 'profile' && <ApplicantUpdateProfile />}
      {activeRoute === 'viewprofile' && <ApplicantViewProfile />}
+     {activeRoute === 'editprofile' && <ApplicantEditProfile />}
      {activeRoute === 'findjobs' && (<ApplicantFindJobs setSelectedJobId={setSelectedJobId} /> )}
      {activeRoute === 'viewjob' && (<ApplicantViewJob selectedJobId={selectedJobId} /> )}
      {activeRoute === 'appliedjobs' && <ApplicantAppliedJobs setSelectedJobId={setSelectedJobId}/>}

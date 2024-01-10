@@ -57,43 +57,7 @@ const Nav = () => {
       {/* <div className="header-customize-item button">
       <a href="/recruiterlogin">Recruiter Login</a>
       </div> */}
-      <div className="mobile-footer">
-        <div className="icon-infor d-flex aln-center">
-          <div className="icon">
-            <span className="icon-call-calling">
-              <span className="path1" />
-              <span className="path2" />
-              <span className="path3" />
-              <span className="path4" />
-            </span>
-          </div>
-          <div className="content">
-            <p>Need help? 24/7</p>
-            <h6>
-              <a href="tel:0123456678">+91-9966662524</a>
-            </h6>
-          </div>
-        </div>
-        <div className="wd-social d-flex aln-center">
-        <ul class="list-social d-flex aln-center">
-                  <li>
-                    <a href="https://www.facebook.com/tekworks.in"><i class="icon-facebook"></i></a>
-                  </li>
-                  <li>
-                    <a href="https://www.linkedin.com/company/tekworks-in"><i class="icon-linkedin2"></i></a>
-                  </li>
-                  {/* <li>
-                    <a href="#"><i class="icon-twitter"></i></a>
-                  </li> */}
-                  <li>
-                    <a href="https://www.instagram.com/tekworks_hiring"><i class="icon-instagram1"></i></a>
-                  </li>
-                  <li>
-                    <a href="https://www.youtube.com/@TekWorks-in"><i class="icon-youtube"></i></a>
-                  </li>
-                </ul>
-        </div>
-      </div>
+      
     </div>
   </div>
   {/* /end */}
