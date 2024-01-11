@@ -3,13 +3,12 @@ import { useUserContext } from '../common/UserProvider';
 import axios from 'axios';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import { useNavigate} from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
  
 function ApplicantForgotPassword() {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [resetSuccess, setResetSuccess] = useState(false);
   const [resetError, setResetError] = useState('');
   const [otpSent, setOtpSent] = useState(false);
@@ -17,9 +16,22 @@ function ApplicantForgotPassword() {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [otpResendTimer, setOTPTimerResend] = useState(0);
   const [resendButtonDisabled, setResendButtonDisabled] = useState(false);
+  const [password, setPassword] = useState(''); // New password field
+  const [confirmedPassword, setConfirmedPassword] = useState(''); // Confirm password field
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+ 
  
   const user1 = useUserContext();
   const user = user1.user;
+ 
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+ 
+  const handleToggleConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
  
   const validatePassword = (value) => {
     const isLengthValid = value.length >= 6;
@@ -109,7 +121,7 @@ function ApplicantForgotPassword() {
  
  
   const handleResetPassword = async () => {
-    if (password !== confirmPassword) {
+    if (password !== confirmedPassword) {
       setResetSuccess(false);
       setResetError('Passwords do not match. Please make sure the passwords match.');
       return;
@@ -126,7 +138,7 @@ function ApplicantForgotPassword() {
         `${apiUrl}/applicant/applicantreset-password/${email}`,
         {
           password,
-          confirmPassword,
+          confirmedPassword,
         }
       );
  
@@ -155,7 +167,7 @@ function ApplicantForgotPassword() {
               <div className="page-title">
                 <div className="widget-menu-link">
                   <ul>
-                  
+                 
                   </ul>
                 </div>
               </div>
@@ -164,7 +176,8 @@ function ApplicantForgotPassword() {
         </div>
         </section> */}
  
-        <section className="account-section">
+       
+ <section className="account-section">
           <div className="tf-container">
             <div className="row">
               <div className="wd-form-login">
@@ -174,7 +187,7 @@ function ApplicantForgotPassword() {
                   </div>
                 ) : (
                   <div>
-                    <h4>Forgot Password</h4>
+                    <h4>Forgot Password</h4><br />
                       <div className="ip">
                       <label>
                     Email address<span>*</span>
@@ -188,30 +201,40 @@ function ApplicantForgotPassword() {
                       </div>
                       {otpSent ? (
                         otpVerified ? (
-                          <div>
-                             <div className="ip">
+                          <div className="ip">
+                             <div className="inputs-group auth-pass-inputgroup">
                             <input
-                              type="password"
+                              type={showPassword ? 'text' : 'password'}
                               placeholder="New Password"
                               value={password}
                               onChange={(e) => setPassword(e.target.value)}
                             />
-                           </div>
-                           <div className="ip">
+                            <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
+        {showPassword ? <FaEye /> : <FaEyeSlash />}
+</div>
+                           </div><br />
+                           <div className="inputs-group auth-pass-inputgroup">
                             <input
-                              type="password"
+                              type={showConfirmPassword ? 'text' : 'password'}
                               placeholder="Confirm New Password"
-                              value={confirmPassword}
-                              onChange={(e) => setConfirmPassword(e.target.value)}
+                              value={confirmedPassword}
+                              onChange={(e) => setConfirmedPassword(e.target.value)}
                             />
-                            </div>
+                           <div
+                                className="password-toggle-icon"
+                                onClick={handleToggleConfirmPassword}
+                                id="password-addon"
+                              >
+                                {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+                              </div>
+                            </div><br></br>
                             <div className="helpful-line">
                               Password must be at least 6 characters long, contain one uppercase letter,
                               one lowercase letter, one number, one special character, and no spaces.
                             </div>
  
-                            <button type="submit" onClick={handleResetPassword}>Reset Password</button>
-                            <p style={{ color: 'green' }}>OTP verified successfully!</p>
+                            <button type="button" onClick={handleResetPassword}>Reset Password </button>
+                            <p style={{ color: 'green',textAlign:'center' }}>OTP verified successfully!</p>
                           </div>
                         ) : (
                           <div>
@@ -235,13 +258,13 @@ function ApplicantForgotPassword() {
                                       </button>
                                     </div>
                             )}
+ 
                           </div>
                         )
                       ) : (
                         <button type="button" onClick={handleSendOTP}>
-                          <div>Send OTP</div>
+                          Send OTP
                         </button>
-                       
                       )}
                       {resetError && <div className="error-message">{resetError}</div>}
                    

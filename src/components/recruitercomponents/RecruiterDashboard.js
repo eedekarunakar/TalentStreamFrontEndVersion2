@@ -259,7 +259,7 @@ function RecruiterDashboard() {
                 <h3 className="title-appli">Today Interviews</h3>
                 <div className="table-content">
                 {todayApplicants.length > 0 ? (
-                  <div className="wrap-applicants">
+                  <div className="wrap-applicants table-container-wrapper">
                     <table className="table-responsive">
                       <thead>
                         <tr>
@@ -273,11 +273,11 @@ function RecruiterDashboard() {
                       <tbody>
                         {todayApplicants.map((interview) => (
                           <tr key={interview.id} className="file-delete">
-                            <td>
+                            <td style={{ paddingBottom: '10px' }}>
                                  {interview.name}
                           
                             </td>
-                            <td> <h6>{interview.jobTitle}</h6></td>
+                            <td style={{ paddingBottom: '10px' }}> <h6>{interview.jobTitle}</h6></td>
                             <td>{formatDateTime(interview.timeAndDate)}</td>
                             <td className="map color-4">{interview.location}</td>
                             <td>
@@ -308,7 +308,7 @@ function RecruiterDashboard() {
                 <h3 className="title-appli">Upcoming Interviews</h3>
                 <div className="table-content">
                 {applicants.length > 0 ? (
-                  <div className="wrap-applicants">
+                  <div className="wrap-applicants table-container-wrapper">
                     <table className="table-responsive">
                       <thead>
                         <tr>

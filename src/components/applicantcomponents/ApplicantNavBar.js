@@ -4,25 +4,32 @@ import $ from 'jquery';
 import 'jquery.cookie'; // Check if this is the correct path
 import 'metismenu';
 // import '../../scripts/dashboard-menu';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { useUserContext } from '../common/UserProvider';
 import { apiUrl } from '../../services/ApplicantAPIService';
 import clearJWTToken from '../common/clearJWTToken';
 import axios from "axios";
-
-
+ 
+ 
 function ApplicantNavBar() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
   const { user } = useUserContext();
   const [imageSrc, setImageSrc] = useState('');
   const [alertCount, setAlertCount] = useState(0);
-
+ 
   const handleToggleMenu = () => {
     console.log("function called..")
     setIsOpen(!isOpen);
   };
-
+ 
   useEffect(() => {
+    const handleResize = () => {
+      // Update isOpen state when window is resized
+      setIsOpen(window.innerWidth >= 768);
+    };
+     // Add event listener for window resize
+     window.addEventListener('resize', handleResize);
+ 
     // Your custom JavaScript code for hamburger icon
     $("#left-menu-btn").on("click", function(e) {
       e.preventDefault();
@@ -62,38 +69,56 @@ function ApplicantNavBar() {
         console.error('Error fetching image URL:', error);
         setImageSrc(null);
       });
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
    
   }, [user.id]);
-
+ 
   const logout = () => {
     clearJWTToken();
-     const confirm = window.confirm("Are you sure want to logout?");
+     const confirm = window.confirm("Do you want to logout?");
      if(confirm){
        clearJWTToken();
-         window.location.href = "/login";
+         window.location.href = "/";
      }else {
          // same as clicking a link         // not optimal solution though        window.location.href = window.location.href;
      }
  }
-
- useEffect(() => {
-  const jwtToken = localStorage.getItem('jwtToken');
-  if (jwtToken) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+ 
+ const fetchAlertCount = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/applyjob/applicants/${user.id}/unread-alert-count`);
+    setAlertCount(response.data);
+    // Reload the page
+    window.location.reload();
+  } catch (error) {
+    console.error('Error fetching alert count:', error);
   }
-  axios
-      .get(`${apiUrl}/applyJob/applicants//${user.id}/unread-alert-count`)
-      .then((response) => {
-        setAlertCount(response.data);
-      })
-      .catch((error) => {
-          console.error('Error fetching team members:', error);
+};
+ 
+ 
+useEffect(() => {
+  const fetchAlertCount = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/applyjob/applicants/${user.id}/unread-alert-count`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+        },
       });
+      setAlertCount(response.data);
+    } catch (error) {
+      console.error('Error fetching alert count:', error);
+    }
+  };
+ 
+  fetchAlertCount();
 }, [user.id]);
-
+ 
+ 
   return (
     <div>
-  
+ 
   <div className="menu-mobile-popup">
     <div className="modal-menu__backdrop" />
     <div className="widget-filter">
@@ -241,42 +266,46 @@ function ApplicantNavBar() {
               <span className="dash-titles">Find Jobs</span>
             </Link>
           </li>
-
+ 
           <li>
             <Link to="/applicant-applied-jobs" className="tf-effect">
               <span className="icon-my-apply dash-icon"></span>
               <span className="dash-titles">Jobs Applied</span>
             </Link>
           </li>
-
+ 
           <li>
             <Link to="/applicant-saved-jobs" className="tf-effect">
               <span className="icon-work dash-icon"></span>
               <span className="dash-titles">Saved Jobs</span>
             </Link>
           </li>
-
+ 
           <li>
-            <Link to="/applicant-job-alerts" className="tf-effect">
-              <div  style={{ position: 'relative', display: 'inline-block' }}>
-            <span className="icon-bell1 dash-icon"><sup style={{
-           background: 'red',
-           borderRadius: '50%',
-           padding: '2px 5px',
-           color: 'white',
-           fontSize: '10px',
-           textAlign: 'center',
-           lineHeight: '1',
-           marginLeft:'-10px'
-         }}>{alertCount}</sup>
-
-    
-          {/* {alertCount > 0 && <sup className="alert-count" style={{'fontSize':'16px','color':'red','fontWeight':'900'}}>{alertCount}</sup>} */}
-        </span></div>
-              <span className="dash-titles">Job Alerts</span>
-            </Link>
-          </li>
-
+      {/* Trigger the fetchAlertCount function when clicking on the link */}
+      <Link to="/applicant-job-alerts" className="tf-effect" onClick={fetchAlertCount}>
+        <div style={{ position: 'relative', display: 'inline-block' }}>
+          <span className="icon-bell1 dash-icon">
+            <sup
+              style={{
+                background: 'red',
+                borderRadius: '50%',
+                padding: '2px 5px',
+                color: 'white',
+                fontSize: '10px',
+                textAlign: 'center',
+                lineHeight: '1',
+                marginLeft: '-10px',
+              }}
+            >
+              {alertCount}
+            </sup>
+          </span>
+        </div>
+        <span className="dash-titles">Job Alerts</span>
+      </Link>
+    </li>
+ 
           <li>
             <Link to="/applicant-resume" className="tf-effect">
               <span className="icon-chat dash-icon"></span>
@@ -308,5 +337,5 @@ function ApplicantNavBar() {
 </div>
   )
 }
-
+ 
 export default ApplicantNavBar;
