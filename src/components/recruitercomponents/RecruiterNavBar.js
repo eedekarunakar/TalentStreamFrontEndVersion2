@@ -174,7 +174,7 @@ function RecruiterNavBar() {
                 <h4>Welcome {user.username}</h4>
                   <div className="sub-account-item">
                     <a href="/recruiter-my-organization">
-                      <span className="icon-profile" /> Profile
+                      <span className="icon-profile" /> My Organization
                     </a>
                   </div>
                   <div className="sub-account-item">
