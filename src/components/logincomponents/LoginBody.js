@@ -321,7 +321,7 @@ function LoginBody({ handleLogin }) {
                   <div className="inner" style={{ display: activeTab === 'Employer' ? 'block' : 'none' }}>
                     <form onSubmit={handleRecruiterSubmit}>
                       <div className="ip">
-                        <label>Email address<span>*</span></label>
+                        <label>Email Address<span>*</span></label>
                         <input
                           type="text"
                           placeholder="Enter your Email"

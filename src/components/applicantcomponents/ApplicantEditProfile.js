@@ -16,7 +16,8 @@ function ApplicantEditProfile() {
     intermediateDetails: {},
     graduationDetails: {},
     skillsRequired: [],
-    experienceDetails: [],
+    experienceDetails: [],   
+    applicant:{},
   });
 
   
@@ -26,7 +27,8 @@ function ApplicantEditProfile() {
     intermediateDetails: {},
     graduationDetails: {},
     skillsRequired: [],
-    experienceDetails: [],
+    experienceDetails: [],  
+    applicant:{}, 
   });
  
   // Validation function
@@ -38,6 +40,7 @@ function ApplicantEditProfile() {
       graduationDetails: {},
       skillsRequired: [],
       experienceDetails: [],
+      applicant:{},    
     };
     
 
@@ -82,6 +85,20 @@ if(fielname === "" || fielname === "city")
       newErrors.basicDetails.pincode = 'Pin Code should be 6 digits and contain only numbers';
     }
   }
+  if(fielname === "" || fielname === "mobilenumber")
+  {
+     if (!applicant.mobilenumber.trim()) {
+       newErrors.applicant.mobilenumber = 'Mobile number is required';
+     } else if (!/^\d{10}$/.test(applicant.mobilenumber.trim())) {
+       newErrors.applicant.mobilenumber = 'Mobile  should be 10 digits and contain only numbers';
+     }
+    }
+    if (applicant.name == null || applicant.name.trim()) {
+      return "Name is required";
+  } else if (!applicant.name.matches("^[a-zA-Z]{1,20}$")) {
+      return "Name should contain only alphabets and have a maximum of 20 characters";
+  }
+
        if(fielname === "" || fielname === "state")
 {
     if (!basicDetails.state) {
@@ -380,11 +397,12 @@ if (!graduationDetails.gState) {
           const jwtToken = localStorage.getItem('jwtToken');
       console.log('jwt token new', jwtToken);
 
-      const response = await axios.get(`${apiUrl}/applicantprofile/getdetails/${user.id}`, {
+      const response = await axios.get(`${apiUrl}/applicantprofile/${user.id}/profile-view`, {       
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
       });
+          setApplicant(response.data.applicant);
           setBasicDetails(response.data.basicDetails);
              setXClassDetails(response.data.xClassDetails);
             setIntermediateDetails(response.data.intermediateDetails);
@@ -398,11 +416,13 @@ if (!graduationDetails.gState) {
         }
       };
     
-      fetchData(); 
-    
+      fetchData();     
     }, []);
 
-   
+   const[applicant,setApplicant]=useState({
+    name:"",
+    mobilenumber:"",
+   });
  
       const [basicDetails, setBasicDetails] = useState({
         firstName: "",
@@ -506,7 +526,7 @@ if (!graduationDetails.gState) {
     }
    
   };
-  console.log(basicDetails,"basicDetails")
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
   console.log("in handleSubmit")
@@ -517,6 +537,7 @@ if (!graduationDetails.gState) {
     }
    
     const formData={
+      applicant:applicant,
       basicDetails: basicDetails,
       xClassDetails:xClassDetails,
       intermediateDetails: intermediateDetails ,
@@ -524,7 +545,7 @@ if (!graduationDetails.gState) {
       skillsRequired: skillsRequired,
       experienceDetails: experienceDetails,
     }
-    console.log(formData,"payload")
+   
    try { 
     const jwtToken = localStorage.getItem('jwtToken');
      console.log('jwt token new',jwtToken);  
@@ -535,9 +556,7 @@ if (!graduationDetails.gState) {
         Authorization: `Bearer ${jwtToken}`, 
       },
     });
- 
-   
-    if (response.status === 200) {
+     if (response.status === 200) {
       if (response.data === 'profile saved sucessfully') {
         console.log(response.body);
         window.alert('Profile saved successfully!');
@@ -584,6 +603,18 @@ if (!graduationDetails.gState) {
               <h3 className="title-info">Information</h3>
               <div className="form-infor flex flat-form">
                 <div className="info-box info-wd">
+                <fieldset>
+                  <label class="title-user fw-7">First Name<span className="color-red">*</span></label>
+                  <input type="text"
+                           placeholder="First Name"
+                           className="input-form"
+                           value={basicDetails.firstName}
+                           onChange={(e) =>
+                           setBasicDetails({ ...basicDetails, firstName: e.target.value })}
+                           
+                  />                     
+                  </fieldset>
+                 
                   <fieldset>
                   <label class="title-user fw-7">Date of Birth <span className="color-red">*</span></label>
                      <input
@@ -633,6 +664,17 @@ if (!graduationDetails.gState) {
                   </div>
                 </div>
                 <div className="info-box info-wd">
+                <fieldset>
+                  <label class="title-user fw-7">Last Name<span className="color-red">*</span></label>
+                  <input type="text"
+                           placeholder="Last Name"
+                           className="input-form"
+                           value={basicDetails.lastName}
+                           onChange={(e) =>
+                           setBasicDetails({ ...basicDetails, lastName: e.target.value })}
+                           
+                  />                     
+                  </fieldset>
                   <fieldset>
                   <label class="title-user fw-7">Address <span className="color-red">*</span></label>
                     <input
@@ -1043,6 +1085,47 @@ if (!graduationDetails.gState) {
                
               </div>
              </div>
+   <div className="form-infor-profile">
+              <h3 className="title-info">Registration- Details <span className="color-red">*</span></h3>
+              <div className="form-infor flex flat-form">
+                <div className="info-box info-wd">
+                  <fieldset>
+                  <input  type="text"
+                          placeholder="Name Given at Registration"
+                          className="input-form"
+                          value={applicant.name}
+                          onChange={(e) =>
+                           setApplicant({...applicant,name: e.target.value,})}
+                           onBlur={() => validateForm("name")}
+                  />
+                  <div className="validation-errors">
+            {errors.applicant.name && (
+              <div className="error-message">{errors.applicant.name}</div>
+            )}
+          </div>
+          </fieldset>
+          </div>
+          <div className="info-box info-wd">
+                  <fieldset>
+                    <input
+                           type="text"
+                           placeholder="mobilenumber"
+                           className="input-form"
+                           value={applicant.mobilenumber}
+                           onChange={(e) =>
+                           setApplicant({ ...applicant, mobilenumber: e.target.value })}
+                           onBlur={() => validateForm("mobilenumber")}
+              />
+              <div className="validation-errors">
+            {errors.applicant.mobilenumber && (
+              <div className="error-message">{errors.applicant.mobilenumber}</div>
+            )}
+          </div>
+                  </fieldset>             
+                  </div>
+                </div>
+             
+              </div>            
     <div class="contact-wrap info-wd">
                   <h3>Experience & Skills</h3>
  
@@ -1073,7 +1156,7 @@ if (!graduationDetails.gState) {
                 />
               </fieldset>
               <div id="item_date" className="dropdown titles-dropdown">
-                <label htmlFor={`startDate-${index}`}>Start Date</label>
+                <label class="title-user color-1 fw-7" htmlFor={`startDate-${index}`}>Start Date</label>
                 <input
                   type="date"
                   className="input-form"
@@ -1083,7 +1166,7 @@ if (!graduationDetails.gState) {
                 />
               </div>
               <div id="item_date" className="dropdown titles-dropdown">
-                <label htmlFor={`endDate-${index}`}>End Date</label>
+                <label class="title-user color-1 fw-7" htmlFor={`endDate-${index}`}>End Date</label>
                 <input
                   type="date"
                   className="input-form"

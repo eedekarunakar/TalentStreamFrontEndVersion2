@@ -421,7 +421,7 @@ input[type="color"] {
   width: 100%;
   font-size: 14px;
   border: 1px solid #e5e5e5;
-  color: #a0a0a0;
+  color: #000000;
   background-color: transparent;
   height: 50px;
   padding: 12px 30px;
@@ -1534,7 +1534,7 @@ input[type="color"],
   margin-left: 2px!important;
   }
   #header .sticky-area-wrap .header-ct-left .logo .site-logo {
-    width: 140px!important;
+    width: 130px!important;
     display: block!important;
   }
   #header .sticky-area-wrap .header-ct-right .account {

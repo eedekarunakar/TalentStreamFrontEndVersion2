@@ -847,9 +847,9 @@ const handleResumeUpload = async () => {
           <div class="author-profile flex2 border-bt">
  
           <div class="wrap-img flex2">
-  <div class="img-box relative">
+  {/* <div class="img-box relative">
     <img class="avatar" id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />
-  </div>
+  </div> */}
   <div id="upload-profile">
     <h5 class="fw-6">Upload your profile picture: </h5>
     <h6>JPG or PNG</h6>
@@ -872,6 +872,8 @@ const handleResumeUpload = async () => {
         border: 'none',
         borderRadius: '5px',
         cursor: 'pointer',
+        marginLeft:'5px',
+        marginTop:'5px'
       }}
     >
       Upload Photo
@@ -879,9 +881,9 @@ const handleResumeUpload = async () => {
   </div>
 </div>&nbsp;&nbsp;&nbsp;
 <div class="wrap-img flex2">
-  <div class="img-box relative">
+  {/* <div class="img-box relative">
     <img class="avatar " id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />
-      </div>
+      </div> */}
   <div id="upload-profile">
     <h5 class="fw-6">Upload your resume: </h5>
     <h6>PDF only</h6>
@@ -904,6 +906,8 @@ const handleResumeUpload = async () => {
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
+    marginLeft:'5px',
+    marginTop:'5px'
   }}
 >
   Upload Resume

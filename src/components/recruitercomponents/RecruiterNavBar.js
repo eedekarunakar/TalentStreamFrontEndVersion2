@@ -62,10 +62,10 @@ function RecruiterNavBar() {
 
   const logout = () => {
     clearJWTToken();
-     const confirm = window.confirm("Are you sure want to logout?");
+     const confirm = window.confirm("Do you want to log out?");
      if(confirm){
        clearJWTToken();
-         window.location.href = "/login";
+         window.location.href = "/";
      }else {
          // same as clicking a link         // not optimal solution though        window.location.href = window.location.href;
      }

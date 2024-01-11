@@ -338,14 +338,14 @@ function RecruiterMyOrganization() {
            
               <div className="wrap-img flex2">
              
-                <div className="img-box relative">
+                {/* <div className="img-box relative">
                   <img
                     className="avatar "
                     id="profileimg"
                     src="../images/dashboard/image-up.jpg"
                     alt=""
                   />
-                </div>
+                </div> */}
                
                 <div id="upload-profile">
     <h5 class="fw-6">Upload Company Logo: </h5>
@@ -369,6 +369,8 @@ function RecruiterMyOrganization() {
         border: 'none',
         borderRadius: '5px',
         cursor: 'pointer',
+        marginLeft:'5px',
+        marginTop:'5px'
       }}
     >
       Upload Photo

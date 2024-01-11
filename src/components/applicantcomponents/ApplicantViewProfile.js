@@ -29,7 +29,7 @@ const ApplicantViewProfile = () => {
   
     const fetchData = async () => {
       try {
-        profileResponse = await axios.get(`${apiUrl}/applicantprofile/getdetails/${id}`);
+        profileResponse = await axios.get(`${apiUrl}/applicantprofile/${id}/profile-view`);
         setProfileData(profileResponse.data);
         count = 1;
         const imageResponse = await axios.get(`${apiUrl}/applicant-image/getphoto/${id}`, { responseType: 'arraybuffer' });
@@ -99,11 +99,11 @@ const ApplicantViewProfile = () => {
                 <img src={imageSrc} alt="" width="150px" height="50px" />
               </div>
               <div className="content">
-                <h5 style={{ fontSize: '24px' }} className="fw-6 color-3 ">Applicant</h5>
-                <div className="check-box flex2">
+                <h5 style={{ fontSize: '24px' }} className="fw-6 color-3 ">{profileData.applicant.name}</h5>
+                {/* <div className="check-box flex2">
                   <h3>{profileData.basicDetails.firstName} {profileData.basicDetails.lastName}</h3>
                                  
-                </div>
+                </div> */}
                 <div className="tag-wrap flex">
                 <div className="tag-box flex" style={{ fontSize: '18px' }}>
                     {profileData.skillsRequired.map(skill => (
@@ -132,13 +132,25 @@ const ApplicantViewProfile = () => {
           <div className="wrap-about flex">
             <div className="side-bar">
               <div className="sidebar-map bg-white">
+              <div className="title-box flex">
+                  <div className="p-16">First Name</div>
+                  <h4>{profileData.basicDetails.firstName} </h4>
+                </div>
+                <div className="title-box flex">
+                  <div className="p-16">Last Name</div>
+                  <h4>{profileData.basicDetails.lastName} </h4>
+                </div>
+              <div className="title-box flex">
+                  <div className="p-16">Email</div>
+                  <h4>{profileData.applicant.email} </h4>
+                </div>
                  <div className="title-box flex">
                   <div className="p-16">Location</div>
                   <h4>{profileData.basicDetails.city} ,{profileData.basicDetails.state}</h4>
                 </div>
                 <div className="title-box flex">
-                  <div className="p-16">Phone Number</div>
-                  <h4>{profileData.basicDetails.alternatePhoneNumber} </h4>
+                  <div className="p-16">Mobile Number</div>
+                  <h4>{profileData.applicant.mobilenumber} </h4>
                 </div>
                 <div className="title-box flex">
                   <div className="p-16">Email</div>
