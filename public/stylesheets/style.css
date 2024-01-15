@@ -1589,7 +1589,7 @@ input[type="color"],
   position: absolute;
   margin-top: -1px;
   top: 100%;
-  left: -50px;
+  right: 20px;
   transition: ease-out 0.3s;
   width: 288px;
   padding: 24px;
@@ -3118,7 +3118,7 @@ input[type="color"],
 /* Scroll
 ------------------------------------------------------ */
 #scroll-top.show {
-  right: 15px;
+  right: 0px;
   opacity: 1;
   visibility: visible;
 }

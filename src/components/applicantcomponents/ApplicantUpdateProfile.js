@@ -11,6 +11,11 @@ function ApplicantUpdateProfile() {
   const user=user1.user;
   let error = "";
  
+  const [formData, setFormData] = useState({
+    // ... existing state properties
+    declaration1: false,
+    declaration2: false,
+  });
   const [errors, setErrors] = useState({
     basicDetails: {},
     xClassDetails: {},
@@ -30,18 +35,7 @@ function ApplicantUpdateProfile() {
       skillsRequired: [],
       experienceDetails: [],
     };
- 
-    // Basic Details
-   /* if (!basicDetails.firstName.trim()) {
-      newErrors.basicDetails.firstName = 'First Name is required';
-    }  */
- 
-   /* if (!validator.isDate(basicDetails.dateOfBirth)) {
-     console.log(basicDetails.dateOfBirth);
-
-      newErrors.basicDetails.dateOfBirth = 'Date of Birth is required';
-    } */
-    const currentDate = new Date();
+const currentDate = new Date();
 const maxAllowedAge = 18;
 
 //if (!validator.isDate(basicDetails.dateOfBirth)) 
@@ -49,7 +43,7 @@ if(fielname === "" || fielname === "dateOfBirth")
 {
 if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
  
-  newErrors.basicDetails.dateOfBirth = 'Date of Birth is required';
+  newErrors.basicDetails.dateOfBirth = 'Date of birth is required';
 } else {
   const selectedDate = new Date(basicDetails.dateOfBirth);
   
@@ -78,20 +72,16 @@ if(fielname === "" || fielname === "city")
       newErrors.basicDetails.address = 'Address is required';
     }
   }
-   /*  if (!basicDetails.pincode.trim()) {
-      newErrors.basicDetails.pincode = 'Pin Code is required';
-    } */
+  
     if(fielname === "" || fielname === "pincode")
 {
     if (!basicDetails.pincode.trim()) {
-      newErrors.basicDetails.pincode = 'Pin Code is required';
+      newErrors.basicDetails.pincode = 'Pincode is required';
     } else if (!/^\d{6}$/.test(basicDetails.pincode.trim())) {
-      newErrors.basicDetails.pincode = 'Pin Code should be 6 digits and contain only numbers';
+      newErrors.basicDetails.pincode = 'Pincode should be 6 digits and contain only numbers';
     }
   }
-   /*  if (!basicDetails.state.trim()) {
-      newErrors.basicDetails.state = 'State is required';
-    } */
+   
     if(fielname === "" || fielname === "state")
 {
     if (!basicDetails.state) {
@@ -103,30 +93,19 @@ if(fielname === "" || fielname === "city")
       }
     }
   }
-   /* if (!basicDetails.address.trim()) {
-      newErrors.basicDetails.pincode = 'Address is required';
-    } */
-    // Add similar validations for other basic details...
- 
-    // X Class Details
-   /*  if (!xClassDetails.xschoolName.trim()) {
-      newErrors.xClassDetails.xschoolName = 'School Name is required';
-    } */
+  
     if(fielname === "" || fielname === "xschoolName")
     {
     if (!xClassDetails.xschoolName) {
-      newErrors.xClassDetails.xschoolName = 'School Name is required';
+      newErrors.xClassDetails.xschoolName = 'School name is required';
     } else {
       // Validation for text only
       if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xschoolName.trim())) {
-        newErrors.xClassDetails.xschoolName = 'School Name should not be number';
+        newErrors.xClassDetails.xschoolName = 'School name should not be number';
       }
     }}
 
-   /*  if (!xClassDetails.xboard.trim()) {
-      newErrors.xClassDetails.xboard = 'Board is required';
-    }
-  */
+   
     if(fielname === "" || fielname === "xboard")
     {
     if (!xClassDetails.xboard) {
@@ -138,9 +117,7 @@ if(fielname === "" || fielname === "city")
       }
     }
   }
-   /*  if (!xClassDetails.xpercentage.trim()) {
-      newErrors.xClassDetails.xpercentage = 'Percentage is required';
-    } */
+   
     if(fielname === "" || fielname === "xpercentage")
 {
     if (!xClassDetails.xpercentage.trim()) {
@@ -156,43 +133,35 @@ if(fielname === "" || fielname === "city")
       }
     }
   }
-   /*  if (!xClassDetails.xPincode.trim()) {
-      newErrors.xClassDetails.xPincode = 'Pin Code is required';
-    }
-  */
+   
     if(fielname === "" || fielname === "xPincode")
     {
     if (!xClassDetails.xPincode.trim()) {
-      newErrors.xClassDetails.xPincode = 'Pin Code is required';
+      newErrors.xClassDetails.xPincode = 'Pincode is required';
     } else if (!/^\d{6}$/.test(xClassDetails.xPincode.trim())) {
-      newErrors.xClassDetails.xPincode = 'Pin Code should be 6 digits and contain only numbers';
+      newErrors.xClassDetails.xPincode = 'Pincode should be 6 digits and contain only numbers';
     }
   }
-   /*  if (!xClassDetails.xyearOfPassing.trim()) {
-      newErrors.xClassDetails.xyearOfPassing = 'Year of Passing is required';
-    } */
+   
    // Validation for required field
    if(fielname === "" || fielname === "xyearOfPassing")
 {
 if (!xClassDetails.xyearOfPassing) {
-  newErrors.xClassDetails.xyearOfPassing = 'Year of Passing is required';
+  newErrors.xClassDetails.xyearOfPassing = 'Year of passing is required';
 } else {
   // Validation for 4-digit numeric value
   if (!/^\d{4}$/.test(xClassDetails.xyearOfPassing.trim())) {
-    newErrors.xClassDetails.xyearOfPassing = 'Year of Passing should be a 4-digit number';
+    newErrors.xClassDetails.xyearOfPassing = 'Year of passing should be a 4-digit number';
   } else {
     // Additional validation for numeric value (no special characters or alphabets)
     if (!/^\d+$/.test(xClassDetails.xyearOfPassing.trim())) {
-      newErrors.xClassDetails.xyearOfPassing = 'Year of Passing should contain only digits';
+      newErrors.xClassDetails.xyearOfPassing = 'Year of passing should contain only digits';
     }
   }
 }
 }
  
-   /*  if (!xClassDetails.xCity.trim()) {
-      newErrors.xClassDetails.xCity = 'City is required';
-    } */
-    // Validation for City
+       // Validation for City
     if(fielname === "" || fielname === "xCity")
 {
 if (!xClassDetails.xCity) {
@@ -217,46 +186,31 @@ if (!xClassDetails.xState) {
   }
 }
 }
-   /*  if (!xClassDetails.xState.trim()) {
-      newErrors.xClassDetails.xState = 'State is required';
-    } */
-    // Add similar validations for other X Class details...
- 
-    // Intermediate Details
-    /* if (!intermediateDetails.icollegeName.trim()) {
-      newErrors.intermediateDetails.icollegeName = 'College Name is required';
-    } */
+   
    // Validation for College Name
    if(fielname === "" || fielname === "icollegeName")
 {
 if (!intermediateDetails.icollegeName) {
-  newErrors.intermediateDetails.icollegeName = 'College Name is required';
+  newErrors.intermediateDetails.icollegeName = 'College name is required';
 } else {
   // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.icollegeName.trim())) {
-    newErrors.intermediateDetails.icollegeName = 'College Name should not be number';
+    newErrors.intermediateDetails.icollegeName = 'College name should not be number';
   }
 }
 }
-   /*  if (!intermediateDetails.iboard.trim()) {
-      newErrors.intermediateDetails.iboard = 'Board Name is required';
-    }
-  */
-// Validation for Board Name
+   // Validation for Board Name
 if(fielname === "" || fielname === "iboard")
 {
 if (!intermediateDetails.iboard) {
-  newErrors.intermediateDetails.iboard = 'Board Name is required';
+  newErrors.intermediateDetails.iboard = 'Board name is required';
 } else {
   // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iboard.trim())) {
-    newErrors.intermediateDetails.iboard = 'Board Name should not be number only';
+    newErrors.intermediateDetails.iboard = 'Board name should not be number only';
   }
 }
 }
-    /* if (!intermediateDetails.iprogram.trim()) {
-      newErrors.intermediateDetails.iprogram = 'Program is required';
-    } */
 
 // Validation for Program
 if(fielname === "" || fielname === "iprogram")
@@ -270,9 +224,7 @@ if (!intermediateDetails.iprogram) {
   }
 }
 }
-   /*  if (!intermediateDetails.ipercentage.trim()) {
-      newErrors.intermediateDetails.ipercentage = 'Percentage is required';
-    } */
+   
     if(fielname === "" || fielname === "ipercentage")
 {
     if (!intermediateDetails.ipercentage.trim()) {
@@ -288,28 +240,24 @@ if (!intermediateDetails.iprogram) {
       }
     }
   }
-  /*  if (!intermediateDetails.iyearOfPassing.trim()) {
-      newErrors.intermediateDetails.iyearOfPassing = 'Year of passing is required';
-    } */
+  
     if(fielname === "" || fielname === "iyearOdPassing")
 {
     if (!intermediateDetails.iyearOfPassing) {
-      newErrors.intermediateDetails.iyearOfPassing = 'Year of Passing is required';
+      newErrors.intermediateDetails.iyearOfPassing = 'Year of passing is required';
     } else {
       // Validation for 4-digit numeric value
       if (!/^\d{4}$/.test(intermediateDetails.iyearOfPassing.trim())) {
-        newErrors.intermediateDetails.iyearOfPassing = 'Year of Passing should be a 4-digit number';
+        newErrors.intermediateDetails.iyearOfPassing = 'Year of passing should be a 4-digit number';
       } else {
         // Additional validation for numeric value (no special characters or alphabets)
         if (!/^\d+$/.test(intermediateDetails.iyearOfPassing.trim())) {
-          newErrors.intermediateDetails.iyearOfPassing = 'Year of Passing should contain only digits';
+          newErrors.intermediateDetails.iyearOfPassing = 'Year of passing should contain only digits';
         }
       }
     }
   }
-    /* if (!intermediateDetails.iCity.trim()) {
-      newErrors.intermediateDetails.iCity = 'City is required';
-    } */
+    
 // Validation for Intermediate City
 if(fielname === "" || fielname === "iCity")
 {
@@ -322,10 +270,7 @@ if (!intermediateDetails.iCity) {
   }
 }
 }
-   /*  if (!intermediateDetails.iState.trim()) {
-      newErrors.intermediateDetails.iState = 'State is required';
-    } */
-
+   
     // Validation for Intermediate State
     if(fielname === "" || fielname === "iState")
 {
@@ -338,41 +283,31 @@ if (!intermediateDetails.iState) {
   }
 }
 }
-   /*  // Graduation Details
-    if (!graduationDetails.gcollegeName.trim()) {
-      newErrors.graduationDetails.gcollegeName = 'College Name is required';
-    } */
-    // Validation for Graduation College Name
+      // Validation for Graduation College Name
     if(fielname === "" || fielname === "gcollegeName")
 {
 if (!graduationDetails.gcollegeName) {
-  newErrors.graduationDetails.gcollegeName = 'College Name is required';
+  newErrors.graduationDetails.gcollegeName = 'College name is required';
 } else {
   // Validation for text only
   if (!/^[^\d]+$/.test(graduationDetails.gcollegeName.trim())) {
-    newErrors.graduationDetails.gcollegeName = 'College Name should contain text only';
+    newErrors.graduationDetails.gcollegeName = 'College name should contain text only';
   }
 }
 }
-   /*  if (!graduationDetails.gboard.trim()) {
-      newErrors.graduationDetails.gboard = 'Board Name is required';
-    } */
-    // Validation for Graduation Board Name
+       // Validation for Graduation Board Name
     if(fielname === "" || fielname === "gboard")
 {
 if (!graduationDetails.gboard) {
-  newErrors.graduationDetails.gboard = 'Board Name is required';
+  newErrors.graduationDetails.gboard = 'Board name is required';
 } else {
   // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gboard.trim())) {
-    newErrors.graduationDetails.gboard = 'Board Name should contain text only';
+    newErrors.graduationDetails.gboard = 'Board name should contain text only';
   }
 }
 }
-   /*  if (!graduationDetails.gprogram.trim()) {
-      newErrors.graduationDetails.gprogram = 'Program is required';
-    } */
-
+   
     // Validation for Graduation Program
     if(fielname === "" || fielname === "gprogram")
 {
@@ -385,10 +320,7 @@ if (!graduationDetails.gprogram) {
   }
 }
 }
-    /* if (!graduationDetails.gpercentage.trim()) {
-      newErrors.graduationDetails.gpercentage = 'Percentage is required';
-    } */
-    if(fielname === "" || fielname === "gpercentage")
+      if(fielname === "" || fielname === "gpercentage")
 {
     if (!graduationDetails.gpercentage.trim()) {
       newErrors.graduationDetails.gpercentage = 'Percentage is required';
@@ -403,32 +335,24 @@ if (!graduationDetails.gprogram) {
       }
     }
   }
-   /*  if (!graduationDetails.gyearOfPassing.trim()) {
-      newErrors.graduationDetails.gyearOfPassing = 'Year of passing is required';
-    } */
+   
     if(fielname === "" || fielname === "gyearOfPassing")
 {
     if (!graduationDetails.gyearOfPassing) {
-      newErrors.graduationDetails.gyearOfPassing = 'Year of Passing is required';
+      newErrors.graduationDetails.gyearOfPassing = 'Year of passing is required';
     } else {
       // Validation for 4-digit numeric value
       if (!/^\d{4}$/.test(graduationDetails.gyearOfPassing.trim())) {
-        newErrors.graduationDetails.gyearOfPassing = 'Year of Passing should be a 4-digit number';
+        newErrors.graduationDetails.gyearOfPassing = 'Year of passing should be a 4-digit number';
       } else {
         // Additional validation for numeric value (no special characters or alphabets)
         if (!/^\d+$/.test(graduationDetails.gyearOfPassing.trim())) {
-          newErrors.graduationDetails.gyearOfPassing = 'Year of Passing should contain only digits';
+          newErrors.graduationDetails.gyearOfPassing = 'Year of passing should contain only digits';
         }
       }
     }
   }
-    // if (!graduationDetails.gCity.trim()) {
-    //   newErrors.graduationDetails.gCity = 'City is required';
-    // }
-    // if (!graduationDetails.gState.trim()) {
-    //   newErrors.graduationDetails.gState = 'State is required';
-    // }
-
+   
     // Validation for Graduation City
     if(fielname === "" || fielname === "gCity")
 {
@@ -453,19 +377,8 @@ if (!graduationDetails.gState) {
   }
 }
 }
-    // Add similar validations for other Graduation details...
- 
-    // Skills
-   /*  skillsRequired.forEach((skill, index) => {
-      if (!skill.skillName.trim()) {
-        newErrors.skillsRequired[index] = { skillName: 'Skill Name is required' };
-      }       
- 
-      if (!skill.experience.trim()) {
-        newErrors.skillsRequired[index].experience = 'Experience is required';
-      }
-    }); */
-    //Skills
+    
+       //Skills
     skillsRequired.forEach((skill, index) => {
       // Validation for Skill Name
       if(fielname === "" || fielname === "skillName")
@@ -473,11 +386,11 @@ if (!graduationDetails.gState) {
       if (skill==undefined || !skill.skillName) {     
         if(newErrors.skillsRequired[index]===undefined)
         newErrors.skillsRequired[index] =  {skillName:'',experience:''};
-        newErrors.skillsRequired[index].skillName='Skill Name is required';
+        newErrors.skillsRequired[index].skillName='Skill name is required';
       } else if (/^\d+$/.test(skill.skillName)) {
         if(newErrors.skillsRequired[index]===undefined)
   newErrors.skillsRequired[index] =  {skillName:'',experience:''};
-          newErrors.skillsRequired[index].skillName='Skill Name should not be a numeric'; 
+          newErrors.skillsRequired[index].skillName='Skill name should not be a numeric'; 
       }
     }
     //Experience
@@ -496,26 +409,6 @@ if (!graduationDetails.gState) {
       }
     }
     });
- // Log the newErrors object for debugging
-
-    // Experience
-    // experienceDetails.forEach((experience, index) => {
-    //   if (!experience.company.trim()) {
-    //     newErrors.experienceDetails[index] = { company: 'Company Name is required' };
-    //   }
- 
-    //   if (!experience.position.trim()) {
-    //     newErrors.experienceDetails[index].position = 'Position is required';
-    //   }
- 
-    //   if (!experience.startDate.trim()) {
-    //     newErrors.experienceDetails[index].startDate = 'Start Date is required';
-    //   }
- 
-    //   if (!experience.endDate.trim()) {
-    //     newErrors.experienceDetails[index].endDate = 'End Date is required';
-    //   }
-    // });
  
     setErrors(newErrors);
     
@@ -637,8 +530,7 @@ if (!graduationDetails.gState) {
     },
   ]);
  
- 
- 
+  
   const [resumeFile, setResumeFile] = useState(null);
   const [photoFile,setPhotoFile]=useState(null);
   const [dragging, setDragging] = useState(false);
@@ -655,8 +547,7 @@ if (!graduationDetails.gState) {
  
   };
  
- 
- 
+  
   const addSkills = () => {
  
     setSkillsRequired([...skillsRequired, { skillName: "", experience: "" }]);
@@ -670,8 +561,7 @@ if (!graduationDetails.gState) {
       // Update the state with the new skills array
       setSkillsRequired(updatedSkills);
     }
-  };
- 
+  }; 
  
   const handleExperienceChange = (e, index, field) => {
     const newExperienceDetails = [...experienceDetails];
@@ -693,17 +583,14 @@ if (!graduationDetails.gState) {
     }
    
   };
-  
- 
+   
   const handleFileDrop = (e) => {
     e.preventDefault();
     setDragging(false);
     const file = e.dataTransfer.files[0];
     setResumeFile(file);
   };
- 
- 
- 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -713,7 +600,11 @@ if (!graduationDetails.gState) {
     if (!isFormValid) {
       return;
     }
-    
+    if (!formData.declaration1 || !formData.declaration2) {
+      window.alert("Please check checkboxes before submitting.");
+      return;
+    }
+        
     // Prepare data to be sent
     const userData = {
       basicDetails,
@@ -763,8 +654,7 @@ if (!graduationDetails.gState) {
     console.error('An error occurred:', error);
   }
 };
- 
- 
+  
 const handleFileSelect = (e) => {
   const file = e.target.files[0];
   setPhotoFile(file);
@@ -920,30 +810,48 @@ const handleResumeUpload = async () => {
   <button type="submit" className='button-status'>Save Profile</button>*/}
   </div>
 </div>
-            <div className="form-infor-profile">
+            <div className="flat-dashboard-post form-infor-profile">        
+             <div className="row">
+              <div className="col-lg-12 col-md-12 ">  
               <h3 className="title-info">Information</h3>
-              <div className="form-infor flex flat-form">
-                <div className="info-box info-wd">
-                  <fieldset>
+              </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className=" dropdown titles-dropdown info-wd">
                   <label class="title-user fw-7">Date of Birth <span className="color-red">*</span></label>
                      <input
                              type="date"
                              placeholder="Date of Birth"
                              id="dateOfBirth"
                              className="input-form"
-                          //   onfocus="(this.type='date')"
-                           //  onblur="(this.type='date')"
+                             style={{ color: basicDetails.dateOfBirth==="dd-mm-yyyy"||basicDetails.dateOfBirth===""? 'lightgrey': 'black' }}
                              value={basicDetails.dateOfBirth}
                              onChange={(e) =>{
-                              console.log(e.target.value);
+                            console.log(e.target.value);
                              setBasicDetails({...basicDetails,dateOfBirth: e.target.value,})}}
                              onBlur={() => validateForm("dateOfBirth")}                             
                        /> 
                        {errors.basicDetails.dateOfBirth && (
               <div className="error-message">{errors.basicDetails.dateOfBirth}</div>
             )}
-                  </fieldset>
-                  <fieldset>
+              </div>
+              </div>
+              <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+                  <label class="title-user fw-7">Address <span className="color-red">*</span></label>
+                    <input
+                            type="text"
+                            placeholder="Address"
+                            className="input-form"                            
+                            value={basicDetails.address}
+                            onChange={(e) =>
+                            setBasicDetails({ ...basicDetails, address: e.target.value })}
+                            onBlur={() => validateForm("address")}
+                     />
+                      {errors.basicDetails.address && (
+              <div className="error-message">{errors.basicDetails.address}</div>
+            )}
+                  </div>
+                 
+                  <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
                   <label class="title-user fw-7">City <span className="color-red">*</span></label>
                     <input type="text"
                            placeholder="City"
@@ -956,8 +864,23 @@ const handleResumeUpload = async () => {
                    {errors.basicDetails.city && (
               <div className="error-message">{errors.basicDetails.city}</div>
             )}
-                  </fieldset>
-                  <div id="item_date" className="dropdown titles-dropdown">
+                  </div>
+                  <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+                  <label class="title-user fw-7">State <span className="color-red">*</span></label>
+                    <input
+                        type="text"
+                        placeholder="State"
+                        className="input-form"
+                        value={basicDetails.state}
+                        onChange={(e) =>
+                        setBasicDetails({ ...basicDetails, state: e.target.value })}
+                        onBlur={() => validateForm("state")}
+                   />
+                    {errors.basicDetails.state && (
+              <div className="error-message">{errors.basicDetails.state}</div>
+            )}
+                  </div>
+                  <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
                   <label class="title-user fw-7">Pin Code <span className="color-red">*</span></label>
                     <input
                             type="text"
@@ -972,41 +895,9 @@ const handleResumeUpload = async () => {
                      {errors.basicDetails.pincode && (
               <div className="error-message">{errors.basicDetails.pincode}</div>
             )}
-                  </div>
                 </div>
-                <div className="info-box info-wd">
-                  <fieldset>
-                  <label class="title-user fw-7">Address <span className="color-red">*</span></label>
-                    <input
-                            type="text"
-                            placeholder="Address"
-                            className="input-form"
-                            value={basicDetails.address}
-                            onChange={(e) =>
-                            setBasicDetails({ ...basicDetails, address: e.target.value })}
-                            onBlur={() => validateForm("address")}
-                     />
-                      {errors.basicDetails.address && (
-              <div className="error-message">{errors.basicDetails.address}</div>
-            )}
-                  </fieldset>
-                  <fieldset>
-                  <label class="title-user fw-7">State <span className="color-red">*</span></label>
-                    <input
-                        type="text"
-                        placeholder="State"
-                        className="input-form"
-                        value={basicDetails.state}
-                        onChange={(e) =>
-                        setBasicDetails({ ...basicDetails, state: e.target.value })}
-                        onBlur={() => validateForm("state")}
-                   />
-                    {errors.basicDetails.state && (
-              <div className="error-message">{errors.basicDetails.state}</div>
-            )}
-                  </fieldset>
-                  <div id="item_size" className="dropdown titles-dropdown ">
-                  <label class="title-user fw-7">Alternate Phone Number</label>
+                <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+                <label class="title-user fw-7">Alternate Phone Number</label>
                     <input
                              type="text"
                              placeholder="Alternate Phone Number"
@@ -1015,18 +906,18 @@ const handleResumeUpload = async () => {
                              onChange={(e) =>
                              setBasicDetails({...basicDetails,alternatePhoneNumber: e.target.value,})}
                     />
-                  </div>
-                </div>
+                    </div>
+                  </div>                              
                
+           
+            <div className="flat-dashboard-post form-infor-profile">        
+             <div className="row">
+              <div className="col-lg-12 col-md-12 ">  
+              <h3 className="title-info">Education- X Class</h3>
               </div>
-             </div>
-             <div className="form-infor-profile">
-              <h3 className="title-info">Education- X Class <span className="color-red">*</span></h3>
-              <div className="form-infor flex flat-form">
-                <div className="info-box info-wd">
-                  <fieldset>
-                  <input
- 
+                  <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">     
+                  <label class="title-user fw-7">School Name<span className="color-red">*</span></label>        
+                    <input
                          type="text"
                           placeholder="School Name"
                           className="input-form"
@@ -1040,8 +931,9 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.xClassDetails.xschoolName}</div>
             )}
           </div>
-                  </fieldset>
-                  <fieldset>
+          </div> 
+                <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+                <label class="title-user fw-7">Board<span className="color-red">*</span></label>
                     <input
                            type="text"
                            placeholder="Board"
@@ -1055,9 +947,10 @@ const handleResumeUpload = async () => {
             {errors.xClassDetails.xboard && (
               <div className="error-message">{errors.xClassDetails.xboard}</div>
             )}
-          </div>
-                  </fieldset>
-                  <div id="item_date" className="dropdown titles-dropdown">
+              </div>
+              </div> 
+              <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">Percentage<span className="color-red">*</span></label>
                     <input type="text"
                           placeholder="Percentage"
                           className="input-form"
@@ -1070,26 +963,9 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.xClassDetails.xpercentage}</div>
             )}
           </div>
-                  </div>
-                  <div id="item_date" className="dropdown titles-dropdown">
-                  <input
-                         type="text"
-                         placeholder="Pincode"
-                         className="input-form"
-                         maxLength={6}
-                         value={xClassDetails.xPincode}
-                         onChange={(e) =>setXClassDetails({...xClassDetails,xPincode: e.target.value,})}
-                         onBlur={() => validateForm("xPincode")}
-                  />
-                   <div className="validation-errors">
-            {errors.xClassDetails.xPincode && (
-              <div className="error-message">{errors.xClassDetails.xPincode}</div>
-            )}
-            </div>
-                  </div>
-                </div>
-                <div className="info-box info-wd">
-                  <fieldset>
+          </div> 
+            <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">Year Of Passing<span className="color-red">*</span></label>
                     <input
                            type="text"
                            placeholder="Year of passing"
@@ -1105,8 +981,9 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.xClassDetails.xyearOfPassing}</div>
             )}
             </div>
-                  </fieldset>
-                  <fieldset>
+            </div> 
+            <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">City<span className="color-red">*</span></label>
                   <input  type="text"
                           placeholder="City"
                           className="input-form"
@@ -1120,9 +997,10 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.xClassDetails.xCity}</div>
             )}
             </div>
-                  </fieldset>
-                  <div id="item_size" className="dropdown titles-dropdown ">
-                  <input  type="text"
+            </div> 
+            <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">State<span className="color-red">*</span></label>
+            <input  type="text"
                           placeholder="State"
                           className="input-form"
                           value={xClassDetails.xState}
@@ -1133,39 +1011,58 @@ const handleResumeUpload = async () => {
                    <div className="validation-errors">
             {errors.xClassDetails.xState && (
               <div className="error-message">{errors.xClassDetails.xState}</div>
-            )}
-            </div>
-                  </div>
-                </div>
-               
-              </div>
-             </div>
-             <div className="form-infor-profile">
-              <h3 className="title-info">Education- Inter/Diploma Details <span className="color-red">*</span></h3>
-              <div className="form-infor flex flat-form">
-                <div className="info-box info-wd">
-                  <fieldset>
-                  <input
- 
+            )} 
+            </div> 
+            </div> 
+
+            <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+            <label class="title-user fw-7">Pincode<span className="color-red">*</span></label> 
+            <input
                          type="text"
-                          placeholder="Name of college"
-                          className="input-form"
-                          value={intermediateDetails.icollegeName}
-                          onChange={(e) =>
-                            setIntermediateDetails({
-                              ...intermediateDetails,
-                              icollegeName: e.target.value,})} 
-                              onBlur={() => validateForm("icollegeName")}
+                         placeholder="Pincode"
+                         className="input-form"
+                         maxLength={6}
+                         value={xClassDetails.xPincode}
+                         onChange={(e) =>setXClassDetails({...xClassDetails,xPincode: e.target.value,})}
+                         onBlur={() => validateForm("xPincode")}
                   />
-                 
-                  <div className="validation-errors">
-            {errors.intermediateDetails.icollegeName && (
-              <div className="error-message">{errors.intermediateDetails.icollegeName}</div>
+                   <div className="validation-errors">
+            {errors.xClassDetails.xPincode && (
+              <div className="error-message">{errors.xClassDetails.xPincode}</div>
             )}
+            </div>                        
+              </div>
+              </div>
+              </div>            
+           
+           
+            <div className="flat-dashboard-post form-infor-profile">        
+             <div className="row">
+              <div className="col-lg-12 col-md-12 ">  
+              <h3 className="title-info">Education- Inter/Diploma Details</h3>
+              </div>
+                  <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">     
+                  <label class="title-user fw-7">Name Of College<span className="color-red">*</span></label>        
+                  <input 
+                    type="text"
+                    placeholder="Name of college"
+                    className="input-form"
+                    value={intermediateDetails.icollegeName}
+                    onChange={(e) =>
+                    setIntermediateDetails({
+                    ...intermediateDetails,
+                    icollegeName: e.target.value,})} 
+                    onBlur={() => validateForm("icollegeName")}
+                  />
+              <div className="validation-errors">
+              {errors.intermediateDetails.icollegeName && (
+              <div className="error-message">{errors.intermediateDetails.icollegeName}</div>
+                  )}
           </div>
-                  </fieldset>
-                  <fieldset>
-                    <input
+          </div> 
+                <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+                <label class="title-user fw-7">Board<span className="color-red">*</span></label>
+                <input
                            type="text"
                            placeholder="Board"
                            className="input-form"
@@ -1179,9 +1076,10 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.intermediateDetails.iboard}</div>
             )}
           </div>
-                  </fieldset>
-                  <div id="item_date" className="dropdown titles-dropdown">
-                    <input type="text"
+              </div> 
+              <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">Program<span className="color-red">*</span></label>
+              <input type="text"
                           placeholder="Program"
                           className="input-form"
                           value={intermediateDetails.iprogram}
@@ -1196,27 +1094,10 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.intermediateDetails.iprogram}</div>
             )}
           </div>
-                  </div>
-                  <div id="item_date" className="dropdown titles-dropdown">
-                  <input
-                          type="text"
-                          placeholder="Percentage"
-                          className="input-form"
-                          value={intermediateDetails.ipercentage}
-                          onChange={(e) =>
-                          setIntermediateDetails({...intermediateDetails,ipercentage: e.target.value,})}
-                          onBlur={() => validateForm("ipercentage")}
-                   />
-                   <div className="validation-errors">
-            {errors.intermediateDetails.ipercentage && (
-              <div className="error-message">{errors.intermediateDetails.ipercentage}</div>
-            )}
-          </div>
-                  </div>
-                </div>
-                <div className="info-box info-wd">
-                  <fieldset>
-                    <input
+          </div> 
+            <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">Year Of Passing<span className="color-red">*</span></label>
+              <input
                            type="text"
                            placeholder="Year of passing"
                            className="input-form"
@@ -1231,9 +1112,27 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.intermediateDetails.iyearOfPassing}</div>
             )}
           </div>
-                  </fieldset>
-                  <fieldset>
-                  <input  type="text"
+            </div> 
+            <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+            <label class="title-user fw-7">Percentage<span className="color-red">*</span></label> 
+            <input
+                         type="text"
+                         placeholder="Percentage"
+                         className="input-form"
+                         value={intermediateDetails.ipercentage}
+                         onChange={(e) =>
+                         setIntermediateDetails({...intermediateDetails,ipercentage: e.target.value,})}
+                         onBlur={() => validateForm("ipercentage")}
+                  />
+                  <div className="validation-errors">
+           {errors.intermediateDetails.ipercentage && (
+             <div className="error-message">{errors.intermediateDetails.ipercentage}</div>
+           )}
+         </div>        
+              </div>
+            <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">City<span className="color-red">*</span></label>
+              <input  type="text"
                           placeholder="City"
                           className="input-form"
                           value={intermediateDetails.iCity}
@@ -1247,9 +1146,10 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.intermediateDetails.iCity}</div>
             )}
           </div>
-                  </fieldset>
-                  <div id="item_size" className="dropdown titles-dropdown ">
-                  <input  type="text"
+            </div> 
+            <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">State<span className="color-red">*</span></label>
+              <input  type="text"
                           placeholder="State"
                           className="input-form"
                           value={intermediateDetails.iState}
@@ -1262,16 +1162,17 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.intermediateDetails.iState}</div>
             )}
           </div>
-                  </div>
-                </div>
-               
+            </div>             
               </div>
-             </div>
-             <div className="form-infor-profile">
-              <h3 className="title-info">Education- Graduation Details <span className="color-red">*</span></h3>
-              <div className="form-infor flex flat-form">
-                <div className="info-box info-wd">
-                  <fieldset>
+              </div>
+
+            <div className="flat-dashboard-post form-infor-profile">        
+             <div className="row">
+             <div className="col-lg-12 col-md-12 "> 
+              <h3 className="title-info">Education- Graduation Details</h3>
+              </div>
+              <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">Name Of College<span className="color-red">*</span></label>
                   <input
                            type="text"
                            placeholder="Name of college"
@@ -1285,11 +1186,12 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.graduationDetails.gcollegeName}</div>
             )}
           </div>
-                  </fieldset>
-                  <fieldset>
+          </div>
+          <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">University<span className="color-red">*</span></label>
                     <input
                            type="text"
-                           placeholder="Board"
+                           placeholder="University"
                            className="input-form"
                            value={graduationDetails.gboard}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gboard: e.target.value,})}
@@ -1300,8 +1202,10 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.graduationDetails.gboard}</div>
             )}
           </div>
-                  </fieldset>
-                  <div id="item_date" className="dropdown titles-dropdown">
+          </div>
+                 
+          <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">Program<span className="color-red">*</span></label>
                     <input type="text"
                           placeholder="Program"
                           className="input-form"
@@ -1318,8 +1222,9 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.graduationDetails.gprogram}</div>
             )}
           </div>
-                  </div>
-                  <div id="item_date" className="dropdown titles-dropdown">
+            </div>
+            <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">Percentage<span className="color-red">*</span></label>
                   <input
                           type="text"
                           placeholder="Percentage"
@@ -1334,10 +1239,9 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.graduationDetails.gpercentage}</div>
             )}
           </div>
-                  </div>
-                </div>
-                <div className="info-box info-wd">
-                  <fieldset>
+              </div>
+              <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">Year Of Passing<span className="color-red">*</span></label>
                     <input
                            type="text"
                            placeholder="Year of passing"
@@ -1351,8 +1255,9 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.graduationDetails.gyearOfPassing}</div>
             )}
           </div>
-                  </fieldset>
-                  <fieldset>
+              </div>
+              <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">City<span className="color-red">*</span></label>
                   <input  type="text"
                           placeholder="City"
                           className="input-form"
@@ -1366,8 +1271,9 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.graduationDetails.gCity}</div>
             )}
           </div>
-                  </fieldset>
-                  <div id="item_size" className="dropdown titles-dropdown ">
+              </div>
+              <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+              <label class="title-user fw-7">State<span className="color-red">*</span></label>
                   <input  type="text"
                           placeholder="State"
                           className="input-form"
@@ -1380,124 +1286,162 @@ const handleResumeUpload = async () => {
               <div className="error-message">{errors.graduationDetails.gState}</div>
             )}
           </div>
-                  </div>
-                </div>
-               
-              </div>
-             </div>
-    <div class="contact-wrap info-wd">
-                  <h3>Experience & Skills</h3>
- 
-                 <div class="form-social form-wg flex flat-form">
-                    <div class="form-box  wg-box">
-                      <div id="item_category2" class="dropdown titles-dropdow">
-                        <label class="title-user color-1 fw-7">Experience</label>
-                        {experienceDetails.map((experience, index) => (
-            <div key={index}>
-              <fieldset>
-              <label class="title-user color-1 fw-7">Compnay Name</label>
-                <input
-                  type="text"
-                  className="input-form"
-                  placeholder="ABC Pvt Ltd"
-                  value={experience.company}
-                  onChange={(e) => handleExperienceChange(e, index, "company")}
-                />
-              </fieldset>
-              <fieldset>
-              <label class="title-user color-1 fw-7">Position</label>
-                <input
-                  type="text"
-                  className="input-form"
-                  placeholder="Java Developer"
-                  value={experience.position}
-                  onChange={(e) => handleExperienceChange(e, index, "position")}
-                />
-              </fieldset>
-              <div id="item_date" className="dropdown titles-dropdown">
-                <label class="title-user color-1 fw-7" htmlFor={`startDate-${index}`}>Start Date</label>
-                <input
-                  type="date"
-                  className="input-form"
-                  id={`startDate-${index}`}
-                  value={experience.startDate}
-                  onChange={(e) => handleExperienceChange(e, index, "startDate")}
-                />
-              </div>
-              <div id="item_date" className="dropdown titles-dropdown">
-                <label class="title-user color-1 fw-7" htmlFor={`endDate-${index}`}>End Date</label>
-                <input
-                  type="date"
-                  className="input-form"
-                  id={`endDate-${index}`}
-                  value={experience.endDate}
-                  onChange={(e) => handleExperienceChange(e, index, "endDate")}
-                />
-              </div>
+          </div>                             
+          </div>
+          </div>
+           
+  <div className="flat-dashboard-post form-infor-profile">        
+  <div className="row">
+    <div className="col-lg-12 col-md-12"> 
+      <h3 className="title-info">Experience</h3>
+    </div>        
+    
+    {experienceDetails.map((experience, index) => (
+      <div key={index} className="row">
+        <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">           
+          <label className="title-user color-1 fw-7">Company Name</label>
+          <input
+            type="text"
+            className="input-form"
+            placeholder="ABC Pvt Ltd"
+            value={experience.company}
+            onChange={(e) => handleExperienceChange(e, index, "company")}
+          />
+        </div>
+        
+        <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd"> 
+          <label className="title-user color-1 fw-7">Position</label>
+          <input
+            type="text"
+            className="input-form"
+            placeholder="Java Developer"
+            value={experience.position}
+            onChange={(e) => handleExperienceChange(e, index, "position")}
+          />
+        </div>
+        
+        <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+          <label className="title-user color-1 fw-7" htmlFor={`startDate-${index}`}>Start Date</label>
+          <input
+            type="date"
+            style={{ color: experience.startDate==="dd-mm-yyyy"||experience.startDate===""? 'lightgrey': 'black' }}
+            className="input-form"
+            id={`startDate-${index}`}
+            value={experience.startDate}
+            onChange={(e) => handleExperienceChange(e, index, "startDate")}
+          />
+        </div>
+        
+        <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+          <label className="title-user color-1 fw-7" htmlFor={`endDate-${index}`}>End Date</label>
+          <input
+            type="date"
+            style={{ color: experience.endDate==="dd-mm-yyyy"||experience.endDate===""? 'lightgrey': 'black' }}
+            className="input-form"
+            id={`endDate-${index}`}
+            value={experience.endDate}
+            onChange={(e) => handleExperienceChange(e, index, "endDate")}
+          />
+        </div>
+      </div>
+    ))}
+    </div>
+    <button type="button" onClick={addExperience} style={{'color':'#FFFFFF','backgroundColor':'#1967d2'}}>
+      +
+    </button>
+    
+    {experienceDetails.length > 0 && (
+      <button type="button" onClick={() => removeExperience(experienceDetails.length - 1)} style={{'color':'#FFFFFF','backgroundColor':'#FF0000'}}>
+        -
+      </button>
+    )}  
+</div>
+<br/>
+<div className="flat-dashboard-post form-infor-profile">        
+  <div className="row">
+    <div className="col-lg-12 col-md-12"> 
+      <h3 className="title-info">Skills</h3>
+    </div>
+
+    {skillsRequired.map((skill, index) => (
+      <div>
+      <div key={index} className="row">
+        <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+          <label className="title-user fw-7">Your Skill<span className="color-red">*</span></label>
+          <input
+            type="text"
+            placeholder="Java"
+            className="input-form"
+            value={skill.skillName}
+            onChange={(e) => handleSkillChange(e, index, "skillName")}
+            onBlur={() => validateForm("skillName")}
+          />
+          {errors.skillsRequired[index]?.skillName && (
+            <div className="error-message">{errors.skillsRequired[index].skillName}</div>
+          )}
+        </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-6 col-md-12 dropdown titles-dropdown info-wd">
+            <label className="title-user fw-7">Your Experience<span className="color-red">*</span></label>
+            <input
+              type="text"
+              placeholder="5"
+              className="input-form"
+              value={skill.experience}
+              onChange={(e) => handleSkillChange(e, index, "experience")}
+              onBlur={() => validateForm("experience")}
+            />
+            {errors.skillsRequired[index]?.experience && (
+              <div className="error-message">{errors.skillsRequired[index].experience}</div>
+            )}
+          </div>
+        </div>
+<div className="row">
+        <div className="col-lg-12 col-md-12">
+          {index === skillsRequired.length - 1 && (
+            <div className="btn-group">
+              <button type="button" onClick={addSkills} className="btn-3" style={{ 'color': '#FFFFFF', 'backgroundColor': '#1967d2' }}>
+                +
+              </button>
+              <button type="button" onClick={removeSkills} style={{ 'color': '#FFFFFF', 'backgroundColor': '#FF0000' }}>
+                {/* Remove Skill */}
+                -
+              </button>
             </div>
-          ))}
-          <button type="button" onClick={addExperience} style={{'color':'#FFFFFF','backgroundColor':'#1967d2'}}>
-            +
-          </button>
-          {experienceDetails.length > 0 && (
-          <button type="button" onClick={() => removeExperience(experienceDetails.length - 1)} style={{'color':'#FFFFFF','backgroundColor':'#FF0000'}}>
-            -
-          </button>
-        )}
-                      </div>
-                    </div>
-                    <div class="form-box  wg-box">
-                      <fieldset class="">
-                        <label class="title-user fw-7">Skills<span className="color-red"> *</span></label>
-                        {skillsRequired.map((skill, index) => (
-<div key={index} className="experience-table">
-<div>
-<label class="title-user fw-7">Your Skill</label>
+          )}
+        </div>
+        </div>
+        </div>
+      
+    ))}
+  </div>
+</div>
+</div>
+    <br/>   
+    <div className="checkbox-group">
+<label>
 <input
-  type="text"
-  placeholder="Java"
-  className="input-form"
-  value={skill.skillName}
-  onChange={(e) => handleSkillChange(e, index, "skillName")}
-  onBlur={() => validateForm("skillName")}
-/>
-{errors.skillsRequired[index]?.skillName && (
-<div className="error-message">{errors.skillsRequired[index].skillName}</div>
-                  )}
-</div>
-<div>
-<label class="title-user fw-7">Your Experience</label>
+      type="checkbox"
+      name="declaration1"
+      checked={formData.declaration1}
+      onChange={() => setFormData({ ...formData, declaration1: !formData.declaration1 })}
+    />
+<strong>&nbsp;&nbsp;I hereby declare that the information given above is true.</strong>
+</label>
+<br></br>
+<label>
 <input
-  type="text"
-  placeholder="5"
-  className="input-form"
-  value={skill.experience}
-  onChange={(e) => handleSkillChange(e, index, "experience")}
-  onBlur={() => validateForm("experience")}
-  
-/>
-{errors.skillsRequired[index]?.experience && (
-                    <div className="error-message">{errors.skillsRequired[index].experience}</div>
-                  )}
+      type="checkbox"
+      name="declaration2"
+      checked={formData.declaration2}
+      onChange={() => setFormData({ ...formData, declaration2: !formData.declaration2 })}
+    />
+<strong>&nbsp;&nbsp;I hereby declare that I agree to the terms and conditions.</strong>
+</label>
 </div>
-{index === skillsRequired.length - 1 && (
-<button type="button" onClick={addSkills} className="btn-3" style={{'color':'#FFFFFF','backgroundColor':'#1967d2'}}>
-  +
-</button>
-)}
-{index === skillsRequired.length - 1 && (
-        <button type="button" onClick={removeSkills} style={{'color':'#FFFFFF','backgroundColor':'#FF0000'}}>
-          {/* Remove Skill */}
-          -
-        </button>
-      )}
-</div>
-))}
-                      </fieldset>
-                    </div>
-                  </div>
-                </div>
-                <div className="tt-button button-style">
+<br/>       
+               <div className="tt-button button-style">
                 {/* <button type="submit" className="btn-3">Submit</button> */}
               </div>
                 <div>
@@ -1507,7 +1451,6 @@ const handleResumeUpload = async () => {
     </div>
    
     </div>
-   
     </div>
     </div>
     </section>

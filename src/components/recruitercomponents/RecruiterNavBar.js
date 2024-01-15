@@ -41,7 +41,7 @@ function RecruiterNavBar() {
     if ($.cookie("isButtonActive") == 1) {
       $("body").addClass("sidebar-enable show-job");
     }
-    fetch(`${apiUrl}/applicant-image/getphoto/${user.id}`, {
+    fetch(`${apiUrl}/recruiters/companylogo/download/${user.id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
       },
@@ -71,6 +71,8 @@ function RecruiterNavBar() {
      }
  }
 
+
+ 
  const handleToggleMenu = () => {
   console.log("function called..")
   setIsOpen(!isOpen);
@@ -96,7 +98,7 @@ function RecruiterNavBar() {
       <div className="header-customize-item button">
         <a href="/recruiter-postjob">Post Job</a>
       </div>
-      <div className="mobile-footer">
+      {/* <div className="mobile-footer">
         <div className="icon-infor d-flex aln-center">
           <div className="icon">
             <span className="icon-call-calling">
@@ -123,7 +125,7 @@ function RecruiterNavBar() {
                   </li>
                   {/* <li>
                     <a href="#"><i class="icon-twitter"></i></a>
-                  </li> */}
+                  </li> 
                   <li>
                     <a href="https://www.instagram.com/tekworks_hiring"><i class="icon-instagram1"></i></a>
                   </li>
@@ -132,7 +134,7 @@ function RecruiterNavBar() {
                   </li>
           </ul>
         </div>
-      </div>
+      </div> */}
     </div>
   </div>
   <header id="header" className="header header-default ">

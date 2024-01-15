@@ -96,25 +96,11 @@ const ApplicantViewProfile = () => {
           <div className="wrap-profile flex2 bg-white">
             <div className="box-profile flex2">
               <div className="images">
-                <img src={imageSrc} alt="" width="150px" height="50px" />
+                <img src={imageSrc} alt="" width="130px" height="40px"/>
               </div>
               <div className="content">
                 <h5 style={{ fontSize: '24px' }} className="fw-6 color-3 ">{profileData.applicant.name}</h5>
-                {/* <div className="check-box flex2">
-                  <h3>{profileData.basicDetails.firstName} {profileData.basicDetails.lastName}</h3>
-                                 
-                </div> */}
-                <div className="tag-wrap flex">
-                <div className="tag-box flex" style={{ fontSize: '18px' }}>
-                    {profileData.skillsRequired.map(skill => (
-                      <div key={skill.id} className="tag-box-item flex">
-                        <span><a href="#"><ul className="job-tag"><li>{skill.skillName}</li></ul></a></span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="map color-4" style={{ fontSize: '18px' }} flex>{profileData.basicDetails.city}</div>
-                  <div className="dolar color-4"style={{ fontSize: '18px' }} flex>{profileData.basicDetails.State}</div>
-                </div>
+               
               </div>
             </div>
             <div className="tt-button">
@@ -132,14 +118,14 @@ const ApplicantViewProfile = () => {
           <div className="wrap-about flex">
             <div className="side-bar">
               <div className="sidebar-map bg-white">
-              <div className="title-box flex">
+              {/* <div className="title-box flex">
                   <div className="p-16">First Name</div>
                   <h4>{profileData.basicDetails.firstName} </h4>
                 </div>
                 <div className="title-box flex">
                   <div className="p-16">Last Name</div>
                   <h4>{profileData.basicDetails.lastName} </h4>
-                </div>
+                </div> */}
               <div className="title-box flex">
                   <div className="p-16">Email</div>
                   <h4>{profileData.applicant.email} </h4>
@@ -152,12 +138,12 @@ const ApplicantViewProfile = () => {
                   <div className="p-16">Mobile Number</div>
                   <h4>{profileData.applicant.mobilenumber} </h4>
                 </div>
-                <div className="title-box flex">
+                {/* <div className="title-box flex">
                   <div className="p-16">Email</div>
                   <h4>
                   {profileData.basicDetails.email}
                   </h4>
-                </div>
+                </div> */}
                
                 <div className="title-box flex">
                   <div className="p-16">Experience time</div>
@@ -167,16 +153,71 @@ const ApplicantViewProfile = () => {
                 <div className="title-box flex">
                   <div className="p-16">Qualification</div>
                   <h4> {profileData.graduationDetails.gprogram}</h4>
-                </div>                
+                </div>      
+                <div className="title-box flex">
+                <div className="p-16">Skills</div>
+                <h4>
+    {profileData.skillsRequired.map((skill, index) => (
+      <React.Fragment key={skill.id}>
+        <span>
+          <a href="#">
+            <ul className="job-tag">
+              <li>{skill.skillName}</li>
+            </ul>
+          </a>
+        </span>
+        {index < profileData.skillsRequired.length - 1 && ", "} {/* Add a comma if it's not the last skill */}
+      </React.Fragment>
+    ))}
+  </h4>
+                  </div>     
               </div>
            
             </div>
             <div className="post-about widget-dash-video bg-white">
-             
-              <p className="text-3">            
-              </p>
-              <h3 className="title-education">Education</h3>
-              <div className="education-wrap">
+                <h3 class="title-education">Education</h3>
+                <div class="education-wrap">
+                  <div class="education-box">
+                    {/* <div class="title-box flex2">
+                      <div class="subtitle-1 fw-7">FPT University</div>
+                      <div class="subtitle-2 fs-12 fw-5">2019 - 2021</div>
+                    </div> */}
+                    <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'orange'}}> Graducation:</h4></h4>
+                    <div style={{marginLeft:'20px'}}>
+                    <div className="subtitle-1 fw-7">University: {profileData.graduationDetails.gboard}</div>
+                    <div className="subtitle-1 fw-7">Branch: {profileData.graduationDetails.gprogram}</div>
+                   
+                    <div className="subtitle-2 fw-7 fw-5">Percentage: {profileData.graduationDetails.gpercentage}</div>
+                    <div className="subtitle-2 fw-7 fw-5">Year of Passing: {profileData.graduationDetails.gyearOfPassing}</div>
+                  </div>
+                  <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'orange'}}> Intermediate Details:</h4></h4>
+                    <div style={{marginLeft:'20px'}}>
+                    <div className="subtitle-1 fw-7">Board:{profileData.intermediateDetails.iboard} </div>
+                    <div className="subtitle-1 fw-7">Branch:{profileData.intermediateDetails.iprogram} </div>
+                    <div className="subtitle-1 fw-7">Percentage: {profileData.intermediateDetails.ipercentage} </div>
+                    <div className="subtitle-1 fw-7">Year of Passing:{profileData.intermediateDetails.iyearOfPassing} </div>
+                  </div>
+                  <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'orange'}}> SSC Details:</h4></h4>
+                    <div style={{marginLeft:'20px'}}>
+                    <div className="subtitle-1 fw-7">Board:{profileData.xClassDetails.xboard} </div>
+                    <div className="subtitle-1 fw-7">SSC/CBSE/ICSE{profileData.xClassDetails.xprogram} </div>
+                    <div className="subtitle-1 fw-7">Percentage:{profileData.xClassDetails.xpercentage} </div>
+                    <div className="subtitle-1 fw-7">Year of Passing:{profileData.xClassDetails.xyearOfPassing} </div>
+                  </div>
+                  </div>
+                  {/* <div class="education-box">
+                    <div class="title-box flex2">
+                      <div class="subtitle-1 fw-7">TB Course</div>
+                      <div class="subtitle-2 fs-12 fw-5">2019 - 2021</div>
+                    </div>
+                    <h4 class="fw-7">UX Design</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum,
+                      ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                      inceptos himenaeos.</p>
+
+                  </div> */}
+                </div>
+              {/* <div className="education-wrap">
                 <div className="education-box"> <h4 style={{fontWeight:'bold',color:'orange'}}> Graducation:</h4>
                   <div className="title-box flex2">
                     <div className="subtitle-1 fw-7">University: {profileData.graduationDetails.gboard}</div>
@@ -185,7 +226,6 @@ const ApplicantViewProfile = () => {
                     <div className="subtitle-2 fw-7 fw-5">Percentage: {profileData.graduationDetails.gpercentage}</div>
                     <div className="subtitle-2 fw-7 fw-5">Year of Passing: {profileData.graduationDetails.gyearOfPassing}</div>
                   </div>
-                 
                 </div>
                 <div className="education-box"><h4 style={{fontWeight:'bold',color:'orange'}}> Intermediate Details:</h4>
                   <div className="title-box flex2">
@@ -203,7 +243,7 @@ const ApplicantViewProfile = () => {
                     <div className="subtitle-1 fw-7">Year of Passing:{profileData.xClassDetails.xyearOfPassing} </div>
                    </div>                
                 </div>
-              </div>
+              </div> */}
          </div>
           </div>
          

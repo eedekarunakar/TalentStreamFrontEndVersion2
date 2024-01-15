@@ -180,7 +180,7 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
 <h4>Status History</h4>
 {jobStatus && jobStatus.length > 0 && (
   <ul className="events">
-    {jobStatus.slice().reverse().map((status, index) => (
+    {jobStatus.slice().map((status, index) => (
       <li key={index}>
         {status && status.changeDate && status.status && (
           <>
