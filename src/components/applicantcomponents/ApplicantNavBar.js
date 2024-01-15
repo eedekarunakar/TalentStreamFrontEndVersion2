@@ -136,7 +136,7 @@ useEffect(() => {
       <div className="header-customize-item button">
         <a href="/applicant-update-profile">Upload Resume</a>
       </div>
-      <div className="mobile-footer">
+      {/* <div className="mobile-footer">
         <div className="icon-infor d-flex aln-center">
           <div className="icon">
             <span className="icon-call-calling">
@@ -163,7 +163,7 @@ useEffect(() => {
                   </li>
                   {/* <li>
                     <a href="#"><i class="icon-twitter"></i></a>
-                  </li> */}
+                  </li> 
                   <li>
                     <a href="https://www.instagram.com/tekworks_hiring"><i class="icon-instagram1"></i></a>
                   </li>
@@ -172,7 +172,7 @@ useEffect(() => {
                   </li>
           </ul>
         </div>
-      </div>
+      </div> */}
     </div>
   </div>
   <header id="header" className="header header-default ">
@@ -182,7 +182,7 @@ useEffect(() => {
           <div className="sticky-area-wrap">
             <div className="header-ct-left">
               <div id="logo" className="logo">
-                <a href="/">
+                <a href="/applicanthome">
                   <img
                     className="site-logo"
                     src="../images/logo.png"
@@ -194,7 +194,8 @@ useEffect(() => {
             <div className="header-ct-center"></div>
             <div className="header-ct-right">
               <div className="header-customize-item account">
-              <img src={imageSrc} alt="" width="40px" height="30px"/>
+              {/* <img src={imageSrc} alt="" width="40px" height="30px"/> */}
+              <img src={imageSrc || '../images/user/avatar/image-01.jpg'} alt="Profile" onError={() => setImageSrc('../images/user/avatar/image-01.jpg')} />
                 <div className="name">
                   <span className="icon-keyboard_arrow_down" />
                 </div>
@@ -222,9 +223,9 @@ useEffect(() => {
                   </div>
                 </div>
               </div>
-              <div className="header-customize-item button">
+              {/* <div className="header-customize-item button">
                 <a href="/applicant-update-profile">Upload Resume</a>
-              </div>
+              </div> */}
             </div>
             <div className="nav-filter">
               <div className="nav-mobile">
