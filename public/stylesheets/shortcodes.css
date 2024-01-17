@@ -2018,7 +2018,7 @@
   
   .wd-review-job.sl7 .thumb3 .group-user {
     top: unset;
-    right: -25%;
+    /* right: -25%; */
     bottom: 14.4%;
     z-index: 2;
     padding: 13px 18px 13px 13px;
