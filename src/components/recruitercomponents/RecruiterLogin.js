@@ -17,49 +17,40 @@ function RecruiterLogin({handleLogin}) {
     const { setUser } = useUserContext();
     const { setUserType } = useUserContext();
     const [showPassword, setShowPassword] = useState(false);
-
     const handleTogglePassword = () => {
       setShowPassword(!showPassword);
     };
-  
     const isFormValid = () => {
       if (!email.trim() || !password.trim()) {
         setErrorMessage('Please enter required details to login');
-        return false; // Username and password should not be empty or whitespace only
+        return false;
       }
       return true;
     };
-    // Helper function to set JWT token in localStorage
     const setJwtToken = (token) => {
       localStorage.setItem('jwtToken', token);
     };
-  
     const handleSubmit = async (e) => {
       e.preventDefault();
-  
-      // Check if the form is empty
       if (!isFormValid()) {
         return;
       }
-  
       try {
         let loginEndpoint;
         let count;
   
         if (email === 'admin' && password === 'admin') {
           count = 0;
-          loginEndpoint = `${apiUrl}/adminlogin`; // Admin login endpoint
+          loginEndpoint = `${apiUrl}/adminlogin`; 
         } else {
           count = 1;
-          loginEndpoint = `${apiUrl}/recuriters/recruiterLogin`; // User login endpoint
+          loginEndpoint = `${apiUrl}/recuriters/recruiterLogin`; 
         }
-  
         console.log('Email:', email);
         const response = await axios.post(loginEndpoint, {
           email,
           password,
         });
-  
         if (response.status === 200) {
           setErrorMessage('');
           const userData = response.data;
@@ -67,7 +58,6 @@ function RecruiterLogin({handleLogin}) {
           console.log('this is token ', userData.data.jwt);
           localStorage.setItem('jwtToken', userData.data.jwt);
           let userType1 = '';
-  
           if (userData.message.includes('ROLE_JOBAPPLICANT')) {
             userType1 = 'jobseeker';
           } else if (userData.message.includes('ROLE_JOBRECRUITER')) {
@@ -77,9 +67,7 @@ function RecruiterLogin({handleLogin}) {
           }
           console.log('this userType ', userType1);
           localStorage.setItem('userType', userType1);
-  
           const jwtToken = response.headers.authorization;
-  
           setErrorMessage('');
           handleLogin();
           setUser(userData);
@@ -92,7 +80,6 @@ function RecruiterLogin({handleLogin}) {
             navigate('/recruiterhome');
           }
         } else {
-          // Check if the error message contains information about invalid username or password
           if (response.data && response.data.message) {
             if (response.data.message.includes('Invalid username')) {
               setErrorMessage('Invalid email');
@@ -111,10 +98,8 @@ function RecruiterLogin({handleLogin}) {
         console.error('Login failed', error);
       }
     };
-
   return (
     <div>
-
 <div>
       <section className="bg-f5">
         <div className="tf-container">
@@ -123,8 +108,6 @@ function RecruiterLogin({handleLogin}) {
               <div className="page-title">
                 <div className="widget-menu-link">
                   <ul>
-                    {/* <li><a href="/">Home</a></li>
-                    <li><a href="/login">Login</a></li> */}
                   </ul>
                 </div>
               </div>
@@ -132,7 +115,6 @@ function RecruiterLogin({handleLogin}) {
           </div>
         </div>
       </section>
-
       <section className="account-section">
         <div className="tf-container">
           <div className="row">
@@ -173,8 +155,6 @@ function RecruiterLogin({handleLogin}) {
                 </div>
                 <div className="group-ant-choice">
                   <div className="sub-ip">
-                    {/* <input type="checkbox" />
-                    Remember me */}
                   </div>
                   <a href="/recruiter-forgot-password" className="forgot">
                     Forgot password?
@@ -182,7 +162,6 @@ function RecruiterLogin({handleLogin}) {
                 </div>
                 <button type="submit">Login</button>
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
-                
                 <div className="sign-up">
                   Not registered yet? <a href="/register" >Sign Up</a>
                 </div>
@@ -192,11 +171,7 @@ function RecruiterLogin({handleLogin}) {
         </div>
       </section>
     </div>
-
-
-
-
-    </div>
+     </div>
   )
 }
 

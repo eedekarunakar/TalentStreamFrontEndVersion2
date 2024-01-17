@@ -1,21 +1,4 @@
-/******************************
-INDEX:
-    00 - General
-    01 - Typography
-    02 - Text Color & Background Color
-    03 - Background Position & Size
-    04 - Helper class
-    05 - Social icons
-    06 - Header
-    07 - Bootstrap Overwrite 
-    08 - Swiper 
-    09 - Scroll To Top 
-    10 - Search Box
-******************************/
 
-/*----------------------------------------*/
-/* 00 - General 
-/*----------------------------------------*/
  html {
      font-family: sans-serif;
      -webkit-text-size-adjust: 100%;
@@ -194,9 +177,6 @@ INDEX:
 	font-size: 14px;
 	margin-bottom: 5px;
 }
-/*----------------------------------------*/
-/* 01 - Typography 
-/*----------------------------------------*/
  body {
      font-family:var(--pbmit-body-typography-font-family);
      font-weight: var(--pbmit-body-typography-variant);
@@ -342,8 +322,6 @@ h6 {
 .pbmit-btn-outline-global:hover{
 	border-color: var(--pbmit-secondary-color);
 }
-
-/** Divider **/
  .sep-line{
      height: 1px;
      border-top: 1px solid #ebebeb;
@@ -357,9 +335,6 @@ h6 {
 	color: var(--pbmit-global-color);
 }
 
-/*----------------------------------------*/
-/* 02 - Background Color 
-/*----------------------------------------*/
  body .pbmit-bg-color-global{
      background-color: var(--pbmit-global-color);
 }
@@ -379,9 +354,6 @@ body .pbmit-bg-color-white{
     background-color: var(--pbmit-white-color);
 }
 
-/*----------------------------------------*/
-/* 03 - Background Position & Size 
-/*----------------------------------------*/
  .bg-cover{
     background-size: cover;
 }
@@ -407,10 +379,6 @@ body .pbmit-bg-color-white{
     background-position: left bottom;
 }
 
-/*----------------------------------------*/
-/* 04 - Helper Class 
-/*----------------------------------------*/
-
  .section-lg{
      padding-top: 100px;
      padding-bottom: 100px;
@@ -426,9 +394,6 @@ body .pbmit-bg-color-white{
      padding-bottom: 100px;
 }
 
-/*----------------------------------------*/
-/* 05 - Social icons 
-/*----------------------------------------*/
  .pbmit-social-links {
      list-style: none;
      margin: 0px;
@@ -448,10 +413,6 @@ body .pbmit-bg-color-white{
      font-size: 17px;
 	 transition: all .25s ease-in-out;
 }
-
-/*----------------------------------------*/
-/* 06 - Header 
-/*----------------------------------------*/
  .navbar-brand .navbar-brand-item {
      height: 60px;
      display: block;
@@ -580,7 +541,7 @@ body .pbmit-bg-color-white{
  .pbmit-link li{
      margin: 0 10px;
 }
-/** sticky-header **/
+
  .sticky-header{
      position: fixed !important;
      top: 0px;
@@ -633,7 +594,6 @@ body .pbmit-bg-color-white{
 }
 .fadeInDown{animation-name:fadeInDown} 
 @keyframes fadeInDown{from{opacity:0;transform:translate3d(0,-100%,0)}to{opacity:1;transform:none}}
-/* Pre Header */
  .pre-header{
     line-height: 60px;
 }
@@ -644,9 +604,6 @@ body .pbmit-bg-color-white{
 .closepanel, .pbmit-mobile-menu-bg,.site-header .righticon{
     display: none;
 }
-/*----------------------------------------*/
-/* 07 - Bootstrap Overwrite 
-/*----------------------------------------*/
  .g-lg-4,.gy-lg-4, .g-4, .gy-4 {
      --bs-gutter-y: 2rem;
 }
@@ -658,9 +615,6 @@ body .pbmit-bg-color-white{
      padding-left: calc(var(--bs-gutter-x) * .6);
 }
 
-/*----------------------------------------*/
-/* 08 - Swiper 
-/*----------------------------------------*/
  .swiper-slider{
      margin-left: auto;
      margin-right: auto;
@@ -782,9 +736,6 @@ body .pbmit-bg-color-white{
     transition-timing-function:linear !important; 
  }
  
-/*----------------------------------------*/
-/* 09 - Scroll To Top 
-/*----------------------------------------*/
 body .scroll-to-top {
     position: fixed;
     z-index: 200;
@@ -810,9 +761,6 @@ body .scroll-to-top:hover {
     background-color: #222;
 }
 
-/*----------------------------------------*/
-/*  10 - Search Box
-/*----------------------------------------*/
 .pbmit-search-overlay {
     opacity: 0;
     visibility: hidden;

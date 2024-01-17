@@ -6,8 +6,6 @@ import { apiUrl } from '../../services/ApplicantAPIService';
 import { useLocation } from 'react-router-dom';
 import { Timeline, TimelineHeaders, TodayMarker, CustomHeader } from 'react-calendar-timeline';
 import 'react-calendar-timeline/lib/Timeline.css';
-
-
 const ApplicantInterviewStatus = ({ selectedJobId }) => {
   const [jobDetails, setJobDetails] = useState(null);
   const [jobStatus, setJobStatus] = useState([]);
@@ -16,7 +14,6 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
   const applicantId = user.id;
   const location = useLocation();
   const jobId = new URLSearchParams(location.search).get('jobId');
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,10 +24,8 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
-
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
@@ -46,11 +41,8 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
         setLoading(false);
       }
     };
-
     fetchJobDetails();
   }, [selectedJobId]);
-
-
   useEffect(() => {
     const fetchJobStatus = async () => {
       try {
@@ -60,7 +52,7 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
         const body = response.data;
         setLoading(false);
         if (Array.isArray(body) && body.length > 0) {
-          setJobStatus(body); // Access the first element of the array
+          setJobStatus(body);
         }
       } catch (error) {
         console.error('Error fetching job status:', error);
@@ -68,17 +60,13 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
         setLoading(false);
       }
     };
-
     fetchJobStatus();
-  }, [selectedJobId]);
-
-  
+  }, [selectedJobId]);  
   function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
     return formattedDate;
   }
- 
   return (
     <div>
     {loading ? null : (
@@ -100,16 +88,11 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
               <div className="inner">
                 <br />
                 <article className="job-article">
-                  {/* Render job details using the jobDetails state */}
                   {jobDetails && (
                     <div className="top-content">
-                      {/* Render job details based on the structure of your API response */}
                       <div className="features-job style-2 stc-apply">
                         <div className="job-archive-header">
                           <div className="inner-box">
-                            {/* <div className="logo-company">
-                              <img src="images/logo-company/cty12.png" alt="images/logo-company/cty12.png" />
-                            </div> */}
                             <div className="logo-company">                             
                                {jobDetails.logoFile ? ( <img src={`data:image/png;base64,${jobDetails.logoFile}`} alt="Company Logo" /> ) 
                                : (<img src="images/logo-company/cty12.png" alt={`Default Company Logo ${jobDetails.id}`} /> )}
@@ -120,7 +103,6 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
                               </h4>
                               <h3>
                                 <a href="#">{jobDetails.jobTitle}</a>
-                               
                               </h3>
                               <ul>
                                 <li>
@@ -131,8 +113,7 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
                                   <span className="icon-calendar"></span>
                                   {formatDate(jobDetails.creationDate)}
                                 </li>
-                              </ul>
-                              
+                              </ul>  
                             </div>
                           </div>
                         </div>
@@ -157,26 +138,11 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
                               <span></span>Package :  &nbsp;
                               <p>&#x20B9; {jobDetails.minSalary} - &#x20B9; {jobDetails.maxSalary} / year</p>
                             </div>
-                            {/* <p className="days">{jobDetails.daysLeft} days left to apply</p> */}
                           </div>
                         </div>
                       </div>
                     </div>
                   )}
-
-{/* 
-  {jobStatus && (
-<ul class="events">
-  <li>
-    <time>Date:{formatDate(jobStatus[0].changeDate)}</time> 
-    <span><strong>Status:{jobStatus[0].status}</strong> </span>
-    </li>
-    <li>
-    <time>Date:{formatDate(jobStatus[1].changeDate)}</time> 
-    <span><strong>Status:{jobStatus[1].status}</strong> </span>
-    </li>
-</ul>
-)}  */}
 <h4>Status History</h4>
 {jobStatus && jobStatus.length > 0 && (
   <ul className="events">
@@ -194,8 +160,6 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
     ))}
   </ul>
 )}
-
-
  </article>
               </div>
             </div>
@@ -206,5 +170,4 @@ const ApplicantInterviewStatus = ({ selectedJobId }) => {
   </div>
   );
 };
-
 export default ApplicantInterviewStatus;

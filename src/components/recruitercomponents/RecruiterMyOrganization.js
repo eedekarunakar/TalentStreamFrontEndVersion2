@@ -47,107 +47,94 @@ function RecruiterMyOrganization() {
       setCompanyName(e.target.value);
       setFormErrors((prevErrors) => ({
         ...prevErrors,
-        companyName: '', // Clear previous error when the input changes
+        companyName: '', 
       }));
     };
     const handleWebsiteChange = (e) => {
       setWebsite(e.target.value);
       setFormErrors((prevErrors) => ({
         ...prevErrors,
-        website: '', // Clear previous error when the input changes
+        website: '', 
       }));
     };
     const handlePhoneNumberChange = (e) => {
       setPhoneNumber(e.target.value);
       setFormErrors((prevErrors) => ({
         ...prevErrors,
-        phoneNumber: '', // Clear previous error when the input changes
+        phoneNumber: '',
       }));
     };
     const handleHeadOfficeChange = (e) => {
       setHeadOffice(e.target.value);
       setFormErrors((prevErrors) => ({
         ...prevErrors,
-        headOffice: '', // Clear previous error when the input changes
+        headOffice: '', 
       }));
     };
     const handleTwitterChange = (e) => {
       setTwitter(e.target.value);
       setFormErrors((prevErrors) => ({
         ...prevErrors,
-        twitter: '', // Clear previous error when the input changes
+        twitter: '', 
       }));
     };
     const handleInstagramChange = (e) => {
       setInstagram(e.target.value);
       setFormErrors((prevErrors) => ({
         ...prevErrors,
-        instagram: '', // Clear previous error when the input changes
+        instagram: '', 
       }));
     };
     const handleYoutubeChange = (e) => {
       setYoutube(e.target.value);
       setFormErrors((prevErrors) => ({
         ...prevErrors,
-        youtube: '', // Clear previous error when the input changes
+        youtube: '', 
       }));
     };
     const handleEmailChange = (e) => {
       setEmail(e.target.value);
       setFormErrors((prevErrors) => ({
         ...prevErrors,
-        email: '', // Clear previous error when the input changes
+        email: '', 
       }));
     };
     const validateForm = () => {
       let isValid = true;
       const errors = {};
- 
-      // Company Name Validation (Mandatory, At least 3 characters)
       if (!companyName.trim()) {
         errors.companyName = 'Company name is required';
-        //alert(errors.companyName);
         isValid = false;
       } else if (companyName.trim().length < 3) {
         errors.companyName = 'Company name must be at least 3 characters';
-        //alert(errors.companyName);
         isValid = false;
       }
- 
-      // Website Validation (Mandatory, Ends with .com, .in, or .org)
       if (!website.trim()) {
         errors.website = 'Website is required';
-       // alert(errors.website);
         isValid = false;
       } else {
         const websiteRegex = /\.(com|in|org)$/;
         if (!websiteRegex.test(website.trim())) {
           errors.website = 'Website should end with .com, .in, or .org';
-          //alert(errors.website);
           isValid = false;
         }
       }
-      //Email validation
       if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
         errors.email = 'Invalid email address';
         isValid = false;
       }
-      //Phone number validation
       if (phoneNumber.trim() && !/^[6-9]\d{9}$/.test(phoneNumber.trim())) {
         errors.phoneNumber = 'Invalid phone number';
         isValid = false;
       }
-      //Headoffice validation
       if (!headOffice.trim()) {
         errors.headOffice = 'Head office address is required';
         isValid = false;
-       // alert(errors.headOffice);
       }
       else if (headOffice.trim().length < 3) {
         errors.headOffice = 'Head office address must be at least 3 characters';
         isValid = false;
     }
- 
       if (instagram.trim() && !/^[a-zA-Z0-9_]+$/.test(instagram.trim())) {
         errors.instagram = 'Invalid Instagram handle';
         isValid = false;
@@ -160,23 +147,15 @@ function RecruiterMyOrganization() {
         errors.youtube = 'Invalid youtube handle';
         isValid = false;
       }
- 
-      // if (!instagram.trim()) {
-      //   errors.instagram = 'Instagram handle is required';
-      // }
- 
       setFormErrors(errors);
       return isValid;
     };
- 
     const handleSubmit = async (e) => {
         e.preventDefault();
-         // Prevent the default form submission behavior
          if (!validateForm()) {
           return;
         }
         try {
-         
           const requestData = {
             companyName,
             website,
@@ -189,7 +168,6 @@ function RecruiterMyOrganization() {
             ],
             headOffice,
           };
-   
           const response = await fetch(`${apiUrl}/companyprofile/recruiters/company-profiles/${user.id}`, {
             method: 'POST',
             headers: {
@@ -198,12 +176,9 @@ function RecruiterMyOrganization() {
             },
             body: JSON.stringify(requestData),
           });
-   
           if (response.status === 200) {
             const responseData = await response.text();
             console.log('Success:', responseData);
-            // Update verification status and notification text
-       
             if (responseData === 'CompanyProfile was already updated.') {
               window.alert('CompanyProfile was already updated.');
               setCompanyName('');
@@ -226,7 +201,7 @@ function RecruiterMyOrganization() {
               window.alert('Profile saved successfully');
               setIsProfileSubmitted(true);
               setVerificationStatus(false);
-              localStorage.setItem('isProfileSubmitted', 'true'); // Save to localStorage
+              localStorage.setItem('isProfileSubmitted', 'true'); 
               setCompanyName('');
         setWebsite('');
         setPhoneNumber('');
@@ -251,27 +226,6 @@ function RecruiterMyOrganization() {
           console.error('An error occurred:', error);
         }
       };
-   
- 
-    // const handleCancel = () => {
-    //   // Handle cancel action here
-    // };
- 
-    // const handleSocialProfileChange = (network, value) => {
-    //   setSocialProfiles((prevProfiles) => {
-    //     const updatedProfiles = [...prevProfiles];
-    //     const index = updatedProfiles.findIndex((profile) => profile.network === network);
- 
-    //     if (index !== -1) {
-    //       updatedProfiles[index].value = value;
-    //     } else {
-    //       updatedProfiles.push({ network, value });
-    //     }
- 
-    //     return updatedProfiles;
-    //   });
-    // };
- 
     const handleFileSelect = (e) => {
       const file = e.target.files[0];
       setPhotoFile(file);
@@ -292,7 +246,6 @@ function RecruiterMyOrganization() {
             },
           }
         );
-       
         console.log(response.data);
         window.alert(response.data);
         window.location.reload();
@@ -301,7 +254,6 @@ function RecruiterMyOrganization() {
         window.alert('Error in uploading profile');
       }
     };
- 
   return (
     <div>
 <div className="dashboard__content">
@@ -316,37 +268,14 @@ function RecruiterMyOrganization() {
       </div>
     </div>
   </section>
- 
   <section className="flat-dashboard-post flat-dashboard-setting">
     <form name="f1">
-   
     <div className="themes-container">
       <div className="row">
         <div className="col-lg-12 col-md-12 ">
           <div className="profile-setting bg-white">
-          {/* {!isProfileSubmitted && verificationStatus === false && (
-            <div className="verification-status profile-not-verified">
-              Profile not verified
-            </div>
-          )}
-          {isProfileSubmitted && (
-            <div className="verification-status profile-under-process">
-              Profile verification is under process
-            </div>
-          )} */}
             <div className="author-profile flex2 border-bt">
-           
               <div className="wrap-img flex2">
-             
-                {/* <div className="img-box relative">
-                  <img
-                    className="avatar "
-                    id="profileimg"
-                    src="../images/dashboard/image-up.jpg"
-                    alt=""
-                  />
-                </div> */}
-               
                 <div id="upload-profile">
     <h5 class="fw-6">Upload Company Logo: </h5>
     <h6>JPG or PNG</h6>
@@ -380,16 +309,13 @@ function RecruiterMyOrganization() {
               <div className="wrap-img flex2">
               </div>
               <div className="tt-button button-style">
-               
                   <button type="submit" onClick={handleSubmit} className="button-status">Save Profile</button>
-               
               </div>
             </div>
             <div className="form-infor-profile">
               <h3 className="title-info">Information</h3>
               <div className="row">
               <div className="col-lg-6 col-md-6">
-             
               <div className="dropdown titles-dropdown info-wd">
                     <label className="title-user fw-7">Company Full Name<span className="color-red">*</span></label>
                     <input
@@ -422,7 +348,6 @@ function RecruiterMyOrganization() {
                     )}
                   </div>
                 </div>
-               
                 <div className="col-lg-6 col-md-6">
                 <div className="dropdown titles-dropdown info-wd">
                   <fieldset>
@@ -441,7 +366,6 @@ function RecruiterMyOrganization() {
                   </fieldset>
                   </div>
                   </div>
- 
                   <div className="col-lg-6 col-md-6">
                   <div className="dropdown titles-dropdown info-wd">
                     <label className="title-user fw-7">Website<span className="color-red">*</span></label>
@@ -458,8 +382,7 @@ function RecruiterMyOrganization() {
                       <div className="error-message">{formErrors.website}</div>
                     )}
                   </div>
-                </div>
-               
+                </div>               
             <div className="col-lg-6 col-md-6">
               <div className="text-editor-wrap border-bt">
                 <label className="title-user fw-7">Head Office Address<span className="color-red">*</span></label>
@@ -482,7 +405,6 @@ function RecruiterMyOrganization() {
              <div className="row">
               <div className="social-wrap">
                 <h3>Social Network</h3>
- 
                 <div className="form-box info-wd wg-box">
                   <div className="col-lg-6 col-md-6">
                     <fieldset className="flex2">
@@ -530,7 +452,6 @@ function RecruiterMyOrganization() {
                     )}
                     </fieldset>
                   </div>
-                 
                 </div>
               </div>
             </div>
@@ -539,17 +460,11 @@ function RecruiterMyOrganization() {
       </div>
     </div>
     </div>
-   
     </div>
     </form>
   </section>
- </div>
- 
- 
- 
-       
-    </div>
+ </div>      
+</div>
   )
 }
- 
 export default RecruiterMyOrganization;

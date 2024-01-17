@@ -6,7 +6,7 @@ const OTPVerification = ({ email, onOTPVerified,  onOTPSendSuccess, onOTPSendFai
   const [otp, setOTP] = useState('');
   const [verificationError, setVerificationError] = useState('');
   const [otpVerified, setOTPVerified] = useState(false);
-  const [otpResendTimer, setOTPResendTimer] = useState(60); // 2 minutes timer
+  const [otpResendTimer, setOTPResendTimer] = useState(60);
   const [resendButtonDisabled, setResendButtonDisabled] = useState(true);
  
   const handleVerifyOTP = async () => {
@@ -30,7 +30,7 @@ const OTPVerification = ({ email, onOTPVerified,  onOTPSendSuccess, onOTPSendFai
     try {
       setResendButtonDisabled(true);
       await axios.post(`${apiUrl}/applicant/applicantsendotp`, { email });
-      setOTPResendTimer(60); // Reset the timer
+      setOTPResendTimer(60);
       onOTPSendSuccess();
       setVerificationError('');
     } catch (error) {

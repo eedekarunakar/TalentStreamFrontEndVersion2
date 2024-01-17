@@ -10,26 +10,23 @@ const OTPVerification1 = ({ email, onOTPVerified, onOTPSendSuccess, onOTPSendFai
   const [resendButtonDisabled, setResendButtonDisabled] = useState(true);
   const handleVerifyOTP = async () => {
     try {
-      setRecruiterOTPVerifyingInProgress(true); // Start verifying process
-      // Send the entered OTP to the backend for verification
+      setRecruiterOTPVerifyingInProgress(true); 
       await axios.post(`${apiUrl}/forgotpassword/recuriterverify-otp`, { email, otp });
-      setOTPVerified(true); // Set OTP verified state to true
-      onOTPVerified(); // Notify parent component
+      setOTPVerified(true); 
+      onOTPVerified(); 
     } catch (error) {
       setVerificationError('Invalid OTP. Please try again.');
       setOTPResendTimer(0);
-     
       setResendButtonDisabled(false);
     } finally {
-      setRecruiterOTPVerifyingInProgress(false); // Finish verifying process
-   
+      setRecruiterOTPVerifyingInProgress(false); 
     }
   };
   const handleResendOTP = async () => {
     try {
       setResendButtonDisabled(true);
       await axios.post(`${apiUrl}/applicant/applicantsendotp`, { email });
-      setOTPResendTimer(60); // Reset the timer
+      setOTPResendTimer(60);
       onOTPSendSuccess();
       setVerificationError('');
     } catch (error) {
@@ -53,18 +50,14 @@ const OTPVerification1 = ({ email, onOTPVerified, onOTPSendSuccess, onOTPSendFai
       setResendButtonDisabled(false);
     }
   }, [otpResendTimer]);
- 
- 
- 
-  if (otpVerified) {
+ if (otpVerified) {
     return (
       <div className="otp-verification">
         <p>OTP verified successfully!</p>
       </div>
     );
   }
- 
-  return (
+return (
     <div className="otp-verification">
       <input
         type="text"
@@ -96,5 +89,4 @@ const OTPVerification1 = ({ email, onOTPVerified, onOTPSendSuccess, onOTPSendFai
     </div>
   );
 };
- 
-export default OTPVerification1;
+ export default OTPVerification1;

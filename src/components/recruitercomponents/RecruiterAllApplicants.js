@@ -20,20 +20,15 @@ function RecruiterAllApplicants() {
   const fetchAllApplicants = async () => {
     try {
       const response = await axios.get(`${apiUrl}/applyjob/recruiter/${user.id}/appliedapplicants`);
-       // Convert the object into an array of applicants
     const applicantsArray = Object.values(response.data).flat();
         setApplicants(applicantsArray);
         const $table= window.$(tableref.current);
-        // $table.DataTable().destroy();
           const timeoutId = setTimeout(() => {  
            $table.DataTable().destroy();
             $table.DataTable({responsive:true});
-      
                   }, 500);
-        
          return () => {
             isMounted.current = false;
-          // $table.DataTable().destroy(true);
          };
     } catch (error) {
       console.error('Error fetching applicants:', error);
@@ -46,47 +41,34 @@ function RecruiterAllApplicants() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
     }
     fetchAllApplicants();
-  
   }, [user.id]);
- 
- 
     const handleSelectChange = async (e) => {
       const newStatus = e.target.value;
- 
       try {
         if (selectedApplicant && newStatus) {
           const applyJobId = selectedApplicant.applyjobid;
- 
           const response = await axios.put(
             `${apiUrl}/applyjob/recruiters/applyjob-update-status/${applyJobId}/${newStatus}`
           );
- 
           if (isMounted.current) {
             const updatedApplicants = applicants.map((application) => {
               if (application.applyjobid === applyJobId) {
-             
                 return { ...application, applicantStatus: newStatus };
               }
               return application;
             });
- 
             setApplicants(updatedApplicants);
-            //fetchAllApplicants();
             setSelectedStatus(newStatus);
             setSelectedApplicant(null);
-           
           }
           alert(`Status changed to ${newStatus}`);
           window.location.reload();
         }
       } catch (error) {
         console.error('Error updating status:', error);
-        // Handle error gracefully, e.g., show a notification to the user
       }
     };
- 
- 
-    return (
+ return (
       <div className="dashboard__content">
         <section className="page-title-dashboard">
           <div className="themes-container">
@@ -195,8 +177,8 @@ function RecruiterAllApplicants() {
                                       fill={
                                         application.applicantStatus ===
                                         'interviewing'
-                                          ? '#3498db' // Active color
-                                          : '#d3d3d3' // Light color for inactive
+                                          ? '#3498db' 
+                                          : '#d3d3d3' 
                                       }
                                     >
                                       <path d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zM9 4a.5.5 0 0 1 1 0v4.5h3a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5V4z" />
@@ -228,5 +210,4 @@ function RecruiterAllApplicants() {
       </div>
     );
   }
- 
   export default RecruiterAllApplicants;

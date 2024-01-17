@@ -10,7 +10,7 @@ function RecruiterJobOpenings({setSelectedJobId}) {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
-    const [selectedFilter, setSelectedFilter] = useState('jobTitle'); // Default filter
+    const [selectedFilter, setSelectedFilter] = useState('jobTitle');
     const user1 = useUserContext();
     const user=user1.user;
   
@@ -19,8 +19,6 @@ function RecruiterJobOpenings({setSelectedJobId}) {
       if (jwtToken) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
       }
-  
-      // You may need to replace 'userId' with the appropriate identifier for your user
       axios
       .get(`${apiUrl}/job/recruiters/viewJobs/${user.id}`)
         .then((response) => {
@@ -29,14 +27,10 @@ function RecruiterJobOpenings({setSelectedJobId}) {
         .catch((error) => {
           console.error('Error fetching job details:', error);
         });
-    }, []); // Replace with the actual user identifier
-  
+    }, []);
     const handleButtonClick = (jobId) => {
-      // Perform any logic you need when the button is clicked
-      // For example, set the selected job ID in your component's state
       setSelectedJobId(jobId);
     };
-
     function formatDate(dateString) {
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
@@ -44,7 +38,6 @@ function RecruiterJobOpenings({setSelectedJobId}) {
     }
   return (
     <div>
-    
         <div className="dashboard__content">
         <section className="page-title-dashboard">
           <div className="themes-container">
@@ -78,7 +71,6 @@ function RecruiterJobOpenings({setSelectedJobId}) {
                               <h3>
                                 <a href="#">
                                   {job.jobTitle}
-                                  {/* <span className="icon-bolt"></span> */}
                                 </a>
                               </h3>
                               <ul>
@@ -91,7 +83,6 @@ function RecruiterJobOpenings({setSelectedJobId}) {
                                   Posted on {formatDate(job.creationDate)}
                                 </li>
                               </ul>
-                              {/* <span class="icon-heart"></span> */}
                             </div>
                           </div>
                         </div>
@@ -116,12 +107,6 @@ function RecruiterJobOpenings({setSelectedJobId}) {
                                 <span></span>
                                 <p>&#x20B9; {job.minSalary} - &#x20B9; {job.maxSalary} / year</p>
                               </div>
-                              {/* <p className="days">{jobDetails.daysLeft} days left to apply</p> */}
-                              {/* <Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)}>
-                              <button type="button" style={{borderRadius:20}} className="btn-primary">Check Status</button>
-                              </Link> */}
-                              {/* {job && (<Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)}>Check Status</Link> )} */}
-
                               <Link to="/recruiter-appliedapplicants" onClick={() => handleButtonClick(job.id)}>
                               <button type="button" style={{borderRadius:20}} className="button-status">View Applicants</button>
                               </Link>
@@ -135,9 +120,7 @@ function RecruiterJobOpenings({setSelectedJobId}) {
             </div>
           </section>
          </div>
-       
      </div>
   )
 }
-
 export default RecruiterJobOpenings;

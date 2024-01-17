@@ -1,7 +1,5 @@
-**Responsive.css**
 
-/* respondsive */
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1920px){
   .dashboard .btn {
     left: 15px;
     top: 15px;
@@ -81,12 +79,6 @@
   .group-half-map.style2 .content-left {
     margin-bottom: 50px;
   }
-
-  /* .job-search-form.style2 .form-group:first-child,
-  .job-search-form.style2 .form-group {
-    width: 25%;
-  } */
-
   .cv-form-details.job-sg.add-mgt {
     margin-top: 0px;
   }

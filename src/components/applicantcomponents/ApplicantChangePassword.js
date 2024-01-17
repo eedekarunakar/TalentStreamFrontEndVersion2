@@ -3,7 +3,6 @@ import { useUserContext } from '../common/UserProvider';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
- 
 function ApplicantChangePassword() {
   const { user } = useUserContext();
   const [oldPassword, setOldPassword] = useState('');
@@ -17,18 +16,15 @@ function ApplicantChangePassword() {
     newPassword: '',
     confirmedPassword: '',
   });
- 
   const validateForm = () => {
     let isValid = true;
     const errors = {};
- 
     if (!oldPassword.trim()) {
       errors.oldPassword = 'Old password is required.';
       isValid = false;
     } else {
       errors.oldPassword = '';
     }
- 
     if (!newPassword.trim()) {
       errors.newPassword = 'New password is required.';
       isValid = false;
@@ -39,7 +35,6 @@ function ApplicantChangePassword() {
     } else {
       errors.newPassword = '';
     }
- 
     if (!confirmedPassword.trim()) {
       errors.confirmedPassword = 'Confirm password is required.';
       isValid = false;
@@ -49,11 +44,9 @@ function ApplicantChangePassword() {
     } else {
       errors.confirmedPassword = '';
     }
- 
     setFormErrors(errors);
     return isValid;
   };
- 
   const handleTogglePassword = (type) => {
     switch (type) {
       case 'old':
@@ -69,23 +62,19 @@ function ApplicantChangePassword() {
         break;
     }
   };
- 
   const handleChangePassword = async (e) => {
     e.preventDefault();
  
     if (!validateForm()) {
       return;
     }
- 
     const formData = {
       oldPassword,
       newPassword,
       confirmedPassword,
     };
- 
     try {
       const response = await axios.post(`${apiUrl}/applicant/authenticateUsers/${user.id}`, formData);
- 
       if (response.data === 'Password updated and stored') {
         window.alert('Password Changed Successfully');
       } else {
@@ -96,13 +85,10 @@ function ApplicantChangePassword() {
       window.alert('Error resetting password');
     }
   };
- 
-  // Validate password criteria
   const isValidPassword = (password) => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     return passwordRegex.test(password);
   };
- 
   return (
     <div>
       <>
@@ -125,13 +111,10 @@ function ApplicantChangePassword() {
                   <div className="change-password bg-white">
                     <form action="https://themesflat.co/html/jobtex/dashboard/dashboard.html">
                       <div className="form-password">
-                        
-                        {/* Old Password */}
                         <div className="inner info-wd">
                           <label className="title-url fs-16">
                             Old Password<span className="color-red">*</span>
-                          </label>
-                          
+                          </label>                          
 <div className="inputs-group auth-pass-inputgroup relative flex2">
         <input
           type={showOldPassword ? 'text' : 'password'}
@@ -211,6 +194,5 @@ function ApplicantChangePassword() {
       </>
     </div>
   );
-}
- 
+} 
 export default ApplicantChangePassword;

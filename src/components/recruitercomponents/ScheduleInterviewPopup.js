@@ -4,8 +4,6 @@ import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
- 
- 
 const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyjobid }) => {
   const [validationError, setValidationError] = useState({
     interviewTitle: '',
@@ -17,8 +15,6 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
     location: '',
     interviewLink: '',
   });
- 
- 
   const [touchedFields, setTouchedFields] = useState({
     interviewTitle: false,
     interviewPerson: false,
@@ -29,12 +25,8 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
     location: false,
     interviewLink: false,
   });
- 
- 
   const user1 = useUserContext();
   const user = user1.user;
- 
- 
   const [interviewData, setInterviewData] = useState({
     interviewTitle: '',
     interviewPerson: '',
@@ -45,8 +37,6 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
     location: '',
     interviewLink: '',
   });
- 
- 
   const resetForm = () => {
     setValidationError({
       interviewTitle: '',
@@ -58,8 +48,6 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
       location: '',
       interviewLink: '',
     });
- 
- 
     setTouchedFields({
       interviewTitle: false,
       interviewPerson: false,
@@ -70,8 +58,6 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
       location: false,
       interviewLink: false,
     });
- 
- 
     setInterviewData({
       interviewTitle: '',
       interviewPerson: '',
@@ -82,21 +68,14 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
       location: '',
       interviewLink: '',
     });
-    
     handleClose();
   };
- 
- 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
- 
- 
     setTouchedFields((prevTouchedFields) => ({
       ...prevTouchedFields,
       [name]: true,
     }));
- 
- 
     switch (name) {
       case 'interviewTitle':
         const isValidTitle = /^[a-zA-Z\s]*$/.test(value);
@@ -106,8 +85,6 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
           ...(value.trim() ? {} : { interviewTitle: 'Field cannot be empty.' }),
         }));
         break;
- 
- 
       case 'interviewPerson':
         const isValidPerson = /^[a-zA-Z\s]*$/.test(value);
         setValidationError((prevErrors) => ({
@@ -116,8 +93,6 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
           ...(value.trim() ? {} : { interviewPerson: 'Field cannot be empty.' }),
         }));
         break;
- 
- 
       case 'timeAndDate':
         const currentDate = new Date();
         const selectedDate = new Date(value);
@@ -140,8 +115,6 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
           }));
         }
         break;
- 
- 
       case 'interviewLink':
         const isValidURL = /^(ftp|http|https):\/\/[^ "]+$/.test(value);
         setValidationError((prevErrors) => ({
@@ -150,8 +123,6 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
           ...(value.trim() ? {} : { interviewTitle: 'Field cannot be empty.' }),
         }));
         break;
- 
- 
       case 'location':
         if (touchedFields[name] && !value.trim()) {
           setValidationError((prevErrors) => ({
@@ -166,15 +137,12 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
           }));
         }
         break;
- 
- 
       case 'modeOfInterview':
         setValidationError((prevErrors) => ({
           ...prevErrors,
           modeOfInterview: value.trim() ? '' : 'Please select a mode of interview.',
         }));
         break;
-     
       default:
         setValidationError((prevErrors) => ({
           ...prevErrors,
@@ -182,19 +150,13 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
         }));
         break;
     }
- 
- 
     setInterviewData({
       ...interviewData,
       [name]: value,
     });
   };
- 
- 
   const handleFormSubmit = (e) => {
     e.preventDefault();
- 
- 
     const updatedValidationErrors = {};
     for (const name in interviewData) {
       const value = interviewData[name];
@@ -206,8 +168,6 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
             updatedValidationErrors[name] = 'Field cannot be empty.';
           }
           break;
- 
- 
         case 'interviewPerson':
           const isValidPerson = /^[a-zA-Z\s]*$/.test(value);
           updatedValidationErrors[name] = isValidPerson ? '' : 'The name should have only alphabetical characters.';
@@ -215,13 +175,9 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
             updatedValidationErrors[name] = 'Field cannot be empty.';
           }
           break;
- 
- 
         case 'timeAndDate':
           const currentDate = new Date();
           const selectedDate = new Date(value);
- 
- 
           if (!value.trim()) {
             updatedValidationErrors[name] = 'Please select a date and time for the interview.';
           } else if (selectedDate <= currentDate) {
@@ -230,8 +186,6 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
             updatedValidationErrors[name] = '';
           }
           break;
- 
- 
         case 'interviewLink':
           const isValidURL = /^(ftp|http|https):\/\/[^ "]+$/.test(value);
           updatedValidationErrors[name] = isValidURL ? '' : 'Please enter a valid interview link.';
@@ -239,8 +193,6 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
             updatedValidationErrors[name] = 'Field cannot be empty.';
           }
           break;
- 
- 
         case 'typeOfInterview':
           if (!value.trim()) {
             updatedValidationErrors[name] = 'Field cannot be empty.';
@@ -249,13 +201,9 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
             updatedValidationErrors[name] = containsOnlyAlphabet ? '' : 'Type of Interview should have only alphabetical characters.';
           }
           break;
- 
- 
         case 'modeOfInterview':
           updatedValidationErrors[name] = value.trim() ? '' : 'Please select the Mode of Interview.';
           break;
- 
- 
         case 'location':
           if (!value.trim()) {
             updatedValidationErrors[name] = 'Field cannot be empty.';
@@ -264,21 +212,13 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
             updatedValidationErrors[name] = containsOnlyAlphabet ? '' : 'Location should have only alphabetical characters.';
           }
           break;
- 
- 
         default:
           updatedValidationErrors[name] = value.trim() ? '' : 'This field cannot be empty.';
           break;
       }
     }
- 
- 
     setValidationError(updatedValidationErrors);
- 
- 
     const hasEmptyFields = Object.values(updatedValidationErrors).some((error) => error);
- 
- 
     if (hasEmptyFields) {
       console.log('Form submission aborted due to validation errors.');
       setTouchedFields((prevTouchedFields) => ({
@@ -286,15 +226,11 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
             }));
           return;
     }
- 
- 
     const jwtToken = localStorage.getItem('jwtToken');
     const headers = {
       Authorization: `Bearer ${jwtToken}`,
       'Content-Type': 'application/json',
     };
- 
- 
     axios
       .post(`${apiUrl}/applyjob/scheduleInterview/${applyjobid}`, interviewData, { headers })
       .then((response) => {
@@ -306,14 +242,10 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
         console.error('API Error:', error);
       });
   };
- 
- 
   const handleCloseModal = () => {
     resetForm();
     handleClose();
   };
- 
- 
   return (
 <div>
 <Modal show={show } onHide={handleCloseModal} centered>
@@ -322,8 +254,6 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
 </Modal.Header>
 <Modal.Body>
 <Form onSubmit={handleFormSubmit}>
- 
- 
   <div className="row">
     <div className="col-lg-12">
     <div>
@@ -468,13 +398,9 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
       )}
       </div>
     </div>
-  </div>
- 
- 
+  </div> 
 <div className="modal-footer">
 <button type="submit" style={{ color: 'white', backgroundColor: 'blue' }}>Schedule</button>
- 
- 
               <button type="button" onClick={handleCloseModal}>
                 Close
 </button>
@@ -484,9 +410,5 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
 </Modal>
 </div>
   );
- 
- 
 };
- 
- 
 export default ScheduleInterviewPopup;

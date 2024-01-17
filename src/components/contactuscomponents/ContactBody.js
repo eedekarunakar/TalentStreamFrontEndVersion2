@@ -24,17 +24,13 @@ export default function ContacBody() {
   };
 
   const isEmailValid = (email) => {
-    // Regular expression for a simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // Validate that all required fields are filled
     if (!formData.name || !formData.subject || !formData.email || !formData.questions) {
-         // You can show an alert or error message to the user here if needed
         window.alert("Please complete all the fields.");
       return;
     }
@@ -51,7 +47,7 @@ export default function ContacBody() {
       });
   
       if (response.status === 200) {
-        // Show alert for successful submission and clear the form
+        
         window.alert('Message sent successfully!We will get back you soon');
   
         setFormData({
@@ -67,10 +63,6 @@ export default function ContacBody() {
       console.error('Error sending message:', error);
     }
   };
-  
-
- 
-
   return (
     <div>
      <section>
@@ -122,9 +114,6 @@ export default function ContacBody() {
                   <li>
                     <a href="https://www.linkedin.com/company/tekworks-in"><i className="icon-linkedin2"></i></a>
                   </li>
-                  {/* <li>
-                    <a href="#"><i class="icon-twitter"></i></a>
-                  </li> */}
                   <li>
                     <a href="https://www.instagram.com/tekworks_hiring"><i className="icon-instagram1"></i></a>
                   </li>

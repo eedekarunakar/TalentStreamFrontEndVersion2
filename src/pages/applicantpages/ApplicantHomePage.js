@@ -17,16 +17,12 @@ import ApplicantDeleteProfile from '../../components/applicantcomponents/Applica
 import ApplicantJobAlerts from '../../components/applicantcomponents/ApplicantJobAlerts';
 import ApplicantResume from '../../components/applicantcomponents/ApplicantResume';
 import ApplicantEditProfile from '../../components/applicantcomponents/ApplicantEditProfile';
-
 function ApplicantHomePage() {
   const [activeRoute, setActiveRoute] = useState('');
   const [selectedJobId, setSelectedJobId] = useState('');
   const location = useLocation();
-  
   const updateActiveRoute = () => {
     const pathname = location.pathname;
-
-    
     switch (pathname) {
       case '/applicanthome':
         setActiveRoute('dashboard');
@@ -75,20 +71,9 @@ function ApplicantHomePage() {
   React.useEffect(() => {
     updateActiveRoute();
   }, [location.pathname]);
-
-   
-
-
   return (
-    
-    <div  class="dashboard show">
-      
+    <div  class="dashboard show"> 
      <ApplicantNavBar />
-
- 
-        {/* <ApplicantLeftNavBar /> */}
-      
-     {/* {!isLeftNavVisible && <ApplicantLeftNavBar />} */}
      {activeRoute === 'dashboard' && <ApplicantDashboard />}
      {activeRoute === 'profile' && <ApplicantUpdateProfile />}
      {activeRoute === 'viewprofile' && <ApplicantViewProfile />}
@@ -102,10 +87,7 @@ function ApplicantHomePage() {
      {activeRoute === 'deleteprofile' && <ApplicantDeleteProfile />}
      {activeRoute === 'jobalerts' && <ApplicantJobAlerts />}
      {activeRoute === 'resume' && <ApplicantResume />}
-      {/* <ApplicantFooter />    */}
       </div> 
-    
   )
 }
-
 export default ApplicantHomePage;

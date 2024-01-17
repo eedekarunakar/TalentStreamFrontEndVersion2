@@ -12,7 +12,6 @@ function ApplicantUpdateProfile() {
   let error = "";
  
   const [formData, setFormData] = useState({
-    // ... existing state properties
     declaration1: false,
     declaration2: false,
   });
@@ -24,8 +23,7 @@ function ApplicantUpdateProfile() {
     skillsRequired: [],
     experienceDetails: [],
   });
- 
-  // Validation function
+
   const validateForm = (fielname) => {
     const newErrors = {
       basicDetails: {},
@@ -38,16 +36,13 @@ function ApplicantUpdateProfile() {
 const currentDate = new Date();
 const maxAllowedAge = 18;
 
-//if (!validator.isDate(basicDetails.dateOfBirth)) 
 if(fielname === "" || fielname === "dateOfBirth")
 {
 if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
- 
-  newErrors.basicDetails.dateOfBirth = 'Date of birth is required';
+ newErrors.basicDetails.dateOfBirth = 'Date of birth is required';
 } else {
   const selectedDate = new Date(basicDetails.dateOfBirth);
-  
-  // Check if the selected date is more than 17 years ago from the current date
+
   if (selectedDate > new Date(currentDate.getFullYear() - maxAllowedAge, currentDate.getMonth(), currentDate.getDate())) {
     newErrors.basicDetails.dateOfBirth = 'The Date of Birth should be at least 18 years ago.';
   }
@@ -59,13 +54,11 @@ if(fielname === "" || fielname === "city")
     if (!basicDetails.city) {
       newErrors.basicDetails.city = 'City is required';
     } else {
-      // Validation for not accepting digits
       if (/\d/.test(basicDetails.city.trim())) {
         newErrors.basicDetails.city = 'City should not be number';
       }
     }
   }
-
   if(fielname==="" || fielname === "address")
   {
     if (!basicDetails.address.trim()) {
@@ -87,31 +80,26 @@ if(fielname === "" || fielname === "city")
     if (!basicDetails.state) {
       newErrors.basicDetails.state = 'State is required';
     } else {
-      // Validation for not accepting digits
       if (/\d/.test(basicDetails.state.trim())) {
         newErrors.basicDetails.state = 'State should contain text only';
       }
     }
   }
-  
     if(fielname === "" || fielname === "xschoolName")
     {
     if (!xClassDetails.xschoolName) {
       newErrors.xClassDetails.xschoolName = 'School name is required';
     } else {
-      // Validation for text only
       if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xschoolName.trim())) {
         newErrors.xClassDetails.xschoolName = 'School name should not be number';
       }
     }}
-
    
     if(fielname === "" || fielname === "xboard")
     {
     if (!xClassDetails.xboard) {
       newErrors.xClassDetails.xboard = 'Board is required';
     } else {
-      // Validation for text only
       if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xboard.trim())) {
         newErrors.xClassDetails.xboard = 'Board should not be number';
       }
@@ -124,10 +112,7 @@ if(fielname === "" || fielname === "city")
       newErrors.xClassDetails.xpercentage = 'Percentage is required';
     } else {
       const percentageValue = xClassDetails.xpercentage.trim();
-   
-      // Regular expression to match digits and an optional decimal point
       const validPercentageRegex = /^\d+(\.\d+)?$/;
-   
       if (!validPercentageRegex.test(percentageValue) || parseFloat(percentageValue) < 0 || parseFloat(percentageValue) > 100) {
         newErrors.xClassDetails.xpercentage = 'Enter a valid percentage between 0 and 100 (only digits and period(.) are allowed)';
       }
@@ -142,179 +127,142 @@ if(fielname === "" || fielname === "city")
       newErrors.xClassDetails.xPincode = 'Pincode should be 6 digits and contain only numbers';
     }
   }
-   
-   // Validation for required field
    if(fielname === "" || fielname === "xyearOfPassing")
 {
 if (!xClassDetails.xyearOfPassing) {
   newErrors.xClassDetails.xyearOfPassing = 'Year of passing is required';
 } else {
-  // Validation for 4-digit numeric value
   if (!/^\d{4}$/.test(xClassDetails.xyearOfPassing.trim())) {
     newErrors.xClassDetails.xyearOfPassing = 'Year of passing should be a 4-digit number';
   } else {
-    // Additional validation for numeric value (no special characters or alphabets)
     if (!/^\d+$/.test(xClassDetails.xyearOfPassing.trim())) {
       newErrors.xClassDetails.xyearOfPassing = 'Year of passing should contain only digits';
     }
   }
 }
 }
- 
-       // Validation for City
     if(fielname === "" || fielname === "xCity")
 {
 if (!xClassDetails.xCity) {
   newErrors.xClassDetails.xCity = 'City is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xCity.trim())) {
     newErrors.xClassDetails.xCity = 'City should not be number';
   }
 }
 }
-
-// Validation for State
 if(fielname === "" || fielname === "xState")
 {
 if (!xClassDetails.xState) {
   newErrors.xClassDetails.xState = 'State is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xState.trim())) {
     newErrors.xClassDetails.xState = 'State should not be number';
   }
 }
 }
-   
-   // Validation for College Name
    if(fielname === "" || fielname === "icollegeName")
 {
 if (!intermediateDetails.icollegeName) {
   newErrors.intermediateDetails.icollegeName = 'College name is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.icollegeName.trim())) {
     newErrors.intermediateDetails.icollegeName = 'College name should not be number';
   }
 }
 }
-   // Validation for Board Name
 if(fielname === "" || fielname === "iboard")
 {
 if (!intermediateDetails.iboard) {
   newErrors.intermediateDetails.iboard = 'Board name is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iboard.trim())) {
     newErrors.intermediateDetails.iboard = 'Board name should not be number only';
   }
 }
 }
-
-// Validation for Program
 if(fielname === "" || fielname === "iprogram")
 {
 if (!intermediateDetails.iprogram) {
   newErrors.intermediateDetails.iprogram = 'Program is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iprogram.trim())) {
     newErrors.intermediateDetails.iprogram = 'Program should contain text only';
   }
 }
-}
-   
+}  
     if(fielname === "" || fielname === "ipercentage")
 {
     if (!intermediateDetails.ipercentage.trim()) {
       newErrors.intermediateDetails.ipercentage = 'Percentage is required';
     } else {
       const percentageValue = intermediateDetails.ipercentage.trim();
-   
-      // Regular expression to match digits and an optional decimal point
       const validPercentageRegex = /^\d+(\.\d+)?$/;
-   
       if (!validPercentageRegex.test(percentageValue) || parseFloat(percentageValue) < 0 || parseFloat(percentageValue) > 100) {
         newErrors.intermediateDetails.ipercentage = 'Enter a valid percentage between 0 (only digits and period(.) are allowed)';
       }
     }
   }
-  
+
     if(fielname === "" || fielname === "iyearOdPassing")
 {
     if (!intermediateDetails.iyearOfPassing) {
       newErrors.intermediateDetails.iyearOfPassing = 'Year of passing is required';
     } else {
-      // Validation for 4-digit numeric value
       if (!/^\d{4}$/.test(intermediateDetails.iyearOfPassing.trim())) {
         newErrors.intermediateDetails.iyearOfPassing = 'Year of passing should be a 4-digit number';
       } else {
-        // Additional validation for numeric value (no special characters or alphabets)
         if (!/^\d+$/.test(intermediateDetails.iyearOfPassing.trim())) {
           newErrors.intermediateDetails.iyearOfPassing = 'Year of passing should contain only digits';
         }
       }
     }
   }
-    
-// Validation for Intermediate City
 if(fielname === "" || fielname === "iCity")
 {
 if (!intermediateDetails.iCity) {
   newErrors.intermediateDetails.iCity = 'City is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iCity.trim())) {
     newErrors.intermediateDetails.iCity = 'City should contain text only';
   }
 }
 }
-   
-    // Validation for Intermediate State
     if(fielname === "" || fielname === "iState")
 {
 if (!intermediateDetails.iState) {
   newErrors.intermediateDetails.iState = 'State is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.iState.trim())) {
     newErrors.intermediateDetails.iState = 'State should contain text only';
   }
 }
 }
-      // Validation for Graduation College Name
     if(fielname === "" || fielname === "gcollegeName")
 {
 if (!graduationDetails.gcollegeName) {
   newErrors.graduationDetails.gcollegeName = 'College name is required';
 } else {
-  // Validation for text only
   if (!/^[^\d]+$/.test(graduationDetails.gcollegeName.trim())) {
     newErrors.graduationDetails.gcollegeName = 'College name should contain text only';
   }
 }
 }
-       // Validation for Graduation Board Name
     if(fielname === "" || fielname === "gboard")
 {
 if (!graduationDetails.gboard) {
   newErrors.graduationDetails.gboard = 'Board name is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gboard.trim())) {
     newErrors.graduationDetails.gboard = 'Board name should contain text only';
   }
 }
 }
-   
-    // Validation for Graduation Program
     if(fielname === "" || fielname === "gprogram")
 {
 if (!graduationDetails.gprogram) {
   newErrors.graduationDetails.gprogram = 'Program is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gprogram.trim())) {
     newErrors.graduationDetails.gprogram = 'Program should contain text only';
   }
@@ -326,10 +274,7 @@ if (!graduationDetails.gprogram) {
       newErrors.graduationDetails.gpercentage = 'Percentage is required';
     } else {
       const percentageValue = graduationDetails.gpercentage.trim();
-   
-      // Regular expression to match digits and an optional decimal point
       const validPercentageRegex = /^\d+(\.\d+)?$/;
-   
       if (!validPercentageRegex.test(percentageValue) || parseFloat(percentageValue) < 0 || parseFloat(percentageValue) > 100) {
         newErrors.graduationDetails.gpercentage = 'Enter a valid percentage between 0 and 100 (only digits and period(.) are allowed)';
       }
@@ -341,46 +286,36 @@ if (!graduationDetails.gprogram) {
     if (!graduationDetails.gyearOfPassing) {
       newErrors.graduationDetails.gyearOfPassing = 'Year of passing is required';
     } else {
-      // Validation for 4-digit numeric value
       if (!/^\d{4}$/.test(graduationDetails.gyearOfPassing.trim())) {
         newErrors.graduationDetails.gyearOfPassing = 'Year of passing should be a 4-digit number';
       } else {
-        // Additional validation for numeric value (no special characters or alphabets)
         if (!/^\d+$/.test(graduationDetails.gyearOfPassing.trim())) {
           newErrors.graduationDetails.gyearOfPassing = 'Year of passing should contain only digits';
         }
       }
     }
   }
-   
-    // Validation for Graduation City
     if(fielname === "" || fielname === "gCity")
 {
 if (!graduationDetails.gCity) {
   newErrors.graduationDetails.gCity = 'City is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gCity.trim())) {
     newErrors.graduationDetails.gCity = 'City should contain text only';
   }
 }
 }
-// Validation for Graduation State
 if(fielname === "" || fielname === "gState")
 {
 if (!graduationDetails.gState) {
   newErrors.graduationDetails.gState = 'State is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(graduationDetails.gState.trim())) {
     newErrors.graduationDetails.gState = 'State should contain text only';
   }
 }
 }
-    
-       //Skills
     skillsRequired.forEach((skill, index) => {
-      // Validation for Skill Name
       if(fielname === "" || fielname === "skillName")
 {
       if (skill==undefined || !skill.skillName) {     
@@ -393,8 +328,6 @@ if (!graduationDetails.gState) {
           newErrors.skillsRequired[index].skillName='Skill name should not be a numeric'; 
       }
     }
-    //Experience
-      // Validation for Experience
       if(fielname === "" || fielname === "experience")
 {
       if (!skill.experience) {
@@ -409,115 +342,60 @@ if (!graduationDetails.gState) {
       }
     }
     });
- 
     setErrors(newErrors);
-    
-    // Check if there are no errors
     console.log(newErrors);
     return Object.keys(newErrors).every(key => Object.keys(newErrors[key]).length === 0);
   };
- 
- 
   useEffect(() => {
-    // Simulate an asynchronous operation (e.g., fetching data from an API)
     const fetchData = async () => {
       try {
-        // Simulate fetching data after a delay (replace this with your actual data fetching logic)
         await new Promise(resolve => setTimeout(resolve, 100));
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        // Set loading to false to indicate the end of the operation, whether successful or not
         setLoading(false);
       }
     };
- 
-    // Call the fetchData function
     fetchData();
   }, []);
- 
   const [basicDetails, setBasicDetails] = useState({
- 
     firstName: "",
- 
     lastName: "",
- 
     dateOfBirth: "",
- 
     address: "",
- 
     city: "",
- 
     state: "",
- 
     pincode: "",
- 
     alternatePhoneNumber: "",
- 
   });
- 
- 
- 
   const [xClassDetails, setXClassDetails] = useState({
- 
     xschoolName: "",
- 
     xboard: "",
- 
     xpercentage: "",
- 
     xyearOfPassing: "",
- 
     xCity: "",
- 
     xState: "",
- 
     xPincode: "",
- 
   });
- 
- 
- 
   const [intermediateDetails, setIntermediateDetails] = useState({
- 
     icollegeName: "",
- 
     iboard: "",
- 
     iprogram: "",
- 
     ipercentage: "",
- 
     iyearOfPassing: "",
- 
     iCity: "",
- 
     iState: "",
- 
   });
- 
- 
- 
-  const [graduationDetails, setGraduationDetails] = useState({
- 
+ const [graduationDetails, setGraduationDetails] = useState({
     gcollegeName: "",
- 
     gboard: "",
- 
     gprogram: "",
- 
     gpercentage: "",
- 
     gyearOfPassing: "",
- 
     gCity: "",
- 
     gState: "",
- 
   });
- 
   const [skillsRequired, setSkillsRequired] = useState([
-     
     { skillName: "", experience: "" },
  
   ]);
@@ -529,41 +407,26 @@ if (!graduationDetails.gState) {
       endDate: "",
     },
   ]);
- 
-  
   const [resumeFile, setResumeFile] = useState(null);
   const [photoFile,setPhotoFile]=useState(null);
   const [dragging, setDragging] = useState(false);
- 
   const [selectedSkill, setSelectedSkill] = useState("");
- 
   const handleSkillChange = (e, index, field) => {
     const updatedSkillsRequired = [...skillsRequired];
-
         updatedSkillsRequired[index][field] = e.target.value;
  console.log('After Update:', updatedSkillsRequired);
- 
     setSkillsRequired(updatedSkillsRequired);
- 
-  };
- 
-  
+  }; 
   const addSkills = () => {
- 
     setSkillsRequired([...skillsRequired, { skillName: "", experience: "" }]);
- 
   };
   const removeSkills = () => {
-    // Check if there are skills to remove
     if (skillsRequired.length > 1) {
-      // Create a copy of the skillsRequired array without the last item
       const updatedSkills = [...skillsRequired.slice(0, -1)];
-      // Update the state with the new skills array
       setSkillsRequired(updatedSkills);
     }
   }; 
- 
-  const handleExperienceChange = (e, index, field) => {
+ const handleExperienceChange = (e, index, field) => {
     const newExperienceDetails = [...experienceDetails];
     newExperienceDetails[index][field] = e.target.value;
     setExperienceDetails(newExperienceDetails);
@@ -593,10 +456,7 @@ if (!graduationDetails.gState) {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Validate the form
     const isFormValid = validateForm("");
-    // If the form is not valid, prevent submission
     if (!isFormValid) {
       return;
     }
@@ -604,8 +464,6 @@ if (!graduationDetails.gState) {
       window.alert("Please check checkboxes before submitting.");
       return;
     }
-        
-    // Prepare data to be sent
     const userData = {
       basicDetails,
       xClassDetails,
@@ -617,44 +475,31 @@ if (!graduationDetails.gState) {
     };
  
    try {
-    // Get the JWT token from local storage
     const jwtToken = localStorage.getItem('jwtToken');
      console.log('jwt token new',jwtToken);
-    // Make a POST request to the sign-out endpoint on your backend
     const response = await axios.post(`${apiUrl}/applicantprofile/createprofile/${user.id}`, userData, {
       headers: {
-        Authorization: `Bearer ${jwtToken}`, // Include the JWT token in the Authorization header
+        Authorization: `Bearer ${jwtToken}`,
       },
     });
- 
-   
     if (response.status === 201) {
-      // Successful response
       if (response.data === 'profile saved sucessfully') {
         console.log(response.body);
         window.alert('Profile saved successfully!');
         navigate('/applicanthome');
       }  else {
         console.error('An unexpected success response:', response.body);
-      }
-       
+      }  
     }
-   
-   
     else {
-      // Handle other error cases
       console.error('An error occurred:', response.status, response.body);
-    }
-   
+    } 
   } catch (error) {
- 
-   
       window.alert("Your profile has already been updated.");
       navigate('/applicanthome');
-    console.error('An error occurred:', error);
+     console.error('An error occurred:', error);
   }
-};
-  
+};  
 const handleFileSelect = (e) => {
   const file = e.target.files[0];
   setPhotoFile(file);
@@ -663,13 +508,12 @@ const uploadPhoto = async () => {
   try {
     const jwtToken = localStorage.getItem('jwtToken');
     const formData = new FormData();
-    formData.append('photo', photoFile); // Use photoFile here
+    formData.append('photo', photoFile); 
     const response = await axios.post(
       `${apiUrl}/applicant-image/${user.id}/upload`,
       formData,
       {
         headers: {
-          //'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${jwtToken}`,
         },
       }
@@ -683,17 +527,15 @@ const uploadPhoto = async () => {
     window.alert('error in uploading Profile ');
   }
 };
-
 const handleResumeSelect = (e) => {
   const file = e.target.files[0];
   setResumeFile(file);
 };
-
 const handleResumeUpload = async () => {
   try {
     const jwtToken = localStorage.getItem('jwtToken');
     const formData = new FormData();
-    formData.append('resume', resumeFile); // 'resume' is the key
+    formData.append('resume', resumeFile);
     const response = await axios.post(
       `${apiUrl}/applicant-pdf/${user.id}/upload`,
       formData,
@@ -703,7 +545,6 @@ const handleResumeUpload = async () => {
         },
       }
     );
-
     console.log(response.data);
     window.alert(response.data);
     window.location.reload();
@@ -712,7 +553,6 @@ const handleResumeUpload = async () => {
     window.alert('Error uploading resume. Please try again.');
   }
 };
-
   return (
     <div>
        {loading ? null : (
@@ -735,11 +575,7 @@ const handleResumeUpload = async () => {
         <div className="col-lg-12 col-md-12 ">
           <div className="profile-setting bg-white">
           <div class="author-profile flex2 border-bt">
- 
           <div class="wrap-img flex2">
-  {/* <div class="img-box relative">
-    <img class="avatar" id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />
-  </div> */}
   <div id="upload-profile">
     <h5 class="fw-6">Upload your profile picture: </h5>
     <h6>JPG or PNG</h6>
@@ -771,9 +607,6 @@ const handleResumeUpload = async () => {
   </div>
 </div>&nbsp;&nbsp;&nbsp;
 <div class="wrap-img flex2">
-  {/* <div class="img-box relative">
-    <img class="avatar " id="profileimg" src="../images/dashboard/image-up.jpg" alt="" />
-      </div> */}
   <div id="upload-profile">
     <h5 class="fw-6">Upload your resume: </h5>
     <h6>PDF only</h6>
@@ -790,7 +623,7 @@ const handleResumeUpload = async () => {
   onClick={handleResumeUpload}
   className="btn-3"
   style={{
-    backgroundColor: '#4CAF50', // Green color, you can change this
+    backgroundColor: '#4CAF50',
     color: 'white',
     padding: '10px 15px',
     border: 'none',
@@ -805,9 +638,6 @@ const handleResumeUpload = async () => {
   </div>
 </div>
 <div>
- 
-  {/*  <input type="submit" class="submit-button"  value="Save Profile"  />
-  <button type="submit" className='button-status'>Save Profile</button>*/}
   </div>
 </div>
             <div className="flat-dashboard-post form-infor-profile">        
@@ -908,8 +738,6 @@ const handleResumeUpload = async () => {
                     />
                     </div>
                   </div>                              
-               
-           
             <div className="flat-dashboard-post form-infor-profile">        
              <div className="row">
               <div className="col-lg-12 col-md-12 ">  
@@ -1033,9 +861,7 @@ const handleResumeUpload = async () => {
             </div>                        
               </div>
               </div>
-              </div>            
-           
-           
+              </div> 
             <div className="flat-dashboard-post form-infor-profile">        
              <div className="row">
               <div className="col-lg-12 col-md-12 ">  
@@ -1165,7 +991,6 @@ const handleResumeUpload = async () => {
             </div>             
               </div>
               </div>
-
             <div className="flat-dashboard-post form-infor-profile">        
              <div className="row">
              <div className="col-lg-12 col-md-12 "> 
@@ -1405,7 +1230,6 @@ const handleResumeUpload = async () => {
                 +
               </button>
               <button type="button" onClick={removeSkills} style={{ 'color': '#FFFFFF', 'backgroundColor': '#FF0000' }}>
-                {/* Remove Skill */}
                 -
               </button>
             </div>
@@ -1442,14 +1266,11 @@ const handleResumeUpload = async () => {
 </div>
 <br/>       
                <div className="tt-button button-style">
-                {/* <button type="submit" className="btn-3">Submit</button> */}
               </div>
                 <div>
-                  {/*  <input type="submit" class="submit-button"  value="Save Profile"  /> */}
                   <button type="submit" className='button-status'>Save Profile</button>
 </div>
     </div>
-   
     </div>
     </div>
     </div>
@@ -1464,5 +1285,4 @@ const handleResumeUpload = async () => {
  
   )
 }
- 
 export default ApplicantUpdateProfile;

@@ -17,26 +17,17 @@ import RecruiterForgotPasswordPage from './pages/recruiterpages/RecruiterForgotP
 import PrivacyPolicy from './components/common/PrivacyPolicy';
 import CookiePolicy from './components/common/CookiePolicy';
 import TermsOfServices from './components/common/TermsOfServices';
-
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
-
   const handleLogin = () => {
     setIsLoggedIn(true);
-    // Retrieve the JWT token from localStorage
-   
   };
-
   const handleLogout = () => {
     setIsLoggedIn(false);
-    // Remove the JWT token from localStorage
     window.location.href = '/';
   };
-
   useEffect(() => {
-    // Check if the user is authenticated when the component mounts
     const jwtToken = localStorage.getItem('jwtToken');
     if (jwtToken) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
@@ -44,12 +35,10 @@ function App() {
     }
     setCheckingAuth(false);
   }, []);
-
   return (
     <div>
       <UserProvider>
         {checkingAuth ? (
-          // Show loading spinner or any other indicator while checking authentication
           <p>Loading...</p>
         ) : (
           <Router>
@@ -92,12 +81,9 @@ function App() {
                 <Route path="/recruiter-team-member" element={<RecruiterHomePage />} />
                 </>
               ) : (
-                // Redirect to login page if not authenticated
                 <Route path="/login" element={<Navigate to="/login" />} />
               )}
-              {/* <Route path="/logout" element={<Logout onLogout={handleLogout} />} /> */}
               <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
-            
             </Routes>
           </Router>
         )}
@@ -105,5 +91,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

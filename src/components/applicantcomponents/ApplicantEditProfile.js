@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
- 
 function ApplicantEditProfile() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -19,8 +18,6 @@ function ApplicantEditProfile() {
     experienceDetails: [],   
     applicant:{},
   });
-
-  
   const [errors, setErrors] = useState({
     basicDetails: {},
     xClassDetails: {},
@@ -30,8 +27,6 @@ function ApplicantEditProfile() {
     experienceDetails: [],  
     applicant:{}, 
   });
- 
-  // Validation function
   const validateForm = (fielname) => {
     const newErrors = {
       basicDetails: {},
@@ -41,13 +36,9 @@ function ApplicantEditProfile() {
       skillsRequired: [],
       experienceDetails: [],
       applicant:{},    
-    };
-    
-
-   
+    };   
 const currentDate = new Date();
 const maxAllowedAge = 18;
-
 if(fielname === "" || fielname === "dateOfBirth")
 {
 if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){ 
@@ -59,7 +50,6 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
   }
 }
 }
-
 if(fielname === "" || fielname === "city")
 {
     if (!basicDetails.city) {
@@ -70,7 +60,6 @@ if(fielname === "" || fielname === "city")
       }
     }
   }
-
   if(fielname==="" || fielname === "address")
   {
     if (!basicDetails.address.trim()) {
@@ -98,7 +87,6 @@ if(fielname === "" || fielname === "city")
   } else if (!applicant.name.matches("^[a-zA-Z]{1,20}$")) {
       return "Name should contain only alphabets and have a maximum of 20 characters";
   }
-
        if(fielname === "" || fielname === "state")
 {
     if (!basicDetails.state) {
@@ -114,12 +102,10 @@ if(fielname === "" || fielname === "city")
     if (!xClassDetails.xschoolName) {
       newErrors.xClassDetails.xschoolName = 'School Name is required';
     } else {
-      // Validation for text only
       if (!/^[a-zA-Z\s]+$/.test(xClassDetails.xschoolName.trim())) {
         newErrors.xClassDetails.xschoolName = 'School Name should not be number';
       }
     }}
-  
     if(fielname === "" || fielname === "xboard")
     {
     if (!xClassDetails.xboard) {
@@ -130,7 +116,6 @@ if(fielname === "" || fielname === "city")
       }
     }
   }
-  
     if(fielname === "" || fielname === "xpercentage")
 {
     if (!xClassDetails.xpercentage.trim()) {
@@ -144,7 +129,6 @@ if(fielname === "" || fielname === "city")
       }
     }
   }
-  
     if(fielname === "" || fielname === "xPincode")
     {
     if (!xClassDetails.xPincode.trim()) {
@@ -166,8 +150,7 @@ if (!xClassDetails.xyearOfPassing) {
     }
   }
 }
-}
-    
+}   
     if(fielname === "" || fielname === "xCity")
 {
 if (!xClassDetails.xCity) {
@@ -178,7 +161,6 @@ if (!xClassDetails.xCity) {
   }
 }
 }
-
 if(fielname === "" || fielname === "xState")
 {
 if (!xClassDetails.xState) {
@@ -189,20 +171,17 @@ if (!xClassDetails.xState) {
     newErrors.xClassDetails.xState = 'State should not be number';
   }
 }
-}
-   
+}   
    if(fielname === "" || fielname === "icollegeName")
 {
 if (!intermediateDetails.icollegeName) {
   newErrors.intermediateDetails.icollegeName = 'College Name is required';
 } else {
-  // Validation for text only
   if (!/^[a-zA-Z\s]+$/.test(intermediateDetails.icollegeName.trim())) {
     newErrors.intermediateDetails.icollegeName = 'College Name should not be number';
   }
 }
-}
-  
+}  
 if(fielname === "" || fielname === "iboard")
 {
 if (!intermediateDetails.iboard) {
@@ -212,8 +191,7 @@ if (!intermediateDetails.iboard) {
     newErrors.intermediateDetails.iboard = 'Board Name should not be number only';
   }
 }
-}
-  
+}  
 if(fielname === "" || fielname === "iprogram")
 {
 if (!intermediateDetails.iprogram) {
@@ -238,7 +216,6 @@ if (!intermediateDetails.iprogram) {
       }
     }
   }
- 
     if(fielname === "" || fielname === "iyearOdPassing")
 {
     if (!intermediateDetails.iyearOfPassing) {
@@ -252,8 +229,7 @@ if (!intermediateDetails.iprogram) {
         }
       }
     }
-  }
-   
+  }   
 if(fielname === "" || fielname === "iCity")
 {
 if (!intermediateDetails.iCity) {
@@ -284,7 +260,6 @@ if (!graduationDetails.gcollegeName) {
   }
 }
 }
-  
     if(fielname === "" || fielname === "gboard")
 {
 if (!graduationDetails.gboard) {
@@ -311,16 +286,12 @@ if (!graduationDetails.gprogram) {
       newErrors.graduationDetails.gpercentage = 'Percentage is required';
     } else {
       const percentageValue = graduationDetails.gpercentage.trim();
-   
-      // Regular expression to match digits and an optional decimal point
       const validPercentageRegex = /^\d+(\.\d+)?$/;
-   
       if (!validPercentageRegex.test(percentageValue) || parseFloat(percentageValue) < 0 || parseFloat(percentageValue) > 100) {
         newErrors.graduationDetails.gpercentage = 'Enter a valid percentage between 0 and 100 (only digits and period(.) are allowed)';
       }
     }
   }
-  
     if(fielname === "" || fielname === "gyearOfPassing")
 {
     if (!graduationDetails.gyearOfPassing) {
@@ -335,7 +306,6 @@ if (!graduationDetails.gprogram) {
       }
     }
   }
-   
     if(fielname === "" || fielname === "gCity")
 {
 if (!graduationDetails.gCity) {
@@ -346,7 +316,6 @@ if (!graduationDetails.gCity) {
   }
 }
 }
-
 if(fielname === "" || fielname === "gState")
 {
 if (!graduationDetails.gState) {
@@ -384,19 +353,14 @@ if (!graduationDetails.gState) {
       }
     }
     });
- 
     setErrors(newErrors);   
-    // console.log(newErrors);
     return Object.keys(newErrors).every(key => Object.keys(newErrors[key]).length === 0);
   };
- 
- 
   useEffect(() => {    
     const fetchData = async () => {
         try {
           const jwtToken = localStorage.getItem('jwtToken');
       console.log('jwt token new', jwtToken);
-
       const response = await axios.get(`${apiUrl}/applicantprofile/${user.id}/profile-view`, {       
         headers: {
           Authorization: `Bearer ${jwtToken}`,
@@ -415,15 +379,12 @@ if (!graduationDetails.gState) {
           setLoading(false);
         }
       };
-    
       fetchData();     
     }, []);
-
    const[applicant,setApplicant]=useState({
     name:"",
     mobilenumber:"",
    });
- 
       const [basicDetails, setBasicDetails] = useState({
         firstName: "",
         lastName: "",
@@ -434,7 +395,6 @@ if (!graduationDetails.gState) {
         pincode: "",
         alternatePhoneNumber: "",
       });
-   
      const [xClassDetails, setXClassDetails] = useState({
         xschoolName: "",
         xboard: "",
@@ -443,8 +403,7 @@ if (!graduationDetails.gState) {
         xCity: "",
         xState: "",
         xPincode: "",
-      });
-    
+      });   
        const [intermediateDetails, setIntermediateDetails] = useState({
         icollegeName: "",
         iboard: "",
@@ -452,13 +411,9 @@ if (!graduationDetails.gState) {
         ipercentage: "",
         iyearOfPassing: "",
         iCity: "",
-        iState: "",
-    
+        iState: "",   
      });
-    
-    
-    
-     const [graduationDetails, setGraduationDetails] = useState({
+    const [graduationDetails, setGraduationDetails] = useState({
            gcollegeName: "",
            gboard: "",
            gprogram: "",
@@ -467,11 +422,8 @@ if (!graduationDetails.gState) {
        gCity: "",    
        gState: "",    
      });
-    
-     const [skillsRequired, setSkillsRequired] = useState([
-        
+     const [skillsRequired, setSkillsRequired] = useState([ 
        { skillName: "", experience: "" },
-    
      ]);
      const [experienceDetails, setExperienceDetails] = useState([
        {
@@ -480,10 +432,7 @@ if (!graduationDetails.gState) {
          startDate: "",
          endDate: "",
        },
-     ]);
-    //  const [formData, setFormData] = useState({
-     
-    // });  
+     ]); 
   const [dragging, setDragging] = useState(false);
    const [selectedSkill, setSelectedSkill] = useState("");
    const handleSkillChange = (e, index, field) => {
@@ -492,11 +441,8 @@ if (!graduationDetails.gState) {
  console.log('After Update:', updatedSkillsRequired);
      setSkillsRequired(updatedSkillsRequired); 
   };
- 
- 
   const addSkills = () => {
      setSkillsRequired([...skillsRequired, { skillName: "", experience: "" }]);
- 
   };
   const removeSkills = () => {
         if (skillsRequired.length > 1) {
@@ -504,8 +450,6 @@ if (!graduationDetails.gState) {
       setSkillsRequired(updatedSkills);
     }
   };
- 
- 
   const handleExperienceChange = (e, index, field) => {
     const newExperienceDetails = [...experienceDetails];
     newExperienceDetails[index][field] = e.target.value;
@@ -517,25 +461,20 @@ if (!graduationDetails.gState) {
       { company: "", position: "", startDate: "", endDate: "" }
     ]);
   };
-
   const removeExperience = (index) => {
     if(experienceDetails.length>1){
       const updatedExperienceDetails = [...experienceDetails];
       updatedExperienceDetails.splice(index, 1);
       setExperienceDetails(updatedExperienceDetails);
     }
-   
   };
- 
   const handleSubmit = async (e) => {
     e.preventDefault();
   console.log("in handleSubmit")
     const isFormValid = validateForm(""); 
-
     if (!isFormValid) {
       return;
     }
-   
     const formData={
       applicant:applicant,
       basicDetails: basicDetails,
@@ -545,7 +484,6 @@ if (!graduationDetails.gState) {
       skillsRequired: skillsRequired,
       experienceDetails: experienceDetails,
     }
-   
    try { 
     const jwtToken = localStorage.getItem('jwtToken');
      console.log('jwt token new',jwtToken);  
@@ -563,21 +501,16 @@ if (!graduationDetails.gState) {
         navigate('/applicanthome');
       }  else {
         console.error('An unexpected success response:', response.body);
-      }
-       
+      }  
     }
-   
-   
     else {     
       console.error('An error occurred:', response.status, response.body);
     }
-   
   } catch (error) {      
       navigate('/applicanthome');
     console.error('An error occurred:', error);
   }
 };
- 
   return (
     <div>
        {loading ? null : (
@@ -603,18 +536,6 @@ if (!graduationDetails.gState) {
               <h3 className="title-info">Information</h3>
               <div className="form-infor flex flat-form">
                 <div className="info-box info-wd">
-                {/* <fieldset>
-                  <label class="title-user fw-7">First Name<span className="color-red">*</span></label>
-                  <input type="text"
-                           placeholder="First Name"
-                           className="input-form"
-                           value={basicDetails.firstName}
-                           onChange={(e) =>
-                           setBasicDetails({ ...basicDetails, firstName: e.target.value })}
-                           
-                  />                     
-                  </fieldset> */}
-                 
                   <fieldset>
                   <label class="title-user fw-7">Date of Birth <span className="color-red">*</span></label>
                      <input
@@ -664,17 +585,6 @@ if (!graduationDetails.gState) {
                   </div>
                 </div>
                 <div className="info-box info-wd">
-                {/* <fieldset>
-                  <label class="title-user fw-7">Last Name<span className="color-red">*</span></label>
-                  <input type="text"
-                           placeholder="Last Name"
-                           className="input-form"
-                           value={basicDetails.lastName}
-                           onChange={(e) =>
-                           setBasicDetails({ ...basicDetails, lastName: e.target.value })}
-                           
-                  />                     
-                  </fieldset> */}
                   <fieldset>
                   <label class="title-user fw-7">Address <span className="color-red">*</span></label>
                     <input
@@ -836,8 +746,7 @@ if (!graduationDetails.gState) {
             )}
             </div>
                   </div>
-                </div>
-               
+                </div> 
               </div>
              </div>
              <div className="form-infor-profile">
@@ -846,7 +755,6 @@ if (!graduationDetails.gState) {
                 <div className="info-box info-wd">
                   <fieldset>
                   <input
- 
                          type="text"
                           placeholder="Name of college"
                           className="input-form"
@@ -856,8 +764,7 @@ if (!graduationDetails.gState) {
                               ...intermediateDetails,
                               icollegeName: e.target.value,})} 
                               onBlur={() => validateForm("icollegeName")}
-                  />
-                 
+                  /> 
                   <div className="validation-errors">
             {errors.intermediateDetails.icollegeName && (
               <div className="error-message">{errors.intermediateDetails.icollegeName}</div>
@@ -964,7 +871,6 @@ if (!graduationDetails.gState) {
           </div>
                   </div>
                 </div>
-               
               </div>
              </div>
              <div className="form-infor-profile">
@@ -1123,12 +1029,10 @@ if (!graduationDetails.gState) {
           </div>
                   </fieldset>             
                   </div>
-                </div>
-             
+                </div>            
               </div>            
     <div class="contact-wrap info-wd">
                   <h3>Experience & Skills</h3>
- 
                  <div class="form-social form-wg flex flat-form">
                     <div class="form-box  wg-box">
                       <div id="item_category2" class="dropdown titles-dropdow">
@@ -1214,8 +1118,7 @@ if (!graduationDetails.gState) {
   className="input-form"
   value={skill.experience}
   onChange={(e) => handleSkillChange(e, index, "experience")}
-  onBlur={() => validateForm("experience")}
-  
+  onBlur={() => validateForm("experience")} 
 />
 {errors.skillsRequired[index]?.experience && (
                     <div className="error-message">{errors.skillsRequired[index].experience}</div>
@@ -1228,7 +1131,6 @@ if (!graduationDetails.gState) {
 )}
 {index === skillsRequired.length - 1 && (
         <button type="button" onClick={removeSkills} style={{'color':'#FFFFFF','backgroundColor':'#FF0000'}}>
-          {/* Remove Skill */}
           -
         </button>
       )}
@@ -1239,28 +1141,20 @@ if (!graduationDetails.gState) {
                   </div>
                 </div>
                 <div className="tt-button button-style">
-                {/* <button type="submit" className="btn-3">Submit</button> */}
               </div>
                 <div>
-                  {/*  <input type="submit" class="submit-button"  value="Save Profile"  /> */}
                   <button type="submit" className='button-status'>Update Profile</button>
 </div>
     </div>
-   
     </div>
-   
     </div>
     </div>
     </section>
     </div>
     </form>
-   
     )
   }
-    </div>
-                 
- 
+    </div>      
   )
 }
- 
 export default ApplicantEditProfile;

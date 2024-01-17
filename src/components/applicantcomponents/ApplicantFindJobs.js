@@ -5,14 +5,12 @@ import axios from 'axios';
 import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
 import logoCompany1 from '../../images/cty12.png';
-
 function ApplicantFindJobs({ setSelectedJobId }) {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { user } = useUserContext();
   const userId = user.id;
-
   useEffect(() => {
     const fetchJobs = async () => {
       try {
@@ -25,32 +23,23 @@ function ApplicantFindJobs({ setSelectedJobId }) {
         setLoading(false);
       }
     };
-
     fetchJobs();
   }, [userId]);
-
   useEffect(() => {
-    // Simulate an asynchronous operation (e.g., fetching data from an API)
     const fetchData = async () => {
       try {
-        // Simulate fetching data after a delay (replace this with your actual data fetching logic)
         await new Promise(resolve => setTimeout(resolve, 50));
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        // Set loading to false to indicate the end of the operation, whether successful or not
         setLoading(false);
       }
     };
-
-    // Call the fetchData function
     fetchData();
   }, []);
-
   const handleSaveJob = async (jobId) => {
     try {
       const response = await axios.post(`${apiUrl}/savedjob/applicants/savejob/${userId}/${jobId}`);
-      // Assuming the API response contains the message "Job Saved Successfully"
       const { message } = response.data;
        if(response.status =200){
         window.alert('Job Saved successfully');
@@ -72,13 +61,11 @@ function ApplicantFindJobs({ setSelectedJobId }) {
       setLoading(false);
     }
   };
-
   function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
     return formattedDate;
   }
-
   return (
     <div>
       {loading ? null : (
@@ -118,7 +105,6 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                                 <h3>
                                   <a href="jobs-single.html">
                                     {job.jobTitle}
-                                    {/* <span className="icon-bolt"></span> */}
                                   </a>
                                 </h3>
                                 <ul>
@@ -131,7 +117,6 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                                     Posted on {formatDate(job.creationDate)}
                                   </li>
                                 </ul>
-                                {/* <span class="icon-heart"></span> */}
                               </div>
                             </div>
                           </div>
@@ -156,15 +141,7 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                                   <span></span>
                                   <p>&#x20B9; {job.minSalary} - &#x20B9; {job.maxSalary} / year</p>
                                 </div>
-                                {/* <p className="days">{jobDetails.daysLeft} days left to apply</p> */}
-                                {/* <Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)}>
-                                <button type="button" style={{borderRadius:20}} className="btn-primary">Check Status</button>
-                                </Link> */}
-                                {/* <button class="button-status">
-                                {job && (<Link to="/applicant-interview-status" style={{color:'white'}} onClick={() => setSelectedJobId(job.id)}>Check Status</Link> )}
-                                </button> */}
-                                
-  <ul className="job-tag">
+                                <ul className="job-tag">
     <li>
       {job && (
         <Link
@@ -177,7 +154,6 @@ function ApplicantFindJobs({ setSelectedJobId }) {
       )}
     </li>
     <li>
-        {/* Conditional rendering of Save Job button */}
         {job.saveJobStatus==='saved' ? (
             <button
             disabled
@@ -197,7 +173,6 @@ function ApplicantFindJobs({ setSelectedJobId }) {
  
     </li>
   </ul>
-
                               </div>
                             </div>
                         </div>
@@ -212,5 +187,4 @@ function ApplicantFindJobs({ setSelectedJobId }) {
     </div>
   );
 }
-
 export default ApplicantFindJobs;

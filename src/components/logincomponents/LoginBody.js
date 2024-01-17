@@ -40,7 +40,6 @@ function LoginBody({ handleLogin }) {
     }
  
     try {
-    //  setCandidateLoginInProgress(true);
       let loginEndpoint = `${apiUrl}/applicant/applicantLogin`;
       const response = await axios.post(loginEndpoint, {
         email: candidateEmail,
@@ -81,118 +80,80 @@ function LoginBody({ handleLogin }) {
       console.log(error.response.data);
       if(error.response.data==="Incorrect password") {
         setErrorMessage('Incorrect password.');
-     //   setCandidateLoginInProgress(false);
         console.error('login failed');
       }
       else if(error.response.data==="No account found with this email address") {
         setErrorMessage('No account found with this email address.');
-     //   setCandidateLoginInProgress(false);
         console.error('login failed');
       }
       else{
         setErrorMessage('login failed. Please check your user name and password.');
       }
-     
-   //   setCandidateLoginInProgress(false);
       console.error('Login failed', error);
     }
   };
- 
   const isCandidateFormValid = () => {
- 
-    // Validate email
     const emailError = validateEmail(candidateEmail);
     setCandidateEmailError(emailError);
- 
-    // Validate password
     const passwordError = validatePassword(candidatePassword);
     setCandidatePasswordError(passwordError);
- 
-    // Check if either email or password is empty
     if (!candidateEmail.trim()) {
       setCandidateEmailError('Email is required.');
     }
- 
     if (!candidatePassword.trim()) {
       setCandidatePasswordError('Password is required.');
     }
- 
-    // Check if there are any validation errors
     if (emailError || passwordError) {
       return false;
     }
- 
     return true;
   };
- 
   const isRecruiterFormValid = () => {
-    // Validate email
     const emailError = validateEmail(recruiterEmail);
     setRecruiterEmailError(emailError);
- 
-    // Validate password
     const passwordError = validatePassword(recruiterPassword);
     setRecruiterPasswordError(passwordError);
- 
-    // Check if either email or password is empty
     if (!recruiterEmail.trim()) {
       setRecruiterEmailError('Email is required.');
     }
- 
     if (!recruiterPassword.trim()) {
       setRecruiterPasswordError('Password is required.');
     }
- 
-    // Check if there are any validation errors
     if (emailError || passwordError) {
       return false;
     }
- 
     return true;
   };
- 
   const validateEmail = (email) => {
     if (!email.trim()) {
       return 'Email is required.';
     }
- 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email) ? '' : 'Please enter a valid email address.';
   };
- 
   const validatePassword = (password) => {
     if (!password.trim()) {
       return 'Password is required.';
     }
- 
     if (password.length < 6) {
       return 'Password must be at least 6 characters long.';
     }
- 
     if (!/[A-Z]/.test(password)) {
       return 'Password must contain at least one uppercase letter.';
     }
- 
     if (!/[^A-Za-z0-9]/.test(password)) {
       return 'Password must contain at least one special character (non-alphanumeric).';
     }
- 
     if (/\s/.test(password)) {
       return 'Password cannot contain spaces.';
     }
- 
     return '';
   };
- 
- 
- 
- 
-  const handleRecruiterSubmit = async (e) => {
+const handleRecruiterSubmit = async (e) => {
     e.preventDefault();
     if (!isRecruiterFormValid()) {
       return;
     }
- 
     try {
       let loginEndpoint = `${apiUrl}/recuriters/recruiterLogin`;
       const response = await axios.post(loginEndpoint, {
@@ -203,11 +164,8 @@ function LoginBody({ handleLogin }) {
             if (response.status === 200) {
         setErrorMessage('');
         const userData = response.data;
- 
         localStorage.setItem('jwtToken', userData.data.jwt);
- 
         let userType1 = '';
- 
         if (userData.message.includes('ROLE_JOBAPPLICANT')) {
           userType1 = 'jobseeker';
         } else if (userData.message.includes('ROLE_JOBRECRUITER')) {
@@ -215,27 +173,21 @@ function LoginBody({ handleLogin }) {
         } else {
           userType1 = 'unknown';
         }
- 
         localStorage.setItem('userType', userType1);
- 
         setErrorMessage('');
         handleLogin();
- 
         setUser(userData);
         setUserType(userData.userType);
         console.log('Recruiter Login successful', userData);
- 
         navigate('/recruiterhome');
       }
     } catch (error) {
       if(error.response.data==="Incorrect password") {
         setErrorMessage('Incorrect password.');
-     //   setCandidateLoginInProgress(false);
         console.error('login failed');
       }
       else if(error.response.data==="No account found with this email address") {
         setErrorMessage('No account found with this email address.');
-     //   setCandidateLoginInProgress(false);
         console.error('login failed');
       }
       else{
@@ -244,7 +196,6 @@ function LoginBody({ handleLogin }) {
       console.error('Login failed', error);
     }
   };
- 
   return (
     <div>
       <section className="account-section">
@@ -267,7 +218,6 @@ function LoginBody({ handleLogin }) {
                     Recruiter
                   </li>
                 </ul>
- 
                 <div className="content-tab">
                   <div className="inner" style={{ display: activeTab === 'Candidate' ? 'block' : 'none' }}>
                     <form onSubmit={handleCandidateSubmit}>
@@ -279,7 +229,7 @@ function LoginBody({ handleLogin }) {
                   value={candidateEmail}
                   onChange={(e) => {
                     setCandidateEmail(e.target.value);
-                    setCandidateEmailError(''); // Clear the error when the input changes
+                    setCandidateEmailError('');
                   }}
                  
                 />
@@ -294,7 +244,7 @@ function LoginBody({ handleLogin }) {
                             value={candidatePassword}
                             onChange={(e) => {
                               setCandidatePassword(e.target.value);
-                               setCandidatePasswordError(''); // Clear the error when the input changes
+                               setCandidatePasswordError('');
                                 }}
                            
                        />
@@ -328,7 +278,7 @@ function LoginBody({ handleLogin }) {
                           value={recruiterEmail}
                           onChange={(e) => {
                             setRecruiterEmail(e.target.value);
-                            setRecruiterEmailError(''); // Clear the error when the input changes
+                            setRecruiterEmailError('');
                           }}
                         />
                         {recruiterEmailError && <div className="error-message">{recruiterEmailError}</div>}
@@ -342,7 +292,7 @@ function LoginBody({ handleLogin }) {
                             value={recruiterPassword}
                             onChange={(e) => {
                               setRecruiterPassword(e.target.value);
-                               setRecruiterPasswordError(''); // Clear the error when the input changes
+                               setRecruiterPasswordError('');
                                 }}
                            
                        />
