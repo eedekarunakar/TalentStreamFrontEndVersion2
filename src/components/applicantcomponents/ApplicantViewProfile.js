@@ -96,7 +96,8 @@ const ApplicantViewProfile = () => {
           <div className="wrap-profile flex2 bg-white">
             <div className="box-profile flex2">
               <div className="images">
-                <img src={imageSrc} alt="" width="130px" height="40px"/>
+                {/* <img src={imageSrc} alt="" width="130px" height="40px"/> */}
+                <img width="70px" height="40px" src={imageSrc || '../images/user/avatar/image-01.jpg'} alt="Profile" onError={() => setImageSrc('../images/user/avatar/image-01.jpg')} />
               </div>
               <div className="content">
                 <h5 style={{ fontSize: '24px' }} className="fw-6 color-3 ">{profileData.applicant.name}</h5>
@@ -104,7 +105,7 @@ const ApplicantViewProfile = () => {
               </div>
             </div>
             <div className="tt-button">
-            <Link to="/applicant-edit-profile">Update Profile</Link>
+            <Link to="/applicant-edit-profile">Edit Profile</Link>
             </div>
           </div>
         </div>
@@ -145,10 +146,10 @@ const ApplicantViewProfile = () => {
                   </h4>
                 </div> */}
                
-                <div className="title-box flex">
+                {/* <div className="title-box flex">
                   <div className="p-16">Experience time</div>
                   <h4>2</h4>
-                </div>
+                </div> */}
                                
                 <div className="title-box flex">
                   <div className="p-16">Qualification</div>
@@ -192,17 +193,17 @@ const ApplicantViewProfile = () => {
                   </div>
                   <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'orange'}}> Intermediate Details:</h4></h4>
                     <div style={{marginLeft:'20px'}}>
-                    <div className="subtitle-1 fw-7">Board:{profileData.intermediateDetails.iboard} </div>
-                    <div className="subtitle-1 fw-7">Branch:{profileData.intermediateDetails.iprogram} </div>
+                    <div className="subtitle-1 fw-7">Board: {profileData.intermediateDetails.iboard} </div>
+                    <div className="subtitle-1 fw-7">Branch: {profileData.intermediateDetails.iprogram} </div>
                     <div className="subtitle-1 fw-7">Percentage: {profileData.intermediateDetails.ipercentage} </div>
-                    <div className="subtitle-1 fw-7">Year of Passing:{profileData.intermediateDetails.iyearOfPassing} </div>
+                    <div className="subtitle-1 fw-7">Year of Passing: {profileData.intermediateDetails.iyearOfPassing} </div>
                   </div>
                   <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'orange'}}> SSC Details:</h4></h4>
                     <div style={{marginLeft:'20px'}}>
-                    <div className="subtitle-1 fw-7">Board:{profileData.xClassDetails.xboard} </div>
-                    <div className="subtitle-1 fw-7">SSC/CBSE/ICSE{profileData.xClassDetails.xprogram} </div>
-                    <div className="subtitle-1 fw-7">Percentage:{profileData.xClassDetails.xpercentage} </div>
-                    <div className="subtitle-1 fw-7">Year of Passing:{profileData.xClassDetails.xyearOfPassing} </div>
+                    <div className="subtitle-1 fw-7">Board: {profileData.xClassDetails.xboard} </div>
+                    <div className="subtitle-1 fw-7">SSC/CBSE/ICSE {profileData.xClassDetails.xprogram} </div>
+                    <div className="subtitle-1 fw-7">Percentage: {profileData.xClassDetails.xpercentage} </div>
+                    <div className="subtitle-1 fw-7">Year of Passing: {profileData.xClassDetails.xyearOfPassing} </div>
                   </div>
                   </div>
                   {/* <div class="education-box">
