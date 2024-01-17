@@ -23,9 +23,6 @@ export default function Footer() {
                   <li>
                     <a href="https://www.linkedin.com/company/tekworks-in"><i class="icon-linkedin2"></i></a>
                   </li>
-                  {/* <li>
-                    <a href="#"><i class="icon-twitter"></i></a>
-                  </li> */}
                   <li>
                     <a href="https://www.instagram.com/tekworks_hiring"><i class="icon-instagram1"></i></a>
                   </li>
@@ -43,7 +40,6 @@ export default function Footer() {
           <div class="row">
             <div class="col-lg-4 col-md-6">
               <div class="footer-cl-1">
-               
                 <p>
                   Job Searching Just Hot Easy. Use <strong>TalentStream</strong> To Run A Hiring Site
                   And Earn Money In The Process!
@@ -80,10 +76,6 @@ export default function Footer() {
                 </ul>
               </div>
             </div>
-            {/* <div class="col-lg-4 col-6">
-                           
-               <img src="images/review/jobsearch.gif" width="350px" alt="images" />
-                         </div> */}
             <div class="col-lg-4 col-md-4 col-6">
             <h6 class="ft-title">Reach us</h6>
               
@@ -104,7 +96,6 @@ export default function Footer() {
           </div>
           <div class="bottom">
         <div class="tf-container" align="center">
-          
                 <div class="copyright">
                   <br /><br />
                   ©2023 TekWorks. All Rights Reserved.
@@ -112,12 +103,8 @@ export default function Footer() {
         </div>
       </div>
         </div>
-       
       </div>
-    
     </footer>
-
-
      </div>
   )
 }

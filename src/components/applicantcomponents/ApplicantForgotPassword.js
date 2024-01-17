@@ -4,7 +4,6 @@ import axios from 'axios';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import { useNavigate} from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
- 
 function ApplicantForgotPassword() {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
@@ -16,50 +15,38 @@ function ApplicantForgotPassword() {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [otpResendTimer, setOTPTimerResend] = useState(0);
   const [resendButtonDisabled, setResendButtonDisabled] = useState(false);
-  const [password, setPassword] = useState(''); // New password field
-  const [confirmedPassword, setConfirmedPassword] = useState(''); // Confirm password field
+  const [password, setPassword] = useState('');
+  const [confirmedPassword, setConfirmedPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
- 
- 
   const user1 = useUserContext();
   const user = user1.user;
- 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
- 
   const handleToggleConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
- 
   const validatePassword = (value) => {
     const isLengthValid = value.length >= 6;
     const hasUppercase = /[A-Z]/.test(value);
     const hasSpecialChar = /[^A-Za-z0-9]/.test(value);
     const hasNoSpaces = !/\s/.test(value);
- 
     const isValid = isLengthValid && hasUppercase && hasSpecialChar && hasNoSpaces;
- 
     setIsPasswordValid(isValid);
- 
     return isValid;
   };
- 
   const handleSendOTP = async () => {
     try {
       const response = await axios.post(`${apiUrl}/applicant/forgotpasswordsendotp`, { email });
-      setOTPTimerResend(60); // Reset the timer
+      setOTPTimerResend(60);
       const timerInterval = setInterval(() => {
         setOTPTimerResend((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
       }, 1000);
- 
-      // Clear the interval after 60 seconds
       setTimeout(() => {
         clearInterval(timerInterval);
         setResendButtonDisabled(false);
       }, 60000);
- 
       if (response.data === 'OTP sent successfully') {
         setOtpSent(true);
         setResetSuccess(false);
@@ -76,12 +63,9 @@ function ApplicantForgotPassword() {
       setResetError('Enter valid email address');
     }
   };
- 
- 
   const handleVerifyOTP = async () => {
     try {
       const response = await axios.post(`${apiUrl}/applicant/applicantverify-otp`, { email, otp });
- 
       if (response.data === 'OTP verified successfully') {
         setOtpVerified(true);
         setResetError('');
@@ -95,31 +79,23 @@ function ApplicantForgotPassword() {
       setResetError('OTP verification failed. Please enter a valid OTP.');
     }
   };
- 
   const handleResendOTP = async () => {
     try {
       setResendButtonDisabled(true);
       await axios.post(`${apiUrl}/applicant/forgotpasswordsendotp`, { email });
-      setOTPTimerResend(60); // Reset the timer
+      setOTPTimerResend(60);
       const timerInterval = setInterval(() => {
         setOTPTimerResend((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
       }, 1000);
- 
-      // Clear the interval after 60 seconds
       setTimeout(() => {
         clearInterval(timerInterval);
         setResendButtonDisabled(false);
       }, 60000);
       window.alert('OTP Resent successfully');
- 
-      // Perform actions on successful OTP send, if needed
     } catch (error) {
       console.error('Error resending OTP:', error);
-      // Perform actions on failed OTP send, if needed
     }
   };
- 
- 
   const handleResetPassword = async () => {
     if (password !== confirmedPassword) {
       setResetSuccess(false);
@@ -145,7 +121,6 @@ function ApplicantForgotPassword() {
       if (response.data === 'Password reset was done successfully') {
         setResetSuccess(true);
         setResetError('');
-       // navigate('/login');
       } else {
         setResetSuccess(false);
         setResetError('Password reset failed. Please try again later.');
@@ -156,27 +131,9 @@ function ApplicantForgotPassword() {
       setResetError('An error occurred. Please try again later.');
     }
   };
- 
   return (
     <div>
-      <div>
-        {/* <section className="bg-f5">
-        <div className="tf-container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="page-title">
-                <div className="widget-menu-link">
-                  <ul>
-                 
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        </section> */}
- 
-       
+      <div>       
  <section className="account-section">
           <div className="tf-container">
             <div className="row">
@@ -283,5 +240,4 @@ function ApplicantForgotPassword() {
   );
  
 }
- 
 export default ApplicantForgotPassword;

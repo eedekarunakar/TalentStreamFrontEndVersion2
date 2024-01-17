@@ -85,7 +85,6 @@ function RecruiterChangePassword() {
  
     try {
       const response = await axios.post(`${apiUrl}/recuriters/authenticateRecruiter/${user.id}`, formData);
- 
       if (response.data === 'Password updated and stored') {
         window.alert('Password Changed Successfully');
       } else {
@@ -93,17 +92,13 @@ function RecruiterChangePassword() {
       }
     } catch (error) {
       console.error('Password change failed. Old password is wrong.:', error);
-      // window.alert('Error resetting password');
       window.alert('Password change failed. Old password is wrong.');
     }
   };
- 
-  // Validate password criteria
   const isValidPassword = (password) => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     return passwordRegex.test(password);
   };
- 
   return (
     <div>
       <>
@@ -126,8 +121,6 @@ function RecruiterChangePassword() {
                   <div className="change-password bg-white">
                     <form action="https://themesflat.co/html/jobtex/dashboard/dashboard.html">
                       <div className="form-password">
-                      
-                        {/* Old Password */}
                         <div className="inner info-wd">
                           <label className="title-url fs-16">
                             Old Password<span className="color-red">*</span>
@@ -150,7 +143,6 @@ function RecruiterChangePassword() {
                             <div className="error-message">{formErrors.oldPassword}</div>
                           )}
                         </div>
-                        {/* New Password */}
                         <div className="inner info-wd">
                           <label className="title-url fs-16">
                             New Password <span className="color-red">*</span>
@@ -173,7 +165,6 @@ function RecruiterChangePassword() {
                             <div className="error-message">{formErrors.newPassword}</div>
                           )}
                         </div>
-                        {/* Confirm Password */}
                         <div className="inner info-wd">
                           <label className="title-url fs-16">
                             Confirm Password<span className="color-red">*</span>
@@ -212,6 +203,5 @@ function RecruiterChangePassword() {
       </>
     </div>
   );
-}
- 
+} 
 export default RecruiterChangePassword;

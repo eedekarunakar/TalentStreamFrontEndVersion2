@@ -3,17 +3,14 @@ import { Document, Page, pdfjs} from 'react-pdf';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import { apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
- 
-pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
- 
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`; 
 const ApplicantResume = () => {
   const [pdfData, setPdfData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [hasBeenCalled, setHasBeenCalled] = useState(false);
-  const [pagesRendered, setPagesRendered] = useState(0);
- 
+  const [pagesRendered, setPagesRendered] = useState(0); 
   const user = useUserContext().user;
   console.log("firstCall");
   let pdfLink="";
@@ -21,72 +18,48 @@ const ApplicantResume = () => {
     console.log("1")
     try {
       const jwtToken = localStorage.getItem('jwtToken');
- 
       const response = await fetch(`${apiUrl}/applicant-pdf/getresume/${user.id}`, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
       });
- 
       console.log("before");
       console.log(response);
       console.log("after");
- 
       if (response.ok) {
         const blob = await response.blob();
         console.log(blob, "blod")
          pdfLink = URL.createObjectURL(blob);
- 
-        // const imageBlob = new Blob([response.data]);
-        // const imageUrl = URL.createObjectURL(imageBlob);
- 
         console.log("url", pdfLink )
-        // if (pdfUrl !== null) {
         setPdfData(pdfLink);
-        // }
- 
       } else {
         console.error('Error fetching resume content:', response);
       }
- 
     } catch (error) {
       console.error('Error fetching resume content:', error);
     } finally {
       setLoading(false);
-      // setPdfData(null);
     }
- 
   };
- 
- 
-  const onDocumentLoadSuccess = ({ numPages }) => {
+const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
   };
- 
   const onPageLoadSuccess = () => {
     setPagesRendered((prevPages) => prevPages + 1);
   };
-  // const onDocumentLoadSuccess = ({ numPages }) => {
-  //   if (!pdfData) {
-  //     setNumPages(numPages);
-  //   }
-  // };
   useEffect(() => {
     fetchResumeContent();
   }, []);
- 
   const containerStyle = {
     width: '100%',
     maxWidth: '800px',
     margin: '20px auto 0',
     overflowX: 'auto',
   };
- 
   const pdfWrapperStyle = {
     width: '100%',
     maxWidth: '100%',
-  };
- 
+  }; 
 return (
   <div  className="dashboard__content">
   <section className="page-title-dashboard">
@@ -107,14 +80,9 @@ return (
           ) : (
             <p>No resumes are uploaded.</p>
           )}
-      {/* <Document file={pdfData} onLoadSuccess={onDocumentLoadSuccess}>
-      <Page pageNumber={pageNumber} />
-        </Document>   */}
        </div>
        </section>
-   
   </div>
 );
- 
 };
 export default ApplicantResume;

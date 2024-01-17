@@ -1,44 +1,4 @@
-/*
-    * TF dashboard 
-    * page-title-dashboard 
-    * flat-icon-dashboard 
-    * flat-dashboard-dyagram
-    * table 
-    * flat dashboard applicants
-    * flat-dashboard-bottom
-    * dyagram
-    * dashboard menu 
-    * profile
-    * flat-dashboard-about 
-    * search
-    * dropdown
-    * flat dashboard setting 
-    * up file
-    * form
-    * tags 
-    * text editor 
-    * flat saved candidates 
-    * flat dashboard my job 
-    * flat Submit Job 
-    * flat dashboard month
-    * flat-dashboard-post
-    * change-password
-    * flat-dashboard-del
-    * flat-dashboard-alerts
-    * flat dashboard my packages
-    * dashboard meetings
-    * flat dashboard candidates
-    * flat dashboard overview 
-    * flat dashboard setting2
-    * flat dashboard resumes
-    * dashboard following employers 
-    * flat dashboard save 
-    * flat dashboard messages 
-    * animation
-    * responsive dashboard
-*/
 
-/* TF dashboard */
 .dashboard .themes-container {
     position: relative;
     margin-left: auto;
@@ -200,8 +160,6 @@
     width: calc(50% - 30px);
     margin-left: 30px;
 }
-
-/* page-title-dashboard */
 .page-title-dashboard {
     padding: 118px 0 32px;
 }
@@ -239,7 +197,6 @@
     color: #fff;
 }
 
-/* flat-icon-dashboard */
 .flat-icon-dashboard {
     padding-bottom: 19px;
 }
@@ -302,7 +259,6 @@
     margin-bottom: 9px;
 }
 
-/* flat-dashboard-dyagram  */
 .flat-dashboard-dyagram {
     padding-bottom: 20px;
 }
@@ -363,7 +319,6 @@
     margin-right: 5px;
 }
 
-/* table */
 table {
     table-layout: auto;
     border-collapse: separate;
@@ -438,8 +393,6 @@ tbody tr td:nth-child(2) {
 .tbody tr:hover td {
     background: #f5f5f5;
 }
-
-/* flat dashboard applicants */
 
 .flat-dashboard-applicants .applicants .title-appli {
     padding-bottom: 15px;
@@ -629,7 +582,6 @@ tbody tr td:nth-child(2) {
     color: #fff;
 }
 
-/* flat-dashboard-bottom */
 .flat-dashboard-bottom {
     padding-top: 40px;
     margin-bottom: 20px;
@@ -650,12 +602,9 @@ tbody tr td:nth-child(2) {
 .flat-dashboard-bottom h5 {
     color: #64666c;
 }
-
-/* dyagram */
 .dashboard .toolbar {
     margin-left: 45px;
 }
-
 .dashboard button {
     background: #fff;
     color: #222;
@@ -673,7 +622,6 @@ tbody tr td:nth-child(2) {
     border: 1px solid #14a077;
     border-bottom: 2px solid #14a077;
 }
-
 .dashboard button:focus {
     outline: 0;
 }
@@ -692,40 +640,6 @@ tbody tr td:nth-child(2) {
     cursor: pointer;
     transition: left 0.4s ease;
 }
-
-/* dashboard menu */
-/* .hamburger-icon {
-    width: 20px;
-    height: 14px;
-    position: relative;
-    cursor: pointer;
-    display: inline-block;
-}
-
-.hamburger-icon span {
-    background-color: #878a99;
-    position: absolute;
-    border-radius: 2px;
-    -webkit-transition: 0.3s cubic-bezier(0.8, 0.5, 0.2, 1.4);
-    transition: 0.3s cubic-bezier(0.8, 0.5, 0.2, 1.4);
-    width: 100%;
-    height: 2px;
-    display: block;
-}
-
-.hamburger-icon span:nth-child(1) {
-    top: 0;
-    width: 80%;
-}
-
-.hamburger-icon span:nth-child(2) {
-    top: 6px;
-}
-
-.hamburger-icon span:nth-child(3) {
-    bottom: 0;
-    width: 60%;
-} */
 
 .hamburger-icon {
     width: 20px;
@@ -761,11 +675,8 @@ tbody tr td:nth-child(2) {
     width: 100%;
 }
 
-/* Media query for screen sizes between 550px and 1400px */
 @media screen and (min-width: 450px) and (max-width: 1400px) {
     .hamburger-icon {
-        /* Adjust your styles for this screen size range */
-        /* For example, you can change width or height */
         width: 15px;
         height: 10px;
     }
@@ -774,18 +685,15 @@ tbody tr td:nth-child(2) {
     }
 
     .hamburger-icon span:nth-child(1) {
-        /* Adjust styles for span 1 */
+
         width: 100%;
     }
 
     .hamburger-icon span:nth-child(3) {
-        /* Adjust styles for span 3 */
         width: 100%;
         top:15px;
     }
 }
-
-
 
 .dashboard .dashboard__sidebar .sidebar__menu::-webkit-scrollbar {
     width: 3px;
@@ -869,7 +777,6 @@ tbody tr td:nth-child(2) {
 
 #sidebar-menu ul li a {
     display: flex;
-    /* align-items: center; */
     vertical-align: baseline;
    position: relative;
     color: #121212;
@@ -1139,8 +1046,6 @@ tbody tr td:nth-child(2) {
     -webkit-transition-property: height, visibility;
     transition-property: height, visibility;
 }
-
-/* profile */
 .flat-dashboard-profile {
     padding-bottom: 20px;
 }
@@ -1184,7 +1089,6 @@ tbody tr td:nth-child(2) {
     color: #fff;
 }
 
-/* flat-dashboard-about  */
 .flat-dashboard-about {
     margin-bottom: 20px;
 }
@@ -1487,8 +1391,6 @@ tbody tr td:nth-child(2) {
     background-image: url(../images/dashboard/video-4.jpg);
 }
 
-/* search */
-
 .dash-search {
     padding: 25px 40px 23px;
 
@@ -1545,8 +1447,6 @@ tbody tr td:nth-child(2) {
 .dash-search .search-flat {
     position: relative;
 }
-
-/* dropdown */
 
 .dashboard .dropdown ul,
 .dashboard .dropdown li.active,
@@ -1621,8 +1521,6 @@ tbody tr td:nth-child(2) {
     color: #818089;
 }
 
-/* flat dashboard setting */
-
 .flat-dashboard-setting .profile-setting {
     padding: 32px 32px 34px;
 }
@@ -1666,9 +1564,6 @@ tbody tr td:nth-child(2) {
     padding: 8px 12px;
     width: 220px;
 }
-
-/* up file */
-
 .dashboard .uploadFile {
     width: 100%;
     border: 1px solid rgba(138, 138, 160, 0.3);
@@ -1733,8 +1628,6 @@ tbody tr td:nth-child(2) {
     top: 11px;
     left: 27px;
 }
-
-/* form */
 
 .flat-dashboard-setting .title-info {
     margin-bottom: 16px;
@@ -1830,8 +1723,6 @@ textarea:focus,
     height: 56px;
 }
 
-/* tags */
-
 .flat-dashboard-setting .tag-wrap .title-tag {
     margin-bottom: 10px;
 }
@@ -1918,8 +1809,6 @@ textarea:focus,
     position: absolute;
     background: #000;
 }
-
-/* text editor */
 
 .dashboard .text-editor-wrap {
     margin-bottom: 31px;
@@ -2215,7 +2104,6 @@ textarea:focus,
     display: unset !important;
 }
 
-/* flat saved candidates */
 .dashboard .dolar::before {
     content: "\e905";
     font-family: "icomoon";
@@ -2235,7 +2123,6 @@ textarea:focus,
     padding: 23px 16px 21px;
 }
 
-/* flat dashboard my job */
 .flat-dashboard-myjob .applicants .box.box-content {
     padding: 31px 16px 26px;
 }
@@ -2301,8 +2188,6 @@ textarea:focus,
     width: 20.6%;
 }
 
-/* flat Submit Job */
-
 .flat-dashboard-submit .submit-job h3 {
     margin-bottom: 27px;
 }
@@ -2350,8 +2235,6 @@ input[type="radio"]:checked:after {
     background-color: #14a077;
     content: "";
 }
-
-/* flat dashboard month */
 
 .flat-dashboard-month .wrap-title {
     margin-bottom: 28px;
@@ -2448,8 +2331,6 @@ input[type="radio"]:checked:after {
     border-radius: 4px;
 }
 
-/* flat-dashboard-post */
-
 .flat-dashboard-post .post-new {
     padding: 20px 32px 32px;
 }
@@ -2516,7 +2397,6 @@ input[type="radio"]:checked:after {
     border-bottom: 1px solid #e5e5e5;
 }
 
-/* change-password */
 .flat-dashboard-password .change-password {
     padding: 25px 32px;
 }
@@ -2551,8 +2431,6 @@ input[type="radio"]:checked:after {
     right: 15px;
     font-size: 20px;
 }
-
-/* flat-dashboard-del */
 .flat-dashboard-detele h3 {
     margin-bottom: 5px;
 }
@@ -2575,7 +2453,6 @@ input[type="radio"]:checked:after {
     border: 1px solid #eb4d4d;
 }
 
-/* flat-dashboard-alerts */
 .flat-dashboard-alerts .dash-search {
     padding: 25px 33px 23px 31px;
 }
@@ -2630,8 +2507,6 @@ input[type="radio"]:checked:after {
     font-size: 20px;
     color: #b1b1b1;
 }
-
-/* flat dashboard my packages */
 .flat-dashboard-my-packages .applicants .wrap-applicants {
     padding: 0px 32px 24px 32px;
 }
@@ -2684,7 +2559,6 @@ input[type="radio"]:checked:after {
     padding-right: 28px;
 }
 
-/* dashboard meetings */
 .page-title-dashboard.style2 {
     padding: 118px 0 33px;
 }
@@ -2753,8 +2627,6 @@ input[type="radio"]:checked:after {
     font-size: 15px;
     margin-right: 4px;
 }
-
-/* flat dashboard candidates */
 
 .flat-dashboard-candidates .applicants .title-appli {
     border-bottom: unset;
@@ -2870,8 +2742,6 @@ input[type="radio"]:checked:after {
 .flat-dashboard-candidates .table-responsive {
     overflow-x: unset;
 }
-
-/* flat dashboard overview */
 .flat-dashboard-user .wrap-profile {
     padding: 24px 25px;
 }
@@ -3232,8 +3102,6 @@ input[type="radio"]:checked:after {
     padding-bottom: 0;
     margin-bottom: 0;
 }
-
-/* dashboard following employers */
 .flat-dashboard-following .applicants .wrap-applicants {
     padding: 0px 42px 1px 40px;
 }
@@ -3262,8 +3130,6 @@ input[type="radio"]:checked:after {
 .flat-dashboard-following .button-cancel {
     margin-left: 13px;
 }
-
-/* flat dashboard save  */
 
 .flat-dashboard-save thead tr th {
     padding: 24px 16px 22px 16px;
@@ -3310,7 +3176,6 @@ input[type="radio"]:checked:after {
     padding-right: 37px;
 }
 
-/* flat dashboard messages */
 .flat-dashboard-messages .wrapper-messages {
     position: relative;
 }
@@ -3648,7 +3513,6 @@ input[type="radio"]:checked:after {
     color: #64666c;
 }
 
-/* animation */
 @keyframes slideFromLeft {
     0% {
         margin-left: -200px;
@@ -3696,9 +3560,6 @@ input[type="radio"]:checked:after {
         opacity: 1;
     }
 }
-
-/* responsive dashboard */
-
 .info-wd select option{color:#000;}
 
 @media only screen and (max-width: 1700px) {
@@ -3715,9 +3576,6 @@ input[type="radio"]:checked:after {
 
 @media only screen and (max-width: 1300px) {
 
-    /* .dashboard .btn {
-        left: 200px;
-    } */
     .left-menu  {
         display: none;
     }
@@ -3730,13 +3588,7 @@ input[type="radio"]:checked:after {
 
     .dashboard.show .dashboard__content {
         margin-left: 0;
-    }
-
-    /* .sticky-area-wrap .header-ct-left .categories a {
-        display: none;
-    } */
-      
-   
+    }   
 }
 
 @media only screen and (max-width: 1200px) {
@@ -3786,9 +3638,6 @@ input[type="radio"]:checked:after {
 }
 
 @media only screen and (max-width: 1025px) {
-    /* .dashboard .btn {
-        top: 14px;
-    } */
 }
 
 @media only screen and (max-width: 991px) {
@@ -4375,27 +4224,21 @@ input[type="radio"]:checked:after {
   }
   
   .left-nav-visible {
-    margin-left: -10px; /* Adjust this value based on your left navigation bar width */
-    transition: margin-left 0.3s ease; /* Add a smooth transition effect */
+    margin-left: -10px; 
+    transition: margin-left 0.3s ease; 
   }
 
-  
-  /* Media query for mobile devices */
 @media only screen and (max-width: 1400px) {
     .btn.header-item {
       cursor: pointer;
-      /*background-color: red;  Test background color */
       padding: 10px;
     }
   
     .left-menu {
-     /* width: 100%; */
       z-index: 100;
-      display: block !important; /* Force display for testing */
+      display: block !important; 
       background: #fff;
       position: fixed;
-      /* top: 0;
-      left: 0; */
       height: 100%;
       display: none;
     }
@@ -4405,14 +4248,12 @@ input[type="radio"]:checked:after {
     }
   
     #sidebar-menu {
-      /* padding: 21px 17px 17px; */
       padding: 17px 17px;
     }
   
     #side-menu {
       content: "\e9a2";
       font-family: inherit;
-      /* position: absolute; */
       right: 15px;
       font-size: 100%;
     }
@@ -4427,7 +4268,6 @@ input[type="radio"]:checked:after {
         align-items: center;
         position: relative;
         color: #121212;
-        /* padding: 13.5px 10px; */
         padding: 0%;
         background-color:transparent;
         width: 100%;
@@ -4440,23 +4280,22 @@ input[type="radio"]:checked:after {
    }
   }
   @media only screen and (max-width: 768px) {
-    /* Adjustments for small screens */
     .left-menu {
       width: 100%;
       position: fixed;
       top: 0;
-      left: -100%; /* Initially hide the left menu off-screen */
+      left: -100%; 
       height: 100%;
-      background-color: #fff; /* Add your background color */
-      transition: left 0.3s ease; /* Add a smooth transition effect */
+      background-color: #fff; 
+      transition: left 0.3s ease; 
     }
   
     .left-menu.active {
-      left: 0; /* Show the left menu */
+      left: 0;
     }
   
     .dashboard-container.left-nav-visible {
-      margin-left: 0; /* Adjust the dashboard margin for small screens */
+      margin-left: 0; 
     }
   }
 
@@ -4468,7 +4307,6 @@ padding-left:80px;
 min-width: 400px;
 font-family: 'Helvetica';
 font-size: 14px;
-/*border: 1px solid #CCC;*/
 }
 
 

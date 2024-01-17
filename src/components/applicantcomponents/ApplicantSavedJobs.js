@@ -75,7 +75,6 @@ function ApplicantSavedJobs() {
                         <div className="job-archive-header">
                           <div className="inner-box">
                           <div className="logo-company">
-                              {/* Conditional rendering for the logo */}
                               {job.logoFile ? (
                                   <img src={`data:image/png;base64,${job.logoFile}`} alt="Company Logo" />
                               ) : (
@@ -102,7 +101,6 @@ function ApplicantSavedJobs() {
                                   Posted on {formatDate(job.creationDate)}
                                 </li>
                               </ul>
-                              {/* <span className="icon-heart"></span> */}
                             </div>
                           </div>
                         </div>
@@ -141,5 +139,4 @@ function ApplicantSavedJobs() {
     </div>
   );
 }
-
 export default ApplicantSavedJobs;

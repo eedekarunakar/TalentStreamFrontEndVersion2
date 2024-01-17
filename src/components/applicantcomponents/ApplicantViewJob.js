@@ -11,20 +11,15 @@ function ApplicantViewJob({ selectedJobId }) {
   const { user } = useUserContext();
   const applicantId = user.id;
   useEffect(() => {
-    // Simulate an asynchronous operation (e.g., fetching data from an API)
     const fetchData = async () => {
       try {
-        // Simulate fetching data after a delay (replace this with your actual data fetching logic)
         await new Promise(resolve => setTimeout(resolve, 50));
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        // Set loading to false to indicate the end of the operation, whether successful or not
         setLoading(false);
       }
     };
- 
-    // Call the fetchData function
     fetchData();
   }, []);
  
@@ -36,8 +31,6 @@ function ApplicantViewJob({ selectedJobId }) {
         setLoading(false);
         if (body) {
           setJobDetails(body);
- 
-          // Set the applied status in local storage
           const appliedStatus = localStorage.getItem(`appliedStatus-${selectedJobId}`);
           if (appliedStatus) {
             setApplied(appliedStatus === 'true');
@@ -49,8 +42,6 @@ function ApplicantViewJob({ selectedJobId }) {
         setLoading(false);
       }
     };
- 
-    // Call the fetchJobDetails function
     fetchJobDetails();
   }, [selectedJobId]);
  
@@ -61,8 +52,6 @@ function ApplicantViewJob({ selectedJobId }) {
       setLoading(false);
       if (body) {
         setJobDetails(body);
- 
-        // Set the applied status in local storage
         const appliedStatus = localStorage.getItem(`appliedStatus-${selectedJobId}`);
         if (appliedStatus) {
           setApplied(appliedStatus === 'true');
@@ -77,40 +66,23 @@ function ApplicantViewJob({ selectedJobId }) {
   const handleApplyNow = async () => {
     try {
       setApplied(true);
- 
       const response = await axios.post(`${apiUrl}/applyjob/applicants/applyjob/${applicantId}/${selectedJobId}`);
       const { applied } = response.data;
- 
       window.alert('Job applied successfully');
-     
-      // Update local storage
       localStorage.setItem(`appliedStatus-${selectedJobId}`, 'true');
- 
-      // Update the state based on the response
       setApplied(applied);
- 
-      // Fetch job details again to reflect the changes
       fetchJobDetails();
     } catch (error) {
       console.error('Error applying for the job:', error);
-     
-      // You may want to show a different alert for cases where the job has already been applied
       window.alert('Job has already been applied by the applicant');
-     
-      // Reset the state to false in case of an error
       setApplied(false);
     }
   };
- 
- 
- 
- 
-  function formatDate(dateString) {
+ function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
     return formattedDate;
   }
- 
   return (
     <div>
       {loading ? null : (
@@ -132,16 +104,11 @@ function ApplicantViewJob({ selectedJobId }) {
                 <div className="inner">
                   <br />
                   <article className="job-article">
-                    {/* Render job details using the jobDetails state */}
                     {jobDetails && (
                       <div className="top-content">
-                        {/* Render job details based on the structure of your API response */}
                         <div className="features-job style-2 stc-apply">
                           <div className="job-archive-header">
                             <div className="inner-box">
-                              {/* <div className="logo-company">
-                                <img src="images/logo-company/cty12.png" alt="images/logo-company/cty12.png" />
-                              </div> */}
                                <div className="logo-company">                             
                                {jobDetails.logoFile ? ( <img src={`data:image/png;base64,${jobDetails.logoFile}`} alt="Company Logo" /> ) 
                                : (<img src="images/logo-company/cty12.png" alt={`Default Company Logo`} /> )}
@@ -173,16 +140,13 @@ function ApplicantViewJob({ selectedJobId }) {
       onClick={handleApplyNow}
       disabled={jobDetails.jobStatus === 'Already Applied'}
       style={{
-        // backgroundColor: applied ? 'green' : '',
         backgroundColor: jobDetails.jobStatus === 'Already Applied' ? 'green' : '',
         cursor: applied ? 'not-allowed' : 'pointer',
       }}
     >
       <span className="icon-send"></span>
       {jobDetails.jobStatus}
-      {/* {applied ? 'Already Applied' : 'Apply Now'} */}
     </button>
- 
             </a>&nbsp;
             <a
   href="/applicant-find-jobs"
@@ -190,8 +154,8 @@ function ApplicantViewJob({ selectedJobId }) {
   style={{
     display: 'inline-block',
     padding: '5px 20px',
-    backgroundColor: '#1967d2',  // Set your desired blue color here
-    color: 'white',  // Set the text color
+    backgroundColor: '#1967d2',
+    color: 'white', 
     textDecoration: 'none',
     borderRadius: '10px',
     cursor: 'pointer',
@@ -225,13 +189,11 @@ function ApplicantViewJob({ selectedJobId }) {
                                 <span></span>Package :  &nbsp;
                                 <p>&#x20B9; {jobDetails.minSalary} - &#x20B9; {jobDetails.maxSalary} / year</p>
                               </div>
-                              {/* <p className="days">{jobDetails.daysLeft} days left to apply</p> */}
                             </div>
                           </div>
                         </div>
                       </div>
                     )}
- 
                     {jobDetails && (
                       <div className="inner-content">
                         <h5>Full Job Description</h5>
@@ -247,6 +209,5 @@ function ApplicantViewJob({ selectedJobId }) {
       )}
     </div>
   );
-}
- 
+} 
 export default ApplicantViewJob;

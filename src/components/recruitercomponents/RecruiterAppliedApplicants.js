@@ -12,23 +12,17 @@ function RecruiterAppliedApplicants({selectedJobId}) {
   const isMounted = useRef(true);
   const tableref=useRef(null);
   
-
   const fetchAllAppliedApplicants = async () => {
     try {
       const response = await axios.get(`${apiUrl}/applyjob/appliedapplicants/${selectedJobId}`);
-       
         setApplicants(response.data);
         const $table= window.$(tableref.current);
-   // $table.DataTable().destroy();
      const timeoutId = setTimeout(() => {  
       $table.DataTable().destroy();
        $table.DataTable({responsive:true});
- 
              }, 250);
-   
     return () => {
        isMounted.current = false;
-     // $table.DataTable().destroy(true);
     };
     } catch (error) {
       console.error('Error fetching applicants:', error);
@@ -43,22 +37,6 @@ function RecruiterAppliedApplicants({selectedJobId}) {
     fetchAllAppliedApplicants();
     
   }, [selectedJobId]);
-
-  // useEffect(() => {
-  //   const jwtToken = localStorage.getItem('jwtToken');
-  //   if (jwtToken) {
-  //     axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
-  //   }
-
-  //   axios
-  //     .get(`${apiUrl}/applyjob/appliedapplicants/${selectedJobId}`)
-  //     .then((response) => {
-  //       setApplicants(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching job details:', error);
-  //     });
-  // }, [user.id]);
 
   return (
     <div>
@@ -130,5 +108,4 @@ function RecruiterAppliedApplicants({selectedJobId}) {
       </div>
   );
 }
-
 export default RecruiterAppliedApplicants;

@@ -1,28 +1,4 @@
-/*
-  * Name: Jobtext
-  * Version: 1.0.2
-  * Author: Themesflat
-  * Author URI: http://themesflat.com 
 
-*/
-/* 
-
-  * Reset
-  * Header
-  * Menu mobile
-  * Blog
-  * Blog masonry
-  * Blog grid
-  * Blog detail
-  * Footer
-  * Preload
-  * Boxed
-  * Switcher
-  * Scroll 
-  
-*/
-/* Reset
--------------------------------------------------------------- */
 html {
   overflow-y: scroll;
   -webkit-text-size-adjust: 100%;
@@ -204,7 +180,6 @@ input {
 input,
 textarea {
   background-image: -webkit-linear-gradient(hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, 0));
-  /* Removing the inner shadow, rounded corners on iOS inputs */
 }
 
 button,
@@ -213,31 +188,25 @@ input[type="reset"],
 input[type="submit"] {
   line-height: 1;
   cursor: pointer;
-  /* Improves usability and consistency of cursor style between image-type 'input' and others */
   -webkit-appearance: button;
-  /* Corrects inability to style clickable 'input' types in iOS */
   border: none;
 }
 
 input[type="checkbox"],
 input[type="radio"] {
   padding: 0;
-  /* Addresses excess padding in IE8/9 */
 }
 
 input[type="search"] {
   -webkit-appearance: textfield;
-  /* Addresses appearance set to searchfield in S5, Chrome */
 }
 
 input[type="search"]::-webkit-search-decoration {
-  /* Corrects inner padding displayed oddly in S5, Chrome on OSX */
   -webkit-appearance: none;
 }
 
 button::-moz-focus-inner,
 input::-moz-focus-inner {
-  /* Corrects inner padding and border displayed oddly in FF3/4 www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/ */
   border: 0;
   padding: 0;
 }
@@ -249,9 +218,6 @@ input::-moz-focus-inner {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
-/* Repeatable Patterns
--------------------------------------------------------------- */
 *,
 *:before,
 *:after {
@@ -483,8 +449,6 @@ input::-webkit-input-placeholder {
   color: c7c2c2;
   opacity: 1;
 }
-
-/* bootstrap resetting elements */
 .btn {
   background-image: none;
 }
@@ -522,13 +486,10 @@ input[type="color"],
 .tf-container.ctn-full {
   width: 100%;
 }
-/* Common styles for the dashboard */
 .flat-dashboard-setting {
-  background-color: #f8f8f8; /* Set the common background color */
-  padding: 20px; /* Add padding for content spacing */
+  background-color: #f8f8f8; 
+  padding: 20px; 
 }
-
-/* Styles for the first part (Menu) */
 .menu-list {
   display: flex;
 }
@@ -540,52 +501,41 @@ input[type="color"],
   border-radius: 4px;
   background-color: #fff;
   transition: background-color 0.3s ease;
-  margin-right: 8px; /* Adjust margin between menu items */
+  margin-right: 8px; 
 }
 
 .menu-item:last-child {
-  margin-right: 16px; /* Add margin for the last menu item */
+  margin-right: 16px; 
 }
 
 .menu-item:hover {
   background-color: #e0e0e0;
 }
-
-/* Styles for the second part (Filter option) */
 .filter-option {
-  /* Add your styles for the filter options here */
 }
-
-/* Styles for the third part (Dropdown) */
 .dropdown-container {
   float:left;
-  /* width: 150px; /* Adjust the width as needed */
-  /* margin-top: 8px; Add margin to separate it from the above content */ 
 }
 .dropdown-container select {
   padding: 8px;
   font-size: 20px;
   border: none;
   border-radius: 4px;
-  background-color: #3498db; /* Set the default background color */
-  color: #ffffff; /* Set the default text color */
+  background-color: #3498db; 
+  color: #ffffff; 
   cursor: pointer;
 }
-/* Additional styles for responsiveness */
 @media (max-width: 992px) {
-  /* Adjust styles for smaller screens if needed */
   .menu-list {
-    flex-direction: column; /* Stack menu items vertically on smaller screens */
+    flex-direction: column; 
   }
 
   .menu-item {
-    margin-right: 0; /* Remove right margin for menu items on smaller screens */
-    margin-bottom: 8px; /* Add bottom margin to separate menu items vertically */
+    margin-right: 0; 
+    margin-bottom: 8px; 
   }
 }
 
-/* Header
----------------------------------------------- */
 .tf-container.ct2 {
   width: 1830px;
 }
@@ -598,7 +548,6 @@ input[type="color"],
   height: 80px;
 }
 
-/* header-landing page */
 #header.header-landing {
   background-color: #F8F8F8;
 }
@@ -683,15 +632,15 @@ input[type="color"],
 }
 
 .flat-dashboard-setting {
-  margin: 10px; /* Adjust margin as needed */
-  padding: 10px; /* Adjust padding as needed */
-  border-radius: 8px; /* Optional: Add border-radius for rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add box-shadow for a subtle shadow effect */
+  margin: 10px; 
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
 .menu-list {
   display: flex;
-  gap: 10px; /* Adjust gap between menu items */
+  gap: 10px; 
 }
 
 .menu-item {
@@ -702,11 +651,10 @@ input[type="color"],
 }
 
 .filter-option {
-  /* Add styles for filter options */
+ 
 }
 
-/*Header fixed
--------------------------------- */
+
 .header.is-fixed,
 #header.style-absolute.is-fixed {
   position: fixed;
@@ -805,8 +753,6 @@ input[type="color"],
   position: relative;
   z-index: 5;
 }
-
-/* .sub-categorie */
 .sub-categorie {
   opacity: 0;
   visibility: hidden;
@@ -970,26 +916,20 @@ input[type="color"],
   width: 100%;
   display: flex;
   align-items: center;
-  padding-left: 178px; /* Adjust as needed for larger screens */
+  padding-left: 178px; 
 }
- 
-/* Media query for screen sizes below 915px */
 @media screen and (max-width: 915px) {
   .sticky-area-wrap .header-ct-center {
-    padding-left: 10px; /* Adjust the padding for smaller screens */
+    padding-left: 10px; 
   }
- 
-  /* Adjust icon styles to prevent overlapping */
   #menu-primary-menu li a {
-    margin-right: 9px; /* Add margin to create spacing between icons */
+    margin-right: 9px;
     font-size: 10px;
   }
 }
- 
-/* Media query for screen sizes between 916px and 1800px */
 @media screen and (min-width: 916px) and (max-width: 1800px) {
   .sticky-area-wrap .header-ct-center {
-    padding-left: 178px; /* Reset the padding for larger screens */
+    padding-left: 178px; 
   }
 }
 
@@ -1334,8 +1274,6 @@ input[type="color"],
   padding: 0 15px;
   font-weight: 500;
 }
-
-/* header-ct-right */
 .sticky-area-wrap .header-ct-right {
   flex-grow: 1;
   justify-content: flex-end;
@@ -1387,8 +1325,6 @@ input[type="color"],
   background-color: #1967d2;
   border-radius: 4px;
 }
-
-/* sub-notification */
 .sticky-area-wrap .header-ct-right .bell .sub-notification {
   opacity: 0;
   visibility: hidden;
@@ -1504,9 +1440,8 @@ input[type="color"],
 }
 @media only screen and (min-width: 50px) and (max-width: 462px) {
   #header .sticky-area-wrap .header-ct-right .account {
-      /* margin-right: 10px; */
-      padding-right: 10px; /* Adjust the padding as needed */
-        height: auto; /* Allow the height to adjust based on content */
+      padding-right: 10px; 
+        height: auto; 
   }
   .nav-filter .nav-mobile {
     display: none;
@@ -1523,12 +1458,8 @@ input[type="color"],
 .sub-account-item{
     padding: 2px!important;
     font-size: 7px!important;
-   
-    /* width: 100%; */
-  /* padding: 12px; */
   font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: 500!important;
-  /* font-size: 16px; */
   line-height: 2px!important;
   margin-right: 2px!important;
   margin-left: 2px!important;
@@ -1580,9 +1511,6 @@ input[type="color"],
   position: relative;
   top: 3px;
 }
-
-
-/* sub-account */
 .sticky-area-wrap .header-ct-right .account .sub-account {
   opacity: 0;
   visibility: hidden;
@@ -1704,8 +1632,6 @@ input[type="color"],
   background: #fff;
 }
 
-/* Menu mobile
--------------------------------------------- */
 .menu-mobile-popup .main-nav .menu-item-has-children-mobile .iteam-menu::before {
   content: "\e9a2";
   font-family: "icomoon";
@@ -1981,9 +1907,6 @@ input[type="color"],
   line-height: 22px;
   color: #121212;
 }
-
-/* Footer
------------------------------------------- */
 .footer {
   background-color: #e9edf3;
 }
@@ -2010,10 +1933,6 @@ input[type="color"],
   justify-content: center;
   color: #121212;
 }
-
-/* .list-social li:not(:last-child) {
-  margin-right: 12px;
-} */
 .list-social {
   flex-wrap: wrap;
   gap: 12px;
@@ -2241,8 +2160,6 @@ input[type="color"],
   margin-right: 19px;
 }
 
-/* Blog
---------------------------- */
 .blog.wrap-blog {
   padding: 60px 0;
   display: flex;
@@ -2274,9 +2191,6 @@ input[type="color"],
 .blog .list-blog .widget-blog-1 .main-title:hover a {
   color: #1967d2;
 }
-
-/* Blog masonry
---------------------------- */
 
 .blog-masonry .list-blog-wrap {
   display: flex;
@@ -2328,9 +2242,6 @@ input[type="color"],
   justify-content: center;
   margin-top: 40px;
 }
-
-/* Blog grid
---------------------------- */
 .blog-grid.wrap-blog {
   width: 100%;
   max-width: 1410px;
@@ -2379,9 +2290,6 @@ input[type="color"],
   justify-content: center;
   margin-top: 40px;
 }
-
-/* Blog detail
----------------------------------- */
 .side-bar-blog .widget-blog-1 {
   border: none;
 }
@@ -2547,17 +2455,6 @@ input[type="color"],
 .blog-detail-side-bar-content .nav-links .previous-post {
   border-right: 1px solid #e5e5e5;
 }
-
-/* .blog-detail-side-bar-content .nav-links::after {
-  position: absolute;
-  content: "";
-  width: 1px;
-  height: 65px;
-  background-color: #e5e5e5;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
 
 .blog-detail-side-bar-content .comment-list-wrap {
   margin-bottom: 40px;
@@ -2787,8 +2684,6 @@ input[type="color"],
   overflow: hidden;
 }
 
-/* Preload 
-------------------------------------------- */
 .preload-container {
   position: relative;
   width: 100%;
@@ -2848,9 +2743,6 @@ input[type="color"],
 .spinner::after {
   margin: 8.9px;
 }
-
-/* Switcher
--------------------------------------------------------------- */
 .switcher-container {
   position: fixed;
   right: -290px;
@@ -3047,8 +2939,6 @@ input[type="color"],
   margin-bottom: 6px;
 }
 
-/* Boxed
--------------------------------------------------------------- */
 .home-boxed .boxed {
   width: 90.4%;
   margin: 0 auto;
@@ -3115,8 +3005,6 @@ input[type="color"],
   animation-name: bounceIn;
 }
 
-/* Scroll
------------------------------------------------------- */
 #scroll-top.show {
   right: 0px;
   opacity: 1;
@@ -3178,7 +3066,6 @@ input[type="color"],
   font-weight: 600;
 }
 
-/* @Keyframe */
 @keyframes rotating {
   0% {
     transform: rotate(0);
@@ -3189,29 +3076,20 @@ input[type="color"],
   }
 }
 .icon-call-calling {
-  fill: red; /* Change 'red' to the color you desire */
+  fill: red; 
 }
 
-/* You can apply the same color to all path elements if necessary */
 .path1,
 .path2,
 .path3,
 .path4 {
-  fill: red; /* Change 'red' to the color you desire */
+  fill: red;
 }
 
 .applied {
   background-color: green;
   color: white;
-  /* Add more styles as needed */
 }
-
-
-/* .error-message {
-  color: red;
-  margin-top: 5px;
-  font-size: 15px;
-} */
 
 .success-message {
   color: green;
@@ -3220,10 +3098,10 @@ input[type="color"],
 }
 
 .helpful-line {
-  background-color: #f0f0f0; /* You can change this color to your desired background color */
-  color: #911a1a; /* Text color for the helping lines */
-  font-size: 12px; /* You can adjust the font size as needed */
-  padding: 5px; /* You can adjust the padding to add spacing around the text */
+  background-color: #f0f0f0; 
+  color: #911a1a; 
+  font-size: 12px; 
+  padding: 5px; 
 }
 .browse-button {
   padding: 10px;
@@ -3259,7 +3137,7 @@ input[type="color"],
 .error-message {
   color: red;
   font-size: 14px;
-  margin-top: 4px; /* Adjust as needed for spacing */
+  margin-top: 4px; 
 }
 
 .verification-status {
@@ -3281,7 +3159,7 @@ input[type="color"],
 
 .password-toggle-icon {
   position: absolute;
-  right: 10px; /* Adjust the position as needed */
+  right: 10px; 
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;

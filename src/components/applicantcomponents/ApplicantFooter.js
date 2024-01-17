@@ -1,9 +1,7 @@
 import React from 'react'
-
 function ApplicantFooter() {
   return (
     <div>
-
 <section class="flat-dashboard-bottom">
       <div class="themes-container">
         <div class="row">
@@ -13,10 +11,7 @@ function ApplicantFooter() {
         </div>
       </div>
     </section>
-
-
     </div>
   )
 }
-
 export default ApplicantFooter;

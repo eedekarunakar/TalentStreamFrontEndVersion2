@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import { useUserContext } from '../common/UserProvider';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
-
 const ApplicantDashboard = () => 
 {
   const [token, setToken] = useState('');
@@ -12,40 +11,29 @@ const ApplicantDashboard = () =>
   const [contRecJobs, setCountRecJobs] = useState(0);
   const [contAppliedJob, setAppliedJobs] = useState(0);
   const [contSavedJobs, setSavedJobs] = useState(0);
-
   useEffect(() => {
-    // Get the JWT token from local storage
     const storedToken = localStorage.getItem('jwtToken');
     if (storedToken) {
       setToken(storedToken);
     }
   }, []);
-
   useEffect(() => {
-    // Simulate an asynchronous operation (e.g., fetching data from an API)
     const fetchData = async () => {
       try {
-        // Simulate fetching data after a delay (replace this with your actual data fetching logic)
         await new Promise(resolve => setTimeout(resolve, 100));
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        // Set loading to false to indicate the end of the operation, whether successful or not
         setLoading(false);
       }
     };
- 
-    // Call the fetchData function
     fetchData();
   }, []);
-
   useEffect(() => {
       const jwtToken = localStorage.getItem('jwtToken');
       if (jwtToken) {
           axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
       }
-
-      // Fetch team members data
       axios
           .get(`${apiUrl}/recommendedjob/countRecommendedJobsForApplicant/${user.id}`)
           .then((response) => {
@@ -54,15 +42,12 @@ const ApplicantDashboard = () =>
           .catch((error) => {
               console.error('Error fetching team members:', error);
           });
-  }, [user.id]); // Include id as a dependency if you use it in the effect
-
+  }, [user.id]);
   useEffect(() => {
       const jwtToken = localStorage.getItem('jwtToken');
       if (jwtToken) {
           axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
       }
-
-      // Fetch team members data
       axios
           .get(`${apiUrl}/applyjob/countAppliedJobs/${user.id}`)
           .then((response) => {
@@ -71,15 +56,12 @@ const ApplicantDashboard = () =>
           .catch((error) => {
               console.error('Error fetching team members:', error);
           });
-  }, [user.id]); // Include id as a dependency if you use it in the effect
-
+  }, [user.id]);
   useEffect(() => {
       const jwtToken = localStorage.getItem('jwtToken');
       if (jwtToken) {
           axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
       }
-
-      // Fetch team members data
       axios
           .get(`${apiUrl}/savedjob/countSavedJobs/${user.id}`)
           .then((response) => {
@@ -88,9 +70,7 @@ const ApplicantDashboard = () =>
           .catch((error) => {
               console.error('Error fetching team members:', error);
           });
-  }, [user.id]); // Include id as a dependency if you use it in the effect
-
-  
+  }, [user.id]);
   return (
     <div>
     {loading ? null : (
@@ -213,5 +193,4 @@ const ApplicantDashboard = () =>
 </div>
   );
 };
-
 export default ApplicantDashboard;

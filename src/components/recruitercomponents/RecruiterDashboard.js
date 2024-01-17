@@ -18,8 +18,6 @@ function RecruiterDashboard() {
         if (jwtToken) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
         }
-
-        // Fetch team members data
         axios
             .get(`${apiUrl}/job/recruiterscountjobs/${user.id}`)
             .then((response) => {
@@ -28,15 +26,12 @@ function RecruiterDashboard() {
             .catch((error) => {
                 console.error('Error fetching team members:', error);
             });
-    }, [user.id]); // Include id as a dependency if you use it in the effect
-
+    }, [user.id]); 
     useEffect(() => {
         const jwtToken = localStorage.getItem('jwtToken');
         if (jwtToken) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
         }
-
-        // Fetch team members data
         axios
             .get(`${apiUrl}/applyjob/recruiters/applyjobapplicantscount/${user.id}`)
             .then((response) => {
@@ -45,15 +40,13 @@ function RecruiterDashboard() {
             .catch((error) => {
                 console.error('Error fetching team members:', error);
             });
-    }, [user.id]); // Include id as a dependency if you use it in the effect
+    }, [user.id]);
 
     useEffect(() => {
         const jwtToken = localStorage.getItem('jwtToken');
         if (jwtToken) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
         }
-
-        // Fetch team members data
         axios
             .get(`${apiUrl}/applyjob/recruiters/selected/count`)
             .then((response) => {
@@ -62,15 +55,13 @@ function RecruiterDashboard() {
             .catch((error) => {
                 console.error('Error fetching team members:', error);
             });
-    }, [user.id]); // Include id as a dependency if you use it in the effect
+    }, [user.id]);
 
     useEffect(() => {
         const jwtToken = localStorage.getItem('jwtToken');
         if (jwtToken) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
         }
-
-        // Fetch team members data
         axios
             .get(`${apiUrl}/applyjob/recruiters/countShortlistedAndInterviewed/${user.id}`)
             .then((response) => {
@@ -79,10 +70,9 @@ function RecruiterDashboard() {
             .catch((error) => {
                 console.error('Error fetching team members:', error);
             });
-    }, [user.id]); // Include id as a dependency if you use it in the effect
+    }, [user.id]);
 
     useEffect(() => {
-        // Get the JWT token from local storage
         const storedToken = localStorage.getItem('jwtToken');
         if (storedToken) {
           setToken(storedToken);
@@ -94,8 +84,6 @@ function RecruiterDashboard() {
         if (jwtToken) {
           axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
         }
-    
-        // You may need to replace 'userId' with the appropriate identifier for your user
         axios
         .get(`${apiUrl}/applyjob/recruiter/${user.id}/interviews/interviewing`)
           .then((response) => {
@@ -110,7 +98,6 @@ function RecruiterDashboard() {
         const [year, month, day, hour, minute] = applicant.timeAndDate;
         const interviewTimestamp = new Date(year, month - 1, day, hour, minute).getTime();
         const todayTimestamp = new Date().setHours(0, 0, 0, 0);
-     
         return interviewTimestamp >= todayTimestamp && interviewTimestamp < todayTimestamp + 24 * 60 * 60 * 1000;
       });
   return (
@@ -360,18 +347,13 @@ function RecruiterDashboard() {
 }
 
 export default RecruiterDashboard;
-
 function formatDateTime(dateTimeArray) {
   const [year, month, day, hour, minute] = dateTimeArray;
- 
-  // Format date as "day/month/year"
   const formattedDate = new Date(year, month - 1, day).toLocaleDateString('en-US', {
     day: 'numeric',
-    month: 'short', // Use 'short' for abbreviated month names
+    month: 'short',
     year: 'numeric',
   });
- 
-  // Format time as "hour:minute AM/PM"
   const formattedTime = new Date(year, month - 1, day, hour, minute).toLocaleTimeString('en-US', {
     hour: 'numeric',
     minute: 'numeric',

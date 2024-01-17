@@ -1,40 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { apiUrl } from '../../services/ApplicantAPIService';  // Adjust the import path based on your project structure
+import { apiUrl } from '../../services/ApplicantAPIService';  
 import { useUserContext } from '../common/UserProvider';
 import logoCompany1 from '../../images/cty12.png';
-
 function ApplicantAppliedJobs({setSelectedJobId}) {
     const [jobs, setJobs] = useState([]);
-//   const [appliedJobs, setAppliedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useUserContext();
   const applicantId = user.id;
-
   useEffect(() => {
-    // Simulate an asynchronous operation (e.g., fetching data from an API)
     const fetchData = async () => {
       try {
-        // Simulate fetching data after a delay (replace this with your actual data fetching logic)
         await new Promise(resolve => setTimeout(resolve, 50));
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        // Set loading to false to indicate the end of the operation, whether successful or not
         setLoading(false);
       }
     };
-
-    // Call the fetchData function
     fetchData();
   }, []);
-
   useEffect(() => {
     const fetchAppliedJobs = async () => {
       try {
-        // Fetch the list of applied jobs for the current applicant
-        const response = await axios.get(`${apiUrl}/applyjob/getAppliedJobs/${applicantId}`);  // Make sure to have applicantId
+        const response = await axios.get(`${apiUrl}/applyjob/getAppliedJobs/${applicantId}`);
         const jobsData = response.data;
         setJobs(jobsData);
       } catch (error) {
@@ -43,17 +33,13 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
         setLoading(false);
       }
     };
-
-    // Call the fetchAppliedJobs function
-    fetchAppliedJobs();
+   fetchAppliedJobs();
   }, []);
-
   function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
     return formattedDate;
   }
-
   return (
     <div>
     {loading ? null : (
@@ -83,7 +69,6 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                         <div className="job-archive-header">
                           <div className="inner-box">
                           <div className="logo-company">
-                              {/* Conditional rendering for the logo */}
                               {job.logoFile ? (
                                    <img src={`data:image/png;base64,${job.logoFile}`} alt="Company Logo" />
                               ) : (
@@ -96,8 +81,7 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                               </h4>
                               <h3>
                                 <a href="#">
-                                  {job.jobTitle}
-                                  {/* <span className="icon-bolt"></span> */}
+                                  {job.jobTitle}                                  
                                 </a>
                               </h3>
                               <ul>
@@ -109,8 +93,7 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                                   <span className="icon-calendar"></span>
                                   Posted on {formatDate(job.creationDate)}
                                 </li>
-                              </ul>
-                              {/* <span class="icon-heart"></span> */}
+                              </ul>                              
                             </div>
                           </div>
                         </div>
@@ -135,11 +118,7 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
                                 <span></span>
                                 <p>&#x20B9; {job.minSalary} - &#x20B9; {job.maxSalary} / year</p>
                               </div>
-                              {/* <p className="days">{jobDetails.daysLeft} days left to apply</p> */}
-                              {/* <Link to="/applicant-interview-status" onClick={() => setSelectedJobId(job.id)}>
-                              <button type="button" style={{borderRadius:20}} className="btn-primary">Check Status</button>
-                              </Link> */}
-                              <button className="button-status">
+                              <button class="button-status">
                               {job && (<Link to={`/applicant-interview-status?jobId=${job.id}`} style={{ color: 'white' }} onClick={() => setSelectedJobId(job.applyJobId)}>
   Check Status
 </Link>
@@ -155,11 +134,8 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
             </div>
           </section>
           </div>
-
        )}
-
     </div>
   );
 }
-
 export default ApplicantAppliedJobs;

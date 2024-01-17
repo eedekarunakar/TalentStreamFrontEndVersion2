@@ -13,16 +13,12 @@ import RecruiterAppliedApplicants from '../../components/recruitercomponents/Rec
 import RecruiterApplicantInterviews from '../../components/recruitercomponents/RecruiterApplicantInterviews';
 import RecruiterChangePassword from '../../components/recruitercomponents/RecruiterChangePassword';
 import TeamMember from '../../components/recruitercomponents/TeamMember';
-
 function RecruiterHomePage() {
   const [activeRoute, setActiveRoute] = useState('');
   const location = useLocation();
   const [selectedJobId, setSelectedJobId] = useState('');
-
   const updateActiveRoute = () => {
     const pathname = location.pathname;
-
-    
     switch (pathname) {
       case '/recruiterhome':
         setActiveRoute('dashboard');
@@ -59,14 +55,9 @@ function RecruiterHomePage() {
   React.useEffect(() => {
     updateActiveRoute();
   }, [location.pathname]);
-
-   
-
-
   return (
     <div  class="dashboard show ">
     <RecruiterNavBar />
-    {/* <RecruiterLeftNavBar /> */}
      {activeRoute === 'dashboard' && <RecruiterDashboard />}
      {activeRoute === 'organization' && <RecruiterMyOrganization />}
      {activeRoute === 'postjob' && <RecruiterPostJob />}
@@ -76,8 +67,6 @@ function RecruiterHomePage() {
      {activeRoute === 'applicantinterviews' && <RecruiterApplicantInterviews />}
      {activeRoute === 'changepassword' && <RecruiterChangePassword />}
      {activeRoute === 'teammember' && <TeamMember />}
-      {/* <ApplicantFooter />     */}
-
     </div>
   )
 }

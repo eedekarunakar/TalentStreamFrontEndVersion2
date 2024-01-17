@@ -28,100 +28,53 @@ function RecruiterPostJob() {
   const fileInputRef = useRef(null);
   const user1 = useUserContext();
   const user = user1.user;
-  // Handle form submission
   const handleSubmit = (e) => {
- 
     e.preventDefault();
-    // Prepare the form data to send to the server
     if (!validateForm()) {
       return;
     }
- 
     const formData = {
- 
       jobTitle,
- 
       minimumExperience,
- 
       maximumExperience,
- 
       minSalary,
- 
       maxSalary,
- 
       location,
- 
       employeeType,
- 
       industryType,
- 
       minimumQualification,
- 
       specialization,
- 
       skillsRequired,
- 
       jobHighlights,
- 
       description,
- 
       uploadDocument,
- 
     };
-   
- 
-    // Get the JWT token from local storage
     const jwtToken = localStorage.getItem('jwtToken');
-    // Configure the headers with the JWT token
     const headers = {
- 
       Authorization: `Bearer ${jwtToken}`,
- 
-      'Content-Type': 'application/json', // Set the content type as needed
- 
+      'Content-Type': 'application/json',
     };
-    // Make the API call to your backend with the JWT token in the headers
- 
     axios
- 
       .post(`${apiUrl}/job/recruiters/saveJob/${user.id}`, formData, { headers })
- 
       .then((response) => {
- 
-        // Handle the successful response here, such as showing a success message or redirecting the user
-       
         console.log('API Response:', response.data);
- 
         window.alert('job saved successfully');
         clearForm();
       })
- 
       .catch((error) => {
- 
-        // Handle any errors that occur during the API call, such as displaying an error message
- 
         console.error('API Error:', error);
- 
       });
- 
   };
-
   useEffect(() => {
     const fetchApprovalStatus = async () => {
       try {
         const response = await axios.get(`${apiUrl}/companyprofile/companyprofile/approval-status/${user.id}`);
-      
-
         setApprovalStatus(response.data);
-        
-     
         setFormLoaded(true);
       } catch (error) {
         console.error('Approval Status Error:', error);
-        // Handle error, e.g., show alert or redirect to myorganization page
       }
     };
-  
     if (!formLoaded) {
       fetchApprovalStatus();
     }
@@ -130,11 +83,9 @@ function RecruiterPostJob() {
   useEffect(() => {
     if (approvalStatus && approvalStatus !== 'approved') {
       alert("Sorry, you can't post the job until your profile is verified");
-      // Redirect to myorganization page or handle it according to your needs
       window.location.href = '/recruiter-my-organization';
     }
   }, [approvalStatus]);
-
   const [formErrors, setFormErrors] = useState({
     jobTitle: '',
     minSalary: '',
@@ -168,30 +119,21 @@ function RecruiterPostJob() {
     setFileName('No selected file');
     setImage(null);
   };
- 
   const validateForm = () => {
     let isValid = true;
     const errors = {};
- 
-    // Job Title Validation
     if (!jobTitle.trim()) {
       isValid = false;
       errors.jobTitle = 'Job title is required.';
-     
     } else {
       errors.jobTitle = '';
     }
- 
-   
- 
     if (!minimumExperience.trim()) {
       isValid = false;
       errors.minimumExperience = 'Minimum experience is required.';
     } else {
       errors.minimumExperience = '';
     }
-     
-    // Maximum Experience Validation
     if (!maximumExperience.trim()) {
       errors.maximumExperience = 'Maximum experience is required.';
       isValid = false;
@@ -201,8 +143,6 @@ function RecruiterPostJob() {
     } else {
       errors.maximumExperience = '';
     }
-     
-        // Minimum Salary Validation
     if (!minSalary.trim()) {
       errors.minSalary = 'Minimum salary is required.';
       isValid = false;
@@ -210,8 +150,6 @@ function RecruiterPostJob() {
     else {
       errors.minSalary = '';
     }
-     
-    // Maximum Salary Validation
     if (!maxSalary.trim()) {
       errors.maxSalary = 'Maximum salary is required.';
       isValid = false;
@@ -230,27 +168,18 @@ function RecruiterPostJob() {
     } else {
       errors.location = '';
     }
-    // Employee Type Validation
     if (!employeeType.trim()) {
       errors.employeeType = 'Job type is required.';
       isValid = false;
     } else {
       errors.employeeType = '';
     }
- 
-   
- 
-    // Minimum Qualification Validation
     if (!minimumQualification.trim()) {
       errors.minimumQualification = 'Minimum qualification is required.';
       isValid = false;
     } else {
       errors.minimumQualification = '';
     }
- 
-   
- 
-    // Skills Required Validation
     const skillsErrors = [];
     skillsRequired.forEach((skill, index) => {
       const skillErrors = {};
@@ -283,8 +212,6 @@ function RecruiterPostJob() {
       }));
       return isValid;
     }
- 
-   // Specialization Validation (Optional)
     if (specialization && specialization.trim().length < 3) {
       isValid = false;
       setFormErrors((prevErrors) => ({
@@ -292,9 +219,7 @@ function RecruiterPostJob() {
         specialization: 'Specialization must be at least 3 characters long.',
       }));
       return isValid;
-    }  
- 
-    // Job Highlights Validation (Optional)
+    }
     if (jobHighlights && jobHighlights.trim().length < 3) {
       isValid = false;
       setFormErrors((prevErrors) => ({
@@ -303,214 +228,148 @@ function RecruiterPostJob() {
       }));
       return isValid;
     }
- 
- 
-    // Description Validation
     if (!description.trim() || description.trim().length < 15) {
       errors.description = 'Description is required and must be at least 15 characters long.';
       isValid = false;
     } else {
       errors.description = '';
     }
- 
     setFormErrors(errors);
     return isValid;
   };
- 
-  // Handle method for Job Title
 const handleJobTitleChange = (e) => {
   setJobTitle(e.target.value);
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    jobTitle: '', // Clear previous error when the input changes
+    jobTitle: '', 
   }));
 };
- 
-// Handle method for Minimum Experience
 const handleMinimumExperienceChange = (e) => {
   setMinimumExperience(e.target.value);
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    minimumExperience: '', // Clear previous error when the input changes
+    minimumExperience: '',
   }));
 };
- 
-// Handle method for Maximum Experience
 const handleMaximumExperienceChange = (e) => {
   setMaximumExperience(e.target.value);
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    maximumExperience: '', // Clear previous error when the input changes
+    maximumExperience: '',
   }));
 };
- 
-// Handle method for Minimum Salary
 const handleMinSalaryChange = (e) => {
   setMinSalary(e.target.value);
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    minSalary: '', // Clear previous error when the input changes
+    minSalary: '',
   }));
 };
- 
-// Handle method for Location
 const handleLocationChange = (e) => {
   setLocation(e.target.value);
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    location: '', // Clear previous error when the input changes
+    location: '',
   }));
 };
- 
-// Handle method for Employee Type
 const handleEmployeeTypeChange = (e) => {
   setEmployeeType(e.target.value);
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    employeeType: '', // Clear previous error when the input changes
+    employeeType: '',
   }));
 };
- 
-// Handle method for Industry Type
 const handleIndustryTypeChange = (e) => {
   setIndustryType(e.target.value);
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    industryType: '', // Clear previous error when the input changes
+    industryType: '',
   }));
 };
- 
-// Handle method for Minimum Qualification
 const handleMinimumQualificationChange = (e) => {
   setMinimumQualification(e.target.value);
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    minimumQualification: '', // Clear previous error when the input changes
+    minimumQualification: '',
   }));
 };
- 
-// Handle method for Specialization
 const handleSpecializationChange = (e) => {
   setSpecialization(e.target.value);
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    specialization: '', // Clear previous error when the input changes
+    specialization: '',
   }));
 };
- 
-// Handle method for Skills (inside the map function)
 const handleSkillChange = (e, index, field) => {
   const updatedSkillsRequired = [...skillsRequired];
   updatedSkillsRequired[index][field] = e.target.value;
   setSkillsRequired(updatedSkillsRequired);
- 
-  // Clear the error message when the input changes
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    skillsRequired: '', // Clear previous error when the input changes
+    skillsRequired: '',
   }));
 };
- 
-// Handle method for Job Highlights
 const handleJobHighlightsChange = (e) => {
   setJobHighlights(e.target.value);
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    jobHighlights: '', // Clear previous error when the input changes
+    jobHighlights: '',
   }));
 };
- 
-// Handle method for Description
 const handleDescriptionChange = (e) => {
   setDescription(e.target.value);
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    description: '', // Clear previous error when the input changes
+    description: '',
   }));
 };
- 
 const handleExperienceChange = (e, index, field) => {
   const updatedSkillsRequired = [...skillsRequired];
   updatedSkillsRequired[index][field] = e.target.value;
   setSkillsRequired(updatedSkillsRequired);
- 
-  // Clear the error message when the input changes
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    skillsRequired: '', // Clear previous error when the input changes
+    skillsRequired: '', 
   }));
 };
  
 const handleMaxSalaryChange = (e) => {
   setMaxSalary(e.target.value);
- 
-  // Clear the error message when the input changes
   setFormErrors((prevErrors) => ({
     ...prevErrors,
-    maxSalary: '', // Clear previous error when the input changes
+    maxSalary: '',
   }));
 };
- 
- 
   const addExperience = () => {
- 
     setSkillsRequired([...skillsRequired, { skillName: "", minimumExperience: "" }]);
  
   };
- 
   const removeExperience = () => {
-    // Check if there are skills to remove
     if (skillsRequired.length > 1) {
-      // Create a copy of the skillsRequired array without the last item
       const updatedSkills = [...skillsRequired.slice(0, -1)];
-      // Update the state with the new skills array
       setSkillsRequired(updatedSkills);
     }
   };
- 
   const handleFileChange = (e) => {
- 
     const file = e.target.files[0];
- 
     if (file) {
- 
-      // Check if the file type is allowed (PDF or DOC)
- 
       if (file.type === "application/pdf" || file.type === "application/msword" || file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
- 
         setFileName(file.name);
- 
         setImage(URL.createObjectURL(file));
- 
       } else {
- 
-        // Handle invalid file type
- 
-        alert("Please select a valid PDF or DOC file.");
- 
-        e.target.value = null; // Clear the file input
- 
+               alert("Please select a valid PDF or DOC file.");
+        e.target.value = null; 
       }
- 
     }
- 
   };
- 
- 
- 
-  const handleBrowseClick = () => {
- 
-    // Trigger a click event on the hidden file input element
- 
-    if (fileInputRef.current) {
+ const handleBrowseClick = () => {
+ if (fileInputRef.current) {
  
       fileInputRef.current.click();
  
     }
  
   };
- 
- 
   return (
     <div>
        <div className="dashboard__content">
@@ -531,7 +390,6 @@ const handleMaxSalaryChange = (e) => {
       <div className="row">
         <div className="col-lg-12 col-md-12 ">
           <div className="post-new profile-setting bg-white">
-           
             <div className="wrap-titles">
             <label className="title-user fw-7">Job Title<span className="color-red">*</span></label>
               <fieldset className="info-wd">
@@ -578,7 +436,6 @@ const handleMaxSalaryChange = (e) => {
                 )}
                 </div>
                 </div>
-
                 <div className="col-lg-6 col-md-6">
                 <div id="item_1" className="dropdown titles-dropdown info-wd">
                   <label className="title-user fw-7">Maximum Experience<span className="color-red">*</span></label>
@@ -609,7 +466,6 @@ const handleMaxSalaryChange = (e) => {
                  {formErrors.minSalary && (
                   <div className="error-message">{formErrors.minSalary}</div>
                 )}
- 
                 </div>
                 </div>
                 <div className="col-lg-6 col-md-12">
@@ -621,7 +477,6 @@ const handleMaxSalaryChange = (e) => {
                              className="input-form"
                              value={maxSalary}
                              onChange={handleMaxSalaryChange}
-                         
                              required
                   />
                   {formErrors.maxSalary && (
@@ -629,7 +484,6 @@ const handleMaxSalaryChange = (e) => {
                 )}
                 </div>
                 </div>
-                
                 <div className="col-lg-6 col-md-12">
                 <div id="item_3" className="dropdown titles-dropdown info-wd">
                   <label className="title-user fw-7">Minimum Qualification<span className="color-red">*</span></label>
@@ -647,7 +501,6 @@ const handleMaxSalaryChange = (e) => {
                 )}
                 </div>
                 </div>
-
                 <div className="col-lg-6 col-md-12">
                 <div id="item_1" className="dropdown titles-dropdown info-wd">
                   <label className="title-user fw-7">Specialization</label>
@@ -664,7 +517,6 @@ const handleMaxSalaryChange = (e) => {
                 )}
                 </div>
                 </div>
-
                 <div className="col-lg-6 col-md-12">
                 <div id="item_apply" className="dropdown titles-dropdown info-wd">
                   <label className="title-user fw-7">Location<span className="color-red">*</span></label>
@@ -680,7 +532,6 @@ const handleMaxSalaryChange = (e) => {
                 )}
                 </div>
                 </div>
-
                 <div className="col-lg-6 col-md-12">
                 <div id="item_1" className="dropdown titles-dropdown info-wd">
                   <label className="title-user fw-7">Industry Type</label>
@@ -690,15 +541,12 @@ const handleMaxSalaryChange = (e) => {
                         className="input-form"
                         placeholder="Sector"
                         onChange={handleIndustryTypeChange}
-                       
-                       
                       />
                        {formErrors.industryType && (
                   <div className="error-message">{formErrors.industryType}</div>
                 )}
                 </div>
                 </div>
-
                 <div className="col-lg-6 col-md-12">
                 <div id="item_1" className="dropdown titles-dropdown info-wd">
                   <label className="title-user fw-7">
@@ -719,7 +567,6 @@ const handleMaxSalaryChange = (e) => {
                 )}
                 </div>
                 </div>
-                
                 <div className="col-lg-6 col-md-12">
                 <div id="item_1" className="dropdown titles-dropdown info-wd">
                   <label className="title-user fw-7">Job Highlights</label>
@@ -735,7 +582,6 @@ const handleMaxSalaryChange = (e) => {
                 )}
                 </div>
                 </div>
-
                 <div className="col-lg-6 col-md-12">
                 <div id="item_1" className="dropdown titles-dropdown info-wd">
                   <label className="title-user fw-7">Skills<span className="color-red">*</span></label>
@@ -783,14 +629,7 @@ const handleMaxSalaryChange = (e) => {
                 </div>
               </div>
             <div className="form-infor flex flat-form">
-              
-              
               <div className="info-box info-wd">
-                
-                
-                
-                
-                
              </div>
             </div>
             <div className="form-group">
@@ -806,5 +645,4 @@ const handleMaxSalaryChange = (e) => {
 </div>
   )
 }
- 
 export default RecruiterPostJob;

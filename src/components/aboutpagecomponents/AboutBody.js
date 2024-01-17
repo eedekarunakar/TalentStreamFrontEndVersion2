@@ -1,33 +1,12 @@
 import React from 'react'
 import { useState} from 'react';
-
 export default function AboutBody() {
-
   const [showAdditionalContent, setShowAdditionalContent] = useState(false);
- 
   const toggleContent = () => {
     setShowAdditionalContent(!showAdditionalContent);
   };
-
   return (
     <div>
-  {/* <section className="bg-f5">
-        <div className="tf-container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="page-title">
-                <div className="widget-menu-link">
-                  <ul> */}
-                    {/* <li><a href="/">Home</a></li>
-                    <li><a href="/aboutus">About Us</a></li> */}
-                  {/* </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
       <section className="inner-review-section">
         <div className="tf-container">
           <div className="row">
@@ -176,9 +155,7 @@ export default function AboutBody() {
         </div>
       </div>
     </div>
-    
-  </section>
-        
+  </section>     
     </div>
   )
 }

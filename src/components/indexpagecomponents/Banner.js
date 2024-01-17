@@ -17,50 +17,6 @@ export default function Banner() {
               registrations daily, with no subscriptions or user licences.
             </p>
           </div>
-          {/* <div className="form-sl">
-            <form method="post">
-              <div className="row-group-search home1 st">
-                <div className="form-group-1">
-                  <span className="icon-search search-job" />
-                  <input
-                    type="text"
-                    className="input-filter-search"
-                    placeholder="Job title, key words or company"
-                  />
-                </div>
-                <div className="form-group-2">
-                  <span className="icon-map-pin" />
-                  <select id="select-location" className="select-location">
-                    <option value="">All Location</option>
-                    <option value="">Japan</option>
-                    <option value="">Canada</option>
-                    <option value="">England</option>
-                    <option value="">Mexico</option>
-                  </select>
-                </div>
-                <div className="form-group-4">
-                  <button type="submit" className="btn btn-find">
-                    <a href="/login" style={{'color':'white'}}>Find Jobs</a>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <ul className="list-tag">
-            <li className="heading">Popular Searches:</li>
-            <li>
-              <a href="#">Designer</a>
-            </li>
-            <li>
-              <a href="#">Developer</a>
-            </li>
-            <li>
-              <a href="#">Tester</a>
-            </li>
-            <li>
-              <a href="#">Writing...</a>
-            </li>
-          </ul> */}
         </div>
       </div>
       <div className="col-lg-5">
@@ -177,8 +133,6 @@ export default function Banner() {
         </div>
       </div>
     </section>
-
-
     </div>
   )
 }
