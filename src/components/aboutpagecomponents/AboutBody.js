@@ -158,19 +158,19 @@ export default function AboutBody() {
         </div>
       </div>
     </section>
-    <section class="wd-banner-CTA">
-    <div class="tf-container">
-      <div class="row">
-        <div class="col-lg-12  wow fadeInUp">
-          <div class="group-banner-CTA">
+    <section className="wd-banner-CTA">
+    <div className="tf-container">
+      <div className="row">
+        <div className="col-lg-12  wow fadeInUp">
+          <div className="group-banner-CTA">
             <h3>Job Opportunities Are Always Open</h3>
             <p>
                 Streamline your hiring process with strategic channels to reach
                 qualified candidates
               </p>
-            <div class="group-btn">
-              <a href="/login"><button class="tf-btn">Find Jobs</button></a>
-              <a href="/recruiterlogin"><button class="tf-btn">Find Candidates</button></a>
+            <div className="group-btn">
+              <a href="/login"><button className="tf-btn">Find Jobs</button></a>
+              <a href="/recruiterlogin"><button className="tf-btn">Find Candidates</button></a>
             </div>
           </div>
         </div>

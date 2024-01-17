@@ -55,9 +55,21 @@ function ApplicantFindJobs({ setSelectedJobId }) {
        if(response.status =200){
         window.alert('Job Saved successfully');
        }
+       fetchJobs();
     } catch (error) {
       window.alert('Job has already been saved by the applicant');
       console.error('Error saving job:', error);
+    }
+  };
+  const fetchJobs = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/recommendedjob/findrecommendedjob/${userId}`);
+      const jobData = response.data;
+      setJobs(jobData);
+    } catch (error) {
+      console.error('Error fetching job data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -165,12 +177,24 @@ function ApplicantFindJobs({ setSelectedJobId }) {
       )}
     </li>
     <li>
-      <button
-        onClick={() => handleSaveJob(job.id)}
-        className="button-status1"
-      >
-        Save Job
-      </button>
+        {/* Conditional rendering of Save Job button */}
+        {job.saveJobStatus==='saved' ? (
+            <button
+            disabled
+            className="button-status1"
+            style={{ backgroundColor: 'green', color: 'white' }}
+          >
+            Already&nbsp;Saved
+          </button>
+           ) : (
+            <button
+              onClick={() => handleSaveJob(job.id)}
+              className="button-status1"
+            >
+              Save Job
+            </button>
+          )}
+ 
     </li>
   </ul>
 

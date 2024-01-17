@@ -78,12 +78,15 @@ function ApplicantNavBar() {
   const logout = () => {
     clearJWTToken();
      const confirm = window.confirm("Do you want to logout?");
-     if(confirm){
-       clearJWTToken();
-         window.location.href = "/";
-     }else {
-         // same as clicking a link         // not optimal solution though        window.location.href = window.location.href;
-     }
+     if (confirm)
+     {
+     try {
+      clearJWTToken();
+      window.location.href = "/";
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
+  }
  }
  
  const fetchAlertCount = async () => {

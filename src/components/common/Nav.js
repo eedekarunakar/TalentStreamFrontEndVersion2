@@ -79,10 +79,10 @@ const Nav = () => {
                   </a>
                 </div>
               </div>
-              <div class="header-ct-center">
-              <div class="nav-wrap">
-                <nav id="main-nav" class="main-nav">
-                  <ul id="menu-primary-menu" class="menu">
+              <div className="header-ct-center">
+              <div className="nav-wrap">
+                <nav id="main-nav" className="main-nav">
+                  <ul id="menu-primary-menu" className="menu">
                     <li>
                       <a href="/">Home </a>
                     </li>

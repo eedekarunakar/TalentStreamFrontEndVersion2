@@ -244,19 +244,23 @@ function ApplicantForgotPassword() {
                               value={otp}
                               onChange={(e) => setOtp(e.target.value)}
                             />
-                            <button type="button" onClick={handleVerifyOTP}>
-                              Verify OTP
-                            </button>
+                          <button type="button" onClick={() => {
+                                   handleVerifyOTP();
+                                   setOTPTimerResend(0);
+                                }}>
+                                  Verify OTP
+                        </button>
                             {otpResendTimer > 0 ? (
-                                    <div style={{ color: 'red' }}>
+                                <div style={{ color: 'red' }}>
                                       Please verify OTP within {otpResendTimer} seconds.
-                                    </div>
+                        </div>
                                     ) : (
-                                    <div>        
-                                      <button type="button" onClick={handleResendOTP} disabled={resendButtonDisabled}>
-                                        Resend OTP
-                                      </button>
-                                    </div>
+                    <div>        
+                   <button type="button" onClick={() => { setResetError(null); // Set resetError to null
+                                        handleResendOTP();  }} disabled={resendButtonDisabled}>
+                                             Resend OTP
+                     </button>
+                 </div>
                             )}
  
                           </div>

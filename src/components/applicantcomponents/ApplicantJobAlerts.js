@@ -54,8 +54,7 @@ export default function ApplicantJobAlerts() {
   <span style={{ color: 'orange' }}>{alert.companyName}</span> has updated the job status to {' '}
   <span style={{ color: 'green' }}>{alert.status}</span> on {' '}
   <span style={{ color: 'red' }}>{formatDate(alert.changeDate)}</span>. For the role of {' '}
-  <span style={{ color: 'blue' }}>{alert.jobTitle}</span>. Stay tuned for further updates and notifications. {' '}
-  <span role="img" aria-label="smiley">😊</span>
+  <span style={{ color: 'blue' }}>{alert.jobTitle}</span>. 
 </h4>
  
                       {alert.applyJob && (
