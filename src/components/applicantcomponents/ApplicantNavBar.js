@@ -76,7 +76,7 @@ function ApplicantNavBar() {
   }, [user.id]);
  
   const logout = () => {
-    clearJWTToken();
+   // clearJWTToken();
      const confirm = window.confirm("Do you want to logout?");
      if (confirm)
      {
@@ -198,7 +198,7 @@ useEffect(() => {
             <div className="header-ct-right">
               <div className="header-customize-item account">
               {/* <img src={imageSrc} alt="" width="40px" height="30px"/> */}
-              <img src={imageSrc || '../images/user/avatar/image-01.jpg'} alt="Profile" onError={() => setImageSrc('../images/user/avatar/image-01.jpg')} />
+              <img width="40px" height="30px" src={imageSrc || '../images/user/avatar/image-01.jpg'} alt="Profile" onError={() => setImageSrc('../images/user/avatar/image-01.jpg')} />
                 <div className="name">
                   <span className="icon-keyboard_arrow_down" />
                 </div>
@@ -206,7 +206,7 @@ useEffect(() => {
                   <h4>Welcome {user.username}</h4>
                   <div className="sub-account-item">
                     <a href="/applicant-view-profile">
-                      <span className="icon-profile" /> Profile
+                      <span className="icon-profile" />View Profile
                     </a>
                   </div>
                   <div className="sub-account-item">
@@ -267,7 +267,7 @@ useEffect(() => {
           <li>
             <Link to="/applicant-find-jobs" className="tf-effect">
               <span className="icon-resumes dash-icon"></span>
-              <span className="dash-titles">Find Jobs</span>
+              <span className="dash-titles">Recommended Jobs</span>
             </Link>
           </li>
  
