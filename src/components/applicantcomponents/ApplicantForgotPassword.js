@@ -240,4 +240,7 @@ function ApplicantForgotPassword() {
   );
  
 }
+
 export default ApplicantForgotPassword;
+
+
