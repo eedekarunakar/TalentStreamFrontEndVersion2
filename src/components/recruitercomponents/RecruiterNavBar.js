@@ -61,9 +61,10 @@ function RecruiterNavBar() {
   }, [user.id]);
 
   const logout = () => {
-    clearJWTToken();
+    
      const confirm = window.confirm("Do you want to log out?");
-     if(confirm){
+     console.log("confirm is:",confirm);
+     if(confirm===true){
        clearJWTToken();
          window.location.href = "/";
      }else {
@@ -174,15 +175,15 @@ function RecruiterNavBar() {
                 </div>
                 <div className="sub-account">
                 <h4>Welcome {user.username}</h4>
-                  <div className="sub-account-item">
+                  {/* <div className="sub-account-item">
                     <a href="/recruiter-my-organization">
-                      <span className="icon-profile" /> My Organization
-                    </a>
-                  </div>
+                      <span className="icon-profile" /> Profile
+                    </a> 
+                  </div>*/}
                   <div className="sub-account-item">
                     <a href="/recruiter-change-password">
                       <span className="icon-change-passwords" /> Change
-                      Passwords
+                      Password
                     </a>
                   </div>
                   {/* <div className="sub-account-item">
@@ -197,9 +198,9 @@ function RecruiterNavBar() {
                   </div>
                 </div>
               </div>
-              <div className="header-customize-item button">
+              {/* <div className="header-customize-item button">
                 <a href="/recruiter-postjob">Post Job</a>
-              </div>
+              </div> */}
             </div>
             <div className="nav-filter">
               <div className="nav-mobile">
