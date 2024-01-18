@@ -75,7 +75,7 @@ function ApplicantFindJobs({ setSelectedJobId }) {
            <div className="row">
              <div className="col-lg-12 col-md-12 ">
                <div className="title-dashboard">
-                 <div className="title-dash flex2">Recommended jobs for you!</div>
+                 <div className="title-dash flex2">Recommended Jobs For You!</div>
                </div>
              </div>
            </div>
