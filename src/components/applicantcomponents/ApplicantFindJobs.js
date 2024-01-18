@@ -100,10 +100,10 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                             </div>
                               <div className="box-content">
                                 <h4>
-                                  <a href="jobs-single.html">{job.companyname}</a>
+                                  <a href="#">{job.companyname}</a>
                                 </h4>
                                 <h3>
-                                  <a href="jobs-single.html">
+                                  <a href="#">
                                     {job.jobTitle}
                                   </a>
                                 </h3>
