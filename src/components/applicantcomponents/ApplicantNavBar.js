@@ -144,7 +144,7 @@ useEffect(() => {
                   <h4>Welcome {user.username}</h4>
                   <div className="sub-account-item">
                     <a href="/applicant-view-profile">
-                      <span className="icon-profile" /> Profile
+                      <span className="icon-profile" />View Profile
                     </a>
                   </div>
                   <div className="sub-account-item">
