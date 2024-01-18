@@ -97,7 +97,7 @@ const ApplicantViewProfile = () => {
               </div>
             </div>
             <div className="tt-button">
-            <Link to="/applicant-edit-profile">Update Profile</Link>
+            <Link to="/applicant-edit-profile">Edit Profile</Link>
             </div>
           </div>
         </div>
