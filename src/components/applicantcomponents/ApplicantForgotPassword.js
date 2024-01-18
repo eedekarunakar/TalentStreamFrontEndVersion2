@@ -1,246 +1,201 @@
 import React, { useState } from 'react';
 import { useUserContext } from '../common/UserProvider';
 import axios from 'axios';
-import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
-import { useNavigate} from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-function ApplicantForgotPassword() {
-  const [email, setEmail] = useState('');
-  const navigate = useNavigate();
-  const [otp, setOtp] = useState('');
-  const [resetSuccess, setResetSuccess] = useState(false);
-  const [resetError, setResetError] = useState('');
-  const [otpSent, setOtpSent] = useState(false);
-  const [otpVerified, setOtpVerified] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [otpResendTimer, setOTPTimerResend] = useState(0);
-  const [resendButtonDisabled, setResendButtonDisabled] = useState(false);
-  const [password, setPassword] = useState('');
+import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
+function ApplicantChangePassword() {
+  const { user } = useUserContext();
+  const [oldpassword, setOldPassword] = useState('');
+  const [newpassword, setNewPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const user1 = useUserContext();
-  const user = user1.user;
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
-  const handleToggleConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
-  const validatePassword = (value) => {
-    const isLengthValid = value.length >= 6;
-    const hasUppercase = /[A-Z]/.test(value);
-    const hasSpecialChar = /[^A-Za-z0-9]/.test(value);
-    const hasNoSpaces = !/\s/.test(value);
-    const isValid = isLengthValid && hasUppercase && hasSpecialChar && hasNoSpaces;
-    setIsPasswordValid(isValid);
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmedPassword, setShowConfirmedPassword] = useState(false);
+  const [formErrors, setFormErrors] = useState({
+    oldPassword: '',
+    newPassword: '',
+    confirmedPassword: '',
+  });
+  const validateForm = () => {
+    let isValid = true;
+    const errors = {};
+    if (!oldpassword.trim()) {
+      errors.oldPassword = 'Old password is required.';
+      isValid = false;
+    } else {
+      errors.oldPassword = '';
+    }
+    if (!newpassword.trim()) {
+      errors.newPassword = 'New password is required.';
+      isValid = false;
+    } else if (!isValidPassword(newpassword)) {
+      errors.newPassword =
+        'New password must be at least 6 characters long, contain one uppercase letter, one lowercase letter, one number, one special character, and no spaces.';
+      isValid = false;
+    } else {
+      errors.newPassword = '';
+    }
+    if (!confirmedPassword.trim()) {
+      errors.confirmedPassword = 'Confirm password is required.';
+      isValid = false;
+    } else if (newpassword !== confirmedPassword) {
+      errors.confirmedPassword = 'Passwords do not match.';
+      isValid = false;
+    } else {
+      errors.confirmedPassword = '';
+    }
+    setFormErrors(errors);
     return isValid;
   };
-  const handleSendOTP = async () => {
-    try {
-      const response = await axios.post(`${apiUrl}/applicant/forgotpasswordsendotp`, { email });
-      setOTPTimerResend(60);
-      const timerInterval = setInterval(() => {
-        setOTPTimerResend((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
-      }, 1000);
-      setTimeout(() => {
-        clearInterval(timerInterval);
-        setResendButtonDisabled(false);
-      }, 60000);
-      if (response.data === 'OTP sent successfully') {
-        setOtpSent(true);
-        setResetSuccess(false);
-        setResetError('');
-      } else {
-        setOtpSent(false);
-        setOtpVerified(false);
-        setResetError('User with the given Email Id was not found in the system');
-      }
-    } catch (error) {
-      console.error('Error sending OTP:', error);
-      setOtpSent(false);
-      setOtpVerified(false);
-      setResetError('Enter valid email address');
+  const handleTogglePassword = (type) => {
+    switch (type) {
+      case 'old':
+        setShowOldPassword(!showOldPassword);
+        break;
+      case 'new':
+        setShowNewPassword(!showNewPassword);
+        break;
+      case 'confirmed':
+        setShowConfirmedPassword(!showConfirmedPassword);
+        break;
+      default:
+        break;
     }
   };
-  const handleVerifyOTP = async () => {
-    try {
-      const response = await axios.post(`${apiUrl}/applicant/applicantverify-otp`, { email, otp });
-      if (response.data === 'OTP verified successfully') {
-        setOtpVerified(true);
-        setResetError('');
-      } else {
-        setOtpVerified(false);
-        setResetError('OTP verification failed. Please enter a valid OTP.');
-      }
-    } catch (error) {
-      console.error('Error verifying OTP:', error);
-      setOtpVerified(false);
-      setResetError('OTP verification failed. Please enter a valid OTP.');
-    }
-  };
-  const handleResendOTP = async () => {
-    try {
-      setResendButtonDisabled(true);
-      await axios.post(`${apiUrl}/applicant/forgotpasswordsendotp`, { email });
-      setOTPTimerResend(60);
-      const timerInterval = setInterval(() => {
-        setOTPTimerResend((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
-      }, 1000);
-      setTimeout(() => {
-        clearInterval(timerInterval);
-        setResendButtonDisabled(false);
-      }, 60000);
-      window.alert('OTP Resent successfully');
-    } catch (error) {
-      console.error('Error resending OTP:', error);
-    }
-  };
-  const handleResetPassword = async () => {
-    if (password !== confirmedPassword) {
-      setResetSuccess(false);
-      setResetError('Passwords do not match. Please make sure the passwords match.');
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+ 
+    if (!validateForm()) {
       return;
     }
- 
-    if (!validatePassword(password)) {
-      setResetSuccess(false);
-      setResetError('Password Should not be empty.');
-      return;
-    }
- 
+    const formData = {
+      oldpassword,
+      newpassword,
+      confirmedPassword,
+    };
     try {
-      const response = await axios.post(
-        `${apiUrl}/applicant/applicantreset-password/${email}`,
-        {
-          password,
-          confirmedPassword,
-        }
-      );
- 
-      if (response.data === 'Password reset was done successfully') {
-        setResetSuccess(true);
-        setResetError('');
-      } else {
-        setResetSuccess(false);
-        setResetError('Password reset failed. Please try again later.');
+      const response = await axios.post(`${apiUrl}/applicant/authenticateUsers/${user.id}`, formData);
+      if (response.data === 'Password updated and stored') {
+        window.alert('Password Changed Successfully');
+      } else if(response.data==='your new password should not be same as old password'){
+        window.alert('New password should not be same as old password.');
+      } 
+      else {
+        window.alert('Password change failed. Old password is wrong.');
       }
     } catch (error) {
       console.error('Error resetting password:', error);
-      setResetSuccess(false);
-      setResetError('An error occurred. Please try again later.');
+      window.alert('Error resetting password');
     }
+  };
+  const isValidPassword = (password) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    return passwordRegex.test(password);
   };
   return (
     <div>
-      <div>       
- <section className="account-section">
-          <div className="tf-container">
-            <div className="row">
-              <div className="wd-form-login">
-                {resetSuccess ? (
-                  <div className="success-message">
-                    <h5>Password reset was done successfully. Please click on <a href="/login" style={{color:'blue'}}>Login</a> to continue</h5>
-                  </div>
-                ) : (
-                  <div>
-                    <h4>Forgot Password</h4><br />
-                      <div className="ip">
-                      <label>
-                    Email address<span>*</span>
-                  </label>
-                  <input
-              type="email"
-              placeholder="Enter your Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-                      </div>
-                      {otpSent ? (
-                        otpVerified ? (
-                          <div className="ip">
-                             <div className="inputs-group auth-pass-inputgroup">
-                            <input
-                              type={showPassword ? 'text' : 'password'}
-                              placeholder="New Password"
-                              value={password}
-                              onChange={(e) => setPassword(e.target.value)}
-                            />
-                            <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
-        {showPassword ? <FaEye /> : <FaEyeSlash />}
-</div>
-                           </div><br />
-                           <div className="inputs-group auth-pass-inputgroup">
-                            <input
-                              type={showConfirmPassword ? 'text' : 'password'}
-                              placeholder="Confirm New Password"
-                              value={confirmedPassword}
-                              onChange={(e) => setConfirmedPassword(e.target.value)}
-                            />
-                           <div
-                                className="password-toggle-icon"
-                                onClick={handleToggleConfirmPassword}
-                                id="password-addon"
-                              >
-                                {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
-                              </div>
-                            </div><br></br>
-                            <div className="helpful-line">
-                              Password must be at least 6 characters long, contain one uppercase letter,
-                              one lowercase letter, one number, one special character, and no spaces.
-                            </div>
- 
-                            <button type="button" onClick={handleResetPassword}>Reset Password </button>
-                            <p style={{ color: 'green',textAlign:'center' }}>OTP verified successfully!</p>
-                          </div>
-                        ) : (
-                          <div>
-                            <input
-                              type="text"
-                              placeholder="Enter OTP"
-                              value={otp}
-                              onChange={(e) => setOtp(e.target.value)}
-                            />
-                          <button type="button" onClick={() => {
-                                   handleVerifyOTP();
-                                   setOTPTimerResend(0);
-                                }}>
-                                  Verify OTP
-                        </button>
-                            {otpResendTimer > 0 ? (
-                                <div style={{ color: 'red' }}>
-                                      Please verify OTP within {otpResendTimer} seconds.
-                        </div>
-                                    ) : (
-                    <div>        
-                   <button type="button" onClick={() => { setResetError(null); // Set resetError to null
-                                        handleResendOTP();  }} disabled={resendButtonDisabled}>
-                                             Resend OTP
-                     </button>
-                 </div>
-                            )}
- 
-                          </div>
-                        )
-                      ) : (
-                        <button type="button" onClick={handleSendOTP}>
-                          Send OTP
-                        </button>
-                      )}
-                      {resetError && <div className="error-message">{resetError}</div>}
-                   
-                  </div>
-                )}
-              </div>
+      <>
+        <div class="dashboard__content">
+        <section className="page-title-dashboard">
+      <div className="themes-container">
+        <div className="row">
+          <div className="col-lg-12 col-md-12">
+            <div className="title-dashboard">
+              <div className="title-dash flex2">Change Password</div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
+    </section>
+          <section className="flat-dashboard-password">
+            <div className="themes-container">
+              <div className="row">
+                <div className="col-lg-12 col-md-12 ">
+                  <div className="change-password bg-white">
+                    <form action="https://themesflat.co/html/jobtex/dashboard/dashboard.html">
+                      <div className="form-password">
+                        <div className="inner info-wd">
+                          <label className="title-url fs-16">
+                            Old Password<span className="color-red">*</span>
+                          </label>                          
+<div className="inputs-group auth-pass-inputgroup relative flex2">
+        <input
+          type={showOldPassword ? 'text' : 'password'}
+          className="input-form password-input"
+          value={oldpassword}
+          onChange={(e) => setOldPassword(e.target.value)}
+          onBlur={() => validateForm()}
+          required=""
+        />
+        <div className="password-toggle-icon" onClick={() => handleTogglePassword('old')} id="password-addon">
+          {showOldPassword ? <FaEye /> : <FaEyeSlash />}
+        </div>
+      </div>
+                          {formErrors.oldPassword && (
+                            <div className="error-message">{formErrors.oldPassword}</div>
+                          )}
+                        </div>
+                        {/* New Password */}
+                        <div className="inner info-wd">
+                          <label className="title-url fs-16">
+                            New Password <span className="color-red">*</span>
+                          </label>
+                          
+                          <div className="inputs-group auth-pass-inputgroup relative flex2">
+        <input
+          type={showNewPassword ? 'text' : 'password'}
+          className="input-form"
+          value={newpassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          onBlur={() => validateForm()}
+          required=""
+        />
+        <div className="password-toggle-icon" onClick={() => handleTogglePassword('new')} id="password-addon">
+          {showNewPassword ? <FaEye /> : <FaEyeSlash />}
+        </div>
+      </div>
+                          {formErrors.newPassword && (
+                            <div className="error-message">{formErrors.newPassword}</div>
+                          )}
+                        </div>
+                        {/* Confirm Password */}
+                        <div className="inner info-wd">
+                          <label className="title-url fs-16">
+                            Confirm Password<span className="color-red">*</span>
+                          </label>
+                          
+                          <div className="inputs-group auth-pass-inputgroup relative flex2">
+        <input
+          type={showConfirmedPassword ? 'text' : 'password'}
+          className="input-form password-input"
+          value={confirmedPassword}
+          onChange={(e) => setConfirmedPassword(e.target.value)}
+          onBlur={() => validateForm()}
+          required=""
+        />
+        <div className="password-toggle-icon" onClick={() => handleTogglePassword('confirmed')} id="password-addon">
+          {showConfirmedPassword ? <FaEye /> : <FaEyeSlash />}
+        </div>
+      </div>
+                          {formErrors.confirmedPassword && (
+                            <div className="error-message">{formErrors.confirmedPassword}</div>
+                          )}
+                        </div>
+                        <div className="tt-button submit">
+                          <button type="button" class="button-status" onClick={handleChangePassword}>
+                            Update Password
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section><br />
+        </div>
+      </>
     </div>
   );
- 
-}
-
-export default ApplicantForgotPassword;
-
-
+} 
+export default ApplicantChangePassword;
