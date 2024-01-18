@@ -196,7 +196,7 @@ useEffect(() => {
           <li>
             <Link to="/applicant-find-jobs" className="tf-effect">
               <span className="icon-resumes dash-icon"></span>
-              <span className="dash-titles">Find Jobs</span>
+              <span className="dash-titles">Recommended Jobs</span>
             </Link>
           </li>
           <li>
