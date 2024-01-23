@@ -129,6 +129,7 @@ video {
   border: 0;
   outline: 0;
   background: transparent;
+  
 }
 
 article,
@@ -1341,6 +1342,8 @@ input[type="color"],
   justify-content: flex-end;
   display: flex;
   align-items: center;
+  top: 7px;
+  position: relative; /* Ensure position relative for z-index to work */
 }
 
 .header-landing .sticky-area-wrap .header-ct-right {
@@ -1532,6 +1535,7 @@ input[type="color"],
   line-height: 2px!important;
   margin-right: 2px!important;
   margin-left: 2px!important;
+  /* z-index: 100; */
   }
   #header .sticky-area-wrap .header-ct-left .logo .site-logo {
     width: 130px!important;

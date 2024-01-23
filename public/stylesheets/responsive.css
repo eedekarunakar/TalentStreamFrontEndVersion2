@@ -1151,6 +1151,7 @@
 
   #header .nav-filter .nav-mobile {
     margin-left: 0;
+    top: 6.5px;
   }
 
   .header .sticky-area-wrap .nav-filter .nav-mobile {

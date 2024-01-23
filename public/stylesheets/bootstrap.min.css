@@ -6001,7 +6001,10 @@ fieldset:disabled .btn {
 }
 
 .modal.show .modal-dialog {
-    transform: none
+    transform: none;
+    transition: none;
+    margin-top: 25%;
+    /* margin-bottom: 25%; */
 }
 
 .modal.modal-static .modal-dialog {
@@ -6032,6 +6035,8 @@ fieldset:disabled .btn {
     display: flex;
     flex-direction: column;
     width: 100%;
+    /* height: 100%; */
+    
     pointer-events: auto;
     background-color: #fff;
     background-clip: padding-box;
@@ -6062,6 +6067,7 @@ fieldset:disabled .btn {
     display: flex;
     flex-shrink: 0;
     align-items: center;
+    /* align-items: flex-end; */
     justify-content: space-between;
     padding: 1rem 1rem;
     border-bottom: 1px solid #dee2e6;
@@ -6076,7 +6082,9 @@ fieldset:disabled .btn {
 
 .modal-title {
     margin-bottom: 0;
-    line-height: 1.5
+    line-height: 1.5;
+    /* align-items: flex-end; */
+    
 }
 
 .modal-body {
