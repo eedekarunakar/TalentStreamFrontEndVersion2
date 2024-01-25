@@ -32,7 +32,7 @@ function RecruiterApplicantInterviews() {
     }
 
     axios
-    .get(`${apiUrl}/applyjob/recruiter/${user.id}/interviews/interviewing`)
+    .get(`${apiUrl}/applyjob/recruiter/${user.id}/interviews/Interviewing`)
       .then((response) => {
         setApplicants(response.data);
       })

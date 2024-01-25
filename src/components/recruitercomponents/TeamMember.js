@@ -53,7 +53,7 @@ return (
         <div className="row">
           <div className="col-lg-12 col-md-12">
             <div className="title-dashboard">
-              <div className="title-dash flex2">Team Member</div>
+              <div className="title-dash flex2">Team Members</div>
             </div>
           </div>
         </div>
@@ -79,41 +79,42 @@ return (
   );
 }
 const Table = ({ data, handleDelete }) => {
-    return (
-      <div className="table-container">
-        <table className="responsive-table">
-          <thead className="thead-dark">
-            <tr>
-              <th>Name</th>
-              <th>Role</th>
-              <th>Email</th>
-              <th>Password</th>
-              <th>Action</th>
+  return (
+    <div className="table-container">
+      <table className="responsive-table">
+        <thead className="thead-dark">
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((teamMember, index) => (
+            <tr key={index}>
+              <td>{teamMember.name}</td>
+              <td>{teamMember.role}</td>
+              <td>{teamMember.email}</td>
+              <td>********{/* Display asterisks or any other mask */}</td>
+              <td>
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleDelete(teamMember.id);
+                  }}
+                >
+                  Delete
+                </a>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {data.map((teamMember, index) => (
-              <tr key={index}>
-                <td>{teamMember.name}</td>
-                <td>{teamMember.role}</td>
-                <td>{teamMember.email}</td>
-                <td>{teamMember.password}</td>
-                <td>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleDelete(teamMember.id);
-                    }}
-                  >
-                    Delete
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 export default TeamMember;

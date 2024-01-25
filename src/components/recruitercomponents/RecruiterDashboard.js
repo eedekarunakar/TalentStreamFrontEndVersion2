@@ -85,7 +85,7 @@ function RecruiterDashboard() {
           axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
         }
         axios
-        .get(`${apiUrl}/applyjob/recruiter/${user.id}/interviews/interviewing`)
+        .get(`${apiUrl}/applyjob/recruiter/${user.id}/interviews/Interviewing`)
           .then((response) => {
             setApplicants(response.data);
           })
@@ -254,7 +254,7 @@ function RecruiterDashboard() {
                           <th>Job Title</th>
                           <th>Interview Date and Time</th>
                           <th>Location</th>
-                          <th>Interview Link</th>
+                          {/* <th>Interview Link</th> */}
                         </tr>
                       </thead>
                       <tbody>
@@ -267,11 +267,11 @@ function RecruiterDashboard() {
                             <td style={{ paddingBottom: '10px' }}> <h6>{interview.jobTitle}</h6></td>
                             <td>{formatDateTime(interview.timeAndDate)}</td>
                             <td className="map color-4">{interview.location}</td>
-                            <td>
+                            {/* <td>
                               <a href={interview.interviewLink} target="_blank" rel="noopener noreferrer">
                                 {interview.interviewLink}
                               </a>
-                            </td>
+                            </td> */}
                           </tr>
                         ))}
                       </tbody>
@@ -303,7 +303,7 @@ function RecruiterDashboard() {
                           <th>Job Title</th>
                           <th>Interview Date and Time</th>
                           <th>Location</th>
-                          <th>Interview Link</th>
+                          {/* <th>Interview Link</th> */}
                         </tr>
                       </thead>
                       <tbody>
@@ -316,11 +316,11 @@ function RecruiterDashboard() {
                             <td> <h6>{interview.jobTitle}</h6></td>
                             <td>{formatDateTime(interview.timeAndDate)}</td>
                             <td className="map color-4">{interview.location}</td>
-                            <td>
+                            {/* <td>
                               <a href={interview.interviewLink} target="_blank" rel="noopener noreferrer">
                                 {interview.interviewLink}
                               </a>
-                            </td>
+                            </td> */}
                           </tr>
                         ))}
                       </tbody>

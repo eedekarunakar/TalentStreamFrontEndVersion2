@@ -160,7 +160,7 @@ function ApplicantFindJobs({ setSelectedJobId }) {
             className="button-status1"
             style={{ backgroundColor: 'green', color: 'white' }}
           >
-            Already&nbsp;Saved
+            Saved
           </button>
            ) : (
             <button
