@@ -119,7 +119,7 @@ const ApplicantDashboard = () =>
             <div className="content">
             
               <h3>{contRecJobs}</h3>
-              <h4 className="title-count">Recommended jobs</h4>
+              <h4 className="title-count">Recommended Jobs</h4>
             </div>
           </div>
           <div className="box-icon wrap-counter flex">

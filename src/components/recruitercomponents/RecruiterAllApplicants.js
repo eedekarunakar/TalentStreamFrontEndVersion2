@@ -90,10 +90,11 @@ function RecruiterAllApplicants() {
             <option value="" disabled>
               Change Status
             </option>
-            <option value="screening">Screening</option>
-            <option value="shortlisted">Shortlisted</option>
-            <option value="interviewing">Interviewing</option>
-            <option value="selected">Selected</option>
+            <option value="Screening">Screening</option>
+            <option value="Shortlisted">Shortlisted</option>
+            <option value="Interviewing">Interviewing</option>
+            <option value="Selected">Selected</option>
+            <option value="selected">All the applicants</option>
           </select>
                 </div>
               </div>
@@ -152,7 +153,7 @@ function RecruiterAllApplicants() {
                                   <button
                                     onClick={() =>
                                       application.applicantStatus ===
-                                      'interviewing'
+                                      'Interviewing'
                                         ? setShowPopup(true)
                                         : null
                                     }
@@ -162,7 +163,7 @@ function RecruiterAllApplicants() {
                                       padding: '0',
                                       cursor:
                                         application.applicantStatus ===
-                                        'interviewing'
+                                        'Interviewing'
                                           ? 'pointer'
                                           : 'default',
                                       outline: 'none',
@@ -176,7 +177,7 @@ function RecruiterAllApplicants() {
                                       className="bi bi-clock"
                                       fill={
                                         application.applicantStatus ===
-                                        'interviewing'
+                                        'Interviewing'
                                           ? '#3498db' 
                                           : '#d3d3d3' 
                                       }

@@ -1,18 +1,15 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useUserContext } from '../common/UserProvider';
-import { apiUrl } from '../../services/ApplicantAPIService';
+import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import axios from 'axios';
-import $ from 'jquery';
  
 function formatDateTime(dateTimeArray) {
   const [year, month, day, hour, minute] = dateTimeArray;
- 
   const formattedDate = new Date(year, month - 1, day).toLocaleDateString('en-US', {
     day: 'numeric',
     month: 'short', 
     year: 'numeric',
   });
- 
   const formattedTime = new Date(year, month - 1, day, hour, minute).toLocaleTimeString('en-US', {
     hour: 'numeric',
     minute: 'numeric',
@@ -25,57 +22,34 @@ function formatDateTime(dateTimeArray) {
 function RecruiterApplicantInterviews() {
   const [applicants, setApplicants] = useState([]);
   const [filteredApplicants, setFilteredApplicants] = useState([]);
-  const [filterOption, setFilterOption] = useState('all'); 
+  const [filterOption, setFilterOption] = useState('all'); // Default to 'all'
   const { user } = useUserContext();
-  const [selectedApplicant, setSelectedApplicant] = useState(null);
-  const isMounted = useRef(true);
-  const tableref=useRef(null);
-  const handleCancelButtonClick = async (applicant) => {
-    const { id: scheduleInterviewId } = applicant;
-    const confirmation = window.confirm('Do you want to cancel the interview?');
-    if (confirmation) {
-      try {
-        await axios.delete(`${apiUrl}/applyjob/scheduleInterview/${scheduleInterviewId}`);
-        alert('Interview cancelled successfully');
-        window.location.reload();
-      } catch (error) {
-        console.error('Error cancelling interview:', error);
-      }
-    }
-  };
-  
-  const fetchInterviewDetails = async () => {
-    try {
-      const response = await axios.get(`${apiUrl}/applyjob/recruiter/${user.id}/interviews/interviewing`);
-    const applicantsArray = Object.values(response.data).flat();
-        setApplicants(applicantsArray);
-        const $table= window.$(tableref.current);
-          const timeoutId = setTimeout(() => {  
-           $table.DataTable().destroy();
-            $table.DataTable({responsive:true});
-                  }, 500);
-         return () => {
-            isMounted.current = false;
-         };
-    } catch (error) {
-      console.error('Error fetching applicants:', error);
-    }
-  };
  
   useEffect(() => {
     const jwtToken = localStorage.getItem('jwtToken');
     if (jwtToken) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
     }
-    fetchInterviewDetails();
-  }, [user.id]);
 
+    axios
+    .get(`${apiUrl}/applyjob/recruiter/${user.id}/interviews/Interviewing`)
+      .then((response) => {
+        setApplicants(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching job details:', error);
+      });
+  }, [user.id]); // Replace with the actual user identifier
+ 
   const todayApplicants = applicants.filter(applicant => {
     const [year, month, day, hour, minute] = applicant.timeAndDate;
     const interviewTimestamp = new Date(year, month - 1, day, hour, minute).getTime();
     const todayTimestamp = new Date().setHours(0, 0, 0, 0);
+ 
     return interviewTimestamp >= todayTimestamp && interviewTimestamp < todayTimestamp + 24 * 60 * 60 * 1000;
   });
+ 
+  // Filter applicants for this week
   const thisWeekApplicants = applicants.filter(applicant => {
     const [year, month, day, hour, minute] = applicant.timeAndDate;
     const interviewTimestamp = new Date(year, month - 1, day, hour, minute).getTime();
@@ -85,6 +59,8 @@ function RecruiterApplicantInterviews() {
  
     return interviewTimestamp >= startOfWeekTimestamp && interviewTimestamp < startOfWeekTimestamp + 7 * 24 * 60 * 60 * 1000;
   });
+ 
+  // Filter applicants for this month
   const thisMonthApplicants = applicants.filter(applicant => {
     const [year, month, day, hour, minute] = applicant.timeAndDate;
     const interviewTimestamp = new Date(year, month - 1, day, hour, minute).getTime();
@@ -95,6 +71,7 @@ function RecruiterApplicantInterviews() {
   });
  
   useEffect(() => {
+    // Update filtered applicants based on the selected option
     switch (filterOption) {
       case 'today':
         setFilteredApplicants(todayApplicants);
@@ -106,11 +83,14 @@ function RecruiterApplicantInterviews() {
         setFilteredApplicants(thisMonthApplicants);
         break;
       default:
-        setFilteredApplicants(applicants);
+        setFilteredApplicants(applicants); // 'all' option or default
     }
   }, [filterOption, todayApplicants, thisWeekApplicants, thisMonthApplicants, applicants]);
+ 
+ 
   return (
     <div>
+     
       <div className="dashboard__content">
   <section className="page-title-dashboard">
     <div className="themes-container">
@@ -123,6 +103,7 @@ function RecruiterApplicantInterviews() {
       </div>
     </div>
   </section>
+ 
   <section className="flat-dashboard-setting bg-white">
   <div className="themes-container">
   <div className="row">
@@ -137,16 +118,11 @@ function RecruiterApplicantInterviews() {
           <option value="thisMonth">This Month</option>
         </select>
       </div>
-      {applicants.length > 0 ? (
-          <ScheduleInterviewTable
-            interview={applicants}
-            setSelectedApplicant={setSelectedApplicant}
-            handleCancelButtonClick={handleCancelButtonClick}
-            ref={tableref}
-          />
-        ) : (
-          <p>No Interviews are Scheduled</p>
-        )}
+      {filteredApplicants.length > 0 ? (
+        <ScheduleInterviewTable interview={filteredApplicants} />
+      ) : (
+        <p>No Interviews are Scheduled</p>
+      )}
       </div>
       </div>
       </div>
@@ -155,9 +131,11 @@ function RecruiterApplicantInterviews() {
       </div>
       </div>
   );
-} 
+}
+ 
 export default RecruiterApplicantInterviews;
-function ScheduleInterviewTable({  interview, setSelectedApplicant, handleCancelButtonClick,tableref } ) {
+ 
+function ScheduleInterviewTable({ interview }) {
   function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
@@ -165,7 +143,7 @@ function ScheduleInterviewTable({  interview, setSelectedApplicant, handleCancel
   }
     return (
       <div className="table-responsive">
-        <table ref={tableref} className="table table-striped table-bordered">
+        <table className="table table-striped table-bordered">
           <thead>
             <tr>
               <th>Applicant Name</th>
@@ -178,7 +156,6 @@ function ScheduleInterviewTable({  interview, setSelectedApplicant, handleCancel
               <th>Round</th>
               <th>Interviewer Link</th>
               <th>Interviewer Name</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -198,15 +175,6 @@ function ScheduleInterviewTable({  interview, setSelectedApplicant, handleCancel
                   </a>
                 </td>
                 <td>{applicant.interviewPerson}</td>
-                <td>
-                <a href="#" style={{color:'red'}}
-  onClick={() => {
-    handleCancelButtonClick(applicant);
-  }}
->
-  Cancel Interview
-</a>
-              </td>
               </tr>
             ))}
           </tbody>

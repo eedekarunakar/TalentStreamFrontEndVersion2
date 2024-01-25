@@ -6,8 +6,8 @@ import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService'
  
 function RecruiterChangePassword() {
   const { user } = useUserContext();
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [oldpassword, setOldPassword] = useState('');
+  const [newpassword, setNewPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -22,17 +22,17 @@ function RecruiterChangePassword() {
     let isValid = true;
     const errors = {};
  
-    if (!oldPassword.trim()) {
+    if (!oldpassword.trim()) {
       errors.oldPassword = 'Old password is required.';
       isValid = false;
     } else {
       errors.oldPassword = '';
     }
  
-    if (!newPassword.trim()) {
+    if (!newpassword.trim()) {
       errors.newPassword = 'New password is required.';
       isValid = false;
-    } else if (!isValidPassword(newPassword)) {
+    } else if (!isValidPassword(newpassword)) {
       errors.newPassword =
         'New password must be at least 6 characters long, contain one uppercase letter, one lowercase letter, one number, one special character, and no spaces.';
       isValid = false;
@@ -43,7 +43,7 @@ function RecruiterChangePassword() {
     if (!confirmedPassword.trim()) {
       errors.confirmedPassword = 'Confirm password is required.';
       isValid = false;
-    } else if (newPassword !== confirmedPassword) {
+    } else if (newpassword !== confirmedPassword) {
       errors.confirmedPassword = 'Passwords do not match.';
       isValid = false;
     } else {
@@ -78,8 +78,8 @@ function RecruiterChangePassword() {
     }
  
     const formData = {
-      oldPassword,
-      newPassword,
+      oldpassword,
+      newpassword,
       confirmedPassword,
     };
  
@@ -87,7 +87,10 @@ function RecruiterChangePassword() {
       const response = await axios.post(`${apiUrl}/recuriters/authenticateRecruiter/${user.id}`, formData);
       if (response.data === 'Password updated and stored') {
         window.alert('Password Changed Successfully');
-      } else {
+      } else if(response.data==='your new password should not be same as old password'){
+        window.alert('New password should not be same as old password.');
+      }
+      else {
         window.alert('Password change failed. Old password is wrong.');
       }
     } catch (error) {
@@ -129,7 +132,7 @@ function RecruiterChangePassword() {
                             <input
                               type={showOldPassword ? 'text' : 'password'}
                               className="input-form password-input"
-                              value={oldPassword}
+                              value={oldpassword}
                               onChange={(e) => setOldPassword(e.target.value)}
                               onBlur={() => validateForm()}
                               required=""
@@ -151,7 +154,7 @@ function RecruiterChangePassword() {
                             <input
                               type={showNewPassword ? 'text' : 'password'}
                               className="input-form"
-                              value={newPassword}
+                              value={newpassword}
                               onChange={(e) => setNewPassword(e.target.value)}
                               onBlur={() => validateForm()}
                               required=""
@@ -198,7 +201,7 @@ function RecruiterChangePassword() {
                 </div>
               </div>
             </div>
-          </section>
+          </section><br />
         </div>
       </>
     </div>

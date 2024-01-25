@@ -345,20 +345,20 @@ thead tr th {
 }
 
 thead tr th:last-child {
-    text-align: end;
-    padding-right: 24px;
+    /* text-align: end; */
+    padding-right: 1px;
 }
 
 thead tr th:nth-child(1) {
-    padding-left: 24px;
+    padding-left: 10px;
 }
 
 thead tr th:nth-child(2) {
-    padding-left: 39px;
+    /* padding-left: 39px; */
 }
 
 tbody tr td:last-child {
-    text-align: end;
+    /* text-align: end; */
 }
 
 tbody tr td {
@@ -4279,7 +4279,7 @@ input[type="radio"]:checked:after {
         transition: all 0.4s;
    }
   }
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 50px) {
     .left-menu {
       width: 100%;
       position: fixed;

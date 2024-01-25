@@ -144,7 +144,7 @@ useEffect(() => {
                   <h4>Welcome {user.username}</h4>
                   <div className="sub-account-item">
                     <a href="/applicant-view-profile">
-                      <span className="icon-profile" /> Profile
+                      <span className="icon-profile" />View Profile
                     </a>
                   </div>
                   <div className="sub-account-item">
@@ -196,7 +196,7 @@ useEffect(() => {
           <li>
             <Link to="/applicant-find-jobs" className="tf-effect">
               <span className="icon-resumes dash-icon"></span>
-              <span className="dash-titles">Find Jobs</span>
+              <span className="dash-titles">Recommended Jobs</span>
             </Link>
           </li>
           <li>

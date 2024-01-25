@@ -1,3 +1,51 @@
+/* 
+  * widget menu link
+  * widget blog 1 
+  * blog-pagination 
+  * blog
+  * widget-side-bar 
+  * widget box-latest 
+  * HOME PAGE
+  * widget review job
+  * widget get app 
+  * widget counter 
+  * widget testimonials
+  * widget location
+  * slider 
+  * CV item
+  * banner rating 
+  * sidebar popup
+  * popup
+  * haft map
+  * list radio 
+  * single job 
+  * accordion 
+  * term 
+  * contact 
+  * pricing
+  * shop
+  * animation
+  * widget features job
+  * widget category job 
+  * widget Employer
+  * wd-employer style-2  
+  * wd-employer style3
+  * widget-icon-box
+  * widget-partner
+  * widget-thumb-career
+  * widget-thumb-career style-2 
+  * wd-form-rating-page 
+  * wd-form-rating 
+  * wd-job-author
+  * wd-author-page-title
+  * jobs tab
+  * PAGE 
+  * Check out
+  * MAP
+  * TF section spacing 
+  * Inner page section spacing 
+  */
+
   @import url(dashboard.css);
   @import url(nice-select.css);
   @import url(../fonts/icon-font.css);
@@ -15,6 +63,7 @@
  
   }
   
+  /* widget menu link */
   .widget-menu-link {
     width: 100%;
     background-color: #f5f5f5;
@@ -64,6 +113,7 @@
     display: none;
   }
   
+  /* widget-blog-1 */
   .widget-blog-1 {
     display: flex;
     gap: 33px;
@@ -154,6 +204,7 @@
     color: #121212;
   }
   
+  /* blog-pagination */
   .widget-pagination {
     display: flex;
     gap: 8px;
@@ -185,7 +236,8 @@
   .widget-pagination .widget-pagination-item.active a {
     color: #ffffff;
   }
-
+  
+  /* widget-side-bar */
   .widget-side-bar {
     width: 100%;
     max-width: 328px;
@@ -311,7 +363,8 @@
     line-height: 16px;
     color: #121212;
   }
-
+  
+  /* widget-news */
   .widget-news {
     text-align: center;
   }
@@ -367,7 +420,8 @@
     box-shadow: 0px 10px 25px rgba(54, 95, 104, 0.1);
     border: none;
   }
-
+  
+  /* HOME PAGE */
   .tf-title.style-2 {
     text-align: center;
     display: block;
@@ -466,6 +520,8 @@
     margin-bottom: 0;
     margin-top: -43px;
   }
+  
+  /* widget box-latest */
   .box-latest {
     -webkit-transition: all 0.3s ease-out 0s;
     -moz-transition: all 0.3s ease-out 0s;
@@ -557,7 +613,8 @@
   .bg-get-app {
     background: linear-gradient(84.42deg, #f7ecea 0%, #f4f0e7 100%);
   }
-
+  
+  /* widget review job*/
   .wd-review-job.contentbox1.padding {
     padding-top: 72.92px;
   }
@@ -1124,6 +1181,7 @@
     margin-right: 40px;
   }
   
+  /* widget counter */
   .wd-counter {
     text-align: center;
   }
@@ -1158,6 +1216,8 @@
     color: #ffffff;
     opacity: 0.5;
   }
+  
+  /* widget testimonials */
   .wd-testimonials {
     box-shadow: 0px 10px 25px rgba(54, 95, 104, 0.1);
     border-radius: 20px;
@@ -1280,6 +1340,8 @@
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
   }
+  
+  /* widget location */
   .wd-job-location {
     position: relative;
   }
@@ -1404,6 +1466,7 @@
     z-index: 0;
   }
   
+  /* slider */
   .tf-slider {
     padding: 100px 0;
     background-repeat: no-repeat;
@@ -1955,7 +2018,7 @@
   
   .wd-review-job.sl7 .thumb3 .group-user {
     top: unset;
-    right: -25%;
+    /* right: -25%; */
     bottom: 14.4%;
     z-index: 2;
     padding: 13px 18px 13px 13px;
@@ -3822,6 +3885,8 @@
   .group-half-map.style2 .features-job .inner-box .button-readmore>span.icon-heart {
     margin-right: 0px;
   }
+  
+  /* popup */
   .wd-popup-form .content,
   .wd-popup-form .modal-menu__backdrop,
   .wd-popup-job-apply .content,
@@ -4231,6 +4296,9 @@
     margin-top: -13px;
     margin-right: -7px;
   }
+  
+  /* list radio */
+  
   .wd-filter-radio h6 {
     font-size: 14px;
     line-height: 24px;
@@ -4461,7 +4529,8 @@
   .widget-filter.st2 {
     padding: 18px 24px 24px 24px;
   }
-
+  
+  /* single job */
   .job-article.single-job .inner-content {
     padding: 0px;
     padding-right: 40px;
@@ -4700,6 +4769,11 @@
   .job-search-form.style2 .form-group.st span {
     padding-left: 20px;
   }
+  
+  /* .job-search-form.style2 .form-group:first-child {
+    width: 177.5px;
+  } */
+  
   .job-search-form.style2 .form-group.location {
     margin: 0 10px;
   }
@@ -5115,7 +5189,8 @@
   .accordion-page h6 {
     margin-bottom: 20px;
   }
-
+  
+  /* term */
   .tab-term {
     position: sticky;
   }
@@ -5388,8 +5463,8 @@
   .wd-form-login .menu-tab li {
     width: calc(50% - 20px);
     margin-left: 20px;
-    padding: 12px 16px;
-    box-sizing: border-box; 
+    padding: 12px 16px; /* Adjusted padding for smaller screens */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
     background: #f5f5f2;
     border-radius: 4px;
     font-weight: 700;
@@ -5428,6 +5503,7 @@
     text-align: center;
   }
   
+  /* contact */
   .infor-contact-v1 {
     padding: 87px 60px;
     padding-top: 50px;
@@ -5567,6 +5643,7 @@
     color: #fff;
   }
   
+  /* pricing */
   .group-pricing-v1 {
     text-align: center;
   }
@@ -5846,6 +5923,8 @@
     overflow-x: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
   }
+  
+  /* shop */
   
   .shop-details .shop-thumb {
     background: #f5f5f5;
@@ -6774,28 +6853,39 @@
   }
   
   .wd-review-job.thumb2.stc .trader-box {
-    top: 27.6%;
-    right: 11%;
+    top: 24.6%;
+    /* right: 11%; */
+    right: 6%;
+    /* right: 0%; */
+    /* width: 85px; Set the desired width */
+    /* height: 500px;  */
   }
   
   .wd-review-job.thumb2.stc .trader-box .content {
-    padding: 8px 42px;
+    /* padding: 8px 42px; */
+    padding: 8px 18px;
   }
   
   .wd-review-job.thumb2.stc .tes-box {
-    top: 61%;
-    left: 2.5%;
+    /* top: 61%;
+    left: 2.5%; */
+    top: 83%;
+    left: 15.5%;
   }
   
   .wd-review-job.thumb2.stc .icon1 {
-    left: 15%;
-    top: 28.4%;
+    /* left: 15%;
+    top: 28.4%; */
+    left: 55%;
+    top: 11.4%;
     bottom: unset;
   }
   
   .wd-review-job.thumb2 .icon2 {
-    left: 23%;
-    top: 56%;
+    /* left: 23%;
+    top: 56%; */
+    left: 2.5%;
+    top: 35%;
   }
   
   .group-title-counter.stc p {
@@ -7510,6 +7600,8 @@
     background-color: #1967d2;
     color: #ffffff;
   }
+  
+  /*  widget features job */
   .features-job {
     margin-bottom: 32px;
     gap: 32;
@@ -8041,6 +8133,8 @@
   .btn-apply-job button:hover {
     background-color: #1967d2;
   }
+  
+  /* widget category job */
   .group-category-job {
     display: flex;
     flex-wrap: wrap;
@@ -8124,6 +8218,8 @@
     display: flex;
     align-items: center;
   }
+  
+  /* home page */
   .wd-feature-job .title {
     margin-bottom: 40px;
   }
@@ -8206,7 +8302,10 @@
     background-color: #1967d2;
     color: #ffffff;
     cursor: pointer;
-  }  
+  }
+  
+  /*======================= wd-feature-job style3 =====================*/
+  
   .features-job.style-3 {
     height: 120px;
     width: 100%;
@@ -8382,6 +8481,8 @@
   .features-job.mb1 {
     margin-bottom: 16px;
   }
+  
+  /* widget Employer  */
   .tf-title {
     display: flex;
     justify-content: space-between;
@@ -8562,6 +8663,8 @@
     transition: all 300ms ease;
     color: #ffffff;
   }
+  
+  /* wd-employer style3 */
   .employer-block.style-3 .inner-box {
     flex-direction: column;
     justify-content: center;
@@ -8813,6 +8916,9 @@
     display: inline-flex;
     align-items: center;
   }
+  
+  /* widget-partner */
+  
   .wd-partner {
     background-color: #123841;
     padding: 40px 0px;
@@ -8842,6 +8948,8 @@
     padding-bottom: 40px;
     color: #121212;
   }
+  
+  /* widget-thumb-career */
   .wd-thum-career {
     border: 1px solid #e5e5e5;
     border-radius: 8px;
@@ -8944,6 +9052,8 @@
     font-size: 14px;
     line-height: 22px;
   }
+  
+  /*widget-thumb-career style-2 */
   .wd-thum-career.style-2 .thumb {
     margin-bottom: 12px;
     width: 82.67px;
@@ -9004,6 +9114,7 @@
     text-align: center;
   }
   
+  /*wd-form-rating-page  */
   .wd-form-rating-page {
     max-width: 930px;
     margin: 57px auto 80px;
@@ -9091,6 +9202,8 @@
   .wd-form-rating-page .list-star li:last-child .icon-star-full {
     color: #e5e5e5;
   }
+  
+  /* custom rating */
   .list-rating {
     display: flex;
     flex-direction: row-reverse;
@@ -9104,6 +9217,7 @@
   }
   
   .list-rating:not(:checked)>label {
+    /* overflow: hidden; */
     font-size: 38.4px;
     cursor: pointer;
     margin-right: 10px;
@@ -9326,6 +9440,8 @@
     padding: 12px 54.5px;
     text-transform: capitalize;
   }
+  
+  /* wd-author-page-title */
   .wrapper-author-page-title {
     background-image: url("../images/page-title/bg-author-page-title.jpg");
     background-repeat: no-repeat;
@@ -9431,6 +9547,8 @@
     border: 1px solid #ffffff;
     text-transform: capitalize;
   }
+  
+  /* jobs tab */
   .wrap-sidebar-full.pl1 {
     padding-left: 0;
   }
@@ -10682,6 +10800,11 @@
   .widget-blog-1.stc:hover .img-blog img {
     transform: scale3d(1.1, 1.1, 1.1);
   }
+  
+  /* landing - page */
+  /* .header-landing .sticky-area-wrap {
+    margin-left: -10px;
+  } */
   
   .home-page-section {
     padding: 100px 0px 60px;

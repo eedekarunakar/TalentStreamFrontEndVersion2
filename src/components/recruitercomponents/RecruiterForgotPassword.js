@@ -229,3 +229,4 @@ function RecruiterForgotPassword() {
  
 } 
 export default RecruiterForgotPassword;
+
