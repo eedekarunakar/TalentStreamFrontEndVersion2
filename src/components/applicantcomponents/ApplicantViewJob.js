@@ -133,37 +133,42 @@ function ApplicantViewJob({ selectedJobId }) {
                                 </ul>
                                 <div className="button-readmore">
                                  
-                                  <a className="btn-apply btn-popup">
+                                  {/* <a className="btn-apply btn-popup"> */}
            
-<button
-      className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
-      onClick={handleApplyNow}
-      disabled={jobDetails.jobStatus === 'Already Applied'}
-      style={{
-        backgroundColor: jobDetails.jobStatus === 'Already Applied' ? 'green' : '',
-        cursor: applied ? 'not-allowed' : 'pointer',
-      }}
-    >
-      <span className="icon-send"></span>
-      {jobDetails.jobStatus}
-    </button>
-            </a>&nbsp;
-            <a
-  href="/applicant-find-jobs"
-  className="btn-apply btn-popup"
-  style={{
-    display: 'inline-block',
-    padding: '5px 20px',
-    backgroundColor: '#1967d2',
-    color: 'white', 
-    textDecoration: 'none',
-    borderRadius: '10px',
-    cursor: 'pointer',
-   
-  }}
->
-  Cancel
-</a>
+  
+  {/* <div style={{ display: 'flex', alignItems: 'center' }}>
+  <button
+    className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
+    onClick={handleApplyNow}
+    disabled={jobDetails.jobStatus === 'Already Applied'}
+    style={{
+      backgroundColor: jobDetails.jobStatus === 'Already Applied' ? 'green' : '',
+      cursor: applied ? 'not-allowed' : 'pointer',height:'30px',
+    }}
+  >
+    <span className="icon-send"></span>
+    {jobDetails.jobStatus}
+  </button>
+  
+  <a
+    href="/applicant-find-jobs"
+    className="btn-apply btn-popup"
+    style={{
+      display: 'inline-block',
+      marginLeft: '10px',  // Added margin for spacing between buttons
+      padding: '5px 20px',
+      backgroundColor: '#1967d2',
+      color: 'white', 
+      textDecoration: 'none',
+      borderRadius: '10px',
+      cursor: 'pointer',
+    }}
+  >
+    Cancel
+  </a>
+</div> */}
+
+
                                 </div>
                               </div>
                             </div>
@@ -188,7 +193,43 @@ function ApplicantViewJob({ selectedJobId }) {
                               <div className="price">
                                 <span></span>Package :  &nbsp;
                                 <p>&#x20B9; {jobDetails.minSalary} - &#x20B9; {jobDetails.maxSalary} / year</p>
+                                
                               </div>
+                              
+                              <div className="button-readmore">
+                              <div style={{ display: 'flex', alignItems: 'center' }}>
+  <button
+    className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
+    onClick={handleApplyNow}
+    disabled={jobDetails.jobStatus === 'Already Applied'}
+    style={{
+      backgroundColor: jobDetails.jobStatus === 'Already Applied' ? 'green' : '',
+      cursor: applied ? 'not-allowed' : 'pointer',height:'37px',color:'white',borderRadius:'10px',
+    }}
+  >
+    <span className="icon-send"></span>&nbsp;
+    {jobDetails.jobStatus === 'Already Applied' ? 'Applied' : jobDetails.jobStatus}
+  </button>
+  
+  <a
+    href="/applicant-find-jobs"
+    className="btn-apply btn-popup"
+    style={{
+      display: 'inline-block',
+      marginLeft: '10px',  // Added margin for spacing between buttons
+      padding: '5px 20px',
+      backgroundColor: '#1967d2',
+      color: 'white', 
+      textDecoration: 'none',
+      borderRadius: '10px',
+      cursor: 'pointer',
+      fontWeight:'bold',
+    }}
+  >
+    Cancel
+  </a>
+</div>
+</div>
                             </div>
                           </div>
                         </div>
