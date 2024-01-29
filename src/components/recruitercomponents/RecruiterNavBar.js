@@ -129,11 +129,11 @@ function RecruiterNavBar() {
                 </div>
               </div>
             </div>
-            <div className="nav-filter">
+            {/* <div className="nav-filter">
               <div className="nav-mobile">
                 <span />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
