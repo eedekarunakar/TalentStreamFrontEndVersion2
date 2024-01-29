@@ -208,7 +208,7 @@ function ApplicantViewJob({ selectedJobId }) {
     }}
   >
     <span className="icon-send"></span>&nbsp;
-    {jobDetails.jobStatus === 'Already Applied' ? 'Applied' : jobDetails.jobStatus}
+   {jobDetails.jobStatus === 'Already Applied' ? 'Applied' : 'Apply Now'}
   </button>
   
   <a
