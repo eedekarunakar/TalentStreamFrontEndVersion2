@@ -198,17 +198,18 @@ function ApplicantViewJob({ selectedJobId }) {
                               
                               <div className="button-readmore">
                               <div style={{ display: 'flex', alignItems: 'center' }}>
-  <button
+   <button
     className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
     onClick={handleApplyNow}
     disabled={jobDetails.jobStatus === 'Already Applied'}
     style={{
-      backgroundColor: jobDetails.jobStatus === 'Already Applied' ? 'green' : '',
-      cursor: applied ? 'not-allowed' : 'pointer',height:'37px',color:'white',borderRadius:'10px',
+      backgroundColor: jobDetails.jobStatus === 'Already Applied' ? 'green' : '#1967d2',
+      cursor:'pointer',height:'37px',color:'white',borderRadius:'10px',
     }}
   >
     <span className="icon-send"></span>&nbsp;
-   {jobDetails.jobStatus === 'Already Applied' ? 'Applied' : 'Apply Now'}
+    
+    {jobDetails.jobStatus === 'Already Applied' ? 'Applied' : 'Apply Now'}
   </button>
   
   <a
