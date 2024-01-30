@@ -94,11 +94,11 @@ function ApplicantSavedJobs() {
                               <ul>
                                 <li>
                                   <span className="icon-map-pin"></span>
-                                  {job.location}
+                                  &nbsp;{job.location}
                                 </li>
                                 <li>
                                   <span className="icon-calendar"></span>
-                                  Posted on {formatDate(job.creationDate)}
+                                  &nbsp;{formatDate(job.creationDate)}
                                 </li>
                               </ul>
                             </div>

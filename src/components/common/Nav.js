@@ -1,7 +1,28 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate} from 'react-router-dom';
 const Nav = () => {
   const navigate = useNavigate();
+ 
+  const handleResize = () => {
+    // Check the screen size with a media query
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+ 
+    // If the screen size is mobile, reload the page
+    if (isMobile) {
+      window.location.reload();
+    }
+  };
+ 
+  // Attach the resize event listener when the component mounts
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+ 
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+ 
   return (
     <div>
   <>
@@ -78,7 +99,7 @@ const Nav = () => {
                     <li>
                       <a href='/aboutus'>About</a>
                     </li>
-
+ 
                     <li>
                       <a href="/login">Find Jobs</a>
                     </li>
@@ -108,11 +129,12 @@ const Nav = () => {
                   </div>
               </div>
                  </div>
-              <div className="nav-filter">
-                <div className="nav-mobile">
-                  <span />
-                </div>
-              </div>
+                 <div className="nav-filter">
+          <div className="nav-mobile" >
+            <span />
+          </div>
+        </div>
+       
             </div>
           </div>
         </div>
