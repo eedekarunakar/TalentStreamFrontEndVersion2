@@ -47,6 +47,7 @@ const ApplicantViewProfile = () => {
         setLoading(false);
         if (count === 0 && isMounted) {
           window.alert('Profile not found. Please fill in your profile');
+          window.location.href = '/applicant-update-profile';
         }
         
       }
@@ -89,7 +90,9 @@ const ApplicantViewProfile = () => {
           <div className="wrap-profile flex2 bg-white">
             <div className="box-profile flex2">
               <div className="images">
-                <img src={imageSrc} alt="" width="130px" height="40px"/>
+                {/* <img src={imageSrc} alt="" width="130px" height="40px"/> */}
+
+                <img width="130px" height="40px" src={imageSrc || '../images/user/avatar/profile-pic.png'} alt="Profile" onError={() => setImageSrc('../images/user/avatar/profile-pic.png')} />
               </div>
               <div className="content">
                 <h5 style={{ fontSize: '24px' }} className="fw-6 color-3 ">{profileData.applicant.name}</h5>

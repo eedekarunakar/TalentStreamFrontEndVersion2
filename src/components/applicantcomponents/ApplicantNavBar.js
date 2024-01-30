@@ -61,18 +61,16 @@ function ApplicantNavBar() {
       }; 
   }, [user.id]);
   const logout = () => {
-    clearJWTToken();
-     const confirm = window.confirm("Do you want to logout?");
-     if (confirm)
-     {
-     try {
-      clearJWTToken();
-      window.location.href = "/";
-    } catch (error) {
-      console.error('Logout failed', error);
+    const confirmLogout = window.confirm("Do you want to logout?");
+    if (confirmLogout) {
+      try {
+        clearJWTToken(); // Call the function here
+        window.location.href = "/";
+      } catch (error) {
+        console.error('Logout failed', error);
+      }
     }
-  }
- }
+  };
  const fetchAlertCount = async () => {
   try {
     const response = await axios.get(`${apiUrl}/applyjob/applicants/${user.id}/unread-alert-count`);

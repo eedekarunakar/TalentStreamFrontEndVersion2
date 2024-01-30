@@ -4,6 +4,7 @@ import { apiUrl } from '../../services/ApplicantAPIService';
 import axios from 'axios';
 import $ from 'jquery';
 import ScheduleInterviewPopup from './ScheduleInterviewPopup';
+import { CSVLink } from 'react-csv';
  
 function RecruiterAllApplicants() {
   const [applicants, setApplicants] = useState([]);
@@ -68,6 +69,38 @@ function RecruiterAllApplicants() {
         console.error('Error updating status:', error);
       }
     };
+
+    const exportCSV = () => {
+      // Extracting headers from the table, excluding the "Schedule Interview" column
+      const headers = Array.from(tableref.current.querySelectorAll('thead th')).map(th => th.textContent);
+      const scheduleInterviewIndex = headers.indexOf('Schedule Interview');
+      if (scheduleInterviewIndex !== -1) {
+        headers.splice(scheduleInterviewIndex, 1); // Remove the "Schedule Interview" header
+      }
+    
+      // Extracting data rows from the table, excluding the "Schedule Interview" column
+      const data = Array.from(tableref.current.querySelectorAll('tbody tr')).map(tr => {
+        const rowData = Array.from(tr.children).map(td => td.textContent);
+        rowData.splice(scheduleInterviewIndex, 1); // Remove the "Schedule Interview" column
+        return rowData;
+      });
+    
+      // Adding headers to the data
+      data.unshift(headers);
+    
+      // Creating CSV content
+      const csvContent = data.map(row => row.join(',')).join('\n');
+    
+      // Creating a Blob and creating an anchor element to trigger the download
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'applicants.csv';
+    
+      // Triggering the download
+      link.click();
+    };
+
  return (
       <div className="dashboard__content">
         <section className="page-title-dashboard">
@@ -98,6 +131,11 @@ function RecruiterAllApplicants() {
           </select>
                 </div>
               </div>
+              <div className="col-lg-8 col-md-4">
+              <button onClick={exportCSV} className="export-csv-button">
+                Export CSV
+              </button>
+            </div>
             </div>
           </div>
         </section>
@@ -122,7 +160,7 @@ function RecruiterAllApplicants() {
                           <th>Mobile Number</th>
                           <th>Job Title</th>
                           <th>Applicant Status</th>
-                          <th>Schedule InterView</th>
+                          <th>Schedule Interview</th>
                           <th>Experience</th>
                           <th>Skill Name</th>
                           <th>Qualification</th>

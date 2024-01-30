@@ -124,11 +124,11 @@ function ApplicantViewJob({ selectedJobId }) {
                                 <ul>
                                   <li>
                                     <span className="icon-map-pin"></span>
-                                    {jobDetails.location}
+                                     &nbsp;{jobDetails.location}
                                   </li>
                                   <li>
                                     <span className="icon-calendar"></span>
-                                    {formatDate(jobDetails.creationDate)}
+                                    &nbsp;{formatDate(jobDetails.creationDate)}
                                   </li>
                                 </ul>
                                 <div className="button-readmore">
@@ -198,7 +198,7 @@ function ApplicantViewJob({ selectedJobId }) {
                               
                               <div className="button-readmore">
                               <div style={{ display: 'flex', alignItems: 'center' }}>
-   <button
+  <button
     className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
     onClick={handleApplyNow}
     disabled={jobDetails.jobStatus === 'Already Applied'}

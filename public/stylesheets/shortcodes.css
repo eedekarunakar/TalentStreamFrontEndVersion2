@@ -7759,7 +7759,7 @@
   .features-job .job-archive-footer .job-tag {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 4px;
   }
   
   .features-job .job-archive-footer .job-tag li a {
