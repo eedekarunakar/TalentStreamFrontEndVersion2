@@ -131,7 +131,7 @@ function RecruiterAllApplicants() {
           </select>
                 </div>
               </div>
-              <div className="col-lg-8 col-md-4">
+              <div className="col-lg-8 col-md-4 d-flex justify-content-md-end">
               <button onClick={exportCSV} className="export-csv-button">
                 Export CSV
               </button>
@@ -163,7 +163,7 @@ function RecruiterAllApplicants() {
                           <th>Schedule Interview</th>
                           <th>Experience</th>
                           <th>Skill Name</th>
-                          <th>Qualification</th>
+                          {/* <th>Qualification</th> */}
                           <th>Location</th>
                         </tr>
                       </thead>
@@ -232,7 +232,7 @@ function RecruiterAllApplicants() {
                                 </td>
                             <td>{application.minimumExperience}</td>
                             <td>{application.skillName}</td>
-                            <td>{application.minimumQualification}</td>
+                            {/* <td>{application.minimumQualification}</td> */}
                             <td>{application.location}</td>
                           </tr>
                         ))}

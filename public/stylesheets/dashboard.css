@@ -4358,6 +4358,18 @@ font-size: 14px;
   .events *::before, 
   .events *::after { box-sizing: border-box; font-family: arial; }
 
+  /* .export-csv-button {
+    padding: 15px !important;
+    background-color:#1967d2 !important;
+    color: #fff !important;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px !important;
+  
+    float: right;
+    display: flex !important;
+  } */
+
   .export-csv-button {
     padding: 15px !important;
     background-color:#1967d2 !important;
@@ -4365,10 +4377,19 @@ font-size: 14px;
     border: none;
     cursor: pointer;
     border-radius: 10px !important;
-    /* margin-left: 80%; */
-    float: right;
-    display: flex !important;
+    
   }
+ 
+  @media screen and (min-width: 768px) and (max-width: 990px) {
+    .export-csv-button {
+        position: fixed;
+        right: 0;
+        top:170px;
+        margin: 15px;
+       
+    }
+}
+
   .export-csv-button:hover {
     background-color: #2980b9;
   }

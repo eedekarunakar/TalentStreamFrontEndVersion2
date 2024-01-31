@@ -3224,3 +3224,22 @@ input[type="color"],
       margin-right: 74px; /* Adjust the margin as needed for spacing */
   }
 }
+.disabled-status {
+  color: #808080; /* Gray color */
+  /* Add any additional styles for disabled status here */
+}
+
+.disabled-button {
+  background-color: #e3d915; /* Replace with your preferred light color code for disabled button */
+  color: #585353; /* Replace with your preferred text color for disabled button */
+  cursor: not-allowed;
+}
+.inactive-job {
+  /* Add your styles for inactive jobs here */
+  background-color: #BFCDDB; /* Replace with your preferred light color code for inactive jobs */
+  color: #e7e2e2c3; /* Replace with your preferred text color for inactive jobs */
+}
+.active-job {
+  /* Add your styles for active jobs here */
+  color: #00ff00; /* Replace with your preferred color code for active jobs */
+}
