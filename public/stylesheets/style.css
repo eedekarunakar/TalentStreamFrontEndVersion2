@@ -643,7 +643,8 @@ input[type="color"],
 }
 
 .custom-input {
-  color: #000 !important;
+  /* color: #000 !important; */
+  color: #8a8787 !important;
 }
 
 .sticky-area-wrap .header-ct-left .logo {

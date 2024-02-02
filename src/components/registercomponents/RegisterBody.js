@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { googleAPIUrl } from '../../services/ExternalAPIService';
+import { useGoogleLogin } from '@react-oauth/google'; // Import GoogleLoginButton
+import { useUserContext } from '../common/UserProvider';
 import OTPVerification from '../applicantcomponents/OTPVerification';
 import OTPVerification1 from '../recruitercomponents/OTPVerification1';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
- 
-function RegisterBody() {
+import jwt_decode from "jwt-decode";
+import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
+
+function RegisterBody({handleLogin}) {
+  // const { setUserType } = useContext(UserContext);
+  // const { setUser } = useContext(UserContext);
   const [activeTab, setActiveTab] = useState('Candidate');
   const navigate = useNavigate();
  
@@ -57,6 +63,8 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
   const [candidateRegistrationInProgress, setCandidateRegistrationInProgress] = useState(false);
   const [allFieldsDisabled, setAllFieldsDisabled] = useState(false);
   const [resendOtpMessage, setResendOtpMessage] = useState('');
+  const { setUser, setUserType } = useUserContext();
+  
  
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -434,6 +442,87 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
    window.alert('Failed to Resend OTP. Please try again.');
    setResendOtpMessage('Failed to Resent OTP. Please try again.');
   };
+
+  // const login = useGoogleLogin({
+  //   onSuccess: async (response) => {
+  //     try{
+  //      const res = await axios.get(
+  //       "https://www.googleapis.com/oauth2/v3/userinfo",
+  //       {
+  //         headers:{
+  //         Authorization:`Bearer ${response.access_token}`,
+  //         },
+  //       }
+  //      )
+   
+  //  console.log(res);
+  //  navigate('/applicanthome');
+  //  }
+  //  catch(err){
+  //  console.log(err);
+  //  }  
+  //  },
+  // });
+
+  const login = useGoogleLogin({
+    // clientId: "435586738795-9tuq57be4e92djg8d8ol1sn1h6a9mm6c.apps.googleusercontent.com", // Pass the clientId here
+    onSuccess: async (response) => {
+      try {
+        console.log('First API');
+        // const res = await axios.get(
+        //   "https://www.googleapis.com/oauth2/v3/userinfo",
+        const res = await axios.get(`${googleAPIUrl}`,
+          {
+            headers: {
+              Authorization: `Bearer ${response.access_token}`,
+            },
+          }
+        );
+        console.log(res);
+        const email1 = res.data.email;
+        console.log('Second API');
+        let loginEndpoint = `${apiUrl}/applicant/applicantLogin`;
+        // let loginEndpoint = `${apiUrl}/applicant/saveApplicant`;
+        // saveApplicant
+        const response1 = await axios.post(loginEndpoint, {
+          email: email1,
+        });
+        
+        console.log(response1);
+        if (response1.status === 200) {
+          setErrorMessage('');
+          const userData = response1.data; // Change `response` to `response1`
+          console.log('This is response: ', userData);
+          console.log('This is token: ', userData.data.jwt);
+          localStorage.setItem('jwtToken', userData.data.jwt);
+   
+          let userType1;
+          if (userData.message.includes('ROLE_JOBAPPLICANT')) {
+            userType1 = 'jobseeker';
+          } else if (userData.message.includes('ROLE_JOBRECRUITER')) {
+            userType1 = 'employer';
+          } else {
+            userType1 = 'unknown';
+          }
+          console.log('This userType: ', userType1);
+          localStorage.setItem('userType', userType1);
+   
+          setErrorMessage('');
+          // handleLogin();
+   
+          setUser(userData);
+          setUserType(userType1); // Change `userData.userType` to `userType1`
+          console.log('Login successful', userData);
+   
+          navigate('/applicanthome');
+         
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  });
+  
   return (
     <div>
     {/* <section className="bg-f5">
@@ -577,6 +666,11 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
             'Send OTP'
           )}
         </button>
+        <br></br><br></br>
+        {/* <button onClick={() => login()}>Sign in with Google 🚀</button> */}
+        <a href="#" class="btn-social" onClick={() => login()}> <img src="images/review/google.png" alt="images" /> Continue with Google</a>
+        <a href="#" class="btn-social" onClick={() => login()}> <img src="data:image/png;base64,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" alt="LinkedIn" style={{ width: "25px", height: "25px" }} /> Continue with LinkedIn
+                   </a>
       </div>
     )}
   </div>

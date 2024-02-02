@@ -168,12 +168,13 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
           }));
         }
         break;
- 
- 
+
+       
       case 'modeOfInterview':
         setValidationError((prevErrors) => ({
           ...prevErrors,
           modeOfInterview: value.trim() ? '' : 'Please select a mode of interview.',
+         
         }));
         break;
      
@@ -269,6 +270,27 @@ const ScheduleInterviewPopup = ({ show, handleClose, handleAddTeamMember, applyj
             updatedValidationErrors[name] = containsOnlyAlphabet ? '' : 'Location should have only alphabetical characters.';
           }
           break;
+
+  //       case 'location':
+  // if (touchedFields[name] && !value.trim()) {
+  //   setValidationError((prevErrors) => ({
+  //     ...prevErrors,
+  //     location: 'Field cannot be empty.',
+  //   }));
+  // } else if (interviewData.modeOfInterview === 'Face-to-Face' && !value.trim()) {
+  //   setValidationError((prevErrors) => ({
+  //     ...prevErrors,
+  //     location: 'Location is required for Face-to-Face interviews.',
+  //   }));
+  // } else {
+  //   const containsOnlyAlphabet = /^[a-zA-Z\s]*$/.test(value);
+  //   setValidationError((prevErrors) => ({
+  //     ...prevErrors,
+  //     location: containsOnlyAlphabet ? '' : 'Location should have only alphabetical characters.',
+  //   }));
+  // }
+  // break;
+
  
  
         default:

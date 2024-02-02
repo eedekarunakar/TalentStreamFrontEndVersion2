@@ -61,7 +61,7 @@ function App() {
               <Route path="/applicant-forgot-password" element={<ApplicantForgotPasswordPage />} />
               <Route path="/recruiter-forgot-password" element={<RecruiterForgotPasswordPage />} />
               <Route path="/recruiterlogin" element={<RecruiterLoginPage onLogin={handleLogin} />} />
-              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/register" element={<RegisterPage onLoginLogin={handleLogin}/>} />
               <Route path="/privacypolicy" element={<PrivacyPolicy />} />
               <Route path="/cookiepolicy" element={<CookiePolicy />} />
               <Route path="/termsofservices" element={<TermsOfServices />} />

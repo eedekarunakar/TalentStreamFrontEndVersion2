@@ -4,9 +4,11 @@ import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import axios from 'axios';
 import { Link,useParams } from 'react-router-dom';
 import $ from 'jquery';
+import ApplicantPopup from './ApplicantPopup';
 
 function RecruiterAppliedApplicants({selectedJobId}) {
   const [applicants, setApplicants] = useState([]);
+  const [selectedApplicant, setSelectedApplicant] = useState(null); // State for selected applicant
   const { user } = useUserContext();
   const { jobId } = useParams();
   const isMounted = useRef(true);
@@ -43,6 +45,14 @@ function RecruiterAppliedApplicants({selectedJobId}) {
     fetchAllAppliedApplicants();
     
   }, [selectedJobId]);
+
+  const handleNameClick = (applicant) => {
+    setSelectedApplicant(applicant); // Set selected applicant when their name is clicked
+  };
+
+  const handleClosePopup = () => {
+    setSelectedApplicant(null); // Close the popup by resetting selected applicant to null
+  };
 
   // useEffect(() => {
   //   const jwtToken = localStorage.getItem('jwtToken');
@@ -101,7 +111,7 @@ function RecruiterAppliedApplicants({selectedJobId}) {
           <tbody>
           {applicants.map((application) => (
                               <tr key={application.applicant.email}>
-                                <td>{application.applicant.name}</td>
+                                <td onClick={() => handleNameClick(application.applicant)}>{application.applicant.name}</td>
                                 <td>{application.applicant.email}</td>
                                 <td>{application.applicant.mobilenumber}</td>
                                 <td>{application.job.jobTitle}</td>
@@ -127,6 +137,12 @@ function RecruiterAppliedApplicants({selectedJobId}) {
       </div>
       </section>
       </div>
+      {selectedApplicant && (
+        <ApplicantPopup
+          applicant={selectedApplicant}
+          onClose={handleClosePopup}
+        />
+      )}
       </div>
   );
 }
