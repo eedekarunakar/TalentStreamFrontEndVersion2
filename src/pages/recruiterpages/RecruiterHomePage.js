@@ -13,6 +13,7 @@ import RecruiterAppliedApplicants from '../../components/recruitercomponents/Rec
 import RecruiterApplicantInterviews from '../../components/recruitercomponents/RecruiterApplicantInterviews';
 import RecruiterChangePassword from '../../components/recruitercomponents/RecruiterChangePassword';
 import TeamMember from '../../components/recruitercomponents/TeamMember';
+import RecruiterEditJob from '../../components/recruitercomponents/RecruiterEditJob';
 function RecruiterHomePage() {
   const [activeRoute, setActiveRoute] = useState('');
   const location = useLocation();
@@ -47,6 +48,9 @@ function RecruiterHomePage() {
                   case '/recruiter-team-member':
                     setActiveRoute('teammember');
                     break;
+         case '/recruiter-edit-job':
+                    setActiveRoute('RecruiterEditJob');
+                    break;
       default:
         setActiveRoute('');
         break;
@@ -67,6 +71,7 @@ function RecruiterHomePage() {
      {activeRoute === 'applicantinterviews' && <RecruiterApplicantInterviews />}
      {activeRoute === 'changepassword' && <RecruiterChangePassword />}
      {activeRoute === 'teammember' && <TeamMember />}
+    {activeRoute === 'RecruiterEditJob' && <RecruiterEditJob selectedJobId={selectedJobId}/>}
     </div>
   )
 }
