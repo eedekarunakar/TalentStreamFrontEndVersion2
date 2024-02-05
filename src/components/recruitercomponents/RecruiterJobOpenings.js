@@ -165,6 +165,14 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
     View Applicants
   </button>
 </Link>
+<Link  to={`/recruiter-edit-job`} onClick={() => handleButtonClick1(job.id)}>
+  <button
+    type="button"
+    className={`button-status ${job.status === 'Inactive' ? 'disabled-button' : ''}`}  
+  >
+   Edit Job
+  </button>
+</Link>
       </div>
     </div>
   </div>
