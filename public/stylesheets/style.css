@@ -3232,7 +3232,7 @@ input[type="color"],
 .disabled-button {
   background-color: #e3d915; /* Replace with your preferred light color code for disabled button */
   color: #585353; /* Replace with your preferred text color for disabled button */
-  cursor: not-allowed;
+  
 }
 .inactive-job {
   /* Add your styles for inactive jobs here */
