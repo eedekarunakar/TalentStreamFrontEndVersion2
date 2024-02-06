@@ -17,6 +17,8 @@ import RecruiterForgotPasswordPage from './pages/recruiterpages/RecruiterForgotP
 import PrivacyPolicy from './components/common/PrivacyPolicy';
 import CookiePolicy from './components/common/CookiePolicy';
 import TermsOfServices from './components/common/TermsOfServices';
+import Recruiterviewapplicant from './components/recruitercomponents/Recruiterviewapplicant';
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
@@ -46,11 +48,11 @@ function App() {
               <Route path="/" element={<IndexPage />} />
               <Route path="/aboutus" element={<AboutPage />} />
               <Route path="/contactus" element={<ContactPage />} />
-              <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+              <Route path="/candidate" element={<LoginPage onLogin={handleLogin} />} />
               <Route path="/applicant-forgot-password" element={<ApplicantForgotPasswordPage />} />
               <Route path="/recruiter-forgot-password" element={<RecruiterForgotPasswordPage />} />
               <Route path="/recruiterlogin" element={<RecruiterLoginPage onLogin={handleLogin} />} />
-              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/recruiter" element={<RegisterPage onLogin={handleLogin} />}  />
               <Route path="/privacypolicy" element={<PrivacyPolicy />} />
               <Route path="/cookiepolicy" element={<CookiePolicy />} />
               <Route path="/termsofservices" element={<TermsOfServices />} />
@@ -80,6 +82,10 @@ function App() {
                 <Route path="/recruiter-change-password" element={<RecruiterHomePage />} />
                 <Route path="/recruiter-team-member" element={<RecruiterHomePage />} />
                 <Route path= "/recruiter-edit-job" element={<RecruiterHomePage />} />
+                <Route path="/job-applicant-alerts" element={<RecruiterHomePage />} />
+                <Route path="/viewapplicant/:id" element={<Recruiterviewapplicant/>} />
+
+
                 </>
               ) : (
                 <Route path="/login" element={<Navigate to="/login" />} />

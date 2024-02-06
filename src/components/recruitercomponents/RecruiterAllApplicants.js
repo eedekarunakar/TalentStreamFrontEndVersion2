@@ -5,6 +5,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import ScheduleInterviewPopup from './ScheduleInterviewPopup';
 import { CSVLink } from 'react-csv';
+import { Link } from 'react-router-dom';
  
 function RecruiterAllApplicants() {
   const [applicants, setApplicants] = useState([]);
@@ -17,7 +18,6 @@ function RecruiterAllApplicants() {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('');
   const tableref=useRef(null);
- 
   const fetchAllApplicants = async () => {
     try {
       const response = await axios.get(`${apiUrl}/applyjob/recruiter/${user.id}/appliedapplicants`);
@@ -155,6 +155,8 @@ function RecruiterAllApplicants() {
                       <thead>
                         <tr>
                           <th></th>
+                          {/* <th >Verify </th> */}
+                  
                           <th>Name</th>
                           <th>Email</th>
                           <th>Mobile Number</th>
@@ -163,7 +165,7 @@ function RecruiterAllApplicants() {
                           <th>Schedule Interview</th>
                           <th>Experience</th>
                           <th>Skill Name</th>
-                          {/* <th>Qualification</th> */}
+                          <th>Qualification</th>
                           <th>Location</th>
                         </tr>
                       </thead>
@@ -182,9 +184,30 @@ function RecruiterAllApplicants() {
                                 name={`applicantRadio-${application.applyjobid}`}
                               />
                             </td>
-                            <td>{application.name}</td>
-                            <td>{application.email}</td>
-                            <td>{application.mobilenumber}</td>
+                            {/* <td><Link to={`/viewapplicant/${application.id}`} >View applicant</Link></td> */}
+                            {/* <td>
+  <Link to={`/viewapplicant/${application.id}`} style={{ color: '#ff0000', textDecoration: 'none' }}>
+    View applicant
+  </Link>
+</td> */}
+<td>
+  <Link to={`/viewapplicant/${application.id}`} style={{ color: '#0583D2', textDecoration: 'none' }}>
+    {application.name}
+  </Link>
+</td>
+
+                            <td>
+                            <Link to={`/viewapplicant/${application.id}`} style={{ color: '#0583D2', textDecoration: 'none' }}>
+                            {application.email}
+  </Link>
+  </td>
+                        
+                            
+                            <td>
+                            <Link to={`/viewapplicant/${application.id}`} style={{ color: '#0583D2', textDecoration: 'none' }}>
+                            {application.mobilenumber}
+  </Link>
+                              </td>
                             <td>{application.jobTitle}</td>
                             <td>{application.applicantStatus}</td>
                             <td>
@@ -232,7 +255,7 @@ function RecruiterAllApplicants() {
                                 </td>
                             <td>{application.minimumExperience}</td>
                             <td>{application.skillName}</td>
-                            {/* <td>{application.minimumQualification}</td> */}
+                            <td>{application.minimumQualification}</td>
                             <td>{application.location}</td>
                           </tr>
                         ))}

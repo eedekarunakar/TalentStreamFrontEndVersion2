@@ -159,7 +159,7 @@ const ApplicantViewProfile = () => {
                 <h3 class="title-education">Education</h3>
                 <div class="education-wrap">
                   <div class="education-box">
-                    <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'orange'}}> Graducation:</h4></h4>
+                    <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'#1967d2'}}> Graducation:</h4></h4>
                     <div style={{marginLeft:'20px'}}>
                     <div className="subtitle-1 fw-7">University: {profileData.graduationDetails.gboard}</div>
                     <div className="subtitle-1 fw-7">Branch: {profileData.graduationDetails.gprogram}</div>
@@ -167,14 +167,14 @@ const ApplicantViewProfile = () => {
                     <div className="subtitle-2 fw-7 fw-5">Percentage: {profileData.graduationDetails.gpercentage}</div>
                     <div className="subtitle-2 fw-7 fw-5">Year of Passing: {profileData.graduationDetails.gyearOfPassing}</div>
                   </div>
-                  <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'orange'}}> Intermediate Details:</h4></h4>
+                  <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'#1967d2'}}> Intermediate Details:</h4></h4>
                     <div style={{marginLeft:'20px'}}>
                     <div className="subtitle-1 fw-7">Board: {profileData.intermediateDetails.iboard} </div>
                     <div className="subtitle-1 fw-7">Branch: {profileData.intermediateDetails.iprogram} </div>
                     <div className="subtitle-1 fw-7">Percentage: {profileData.intermediateDetails.ipercentage} </div>
                     <div className="subtitle-1 fw-7">Year of Passing: {profileData.intermediateDetails.iyearOfPassing} </div>
                   </div>
-                  <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'orange'}}> SSC Details:</h4></h4>
+                  <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'#1967d2'}}> SSC Details:</h4></h4>
                     <div style={{marginLeft:'20px'}}>
                     <div className="subtitle-1 fw-7">Board: {profileData.xClassDetails.xboard} </div>
                     <div className="subtitle-1 fw-7">Branch: SSC/CBSE/ICSE {profileData.xClassDetails.xprogram} </div>

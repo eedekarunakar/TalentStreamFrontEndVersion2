@@ -70,6 +70,31 @@ function RecruiterNavBar() {
   console.log("function called..")
   setIsOpen(!isOpen);
 };
+
+const fetchAlertCount = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/recuriters/appledjobs/${user.id}/unread-alert-count`);
+    setAlertCount(response.data);
+    window.location.reload();
+  } catch (error) {
+    console.error('Error fetching alert count:', error);
+  }
+};
+useEffect(() => {
+  const fetchAlertCount = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/recuriters/appledjobs/${user.id}/unread-alert-count`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+        },
+      });
+      setAlertCount(response.data);
+    } catch (error) {
+      console.error('Error fetching alert count:', error);
+    }
+  };
+  fetchAlertCount();
+}, [user.id]);
   return (
 <div>
   <div className="menu-mobile-popup">
@@ -186,6 +211,29 @@ function RecruiterNavBar() {
               <span className="dash-titles">Team Members</span>
             </Link>
           </li>
+          <li>
+          <Link to="/job-applicant-alerts" className="tf-effect" onClick={fetchAlertCount}>
+        <div style={{ position: 'relative', display: 'inline-block' }}>
+          <span className="icon-bell1 dash-icon">
+            <sup
+              style={{
+                background: 'red',
+                borderRadius: '50%',
+                padding: '2px 5px',
+                color: 'white',
+                fontSize: '10px',
+                textAlign: 'center',
+                lineHeight: '1',
+                marginLeft: '-10px',
+              }}
+            >
+              {alertCount}
+            </sup>
+          </span>
+        </div>
+        <span className="dash-titles">Alerts</span>
+      </Link>
+      </li>
           <li>
             <Link to="/recruiter-my-organization" className="tf-effect">
               <span className="icon-mypackage dash-icon"></span>

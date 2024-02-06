@@ -3,16 +3,13 @@ import Nav from '../../components/common/Nav'
 import Footer from '../../components/common/Footer'
 import RegisterBody from '../../components/registercomponents/RegisterBody'
 
-export default function RegisterPage() {
+export default function RegisterPage({onLogin}) {
+  localStorage.clear();
   return (
     <div>
-
      <Nav />
-
-     <RegisterBody />
-
+     <RegisterBody handleLogin={onLogin}/>
      <Footer />
-
     </div>
   )
 }

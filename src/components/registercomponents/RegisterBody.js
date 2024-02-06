@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
+import { useUserContext } from '../common/UserProvider';
 import OTPVerification from '../applicantcomponents/OTPVerification';
 import OTPVerification1 from '../recruitercomponents/OTPVerification1';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
- function RegisterBody() {
+
+ function RegisterBody({handleLogin}) {
   const [activeTab, setActiveTab] = useState('Candidate');
   const navigate = useNavigate();
    const [candidateName, setCandidateName] = useState('');
@@ -41,6 +43,28 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
   const [candidateRegistrationInProgress, setCandidateRegistrationInProgress] = useState(false);
   const [allFieldsDisabled, setAllFieldsDisabled] = useState(false);
   const [resendOtpMessage, setResendOtpMessage] = useState('');
+  // recruiter login
+  // const [candidateEmail, setCandidateEmail] = useState('');
+  // const [candidatePassword, setCandidatePassword] = useState('');
+  const [recruiterEmail, setRecruiterEmail] = useState('');
+  const [recruiterPassword, setRecruiterPassword] = useState('');
+  // const [errorMessage, setErrorMessage] = useState('');
+  const location = useLocation();
+  const registrationSuccess = location.state?.registrationSuccess;
+  // const navigate = useNavigate();
+  const { setUser, setUserType } = useUserContext();
+  // const [showPassword, setShowPassword] = useState(false);
+  // const [activeTab, setActiveTab] = useState('Candidate');
+  // const [candidateEmailError, setCandidateEmailError] = useState('');
+  // const [candidatePasswordError, setCandidatePasswordError] = useState('');
+  const [recruiterEmailError, setRecruiterEmailError] = useState('');
+  const [recruiterPasswordError, setRecruiterPasswordError] = useState('');
+ const [candidateLoginInProgress, setCandidateLoginInProgress] = useState(false);
+
+ 
+ 
+
+
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -125,6 +149,62 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
       setRecruiterOTPSendingInProgress(false);
     }
   };
+
+  const handleRecruiterSubmit = async (e) => {
+    e.preventDefault();
+    if (!isRecruiterFormValid()) {
+      return;
+    }
+    try {
+      let loginEndpoint = `${apiUrl}/recuriters/recruiterLogin`;
+      const response = await axios.post(loginEndpoint, {
+        email: recruiterEmail,
+        password: recruiterPassword,
+      });
+  
+      console.log('Response:', response);
+  
+      if (response && response.status === 200) {
+        const userData = response.data;
+  
+        if (userData && userData.data && userData.data.jwt) {
+          // Successful login
+          setErrorMessage('');
+          localStorage.setItem('jwtToken', userData.data.jwt);
+  
+          let userType1 = '';
+          if (userData.message.includes('ROLE_JOBAPPLICANT')) {
+            userType1 = 'jobseeker';
+          } else if (userData.message.includes('ROLE_JOBRECRUITER')) {
+            userType1 = 'employer';
+          } else {
+            userType1 = 'unknown';
+          }
+  
+          localStorage.setItem('userType', userType1);
+          setErrorMessage('');
+          handleLogin();
+          setUser(userData);
+          setUserType(userType1);
+          console.log('Recruiter Login successful', userData);
+          navigate('/recruiterhome');
+        } else {
+          // Handle the case where the token is not present in the response
+          console.error('Login failed. Token not found in response:', response);
+          setErrorMessage('Login failed. Please check your user name and password.');
+        }
+      } else {
+        // Handle other cases where the status code is not 200
+        console.error('Login failed. Invalid response:', response);
+        setErrorMessage('Login failed. Please check your user name and password.');
+      }
+    } catch (error) {
+      console.error('Login failed', error);
+      // Handle other error cases
+      setErrorMessage('Login failed. Please try again later.');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid()) {
@@ -317,7 +397,7 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
       setEmployerPassword('');
       setRecruiterRegistrationInProgress(false);
       if (recruiterOTPSent && recruiterOTPVerified) {
-        navigate('/login', { state: { registrationSuccess: true } });
+        navigate('/recruiter', { state: { registrationSuccess: true } });
       }
     } catch (error) {
       setErrorMessage('Registration failed. Please try again later.');
@@ -340,149 +420,124 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
    window.alert('Failed to Resend OTP. Please try again.');
    setResendOtpMessage('Failed to Resent OTP. Please try again.');
   };
+  const isRecruiterFormValid = () => {
+    const emailError = validateEmail(recruiterEmail);
+    setRecruiterEmailError(emailError);
+    const passwordError = validatePassword(recruiterPassword);
+    setRecruiterPasswordError(passwordError);
+    if (!recruiterEmail.trim()) {
+      setRecruiterEmailError('Email is required.');
+    }
+    if (!recruiterPassword.trim()) {
+      setRecruiterPasswordError('Password is required.');
+    }
+    if (emailError || passwordError) {
+      return false;
+    }
+    return true;
+  };
+  const validateEmail = (email) => {
+    if (!email.trim()) {
+      return 'Email is required.';
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email) ? '' : 'Please enter a valid email address.';
+  };
+  const validatePassword = (password) => {
+    if (!password.trim()) {
+      return 'Password is required.';
+    }
+    if (password.length < 6) {
+      return 'Password must be at least 6 characters long.';
+    }
+    if (!/[A-Z]/.test(password)) {
+      return 'Password must contain at least one uppercase letter.';
+    }
+    if (!/[^A-Za-z0-9]/.test(password)) {
+      return 'Password must contain at least one special character (non-alphanumeric).';
+    }
+    if (/\s/.test(password)) {
+      return 'Password cannot contain spaces.';
+    }
+    return '';
+  };
+
+  
+  
+
   return (
     <div>
     <section className="account-section">
       <div className="tf-container">
         <div className="row">
           <div className="wd-form-login tf-tab">
-            <h4>Create a free account</h4>
+            {/* <h4>Recruiter</h4> */}<br /><br />
            
             <ul className="menu-tab">
               <li className={`ct-tab ${activeTab === 'Candidate' ? 'active' : ''}`} onClick={() => handleTabClick('Candidate')}>
-                Candidate
+                Login
               </li>
               <li className={`ct-tab ${activeTab === 'Employer' ? 'active' : ''}`} onClick={() => handleTabClick('Employer')}>
-                Recruiter
+               Sign Up
               </li>
             </ul>
+            {/* <a href="#" class="btn-social" onClick={() => login()}> <img src="images/review/google.png" alt="images" /> Continue with Google</a>
+                    <br /> */}
             <div className="content-tab">
               <div className="inner" style={{ display: activeTab === 'Candidate' ? 'block' : 'none' }}>
-                <form onSubmit={handleSubmit}>
-                <div className="ip">
-                    <label>Full Name<span>*</span></label>
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      onChange={(e) => {
-                        setCandidateName(e.target.value);
-                        setCandidateNameError(''); 
-                      }}
-                      required
-                      disabled={allFieldsDisabled}
-                    />
-                    {candidateNameError && <div className="error-message">{candidateNameError}</div>}
-                  </div>
-                  <div className="ip">
-                    <label>Email Address<span>*</span></label> 
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={candidateEmail}
-                  onChange={(e) => {
-                    setCandidateEmail(e.target.value);
-                    setCandidateEmailError('');
-                  }}
-                  required
-                  disabled={allFieldsDisabled}
-                />
-                    {candidateEmailError && <div className="error-message">{candidateEmailError}</div>}
-                  </div>
-                  <div className="ip">
-                    <label>Mobile Number<span>*</span></label> 
-                  <input
-                    type="text"
-                    placeholder="Mobile Number"
-                    value={candidateMobileNumber}
-                    onChange={(e) => {
-                      setCandidateMobileNumber(e.target.value);
-                      setCandidateMobileNumberError(''); 
-                      }}
-                      required
-                      disabled={allFieldsDisabled}
-                    />
-                    {candidateMobileNumberError && <div className="error-message">{candidateMobileNumberError}</div>}
-                  </div>
-                  <div className="ip">
-                    <label>Password<span>*</span></label>
-                    <div className="inputs-group auth-pass-inputgroup">
-                      <input
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="Password"
-                        value={candidatePassword}
-                         onChange={(e) => {
-                         setCandidatePassword(e.target.value);
-                          setCandidatePasswordError('');
-                           }}
-                        required
-                        disabled={allFieldsDisabled}
-                  />
-                       <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
-        {showPassword ? <FaEye /> : <FaEyeSlash />}
-      </div>
-                    </div>
-                    {candidatePasswordError && <div className="error-message">{candidatePasswordError}</div>}
-                  </div>
-                  {candidateOTPSent && !candidateOTPVerified ? (
-  <div>
-    <p style={{ color: 'green' }}>OTP sent to your email. Please check and enter below:</p>
-    <OTPVerification
-            email={candidateEmail}
-            onOTPVerified={() => {
-              setCandidateOTPVerified(true);
-              setAllFieldsDisabled(true);
-            }}
-            onOTPSendSuccess={handleOTPSendSuccess}
-            onOTPSendFail={handleOTPSendFail}
-            candidateOTPVerifyingInProgress={candidateOTPVerifyingInProgress}
-            setCandidateOTPVerifyingInProgress={setCandidateOTPVerifyingInProgress}
-          />
-  </div>
-) : (
-  <div>
-    {candidateOTPVerified ? (
-      <div style={{ color: 'green' }}>
-        <p >OTP verified successfully! Click on Register to proceed</p>
-      </div>
-    ) : (
-      <div>
-        <div className="helpful-line">Click on send OTP to verify your email</div>
-        <button
-          type="button"
-          onClick={handleSendOTP}
-          disabled={candidateOTPSent || candidateRegistrationSuccess || candidateOTPSendingInProgress}
-        >
-          {candidateOTPSendingInProgress ? (
-             <div className="status-container">
-             <div className="spinner"></div>
-             <div className="status-text">Sending OTP</div>
-           </div>
-          ) : (
-            'Send OTP'
-          )}
-        </button>
-      </div>
-    )}
-  </div>
-)}
- 
-{candidateOTPVerified && (
-  <button type="submit">
-    {candidateRegistrationInProgress ? (
-       <div className="status-container">
-       <div className="spinner"></div>
-       <div className="status-text">Registering</div>
-     </div>
-    ) : (
-      'Register'
-    )}
-  </button>
-)}
-                </form>
+              {/* <p class="line-ip"><span>or login with</span></p> */}
+              <form onSubmit={handleRecruiterSubmit}>
+                      <div className="ip">
+                        <label>Email Address<span>*</span></label>
+                        <input
+                          type="text"
+                          placeholder="Enter your Email"
+                          value={recruiterEmail}
+                          onChange={(e) => {
+                            setRecruiterEmail(e.target.value);
+                            setRecruiterEmailError('');
+                          }}
+                        />
+                        {recruiterEmailError && <div className="error-message">{recruiterEmailError}</div>}
+                      </div>
+                      <div className="ip">
+                        <label>Password<span>*</span></label>
+                        <div className="inputs-group auth-pass-inputgroup">
+                          <input
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder="Password"
+                            value={recruiterPassword}
+                            onChange={(e) => {
+                              setRecruiterPassword(e.target.value);
+                               setRecruiterPasswordError('');
+                                }}
+                           
+                       />
+                          <div className="password-toggle-icon" onClick={handleTogglePassword} id="password-addon">
+                            {showPassword ? <FaEye /> : <FaEyeSlash />}
+                          </div>
+                        </div>
+                        {recruiterPasswordError && <div className="error-message">{recruiterPasswordError}</div>}
+                      </div>
+                      <div className="group-ant-choice">
+                        <div className="sub-ip"></div>
+                        <a href="/recruiter-forgot-password" className="forgot">
+                          Forgot password?
+                        </a>
+                      </div>
+                      <button type="submit">Login</button>
+                      {errorMessage && <div className="error-message">{errorMessage}</div>}
+                      {/* <div className="sign-up">
+                        Not registered yet? <a href="/register">Sign Up</a>
+                      </div> */}
+                     
+       
+                    </form>
               </div>
             </div>
             <div className="content-tab">
               <div className="inner" style={{ display: activeTab === 'Employer' ? 'block' : 'none' }}>
+              {/* <p class="line-ip"><span>or signup with</span></p> */}
                 <form onSubmit={handleSubmit1}>
                 <div className="ip">
                     <label>Company Name<span>*</span></label>

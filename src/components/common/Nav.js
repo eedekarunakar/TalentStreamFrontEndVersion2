@@ -116,15 +116,15 @@ const Nav = () => {
               <div className="header-ct-right st-1">
                 <div class="header-customize-item account">
                   <div class="sub-account-item">
-                  <a href="/register" style={{ color: '#1967d2', backgroundColor: 'white', border: '1px solid #1967d2', padding: '5px 10px', borderRadius: '5px', display: 'inline-flex', alignItems: 'center' }}>
+                  <a href="/candidate" style={{ color: '#1967d2', backgroundColor: 'white', border: '1px solid #1967d2', padding: '5px 10px', borderRadius: '5px', display: 'inline-flex', alignItems: 'center' }}>
   <span className="icon-resumes" style={{color: '#1967d2 !important', marginRight: '5px', fontSize: '1.2em',filter: 'brightness(1) invert(0) sepia(1) saturate(5) hue-rotate(175deg)' }}></span>
-  Register
+ Candidate
 </a>
                   </div>
                   <div class="sub-account-item">
-                  <a href="/login" style={{ color: 'white', backgroundColor: '#1967d2', border: '1px solid #1967d2', padding: '5px 10px', borderRadius: '5px', display: 'inline-flex', alignItems: 'center' }}>
+                  <a href="/recruiter" style={{ color: 'white', backgroundColor: '#1967d2', border: '1px solid #1967d2', padding: '5px 10px', borderRadius: '5px', display: 'inline-flex', alignItems: 'center' }}>
   <span className="icon-profile" style={{ color: 'white', marginRight: '5px', filter: 'brightness(0) invert(1)', fontSize: '1.2em'  }}></span>
-  Login
+  Recruiter
 </a>
                   </div>
               </div>

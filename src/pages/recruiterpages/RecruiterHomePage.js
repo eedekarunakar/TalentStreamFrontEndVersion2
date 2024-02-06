@@ -14,6 +14,9 @@ import RecruiterApplicantInterviews from '../../components/recruitercomponents/R
 import RecruiterChangePassword from '../../components/recruitercomponents/RecruiterChangePassword';
 import TeamMember from '../../components/recruitercomponents/TeamMember';
 import RecruiterEditJob from '../../components/recruitercomponents/RecruiterEditJob';
+import JobApplicantAlerts from '../../components/recruitercomponents/JobApplicantAlerts';
+import Recruiterviewapplicant from '../../components/recruitercomponents/Recruiterviewapplicant';
+
 function RecruiterHomePage() {
   const [activeRoute, setActiveRoute] = useState('');
   const location = useLocation();
@@ -48,9 +51,16 @@ function RecruiterHomePage() {
                   case '/recruiter-team-member':
                     setActiveRoute('teammember');
                     break;
-         case '/recruiter-edit-job':
+                  case '/recruiter-edit-job':
                     setActiveRoute('RecruiterEditJob');
                     break;
+                    case '/job-applicant-alerts':
+                      setActiveRoute('alerts');
+                      break;
+                      case pathname.startsWith('/viewapplicant/:id'):
+                        setActiveRoute('viewapplicant');
+                        break;
+
       default:
         setActiveRoute('');
         break;
@@ -72,6 +82,8 @@ function RecruiterHomePage() {
      {activeRoute === 'changepassword' && <RecruiterChangePassword />}
      {activeRoute === 'teammember' && <TeamMember />}
     {activeRoute === 'RecruiterEditJob' && <RecruiterEditJob selectedJobId={selectedJobId}/>}
+    {activeRoute === 'alerts' && <JobApplicantAlerts />}
+    {activeRoute === 'viewapplicant' && <Recruiterviewapplicant />}
     </div>
   )
 }
