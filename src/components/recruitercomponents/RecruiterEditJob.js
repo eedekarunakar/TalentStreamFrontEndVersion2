@@ -5,6 +5,8 @@ import { useNavigate, useLocation,useParams  } from 'react-router-dom';
 import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
 const RecruiterEditJob = ({selectedJobId}) => {
  
+    const navigate=useNavigate();
+
     const [skillsRequired, setSkillsRequired] = useState([
       { skillName: "", minimumExperience: "" },
     ]);
@@ -88,6 +90,8 @@ const RecruiterEditJob = ({selectedJobId}) => {
      
         fetchJobData();
       }, [selectedJobId, user.id]);
+
+     
    
       const handleSubmit = async (e) => {
         e.preventDefault();
@@ -134,6 +138,7 @@ const RecruiterEditJob = ({selectedJobId}) => {
           if (response.status === 200) {
             console.log(response.body);
             window.alert('Job updated successfully');
+            navigate('/recruiter-jobopenings');
             // You can perform additional actions after saving, such as redirecting to another page
           } else {
             console.error('An error occurred:', response.status, response.body);

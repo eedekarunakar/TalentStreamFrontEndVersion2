@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
 import logoCompany1 from '../../images/cty12.png';
+import editlogo from '../../images/edit.png';
 import { Link } from 'react-router-dom';
  
 function RecruiterJobOpenings({ setSelectedJobId }) {
@@ -12,24 +13,100 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
   const user1 = useUserContext();
   const user = user1.user;
   const disabledStatusClass = 'disabled-status';
+  const [jobStatus,setJobStatus]=useState();
+ 
+  // useEffect(() => {
+  //   const jwtToken = localStorage.getItem('jwtToken');
+  //   if (jwtToken) {
+  //     axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+  //   }
+  //   axios
+  //     .get(`${apiUrl}/job/recruiters/viewJobs/${user.id}`)
+  //     .then((response) => {
+  //       setJobs(response.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching job details:', error);
+  //       setLoading(false);
+  //     });
+  // }, [user.id]);
  
   useEffect(() => {
-    const jwtToken = localStorage.getItem('jwtToken');
-    if (jwtToken) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
-    }
-    axios
-      .get(`${apiUrl}/job/recruiters/viewJobs/${user.id}`)
-      .then((response) => {
-        setJobs(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
+    const fetchJobs = async () => {
+      try {
+        const jwtToken = localStorage.getItem('jwtToken');
+        if (jwtToken) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+        }
+
+        // Try to get jobs from local storage
+        const localJobs = JSON.parse(localStorage.getItem('jobs')) || [];
+
+        // If local jobs are available, use them
+        if (localJobs.length > 0) {
+          // Fetch job status for each job
+          const updatedJobs = await Promise.all(
+            localJobs.map(async (job) => {
+              const statusResponse = await axios.get(`${apiUrl}/job/getStatus/${job.id}`);
+              const status = statusResponse.data;
+              return { ...job, status };
+            })
+          );
+
+          setJobs(updatedJobs);
+          setLoading(false);
+        } else {
+          // Fetch job details from the server
+          const jobsResponse = await axios.get(`${apiUrl}/job/recruiters/viewJobs/${user.id}`);
+          const jobsData = jobsResponse.data;
+
+          // Fetch job status for each job
+          const updatedJobs = await Promise.all(
+            jobsData.map(async (job) => {
+              const statusResponse = await axios.get(`${apiUrl}/job/getStatus/${job.id}`);
+              const status = statusResponse.data;
+              return { ...job, status };
+            })
+          );
+
+          // Save the fetched jobs to local storage
+          localStorage.setItem('jobs', JSON.stringify(updatedJobs));
+
+          setJobs(updatedJobs);
+          setLoading(false);
+        }
+      } catch (error) {
         console.error('Error fetching job details:', error);
         setLoading(false);
-      });
+      }
+    };
+
+    fetchJobs();
   }, [user.id]);
- 
+
+  const handleStatusChange = async (jobId, newStatus) => {
+    try {
+      // Update the job status using the API
+      await axios.post(`${apiUrl}/job/changeStatus/${jobId}/${newStatus}`);
+
+      // Update the local state to reflect the changes
+      setJobs((prevJobs) =>
+        prevJobs.map((job) =>
+          job.id === jobId ? { ...job, status: newStatus } : job
+        )
+      );
+
+      // Update local storage with the modified job status
+      const updatedJobs = jobs.map((job) =>
+        job.id === jobId ? { ...job, status: newStatus } : job
+      );
+      localStorage.setItem('jobs', JSON.stringify(updatedJobs));
+    } catch (error) {
+      console.error('Error updating job status:', error);
+    }
+  };
+
   const handleButtonClick1 = (jobId) => {
     setSelectedJobId(jobId);
   };
@@ -40,21 +117,35 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
     return formattedDate;
   }
  
-  const handleStatusChange = async (jobId, newStatus) => {
-    try {
-      // Update the job status using the API
-      await axios.post(`${apiUrl}/job/changeStatus/${jobId}/${newStatus}`);
- 
-      // Update the local state to reflect the changes
-      setJobs((prevJobs) =>
-        prevJobs.map((job) =>
-          job.id === jobId ? { ...job, status: newStatus } : job
-        )
-      );
-    } catch (error) {
-      console.error('Error updating job status:', error);
-    }
-  };
+  // useEffect(() => {
+  //   const fetchJobStatus = async () => {
+  //     try {
+  //       const response = await axios.get(`${apiUrl}/job/getStatus/${jobId}`);
+  //       const status = response.data;
+  //       setJobStatus(status);
+  //     } catch (error) {
+  //       console.error('Error fetching job alerts:', error);
+  //     }
+  //   };
+  //   fetchJobStatus();
+  // }, []);
+
+
+  // const handleStatusChange = async (jobId, newStatus) => {
+  //   try {
+  //     // Update the job status using the API
+  //     await axios.post(`${apiUrl}/job/changeStatus/${jobId}/${newStatus}`);
+
+  //     // Update the local state to reflect the changes
+  //     setJobs((prevJobs) =>
+  //       prevJobs.map((job) =>
+  //         job.id === jobId ? { ...job, status: newStatus } : job
+  //       )
+  //     );
+  //   } catch (error) {
+  //     console.error('Error updating job status:', error);
+  //   }
+  // };
  
   return (
     <div>
@@ -76,9 +167,11 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
               <div className="inner">
                 <br />
                 <div className="group-col-2">
+                
                 {jobs.map((job) => (
   <div    className={`features-job cl2 ${job.status === 'Inactive' ? 'inactive-job' : ''}`}
   key={job.id}>
+    
     <select
   value={job.status}
   onChange={(e) => handleStatusChange(job.id, e.target.value)}
@@ -99,6 +192,7 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
     Inactive
   </option>
 </select>
+
     <div className="job-archive-header">
       <div className="inner-box">
       <div className="logo-company">
@@ -151,6 +245,15 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
           <span></span>
           <p>&#x20B9; {job.minSalary} - &#x20B9; {job.maxSalary} / year</p>
         </div>
+        <Link  to={`/recruiter-edit-job`} onClick={() => handleButtonClick1(job.id)}>
+  {/* <button
+    type="button"
+      
+  >
+   
+  </button> */}
+  <img src={editlogo} width="30px" height="40px" title="Edit Job"/>
+</Link>
         <Link to="/recruiter-appliedapplicants" onClick={() => handleButtonClick1(job.id)}>
   <button
     type="button"
@@ -160,19 +263,12 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
       color: job.status === 'Inactive' ? '#808080' : ''
     }}
     className={`button-status ${job.status === 'Inactive' ? 'disabled-button' : ''}`}
-    disabled={job.status === 'Inactive'}
+    // disabled={job.status === 'Inactive'}
   >
     View Applicants
   </button>
 </Link>
-<Link  to={`/recruiter-edit-job`} onClick={() => handleButtonClick1(job.id)}>
-  <button
-    type="button"
-    className={`button-status ${job.status === 'Inactive' ? 'disabled-button' : ''}`}  
-  >
-   Edit Job
-  </button>
-</Link>
+
       </div>
     </div>
   </div>

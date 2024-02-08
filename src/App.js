@@ -18,6 +18,7 @@ import PrivacyPolicy from './components/common/PrivacyPolicy';
 import CookiePolicy from './components/common/CookiePolicy';
 import TermsOfServices from './components/common/TermsOfServices';
 import Recruiterviewapplicant from './components/recruitercomponents/Recruiterviewapplicant';
+import AppliedApplicantsBasedOnJobs from './components/recruitercomponents/AppliedApplicantsBasedOnJobs';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -84,6 +85,7 @@ function App() {
                 <Route path= "/recruiter-edit-job" element={<RecruiterHomePage />} />
                 <Route path="/job-applicant-alerts" element={<RecruiterHomePage />} />
                 <Route path="/viewapplicant/:id" element={<Recruiterviewapplicant/>} />
+                <Route path="/appliedapplicantsbasedonjob/:id" element={<AppliedApplicantsBasedOnJobs />} />
 
 
                 </>

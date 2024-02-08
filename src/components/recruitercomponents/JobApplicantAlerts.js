@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
@@ -44,19 +45,22 @@ export default function JobApplicantAlerts() {
             <ul className="custom-inner-box">
               {jobAlerts.map(alert => (
                 <li key={alert.alertsId} className="custom-inner">
-                 
-                  <h4><br/>
+                  <Link to={`/appliedapplicantsbasedonjob/${alert.id}`} className="custom-link">
+                  {/* <Link to={`/appliedapplicantsbasedonjob/1`} className="custom-link"> */}
+                  <h4 ><br/>
                   <a className="custom-noti-icon"><span className="icon-bell1"></span></a>
                     <span style={{ fontWeight: 'bold', fontSize: '1.2em', color: 'purple' }}>  Hi </span>
                     {' '}
-                    <span style={{ color: 'orange' }}>{alert.jobRecruiter.companyname} </span>
+                    {/* <span style={{ color: 'orange' }}>{alert.jobRecruiter.companyname} </span> */}
+                    <span style={{ color: 'orange' }}> </span>
                     {alert.alertCount === 1 ? (
-                      <span>{alert.alertCount} person has applied for {' '}</span>
+                      <span style={{ color: 'red' }}> new candidate has applied for {' '}</span>
                     ) : (
-                      <span>{alert.alertCount} people have applied for {' '}</span>
+                      <span style={{ color: 'red' }}>{alert.alertCount} new candidates have applied for {' '}</span>
                     )}
                     <span style={{ color: 'green' }}>{alert.jobTitle} </span>role
                   </h4>
+                  </Link>
                   {alert.applyJob && (
                     <a href="#" className="custom-link p-16 color-3">{alert.applyJob.jobTitle}</a>
                   )}

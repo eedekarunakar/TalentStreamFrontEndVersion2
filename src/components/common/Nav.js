@@ -101,10 +101,10 @@ const Nav = () => {
                     </li>
  
                     <li>
-                      <a href="/login">Find Jobs</a>
+                      <a href="/candidate">Find Jobs</a>
                     </li>
                     <li>
-                      <a href="/login">Find Candidate</a>
+                      <a href="/recruiter">Find Candidate</a>
                     </li>
                     <li>
                       <a href='/contactus'>Contact</a>

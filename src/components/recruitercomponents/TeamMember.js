@@ -80,6 +80,7 @@ return (
 }
 const Table = ({ data, handleDelete }) => {
   return (
+    <div className="table-container-wrapper">
     <div className="table-container">
       <table className="responsive-table">
         <thead className="thead-dark">
@@ -113,6 +114,7 @@ const Table = ({ data, handleDelete }) => {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };
