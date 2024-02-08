@@ -8,11 +8,30 @@ import { useUserContext } from '../common/UserProvider';
 import { apiUrl } from '../../services/ApplicantAPIService';
 import clearJWTToken from '../common/clearJWTToken';
 import axios from "axios";
+import { Switch } from 'antd';
+
 function ApplicantNavBar() {
   const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
   const { user } = useUserContext();
   const [imageSrc, setImageSrc] = useState('');
   const [alertCount, setAlertCount] = useState(0);
+  const [profileStatus, setProfileStatus] = useState(true); // Define profileStatus state
+
+  // const toggleProfileStatus = checked => {
+  //   setProfileStatus(checked);
+  // };
+
+  const toggleProfileStatus = async checked => {
+    try {
+      // Make API call to update status in backend
+      await axios.post(`${apiUrl}/applicant/changeStatus/${user.id}`, { isActive: checked });
+      setProfileStatus(checked);
+    } catch (error) {
+      console.error('Error updating profile status:', error);
+    }
+  };
+
+
   const handleToggleMenu = () => {
     console.log("function called..")
     setIsOpen(!isOpen);
@@ -133,13 +152,70 @@ useEffect(() => {
             </div>
             <div className="header-ct-center"></div>
             <div className="header-ct-right">
+                {/* <div className="profile-status-toggle" style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
+                  <span>{profileStatus ? 'Active' : 'Inactive'}</span>
+                  <Switch 
+                  checked={profileStatus} 
+                  onChange={toggleProfileStatus}
+                  size="small" // Set the size to "small"
+                  style={{ marginLeft: '10px', width: '40px', height: '20px', borderRadius: '16px' }} />
+                  
+                </div> */}
+
               <div className="header-customize-item account">
+                {/* <div className="profile-status-toggle">
+                <label className="switch">
+                <input type="checkbox" checked={profileStatus === 'active'} onChange={toggleProfileStatus} />
+                <span className="slider round"></span>
+                </label>
+                </div> */}
+                {/* <div className="profile-status-toggle">
+                <button className={`status-button ${profileStatus ? 'active' : 'inactive'}`} onClick={toggleProfileStatus}>
+                {profileStatus ? 'Active' : 'Inactive'}
+                </button>
+                </div> */}
+                {/* <div className="profile-status-toggle">
+                    <label style={{ position: "relative", display: "inline-block", width: "60px", height: "34px" }}>
+                        <input type="checkbox" checked={profileStatus} onChange={toggleProfileStatus} style={{ display: "none" }} />
+                        <span style={{ position: "absolute", cursor: "pointer", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: profileStatus ? "green" : "grey", borderRadius: "34px", transition: "background-color 0.4s" }}></span>
+                    </label>
+                </div> */}
+                
+
               <img width="40px" height="30px" src={imageSrc || '../images/user/avatar/image-01.jpg'} alt="Profile" onError={() => setImageSrc('../images/user/avatar/image-01.jpg')} />
                 <div className="name">
                   <span className="icon-keyboard_arrow_down" />
                 </div>
                 <div className="sub-account">
-                  <h4>Welcome {user.username}</h4>
+                
+                  {/* <h4>Welcome {user.username}</h4> */}
+                  {/* <div className="sub-account-item"> */}
+                  <div className="profile-status-toggle" >
+                      <span style={{
+                          font: '16px/28px "Plus Jakarta Sans", sans-serif',
+                          fontStyle: 'normal',
+                          fontVariantNumeric: 'normal',
+                          fontVariantEastAsian: 'normal',
+                          fontKerning: 'auto',
+                          fontOpticalSizing: 'auto',
+                          fontFeatureSettings: 'normal',
+                          fontVariationSettings: 'normal',
+                          fontWeight: 500,
+                          fontSize: '16px',
+                          lineHeight: '28px',
+                          fontFamily: '"Plus Jakarta Sans", sans-serif',
+                      }}>
+                          {profileStatus ? 'Job Looking Status: Active' : 'Job Looking Status: Inactive'}
+                      </span>
+
+                  {/* <span style={{ fontSize: '14px', fontWeight: 'bold', verticalAlign: 'middle' }}>Job Looking Status: {profileStatus ? 'Active' : 'Inactive'}</span> */}
+                      <Switch 
+                      checked={profileStatus} 
+                      onChange={toggleProfileStatus}
+                      size="small" // Set the size to "small"
+                      style={{ marginLeft: '10px', width: '40px', height: '20px', borderRadius: '16px' }} />
+                  </div>
+                {/* </div> */}
                   <div className="sub-account-item">
                     <a href="/applicant-view-profile">
                       <span className="icon-profile" />View Profile

@@ -1574,6 +1574,8 @@ input[type="color"],
   opacity: 1;
   visibility: visible;
   pointer-events: all;
+  width: 330px;
+  
 }
 
 .sticky-area-wrap .header-ct-right .button {
