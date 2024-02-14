@@ -1,32 +1,62 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate} from 'react-router-dom';
+import $ from 'jquery';
+
+import '../../stylesheets/bootstrap.min.css';
+import '../../stylesheets/boostrap-select.min.css';
+import '../../stylesheets/swiper-bundle.min.css';
+import '../../stylesheets/shortcodes.css';
+import '../../stylesheets/style.css';
+import '../../stylesheets/dashboard.css';
+import '../../stylesheets/swiper-bundle.min.css';
+import '../../stylesheets/colors/color6.css';
+import '../../stylesheets/responsive.css';
+import '../../fonts/fonts.css';
+
 const Nav = () => {
-  const navigate = useNavigate();
- 
-  const handleResize = () => {
-    // Check the screen size with a media query
-    const isMobile = window.matchMedia('(max-width: 767px)').matches;
- 
-    // If the screen size is mobile, reload the page
-    if (isMobile) {
-      window.location.reload();
-    }
+
+  const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
+
+  const handleToggleMenu = () => {
+    console.log("function called..")
+    setIsOpen(!isOpen);
   };
- 
-  // Attach the resize event listener when the component mounts
+
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
- 
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('resize', handleResize);
+    const handleResize = () => {
+      setIsOpen(window.innerWidth >= 768);
     };
+     window.addEventListener('resize', handleResize);
+    $("#left-menu-btn").on("click", function(e) {
+      e.preventDefault();
+      if ($("body").hasClass("sidebar-enable") == true) {
+        $("body").removeClass("sidebar-enable");
+        $.cookie("isButtonActive", "0");
+      } else {
+        $("body").addClass("sidebar-enable");
+        $.cookie("isButtonActive", "1");
+      }
+      1400 <= $(window).width()
+        ? $("body").toggleClass("show-job")
+        : $("body").removeClass("show-job");
+      var width = $(window).width();
+      if (width < 1400) {
+        $.cookie('isButtonActive', null);
+      }
+    });
+    if ($.cookie("isButtonActive") == 1) {
+      $("body").addClass("sidebar-enable show-job");
+    }
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      }; 
   }, []);
- 
+  
   return (
     <div>
   <>
   <a id="scroll-top" />
+  {(isOpen &&
   <div className="menu-mobile-popup">
     <div className="modal-menu__backdrop" />
     <div className="widget-filter">
@@ -72,6 +102,7 @@ const Nav = () => {
         </div>
         </div>
   </div>
+  )}
   <div className="boxed">
     <header id="header" className="header header-default">
       <div className="tf-container">
@@ -129,8 +160,8 @@ const Nav = () => {
                   </div>
               </div>
                  </div>
-                 <div className="nav-filter">
-          <div className="nav-mobile" >
+                 <div className="nav-filter" id="left-menu-btn">
+          <div className="nav-mobile">
             <span />
           </div>
         </div>

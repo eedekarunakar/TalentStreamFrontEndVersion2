@@ -245,7 +245,7 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
           <span></span>
           <p>&#x20B9; {job.minSalary} - &#x20B9; {job.maxSalary} / year</p>
         </div>
-        <Link  to={`/recruiter-edit-job`} onClick={() => handleButtonClick1(job.id)}>
+        <Link  to={`/recruiter-edit-job/${job.id}`}>
   {/* <button
     type="button"
       

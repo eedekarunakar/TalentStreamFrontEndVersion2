@@ -7,7 +7,7 @@ import { apiUrl } from '../../services/ApplicantAPIService';
 import { useGoogleLogin } from '@react-oauth/google'; // Import GoogleLoginButton
 import jwt_decode from "jwt-decode";
 import OTPVerification from '../applicantcomponents/OTPVerification';
-
+ 
 function LoginBody({ handleLogin }) {
   const [candidateEmail, setCandidateEmail] = useState('');
   const [candidatePassword, setCandidatePassword] = useState('');
@@ -24,7 +24,8 @@ function LoginBody({ handleLogin }) {
   const [recruiterEmailError, setRecruiterEmailError] = useState('');
   const [recruiterPasswordError, setRecruiterPasswordError] = useState('');
  const [candidateLoginInProgress, setCandidateLoginInProgress] = useState(false);
-
+ const [registrationSuccessMessage, setRegistrationSuccessMessage] = useState('');
+ 
  
 const login = useGoogleLogin({
   // clientId: "435586738795-9tuq57be4e92djg8d8ol1sn1h6a9mm6c.apps.googleusercontent.com", // Pass the clientId here
@@ -128,9 +129,17 @@ const login = useGoogleLogin({
         setUser(userData);
         setUserType(userData.userType);
         console.log('Login successful', userData);
+       
+        // console.log("candidateOTPSent:", candidateOTPSent); // Add this line
+        // console.log("candidateOTPVerified:", candidateOTPVerified); // Add this line
  
+        // if (candidateOTPSent && candidateOTPVerified) {
+        //   await handleSubmit(); // Trigger registration after OTP verification
+        //   return; // Exit the function to prevent further execution
+        // }
  
-      navigate('/applicanthome');
+        // Navigate to the applicant home page
+        navigate('/applicanthome');
             }
  
     } catch (error) {
@@ -165,7 +174,7 @@ const login = useGoogleLogin({
     }
     return true;
   };
-  
+ 
   const validateEmail = (email) => {
     if (!email.trim()) {
       return 'Email is required.';
@@ -191,20 +200,20 @@ const login = useGoogleLogin({
     }
     return '';
   };
-
-
+ 
+ 
   const [candidateName, setCandidateName] = useState('');
   const [candidateEmail1, setCandidateEmail1] = useState('');
   const [candidateMobileNumber, setCandidateMobileNumber] = useState('');
   const [candidatePassword1, setCandidatePassword1] = useState('');
-  
+ 
 //  const [errorMessage, setErrorMessage] = useState('');
  const [allErrors, setAllErrors] = useState(false);
 const [candidateNameError, setCandidateNameError] = useState('');
 const [candidateEmailError1, setCandidateEmailError1] = useState('');
 const [candidateMobileNumberError, setCandidateMobileNumberError] = useState('');
 const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
-
+ 
 //  const [showPassword, setShowPassword] = useState(false);
  const [candidateOTPSent, setCandidateOTPSent] = useState(false);
  const [candidateOTPVerified, setCandidateOTPVerified] = useState(false);
@@ -226,45 +235,75 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
      return;
    }
    try {
-     setCandidateOTPSendingInProgress(true); 
+     setCandidateOTPSendingInProgress(true);
      console.log("email is:", candidateEmail1);
      const response=await axios.post(`${apiUrl}/applicant/applicantsendotp`, { email: candidateEmail1 , mobilenumber: candidateMobileNumber});
      console.log("email is:", candidateEmail1);
      setCandidateOTPSent(true);
-     setCandidateOTPSendingInProgress(false); 
-     if (response.data === "Email already registered recruiter"){
+     setCandidateOTPSendingInProgress(false);
+    //  if (response.data === "Email already registered recruiter"){
+      if (response.data === "Email is already registered as a Recruiter."){
        setCandidateOTPSent(false);
-    
+   
        window.alert('Email already registered as recruiter, please try to login');
       }
-      if(response.data === ('Email already registered as applicant')){
+      // if(response.data === ('Email already registered as applicant')){
+        if(response.data === ('Email is already registered as an Applicant.')){
        setCandidateOTPSent(false);
-    
+   
        window.alert('Email already registered as candidate, please try to login');
       }
-      if(response.data === "Mobile number already existed in recruiter"){
+      // if(response.data === "Mobile number already existed in recruiter"){
+        if(response.data === "Mobile number is already registered as a Recruiter."){
        setCandidateOTPSent(false);
-    
+   
        window.alert('Mobile number already existed as recruiter');
       }
-      if(response.data === 'Mobile number already existed in applicant'){
+      // if(response.data === 'Mobile number already existed in applicant'){
+        if(response.data === 'Mobile number is already registered as an Applicant.'){
        setCandidateOTPSent(false);
-    
+   
        window.alert('Mobile number already existed as candidate');
       }
    } catch (error) {
      console.error('Error sending OTP:', error);
      if (error.response && error.response.status === 400) {
-       window.alert('Email is already registered.');
+      //  window.alert('Email is already registered.');
+      // Server responded with a 400 status code
+    if (error.response.data === 'Email is already registered as a Recruiter.') {
+      window.alert('Email already registered as recruiter, please try to login');
+    } else if (error.response.data === 'Email is already registered as an Applicant.') {
+      window.alert('Email already registered as candidate, please try to login');
+    } else if (error.response.data === 'Mobile number is already registered as a Recruiter.') {
+      window.alert('Mobile number already existed as recruiter');
+    } else if (error.response.data === 'Mobile number is already registered as an Applicant.') {
+      window.alert('Mobile number already existed as candidate');
+    } else {
+      window.alert('Email is already registered.'); // Default message for other 400 errors
+    }
      } else {
        window.alert('An error occurred while sending OTP.');
      }
      setCandidateOTPSendingInProgress(false);
    }
  };
-
+ 
+ // Define a function to check if all form fields are valid
+//  const isFormValidForOTP = () => {
+//   return candidateName.trim() !== '' && candidateEmail1.trim() !== '' && candidateMobileNumber.trim() !== '' && candidatePassword1.trim() !== '';
+// };
+ 
+// const isFormValidForOTP = () => {
+//   return (
+//     !candidateNameError &&
+//     !candidateEmailError1 &&
+//     !candidateMobileNumberError &&
+//     !candidatePasswordError1
+//   );
+// };
+ 
  const handleSubmit = async (e) => {
-   e.preventDefault();
+   //e.preventDefault();
    if (!isFormValid1()) {
      return;
    }
@@ -281,6 +320,8 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
      }
      setErrorMessage('');
      setCandidateRegistrationSuccess(true);
+     setRegistrationSuccessMessage('Registration successful!');
+     setActiveTab('Candidate');
      console.log('Registration successful', response.data);
      setCandidateName('');
      setCandidateEmail1('');
@@ -316,10 +357,10 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
    return '';
  };
  
- const isEmailValid = (email) => { 
+ const isEmailValid = (email) => {
    if (!email.trim()) {
      return 'Email is required.';
-   } 
+   }
    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
    return emailRegex.test(email) ? '' : 'Please enter a valid email address.';
  };  
@@ -383,7 +424,7 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
    return '';
  };
  const isFormValid = () => {
-   setAllErrors(false); 
+   setAllErrors(false);
    const nameError = isFullNameValid(candidateName);
    const emailError = isEmailValid(candidateEmail);
    const mobileNumberError = isMobileNumberValid(candidateMobileNumber);
@@ -396,7 +437,7 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
  };
  
  const isFormValid1 = () => {
-  setAllErrors(false); 
+  setAllErrors(false);
   const nameError = isFullNameValid(candidateName);
   const emailError = isEmailValid(candidateEmail1);
   const mobileNumberError = isMobileNumberValid(candidateMobileNumber);
@@ -407,7 +448,7 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
   setCandidatePasswordError1(passwordError);
   return !(nameError || emailError || mobileNumberError || passwordError);
 };
-
+ 
  const handleOTPSendSuccess = () => {
   window.alert('OTP Resend successfully');
   setResendOtpMessage('OTP Resent successfully. Check your email.');
@@ -416,7 +457,7 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
   window.alert('Failed to Resend OTP. Please try again.');
   setResendOtpMessage('Failed to Resent OTP. Please try again.');
  };
-
+ 
   return (
     <div>
       <section className="account-section">
@@ -443,9 +484,12 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
                     <br />
                    
                 <div className="content-tab">
-                
+               
                   <div className="inner" style={{ display: activeTab === 'Candidate' ? 'block' : 'none' }}>
-                  <p class="line-ip"><span>or login with</span></p>
+                  <p class="line-ip"><span>or sigin with</span></p>
+                  <p><span>  {registrationSuccessMessage && (
+              <div style={{ color: 'green', marginBottom: '10px' }}>{registrationSuccessMessage}</div>
+            )}</span></p>
                     <form onSubmit={handleCandidateSubmit}>
                       <div className="ip">
                         <label>Email Address<span>*</span></label>
@@ -501,7 +545,7 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
  
                   <div className="inner" style={{ display: activeTab === 'Employer' ? 'block' : 'none' }}>
                   <p class="line-ip"><span>or signup with</span></p>
-                    
+                   
                   <form onSubmit={handleSubmit}>
                 <div className="ip">
                     <label>Full Name<span>*</span></label>
@@ -510,7 +554,7 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
                       placeholder="Name"
                       onChange={(e) => {
                         setCandidateName(e.target.value);
-                        setCandidateNameError(''); 
+                        setCandidateNameError('');
                       }}
                       required
                       disabled={allFieldsDisabled}
@@ -518,7 +562,7 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
                     {candidateNameError && <div className="error-message">{candidateNameError}</div>}
                   </div>
                   <div className="ip">
-                    <label>Email Address<span>*</span></label> 
+                    <label>Email Address<span>*</span></label>
                 <input
                   type="email"
                   placeholder="Email"
@@ -533,14 +577,14 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
                     {candidateEmailError1 && <div className="error-message">{candidateEmailError1}</div>}
                   </div>
                   <div className="ip">
-                    <label>Mobile Number<span>*</span></label> 
+                    <label>Mobile Number<span>*</span></label>
                   <input
                     type="text"
                     placeholder="Mobile Number"
                     value={candidateMobileNumber}
                     onChange={(e) => {
                       setCandidateMobileNumber(e.target.value);
-                      setCandidateMobileNumberError(''); 
+                      setCandidateMobileNumberError('');
                       }}
                       required
                       disabled={allFieldsDisabled}
@@ -573,8 +617,13 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
     <OTPVerification
             email={candidateEmail1}
             onOTPVerified={() => {
-              setCandidateOTPVerified(true);
-              setAllFieldsDisabled(true);
+              setTimeout(() => {
+                setCandidateOTPVerified(true);
+                setAllFieldsDisabled(true);
+              }, 0);
+              setTimeout(() => {console.log(candidateOTPVerified);
+                handleSubmit();
+              }, 10);
             }}
             onOTPSendSuccess={handleOTPSendSuccess}
             onOTPSendFail={handleOTPSendFail}
@@ -586,11 +635,12 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
   <div>
     {candidateOTPVerified ? (
       <div style={{ color: 'green' }}>
-        <p >OTP verified successfully! Click on Register to proceed</p>
+        {/* <p >OTP verified successfully! Click on Register to proceed</p> */}
       </div>
     ) : (
       <div>
         <div className="helpful-line">Click on send OTP to verify your email</div>
+        {/* {isFormValidForOTP() && ( */}
         <button
           type="button"
           onClick={handleSendOTP}
@@ -604,14 +654,16 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
           ) : (
             'Send OTP'
           )}
+         
         </button>
+        {/* )} */}
       </div>
     )}
   </div>
 )}
  
-{candidateOTPVerified && (
-  <button type="submit">
+{/* {candidateOTPVerified && (
+  <button type="submit" onClick={handleSubmit}>
     {candidateRegistrationInProgress ? (
        <div className="status-container">
        <div className="spinner"></div>
@@ -621,7 +673,7 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
       'Register'
     )}
   </button>
-)}
+)} */}
                 </form>
                   </div>
                 </div>

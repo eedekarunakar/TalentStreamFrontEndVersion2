@@ -1596,7 +1596,7 @@
   .tf-slider.sl6 {
     padding-top: 276px;
     padding-bottom: 194px;
-    background-image: url(../images/slider/slider3.jpg);
+    /* background-image: url(../images/slider/); */
   }
   
   .tf-slider.sl7 {
@@ -1608,7 +1608,7 @@
   .tf-slider.sl8 {
     padding-top: 240px;
     padding-bottom: 39px;
-    background-image: url(../images/slider/slider4.jpg);
+    /* background-image: url(../images/slider/slider4.jpg); */
   }
   
   .tf-slider.sl9 {
@@ -5268,6 +5268,7 @@
     max-width: 472px;
     margin: 0 auto;
     text-align: center;
+    margin-top: 60px;
   }
   
   .wd-form-login .nofi-form {
@@ -5404,7 +5405,7 @@
     padding: 11px 20px;
     background: #f5f5f2;
     border: 1px solid #e5e5e5;
-    border-radius: 4px;
+    border-radius: 10px;
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
@@ -5571,10 +5572,11 @@
   .group-contact-us {
     display: flex;
     border-radius: 5px;
-    margin-top: 82px;
+    margin-top: 3px;
     position: relative;
     z-index: 5;
     overflow: hidden;
+    margin-top: 60px;
   }
   
   .group-contact-us .infor-contact-v1 {

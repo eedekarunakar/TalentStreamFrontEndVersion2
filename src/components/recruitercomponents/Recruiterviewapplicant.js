@@ -7,13 +7,14 @@ import { useParams } from 'react-router-dom';
 import './Recruiterviewapplicant.css';
 
 
-const Recruiterviewapplicant = () =>{
+
+const Recruiterviewapplicant = ({ id }) =>{
   const [profileData, setProfileData] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [loading, setLoading] = useState(true);
   const [alertShown, setAlertShown] = useState(false);
   const { user } = useUserContext();
-  const { id } = useParams();
+  //const { id } = useParams();
 
  
   

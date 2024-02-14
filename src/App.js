@@ -20,6 +20,8 @@ import TermsOfServices from './components/common/TermsOfServices';
 import Recruiterviewapplicant from './components/recruitercomponents/Recruiterviewapplicant';
 import AppliedApplicantsBasedOnJobs from './components/recruitercomponents/AppliedApplicantsBasedOnJobs';
 
+
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
@@ -82,9 +84,9 @@ function App() {
                 <Route path="/recruiter-applicantinterviews" element={<RecruiterHomePage />} />
                 <Route path="/recruiter-change-password" element={<RecruiterHomePage />} />
                 <Route path="/recruiter-team-member" element={<RecruiterHomePage />} />
-                <Route path= "/recruiter-edit-job" element={<RecruiterHomePage />} />
+                <Route path= "/recruiter-edit-job/:id" element={<RecruiterHomePage />} />
                 <Route path="/job-applicant-alerts" element={<RecruiterHomePage />} />
-                <Route path="/viewapplicant/:id" element={<Recruiterviewapplicant/>} />
+                <Route path="/viewapplicant/:id" element={<RecruiterHomePage />} />
                 <Route path="/appliedapplicantsbasedonjob/:id" element={<AppliedApplicantsBasedOnJobs />} />
 
 

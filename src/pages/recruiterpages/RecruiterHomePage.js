@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes,Outlet } from 'react-router-dom';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation,useParams } from 'react-router-dom';
 import RecruiterNavBar from '../../components/recruitercomponents/RecruiterNavBar';
 import { useState } from 'react';
 import RecruiterDashboard from '../../components/recruitercomponents/RecruiterDashboard';
@@ -21,8 +21,11 @@ function RecruiterHomePage() {
   const [activeRoute, setActiveRoute] = useState('');
   const location = useLocation();
   const [selectedJobId, setSelectedJobId] = useState('');
+  const { id } = useParams();
   const updateActiveRoute = () => {
     const pathname = location.pathname;
+    
+    console.log(pathname);
     switch (pathname) {
       case '/recruiterhome':
         setActiveRoute('dashboard');
@@ -51,15 +54,15 @@ function RecruiterHomePage() {
                   case '/recruiter-team-member':
                     setActiveRoute('teammember');
                     break;
-                  case '/recruiter-edit-job':
-                    setActiveRoute('RecruiterEditJob');
+                  case `/recruiter-edit-job/${id}`:
+                    setActiveRoute(`RecruiterEditJob-${id}`);
                     break;
                     case '/job-applicant-alerts':
                       setActiveRoute('alerts');
                       break;
-                      case pathname.startsWith('/viewapplicant/:id'):
-                        setActiveRoute('viewapplicant');
-                        break;
+                      case `/viewapplicant/${id}`:
+                       setActiveRoute(`viewapplicant-${id}`);
+                     break;
 
       default:
         setActiveRoute('');
@@ -81,9 +84,9 @@ function RecruiterHomePage() {
      {activeRoute === 'applicantinterviews' && <RecruiterApplicantInterviews />}
      {activeRoute === 'changepassword' && <RecruiterChangePassword />}
      {activeRoute === 'teammember' && <TeamMember />}
-    {activeRoute === 'RecruiterEditJob' && <RecruiterEditJob selectedJobId={selectedJobId}/>}
+    {activeRoute.startsWith('RecruiterEditJob-') && id && <RecruiterEditJob selectedJobId={id}/>}
     {activeRoute === 'alerts' && <JobApplicantAlerts />}
-    {activeRoute === 'viewapplicant' && <Recruiterviewapplicant />}
+    {activeRoute.startsWith('viewapplicant-')  && id && <Recruiterviewapplicant id={id} />}
     </div>
   )
 }

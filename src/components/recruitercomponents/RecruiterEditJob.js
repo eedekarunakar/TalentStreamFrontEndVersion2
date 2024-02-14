@@ -475,8 +475,9 @@ errors.skillsRequired = skillsErrors;
                              value={jobData.location}
                              placeholder="City"
                              onChange={(e) => setJobData({ ...jobData, location: e.target.value })}
+                             required
                              />
-                            required
+                            
                      
                       {formErrors.location && (
                       <div className="error-message">{formErrors.location}</div>
@@ -500,7 +501,23 @@ errors.skillsRequired = skillsErrors;
                     </div>
                     <div className="col-lg-6 col-md-12">
                     <div id="item_1" className="dropdown titles-dropdown info-wd">
-                      <label className="title-user fw-7">
+                    <label className="title-user fw-7">Job Highlights</label>
+                       <textarea
+                        className="input-form"
+                        placeholder="Job key points"
+                        value={jobData.jobHighlights}
+        onChange={(e) => setJobData({ ...jobData, jobHighlights: e.target.value })}
+                        
+                      />
+                      {formErrors.jobHighlights && (
+                      <div className="error-message">{formErrors.jobHighlights}</div>
+                    )}
+                    
+                    </div>
+                    </div>
+                    <div className="col-lg-6 col-md-12">
+                    <div id="item_1" className="dropdown titles-dropdown info-wd">
+                    <label className="title-user fw-7">
                         Job Type<span className="color-red">*</span>
                       </label>
                       <select    value={jobData.employeeType}
@@ -515,21 +532,6 @@ errors.skillsRequired = skillsErrors;
                      </select>
                      {formErrors.employeeType && (
                       <div className="error-message">{formErrors.employeeType}</div>
-                    )}
-                    </div>
-                    </div>
-                    <div className="col-lg-6 col-md-12">
-                    <div id="item_1" className="dropdown titles-dropdown info-wd">
-                      <label className="title-user fw-7">Job Highlights</label>
-                      <input type="text"
-                             className="input-form"
-                             placeholder="Job key points"
-                             value={jobData.jobHighlights}
-                             onChange={(e) => setJobData({ ...jobData, jobHighlights: e.target.value })}
-                           
-                      />
-                      {formErrors.jobHighlights && (
-                      <div className="error-message">{formErrors.jobHighlights}</div>
                     )}
                     </div>
                     </div>

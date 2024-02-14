@@ -549,7 +549,29 @@ const handleMaxSalaryChange = (e) => {
                 </div>
                 <div className="col-lg-6 col-md-12">
                 <div id="item_1" className="dropdown titles-dropdown info-wd">
-                  <label className="title-user fw-7">
+                <label className="title-user fw-7">Job Highlights</label>
+                  {/* <input type="text"
+                         className="input-form"
+                         placeholder="Job key points"
+                         value={jobHighlights}
+                         onChange={handleJobHighlightsChange}
+                       
+                  /> */}
+                    <textarea
+                    className="input-form"
+                    placeholder="Job Highlights"
+                    value={jobHighlights}
+                    onChange={handleJobHighlightsChange}
+                  />
+                  {formErrors.jobHighlights && (
+                  <div className="error-message">{formErrors.jobHighlights}</div>
+                )}
+                  
+                </div>
+                </div>
+                <div className="col-lg-6 col-md-12">
+                <div id="item_1" className="dropdown titles-dropdown info-wd">
+                <label className="title-user fw-7">
                     Job Type<span className="color-red">*</span>
                   </label>
                   <select value={employeeType}
@@ -564,21 +586,6 @@ const handleMaxSalaryChange = (e) => {
                  </select>
                  {formErrors.employeeType && (
                   <div className="error-message">{formErrors.employeeType}</div>
-                )}
-                </div>
-                </div>
-                <div className="col-lg-6 col-md-12">
-                <div id="item_1" className="dropdown titles-dropdown info-wd">
-                  <label className="title-user fw-7">Job Highlights</label>
-                  <input type="text"
-                         className="input-form"
-                         placeholder="Job key points"
-                         value={jobHighlights}
-                         onChange={handleJobHighlightsChange}
-                       
-                  />
-                  {formErrors.jobHighlights && (
-                  <div className="error-message">{formErrors.jobHighlights}</div>
                 )}
                 </div>
                 </div>
