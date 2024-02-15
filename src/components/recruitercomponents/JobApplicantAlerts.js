@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -47,18 +48,22 @@ export default function JobApplicantAlerts() {
                 <li key={alert.alertsId} className="custom-inner">
                   <Link to={`/appliedapplicantsbasedonjob/${alert.id}`} className="custom-link">
                   {/* <Link to={`/appliedapplicantsbasedonjob/1`} className="custom-link"> */}
-                  <h4 ><br/>
-                  <a className="custom-noti-icon"><span className="icon-bell1"></span></a>
-                    <span style={{ fontWeight: 'bold', fontSize: '1.2em', color: 'purple' }}>  Hi </span>
-                    {' '}
-                    {/* <span style={{ color: 'orange' }}>{alert.jobRecruiter.companyname} </span> */}
-                    <span style={{ color: 'orange' }}> </span>
-                    {alert.alertCount === 1 ? (
-                      <span style={{ color: 'red' }}> new candidate has applied for {' '}</span>
-                    ) : (
-                      <span style={{ color: 'red' }}>{alert.alertCount} new candidates have applied for {' '}</span>
-                    )}
-                    <span style={{ color: 'green' }}>{alert.jobTitle} </span>role
+                  <h4>
+                    <br />
+                        <a className="custom-noti-icon" style={{ color: alert.newStatus === 'newapplicants' ? 'red' : 'inherit' }}>
+                        {alert.newStatus === 'newapplicants' ? 'New ' : ''}
+                        <span className="icon-bell1" ></span>
+                        </a>
+                        {' '}
+                        <span >
+                       
+                        {alert.alertCount === 1 ? (
+                        <span>{alert.alertCount} applicant has applied for {' '}</span>
+                        ) : (
+                        <span>{alert.alertCount} total applicants have applied for {' '}</span>
+                        )}
+                        </span>
+                        <span style={{ color: 'blue' }}>{alert.jobTitle} </span>role
                   </h4>
                   </Link>
                   {alert.applyJob && (
