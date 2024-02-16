@@ -478,7 +478,7 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
       return 'Password is required.';
     }
     if (password.length < 6) {
-      return 'Password must be at least 6 characters long.';
+      return 'Please enter a valid password.';
     }
     if (!/[A-Z]/.test(password)) {
       return 'Password must contain at least one uppercase letter.';

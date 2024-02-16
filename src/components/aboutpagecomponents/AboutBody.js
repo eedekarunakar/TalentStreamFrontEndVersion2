@@ -148,8 +148,8 @@ export default function AboutBody() {
                 qualified candidates
               </p>
             <div className="group-btn">
-              <a href="/login"><button className="tf-btn">Find Jobs</button></a>
-              <a href="/recruiterlogin"><button className="tf-btn">Find Candidates</button></a>
+              <a href="/candidate"><button className="tf-btn">Find Jobs</button></a>
+              <a href="/recruiter"><button className="tf-btn">Find Candidates</button></a>
             </div>
           </div>
         </div>

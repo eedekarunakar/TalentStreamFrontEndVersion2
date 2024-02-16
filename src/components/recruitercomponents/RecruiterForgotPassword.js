@@ -132,7 +132,7 @@ function RecruiterForgotPassword() {
               <div className="wd-form-login">
                 {resetSuccess ? (
                   <div className="success-message">
-                    <h5>Password reset was done successfully. Please click on <a href="/login" style={{color:'blue'}}>Login</a> to continue</h5>
+                    <h5>Password reset was done successfully. Please click on <a href="/recruiter" style={{color:'blue'}}>Login</a> to continue</h5>
                   </div>
                 ) : (
                   <div>

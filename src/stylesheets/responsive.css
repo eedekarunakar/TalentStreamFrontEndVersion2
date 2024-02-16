@@ -2197,11 +2197,10 @@
 
   /* -----------------header------------------------------= */
   #header .sticky-area-wrap .header-ct-left .logo .site-logo {
-    width: 140px;
+    width: 95px !important;
     display: block;
     /* margin-top:10px; */
   }
-
   @media only screen and (min-width: 50px) and (max-width: 300px) {
     #header .sticky-area-wrap .header-ct-left .logo .site-logo {
         width: 100px;
