@@ -139,7 +139,7 @@ function RecruiterForgotPassword() {
                     <h5>Recruiter Forgot Password</h5><br />
                       <div className="ip">
                       <label>
-                    Email address<span>*</span>
+                    Email Address<span>*</span>
                   </label>
                   <input
               type="email"

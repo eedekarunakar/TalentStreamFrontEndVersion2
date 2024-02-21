@@ -208,7 +208,12 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
     } catch (error) {
       console.error('Login failed', error);
       // Handle other error cases
-      setErrorMessage('Login failed. Please try again later.');
+      if(error.response.data==="No account found with this email address")
+          setErrorMessage('No account found with this email address');
+      if(error.response.data==="Incorrect password")
+          setErrorMessage('Incorrect password');
+
+      // setErrorMessage('Login failed. Please try again later.');
     }
   };
  
@@ -478,7 +483,7 @@ const [employerPasswordError, setEmployerPasswordError] = useState('');
       return 'Password is required.';
     }
     if (password.length < 6) {
-      return 'Please enter a valid password.';
+      return 'Password must be at least 6 characters long.';
     }
     if (!/[A-Z]/.test(password)) {
       return 'Password must contain at least one uppercase letter.';

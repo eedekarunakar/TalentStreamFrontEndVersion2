@@ -122,7 +122,7 @@ function RecruiterChangePassword() {
               <div className="row">
                 <div className="col-lg-12 col-md-12 ">
                   <div className="change-password bg-white">
-                    <form action="https://themesflat.co/html/jobtex/dashboard/dashboard.html">
+                    <form action="#">
                       <div className="form-password">
                         <div className="inner info-wd">
                           <label className="title-url fs-16">

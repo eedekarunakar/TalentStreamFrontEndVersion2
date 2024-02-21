@@ -486,7 +486,7 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
                 <div className="content-tab">
                
                   <div className="inner" style={{ display: activeTab === 'Candidate' ? 'block' : 'none' }}>
-                  <p class="line-ip"><span>or sigin with</span></p>
+                  <p class="line-ip"><span>or Log in using </span></p>
                   <p><span>  {registrationSuccessMessage && (
               <div style={{ color: 'green', marginBottom: '10px' }}>{registrationSuccessMessage}</div>
             )}</span></p>
@@ -544,7 +544,7 @@ const [candidatePasswordError1, setCandidatePasswordError1] = useState('');
                   </div>
  
                   <div className="inner" style={{ display: activeTab === 'Employer' ? 'block' : 'none' }}>
-                  <p class="line-ip"><span>or signup with</span></p>
+                  <p class="line-ip"><span>or Log in using</span></p>
                    
                   <form onSubmit={handleSubmit}>
                 <div className="ip">

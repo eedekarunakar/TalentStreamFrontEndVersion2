@@ -180,19 +180,21 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
     borderColor: '#1967d2',
     color: '#1967d2',
     borderRadius: '5px',
-    width: '30%',
+    width: '40%',
     float: 'right',
     fontSize: '20px',  // Adjust the font size as needed
+    minWidth:'130',
+    maxWidth:'150'
   }}
 >
-  <option value="Active" style={{ color: job.status === 'Active' ? '#00ff00' : '' }}>
+<option value="Active" style={{ color: job.status === 'Active' ? '#808080' : '' }}>
     Active
   </option>
   <option value="Inactive" style={{ color: job.status === 'Inactive' ? '#808080' : '' }}>
     Inactive
   </option>
 </select>
-
+<br /><br />
     <div className="job-archive-header">
       <div className="inner-box">
       <div className="logo-company">
@@ -205,10 +207,10 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
         </div>
         <div className="box-content">
           <h4>
-            <a href="#">{job.companyname}</a>
+            <a>{job.companyname}</a>
           </h4>
           <h3>
-            <a href="#">{job.jobTitle}</a>
+            <a>{job.jobTitle}</a>
           </h3>
           <ul>
             <li>
@@ -228,10 +230,10 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
       <div className="job-footer-left">
         <ul className="job-tag">
           <li>
-            <a href="#">{job.employeeType}</a>
+            <a>{job.employeeType}</a>
           </li>
           <li>
-            <a href="#">{job.remote ? 'Remote' : 'Office-based'}</a>
+            <a>{job.remote ? 'Remote' : 'Office-based'}</a>
           </li>
         </ul>
         <div className="star">

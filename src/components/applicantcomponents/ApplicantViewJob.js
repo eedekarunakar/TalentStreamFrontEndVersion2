@@ -3,11 +3,13 @@ import axios from 'axios';
 import logoCompany1 from '../../images/cty12.png';
 import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
+import { useNavigate } from 'react-router-dom';
  
 function ApplicantViewJob({ selectedJobId }) {
   const [jobDetails, setJobDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [applied, setApplied] = useState(false);
+  const navigate = useNavigate();
   const { user } = useUserContext();
   const applicantId = user.id;
   useEffect(() => {
@@ -65,6 +67,15 @@ function ApplicantViewJob({ selectedJobId }) {
   };
   const handleApplyNow = async () => {
     try {
+      // Check the profile ID
+      const profileIdResponse = await axios.get(`${apiUrl}/applicantprofile/${user.id}/profileid`);
+      const profileId = profileIdResponse.data;
+
+      if (profileId === 0) {
+        // If profile ID is "0", fetch promoted jobs
+        navigate('/applicant-basic-details-form');
+        return;
+      } else {
       setApplied(true);
       const response = await axios.post(`${apiUrl}/applyjob/applicants/applyjob/${applicantId}/${selectedJobId}`);
       const { applied } = response.data;
@@ -72,7 +83,7 @@ function ApplicantViewJob({ selectedJobId }) {
       localStorage.setItem(`appliedStatus-${selectedJobId}`, 'true');
       setApplied(applied);
       fetchJobDetails();
-    } catch (error) {
+    }} catch (error) {
       console.error('Error applying for the job:', error);
       window.alert('Job has already been applied by the applicant');
       setApplied(false);
@@ -109,8 +120,8 @@ function ApplicantViewJob({ selectedJobId }) {
                         <div className="features-job style-2 stc-apply">
                           <div className="job-archive-header">
                             <div className="inner-box">
-                               <div className="logo-company">                             
-                               {jobDetails.logoFile ? ( <img src={`data:image/png;base64,${jobDetails.logoFile}`} alt="Company Logo" /> ) 
+                               <div className="logo-company">                            
+                               {jobDetails.logoFile ? ( <img src={`data:image/png;base64,${jobDetails.logoFile}`} alt="Company Logo" /> )
                                : (<img src="images/logo-company/cty12.png" alt={`Default Company Logo`} /> )}
                             </div>
                               <div className="box-content">
@@ -135,7 +146,7 @@ function ApplicantViewJob({ selectedJobId }) {
                                  
                                   {/* <a className="btn-apply btn-popup"> */}
            
-  
+ 
   {/* <div style={{ display: 'flex', alignItems: 'center' }}>
   <button
     className={`btn-apply btn-popup ${applied ? 'applied' : ''}`}
@@ -149,7 +160,7 @@ function ApplicantViewJob({ selectedJobId }) {
     <span className="icon-send"></span>
     {jobDetails.jobStatus}
   </button>
-  
+ 
   <a
     href="/applicant-find-jobs"
     className="btn-apply btn-popup"
@@ -158,7 +169,7 @@ function ApplicantViewJob({ selectedJobId }) {
       marginLeft: '10px',  // Added margin for spacing between buttons
       padding: '5px 20px',
       backgroundColor: '#1967d2',
-      color: 'white', 
+      color: 'white',
       textDecoration: 'none',
       borderRadius: '10px',
       cursor: 'pointer',
@@ -167,8 +178,8 @@ function ApplicantViewJob({ selectedJobId }) {
     Cancel
   </a>
 </div> */}
-
-
+ 
+ 
                                 </div>
                               </div>
                             </div>
@@ -193,9 +204,9 @@ function ApplicantViewJob({ selectedJobId }) {
                               <div className="price">
                                 <span></span>Package :  &nbsp;
                                 <p>&#x20B9; {jobDetails.minSalary} - &#x20B9; {jobDetails.maxSalary} / year</p>
-                                
+                               
                               </div>
-                              
+                             
                               <div className="button-readmore">
                               <div style={{ display: 'flex', alignItems: 'center' }}>
   <button
@@ -208,10 +219,10 @@ function ApplicantViewJob({ selectedJobId }) {
     }}
   >
     <span className="icon-send"></span>&nbsp;
-    
+   
     {jobDetails.jobStatus === 'Already Applied' ? 'Applied' : 'Apply Now'}
   </button>
-  
+ 
   <a
     href="/applicant-find-jobs"
     className="btn-apply btn-popup"
@@ -220,7 +231,7 @@ function ApplicantViewJob({ selectedJobId }) {
       marginLeft: '10px',  // Added margin for spacing between buttons
       padding: '5px 20px',
       backgroundColor: '#1967d2',
-      color: 'white', 
+      color: 'white',
       textDecoration: 'none',
       borderRadius: '10px',
       cursor: 'pointer',
@@ -251,5 +262,5 @@ function ApplicantViewJob({ selectedJobId }) {
       )}
     </div>
   );
-} 
+}
 export default ApplicantViewJob;

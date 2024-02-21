@@ -3256,3 +3256,66 @@ input[type="color"],
   /* Add your styles for active jobs here */
   color: #00ff00; /* Replace with your preferred color code for active jobs */
 }
+
+.filter-option input[type="text"],
+.filter-option input[type="password"],
+.filter-option input[type="datetime"],
+.filter-option input[type="datetime-local"],
+.filter-option input[type="date"],
+.filter-option input[type="month"],
+.filter-option input[type="time"],
+.filter-option input[type="week"],
+.filter-option input[type="number"],
+.filter-option input[type="email"],
+.filter-option input[type="url"],
+.filter-option input[type="search"],
+.filter-option input[type="tel"],
+.filter-option input[type="color"] {
+    width: 75px; /* Adjust width as needed */
+    font-size: 14px;
+    border: 1px solid #e5e5e5;
+    color: #000000;
+    background-color: transparent;
+    height: 25px;
+    padding: 2px 2px;
+    border-radius: 0;
+   
+}
+ 
+.filter-option select {
+    width: 100px; /* Adjust width as needed */
+    font-size: 14px;
+    border: 1px solid #e5e5e5;
+    color: #000000;
+    background-color: transparent;
+    height: 25px;
+    padding: 2px 2px;
+    border-radius: 0;
+   
+}
+.table-container .apply-button1 {
+  background-color: #1967d2;
+  color: white;
+}
+ 
+.apply-button1,
+.reset-button1 {
+  background-color: #1967d2;
+  border: none;
+  color: blue;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+ 
+.apply-button1:hover,
+.reset-button1:hover {
+  background-color: #1967d2; /* Darker Green */
+  color: white;
+}
+

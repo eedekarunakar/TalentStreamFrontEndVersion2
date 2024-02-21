@@ -18,7 +18,6 @@ const Nav = () => {
   const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
 
   const handleToggleMenu = () => {
-    console.log("function called..")
     setIsOpen(!isOpen);
   };
 
@@ -26,32 +25,20 @@ const Nav = () => {
     const handleResize = () => {
       setIsOpen(window.innerWidth >= 768);
     };
-     window.addEventListener('resize', handleResize);
-    $("#left-menu-btn").on("click", function(e) {
+
+    window.addEventListener('resize', handleResize);
+
+    $("#left-menu-btn").on("click", function (e) {
       e.preventDefault();
-      if ($("body").hasClass("sidebar-enable") == true) {
-        $("body").removeClass("sidebar-enable");
-        $.cookie("isButtonActive", "0");
-      } else {
-        $("body").addClass("sidebar-enable");
-        $.cookie("isButtonActive", "1");
-      }
-      1400 <= $(window).width()
-        ? $("body").toggleClass("show-job")
-        : $("body").removeClass("show-job");
-      var width = $(window).width();
-      if (width < 1400) {
-        $.cookie('isButtonActive', null);
-      }
+      handleToggleMenu();
     });
-    if ($.cookie("isButtonActive") == 1) {
-      $("body").addClass("sidebar-enable show-job");
-    }
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      }; 
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
-  
+
+
   return (
     <div>
   <>
@@ -160,11 +147,13 @@ const Nav = () => {
                   </div>
               </div>
                  </div>
-                 <div className="nav-filter" id="left-menu-btn">
-          <div className="nav-mobile">
-            <span />
-          </div>
-        </div>
+                 {/* <div className="nav-filter" id="left-menu-btn" onClick={handleToggleMenu}>
+                  <div className="nav-mobile">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                </div> */}
        
             </div>
           </div>

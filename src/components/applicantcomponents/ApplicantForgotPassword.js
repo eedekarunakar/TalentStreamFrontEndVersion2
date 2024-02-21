@@ -147,7 +147,7 @@ function ApplicantForgotPassword() {
                     <h4>Forgot Password</h4><br />
                       <div className="ip">
                       <label>
-                    Email address<span>*</span>
+                    Email Address<span>*</span>
                   </label>
                   <input
               type="email"
