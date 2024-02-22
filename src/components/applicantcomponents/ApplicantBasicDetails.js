@@ -7,7 +7,7 @@ import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
- 
+import { ClipLoader } from 'react-spinners';
  
 
 const ApplicantBasicDetails = () => {
@@ -37,7 +37,9 @@ const ApplicantBasicDetails = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
-  const [skillsRequired, setSkillsRequired] = useState([]);
+  const [skillsRequired, setSkillsRequired] = useState([
+    
+  ]);
   const [preferredJobLocations, setPreferredJobLocations] = useState([]);
   const yearsOptions = Array.from({ length: 16 }, (_, i) => i); // 0 to 10
  
@@ -66,6 +68,9 @@ const ApplicantBasicDetails = () => {
       }
       if (preferredJobLocations.length === 0) {
         newErrors.city = 'City is required';
+      }
+      if (skillsRequired.length === 0) {
+        newErrors.skills = 'Skills are required';
       }
     
     setErrors(newErrors);
@@ -128,17 +133,7 @@ const ApplicantBasicDetails = () => {
     'Vijayawada',
   ];
 
-  const handleSkillsChange = (selected) => {
-    const skillsWithNames = selected.map(skill => ({ skillName: skill.skill }));
-    setSelectedSkills(skillsWithNames);
-    
-    if (skillsWithNames.length > 0) {
-      setSkillsError('');
-    } else {
-      setSkillsError('Please select at least one skill.');
-    }
-  };
-  
+
 
   // Assuming skillsOptions is an array of skill names
   const skillsOptions = [
@@ -171,6 +166,22 @@ const ApplicantBasicDetails = () => {
     'Manual Testing'
   ];
 
+  const skillsOptionsWithStructure = skillsOptions.map(skill => ({ skillName: skill }));
+
+
+  const handleSkillsChange = (selected) => {
+    const skillsWithNames = selected.map((skill) => ({ skillName: skill.skillName }));
+    setSkillsRequired(skillsWithNames);
+  
+    if (skillsWithNames.length > 0) {
+      setSkillsError('');
+    } else {
+      setSkillsError('Please select at least one skill.');
+    }
+  };
+  
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isFormValid = validateForm();
@@ -179,12 +190,16 @@ const ApplicantBasicDetails = () => {
       return;
     }
   
+    const formattedSkillsRequired = skillsRequired.map((skill) => ({
+      skillName: skill.skillName.toLowerCase(),
+    }));
+
     const formData = {
       experience,
       qualification,
       specialization,
       preferredJobLocations: preferredJobLocations.map((location) => location.city),
-      skills: skillsRequired.map((skill) => skill.skill),
+      skillsRequired: formattedSkillsRequired,
     };
     console.log("Form Data", formData);
     try {
@@ -198,15 +213,41 @@ const ApplicantBasicDetails = () => {
       );
       console.log('API Response:', response.data);
       window.alert('Profile saved successfully!');
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       navigate('/applicant-find-jobs');
     } catch (error) {
       console.error('Error submitting form data:', error);
     }
   };
 
+  useEffect(() => {    
+    const fetchData = async () => {
+        try {
+          const jwtToken = localStorage.getItem('jwtToken');
+      console.log('jwt token new', jwtToken);
+      const response = await axios.get(`${apiUrl}/applicantprofile/${user.id}/profile-view`, {       
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      });
+          setApplicant(response.data.applicant);
+          setLoading(false);
+        } catch (error) {
+          console.error('Error fetching user profile data:', error);
+          setLoading(false);
+        }
+      };
+      fetchData();     
+    }, []);
 
   return (
+    
     <div>
+      {loading && (
+      <div className="loading-spinner">
+        <ClipLoader color="#1967d2" size={50} />
+      </div>
+    )}
        <div className="dashboard__content">
   <section className="page-title-dashboard">
     <div className="themes-container">
@@ -224,10 +265,12 @@ const ApplicantBasicDetails = () => {
   
     <div className="themes-container">
       <div className="row">
+
         <div className="col-lg-12 col-md-12 ">
           <div className="post-new profile-setting bg-white">
  
             <div className="row">
+          
           <div className="col-lg-6 col-md-12">
               <div id="item_1" className="dropdown titles-dropdown info-wd">
                 <select
@@ -309,26 +352,30 @@ const ApplicantBasicDetails = () => {
         )}
       </div>
     </div>  
-              <div className="col-lg-6 col-md-12">
-      <div id="item_2" className="dropdown titles-dropdown info-wd">
-      <Typeahead
+    <div className="col-lg-6 col-md-12">
+  <div id="item_2" className="dropdown titles-dropdown info-wd">
+  <Typeahead
   id="skillsTypeahead"
-  labelKey="skillName" 
+  labelKey={(option) => option.skillName}
   multiple
   placeholder="*Skills"
-  options={skillsOptions.map(skill => ({ skillName: skill }))}
-  onChange={(selectedSkills) => setSkillsRequired(selectedSkills)}
+  options={skillsOptionsWithStructure}
+  onChange={(selectedSkills) => handleSkillsChange(selectedSkills)}
   selected={skillsRequired}
+  filterBy={(option, props) =>
+    option &&
+    option.skillName &&
+    option.skillName.toLowerCase().includes(props.text.toLowerCase())
+  }
   inputProps={{
     className: 'input-form',
   }}
 />
-
-        {errors.skills && (
-          <div className="error-message">{errors.skills}</div>
-        )}
-      </div>
-    </div>             
+    {errors.skills && (
+      <div className="error-message">{errors.skills}</div>
+    )}
+  </div>
+</div>            
               </div>
             <div className="form-infor flex flat-form">
               <div className="info-box info-wd">

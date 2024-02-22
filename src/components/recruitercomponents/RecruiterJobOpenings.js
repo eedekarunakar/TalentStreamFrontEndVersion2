@@ -178,21 +178,19 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
   style={{
     backgroundColor: 'white',
     borderColor: '#1967d2',
-    color: '#1967d2',
     borderRadius: '5px',
-    width: '40%',
+    width: '30%',
     float: 'right',
-    fontSize: '20px',  // Adjust the font size as needed
-    minWidth:'130',
-    maxWidth:'150'
+    fontSize: '20px',  
+    color: job.status === 'Active' ? '#00ff00' : '#808080', // Dynamic color based on status
   }}
 >
-<option value="Active" style={{ color: job.status === 'Active' ? '#808080' : '' }}>
+<option value="Active" style={{ color: job.status === 'Active' ? '#00ff00' : '#808080' }}>
     Active
-  </option>
-  <option value="Inactive" style={{ color: job.status === 'Inactive' ? '#808080' : '' }}>
+</option>
+<option value="Inactive" style={{ color: job.status === 'Inactive' ? '#808080' : '#808080' }}>
     Inactive
-  </option>
+</option>
 </select>
 <br /><br />
     <div className="job-archive-header">
@@ -229,12 +227,12 @@ function RecruiterJobOpenings({ setSelectedJobId }) {
     <div className="job-archive-footer">
       <div className="job-footer-left">
         <ul className="job-tag">
-          <li>
-            <a>{job.employeeType}</a>
-          </li>
-          <li>
-            <a>{job.remote ? 'Remote' : 'Office-based'}</a>
-          </li>
+        <li>
+<a href="#" onClick={(e) => { e.preventDefault(); }}>{job.employeeType}</a>
+</li>
+<li>
+<a href="#" onClick={(e) => { e.preventDefault(); }}>{job.remote ? 'Remote' : 'Office-based'}</a>
+</li>
         </ul>
         <div className="star">
           {Array.from({ length: job.starRating }).map((_, index) => (
