@@ -7,7 +7,6 @@ import { useUserContext } from '../common/UserProvider';
 import logoCompany1 from '../../images/cty12.png';
 function ApplicantFindJobs({ setSelectedJobId }) {
   const [jobs, setJobs] = useState([]);
-  const [profileid1, setprofileid] = useState();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { user } = useUserContext();
@@ -15,22 +14,8 @@ function ApplicantFindJobs({ setSelectedJobId }) {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        let jobData;
- 
-        // Check the profile ID
-        const profileIdResponse = await axios.get(`${apiUrl}/applicantprofile/${userId}/profileid`);
-        const profileId = profileIdResponse.data;
-        setprofileid(profileId);
-        if (profileId === 0) {
-          // If profile ID is "0", fetch promoted jobs
-          const promotedJobsResponse = await axios.get(`${apiUrl}/job/promote/yes`);
-          jobData = promotedJobsResponse.data;
-        } else {
-          // If profile ID has any other value, fetch recommended jobs
-          const recommendedJobsResponse = await axios.get(`${apiUrl}/recommendedjob/findrecommendedjob/${userId}`);
-          jobData = recommendedJobsResponse.data;
-        }
- 
+        const response = await axios.get(`${apiUrl}/recommendedjob/findrecommendedjob/${userId}`);
+        const jobData = response.data;
         setJobs(jobData);
       } catch (error) {
         console.error('Error fetching job data:', error);
@@ -38,10 +23,8 @@ function ApplicantFindJobs({ setSelectedJobId }) {
         setLoading(false);
       }
     };
- 
     fetchJobs();
   }, [userId]);
- 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -105,16 +88,14 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                   <br />
                   <div className="group-col-2">
                   {jobs.length === 0 ? (
-                       <div style={{marginLeft:30}}>
-                     {/* <h4>Kindly Update your profile, and as per your skill set, you will get job recommendations.</h4><br/> */}
-                     </div>
+                      <div style={{marginLeft:30}}><h4>Kindly Update your profile, and as per your skill set, you will get job recommendations.</h4><br/></div>
                     ) : (
                       jobs.map((job) => (
                         <div className="features-job cl2" key={job.id}>
                           <div className="job-archive-header">
                             <div className="inner-box">
-                            <div className="logo-company">                            
-                               {job.logoFile ? ( <img src={`data:image/png;base64,${job.logoFile}`} alt="Company Logo" /> )
+                            <div className="logo-company">                             
+                               {job.logoFile ? ( <img src={`data:image/png;base64,${job.logoFile}`} alt="Company Logo" /> ) 
                                : (<img src={logoCompany1} alt={`Default Company Logo ${job.id}`} /> )}
                             </div>
                               <div className="box-content">
@@ -200,15 +181,7 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                   </div>
               </div>
             </div>
-            <div style={{ textAlign: "left", marginTop: "20px" }}>
-            {profileid1 === 0 && (
-              <Link to="/applicant-basic-details-form" className="button-status1">
-                More Jobs
-              </Link>
-            )}
-          </div>
           </section>
-         
         </div>
       )}
     </div>
