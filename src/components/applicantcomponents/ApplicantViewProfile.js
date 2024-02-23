@@ -121,7 +121,11 @@ const ApplicantViewProfile = () => {
                 </div>
                  <div className="title-box flex">
                   <div className="p-16">Location</div>
-                  <h4>{(profileData.basicDetails && profileData.basicDetails.city) || 'Not available'}, {(profileData.basicDetails && profileData.basicDetails.state) || 'Not available'}</h4>
+                  {/* <h4>{(profileData.basicDetails && profileData.basicDetails.city) || 'Not available'}</h4> */}
+                  <h4 style={{ color: profileData.basicDetails && profileData.basicDetails.city ? '' : '#808080' }}>
+  {profileData.basicDetails && profileData.basicDetails.city || 'Not available'}
+</h4>
+
                 </div>
                 <div className="title-box flex">
                   <div className="p-16">Mobile Number</div>
@@ -134,7 +138,14 @@ const ApplicantViewProfile = () => {
                                
                 <div className="title-box flex">
                   <div className="p-16">Qualification</div>
-                  <h4> {(profileData.graduationDetails && profileData.graduationDetails.gprogram) || 'Not available'}</h4>
+                  
+                  {/* <h4> {(profileData.graduationDetails && profileData.graduationDetails.gprogram) || 'Not available'}</h4> */}
+                  <h4 style={{ color: profileData.graduationDetails && profileData.graduationDetails.gprogram ? '' : '#808080' }}>
+  {profileData.graduationDetails && profileData.graduationDetails.gprogram || 'Not available'}
+</h4>
+
+
+
                 </div>      
                 <div className="title-box flex">
                 <div className="p-16">Skills</div>
@@ -162,18 +173,48 @@ const ApplicantViewProfile = () => {
                   <div class="education-box">
                   <h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#1967d2' }}> Graduation:</h4></h4>
 <div style={{ marginLeft: '20px' }}>
-  <div className="subtitle-1 fw-7">University: {(profileData.graduationDetails && profileData.graduationDetails.gboard) || 'Not available'}</div>
+  {/* <div className="subtitle-1 fw-7">University: {(profileData.graduationDetails && profileData.graduationDetails.gboard) || 'Not available'}</div>
   <div className="subtitle-1 fw-7">Branch: {(profileData.graduationDetails && profileData.graduationDetails.gprogram) || 'Not available'}</div>
   <div className="subtitle-2 fw-7 fw-5">Percentage: {(profileData.graduationDetails && profileData.graduationDetails.gpercentage) || 'Not available'}</div>
-  <div className="subtitle-2 fw-7 fw-5">Year of Passing: {(profileData.graduationDetails && profileData.graduationDetails.gyearOfPassing) || 'Not available'}</div>
+  <div className="subtitle-2 fw-7 fw-5">Year of Passing: {(profileData.graduationDetails && profileData.graduationDetails.gyearOfPassing) || 'Not available'}</div> */}
+
+  <div className="subtitle-1 fw-7">
+  University: {(profileData.graduationDetails && profileData.graduationDetails.gboard) || <span style={{ color: '#808080'}}>Not available</span>}
+</div>
+<div className="subtitle-1 fw-7">
+  Branch: {(profileData.graduationDetails && profileData.graduationDetails.gprogram) || <span style={{ color: '#808080' }}>Not available</span>}
+</div>
+<div className="subtitle-2 fw-7 fw-5">
+  Percentage: {(profileData.graduationDetails && profileData.graduationDetails.gpercentage) || <span style={{ color: '#808080'}}>Not available</span>}
+</div>
+<div className="subtitle-2 fw-7 fw-5">
+  Year of Passing: {(profileData.graduationDetails && profileData.graduationDetails.gyearOfPassing) || <span style={{ color: '#808080' }}>Not available</span>}
+</div>
+
+
+
 </div>
         
 <h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#1967d2' }}> Intermediate Details:</h4></h4>
 <div style={{ marginLeft: '20px' }}>
-  <div className="subtitle-1 fw-7">Board: {(profileData.intermediateDetails && profileData.intermediateDetails.iboard) || 'Not available'}</div>
+  {/* <div className="subtitle-1 fw-7">Board: {(profileData.intermediateDetails && profileData.intermediateDetails.iboard) || 'Not available'}</div>
   <div className="subtitle-1 fw-7">Branch: {(profileData.intermediateDetails && profileData.intermediateDetails.iprogram) || 'Not available'}</div>
   <div className="subtitle-1 fw-7">Percentage: {(profileData.intermediateDetails && profileData.intermediateDetails.ipercentage) || 'Not available'}</div>
-  <div className="subtitle-1 fw-7">Year of Passing: {(profileData.intermediateDetails && profileData.intermediateDetails.iyearOfPassing) || 'Not available'}</div>
+  <div className="subtitle-1 fw-7">Year of Passing: {(profileData.intermediateDetails && profileData.intermediateDetails.iyearOfPassing) || 'Not available'}</div> */}
+
+  <div className="subtitle-1 fw-7">
+  Board: {(profileData.intermediateDetails && profileData.intermediateDetails.iboard) || <span style={{ color: '#808080' }}>Not available</span>}
+</div>
+<div className="subtitle-1 fw-7">
+  Branch: {(profileData.intermediateDetails && profileData.intermediateDetails.iprogram) || <span style={{ color: '#808080' }}>Not available</span>}
+</div>
+<div className="subtitle-1 fw-7">
+  Percentage: {(profileData.intermediateDetails && profileData.intermediateDetails.ipercentage) || <span style={{ color: '#808080'}}>Not available</span>}
+</div>
+<div className="subtitle-1 fw-7">
+  Year of Passing: {(profileData.intermediateDetails && profileData.intermediateDetails.iyearOfPassing) || <span style={{ color: '#808080' }}>Not available</span>}
+</div>
+
 </div>
 <h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#1967d2' }}> SSC Details:</h4></h4>
 <div style={{ marginLeft: '20px' }}>
