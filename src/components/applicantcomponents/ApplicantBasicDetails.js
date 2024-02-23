@@ -270,7 +270,83 @@ const ApplicantBasicDetails = () => {
           <div className="post-new profile-setting bg-white">
  
             <div className="row">
-          
+            <div className="col-lg-6 col-md-12">
+                <div id="item_7" className="dropdown titles-dropdown info-wd">
+                  <input
+                    type="text"
+                    placeholder="*Full Name"
+                    value={applicant.name}
+                    className="input-form"
+                    onChange={(e) =>
+                      setApplicant({...applicant,name: e.target.value,})}
+                    style={{ color: fullName ? 'black' : 'black' }}
+                    
+                  /> 
+                   {errors.fullName && (
+                    <div className="error-message">{errors.fullName}</div>
+                  )}
+                </div>
+              </div>
+              <div className="col-lg-6 col-md-12">
+                <div id="item_8" className="dropdown titles-dropdown info-wd">
+                  {/* <label className="title-user fw-7">
+                    Email<span className="color-red">*</span>
+                  </label> */}
+                  <input
+                    type="text"
+                    placeholder="*Email"
+                    value={applicant.email}
+                    className="input-form"
+                    onChange={(e) => setEmail(e.target.value)}
+                    style={{ color: email ? 'black' : 'black' }}
+                    
+                  />
+                  {errors.email && (
+                    <div className="error-message">{errors.email}</div>
+                  )}
+                </div>
+              </div>
+              <div className="col-lg-6 col-md-12">
+      <div id="item_8" className="dropdown titles-dropdown info-wd">
+        {/* <label className="title-user fw-7">
+          WhatsApp Number<span className="color-red">*</span>
+        </label> */}
+        <div style={{ display: 'flex',height: '50px' }}>
+          {/* <div style={{ marginRight: '10px' }}>
+          <PhoneInput
+  placeholder="*Email"
+  inputProps={{
+    className: 'input-form',
+    style: {
+      width: '485px',
+      height: '50px',
+      borderRadius: '1px',
+    },
+  }}
+  defaultCountry="ua"
+  value={applicant.mobilenumber}
+  onChange={(phone) => setPhone(phone.number)}  // Use phone.number to get the numeric value
+  dropdownStyle={{
+    height: '400px',
+  }}
+/>
+          </div> */}
+          <input
+            type="tel"
+            placeholder="WhatsApp"
+            value={applicant.mobilenumber}
+            className="input-form"
+            onChange={(e) => setMobileNumber(e.target.value)}
+            style={{ color: mobileNumber ? 'black' : 'black' }}
+            
+          />
+           {errors.mobileNumber && (
+          <div className="error-message">{errors.mobileNumber}</div>
+        )}
+        </div>
+       
+      </div>
+    </div>
           <div className="col-lg-6 col-md-12">
               <div id="item_1" className="dropdown titles-dropdown info-wd">
                 <select

@@ -5,8 +5,11 @@ import axios from 'axios';
 import ApplicantAPIService, { apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
 import logoCompany1 from '../../images/cty12.png';
+import { ClipLoader } from 'react-spinners';
+
 function ApplicantFindJobs({ setSelectedJobId }) {
   const [jobs, setJobs] = useState([]);
+  const [profileid1, setprofileid] = useState();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { user } = useUserContext();
@@ -14,8 +17,22 @@ function ApplicantFindJobs({ setSelectedJobId }) {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/recommendedjob/findrecommendedjob/${userId}`);
-        const jobData = response.data;
+        let jobData;
+ 
+        // Check the profile ID
+        const profileIdResponse = await axios.get(`${apiUrl}/applicantprofile/${userId}/profileid`);
+        const profileId = profileIdResponse.data;
+        setprofileid(profileId);
+        if (profileId === 0) {
+          // If profile ID is "0", fetch promoted jobs
+          const promotedJobsResponse = await axios.get(`${apiUrl}/job/promote/yes`);
+          jobData = promotedJobsResponse.data;
+        } else {
+          // If profile ID has any other value, fetch recommended jobs
+          const recommendedJobsResponse = await axios.get(`${apiUrl}/recommendedjob/findrecommendedjob/${userId}`);
+          jobData = recommendedJobsResponse.data;
+        }
+ 
         setJobs(jobData);
       } catch (error) {
         console.error('Error fetching job data:', error);
@@ -23,8 +40,10 @@ function ApplicantFindJobs({ setSelectedJobId }) {
         setLoading(false);
       }
     };
+ 
     fetchJobs();
   }, [userId]);
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,6 +87,11 @@ function ApplicantFindJobs({ setSelectedJobId }) {
   }
   return (
     <div>
+       {loading && (
+      <div className="loading-spinner">
+        <ClipLoader color="#1967d2" size={50} />
+      </div>
+    )}
       {loading ? null : (
        <div className="dashboard__content">
        <section className="page-title-dashboard">
@@ -88,14 +112,16 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                   <br />
                   <div className="group-col-2">
                   {jobs.length === 0 ? (
-                      <div style={{marginLeft:30}}><h4>Kindly Update your profile, and as per your skill set, you will get job recommendations.</h4><br/></div>
+                       <div style={{marginLeft:30}}>
+                     {/* <h4>Kindly Update your profile, and as per your skill set, you will get job recommendations.</h4><br/> */}
+                     </div>
                     ) : (
                       jobs.map((job) => (
                         <div className="features-job cl2" key={job.id}>
                           <div className="job-archive-header">
                             <div className="inner-box">
-                            <div className="logo-company">                             
-                               {job.logoFile ? ( <img src={`data:image/png;base64,${job.logoFile}`} alt="Company Logo" /> ) 
+                            <div className="logo-company">                            
+                               {job.logoFile ? ( <img src={`data:image/png;base64,${job.logoFile}`} alt="Company Logo" /> )
                                : (<img src={logoCompany1} alt={`Default Company Logo ${job.id}`} /> )}
                             </div>
                               <div className="box-content">
@@ -123,12 +149,14 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                           <div className="job-archive-footer">
                               <div className="job-footer-left">
                                 <ul className="job-tag">
+                                <li>
+  <a href="javascript:void(0);" onclick="{yourToggleFunction()}">{job.employeeType}</a>
+</li>
+
                                   <li>
-                                    <a href="#">{job.employeeType}</a>
-                                  </li>
-                                  <li>
-                                    <a href="#">{job.remote ? 'Remote' : 'Office-based'}</a>
-                                  </li>
+  <a href="javascript:void(0);" onclick="{yourToggleFunction()}">{job.remote ? 'Remote' : 'Office-based'}</a>
+</li>
+
                                 </ul>
                                 <div className="star">
                                   {Array.from({ length: job.starRating }).map((_, index) => (
@@ -149,7 +177,7 @@ function ApplicantFindJobs({ setSelectedJobId }) {
           onClick={() => setSelectedJobId(job.id)}
           className="button-status1"
         >
-          View Job
+          Apply Now
         </Link>
       )}
     </li>
@@ -181,7 +209,15 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                   </div>
               </div>
             </div>
+            <div style={{ textAlign: "center", marginTop: "20px" }}>
+            {profileid1 === 0 && (
+              <Link to="/applicant-basic-details-form" className="button-status1">
+                More Jobs
+              </Link>
+            )}
+          </div>
           </section>
+         
         </div>
       )}
     </div>

@@ -366,13 +366,17 @@ if (!graduationDetails.gState) {
           Authorization: `Bearer ${jwtToken}`,
         },
       });
-          setApplicant(response.data.applicant);
+          setApplicant(response.data.applicant,response.data.experience);
           setBasicDetails(response.data.basicDetails);
              setXClassDetails(response.data.xClassDetails);
             setIntermediateDetails(response.data.intermediateDetails);
     setGraduationDetails(response.data.graduationDetails);
     setSkillsRequired(response.data.skillsRequired);
     setExperienceDetails(response.data.experienceDetails);
+    setExperience(response.data.experience);
+    setQualification(response.data.qualification);
+    setSpecialization(response.data.specialization);
+    setpreferredJobLocations(response.data.preferredJobLocations);
           setLoading(false);
         } catch (error) {
           console.error('Error fetching user profile data:', error);
@@ -383,8 +387,12 @@ if (!graduationDetails.gState) {
     }, []);
    const[applicant,setApplicant]=useState({
     name:"",
-    mobilenumber:"",
+    mobilenumber:""
    });
+   const[experience,setExperience]=useState();
+   const[qualification,setQualification]=useState();
+   const[specialization,setSpecialization]=useState();
+   const[preferredJobLocations,setpreferredJobLocations]=useState([]);
       const [basicDetails, setBasicDetails] = useState({
         firstName: "",
         lastName: "",
@@ -543,7 +551,7 @@ if (!graduationDetails.gState) {
                              placeholder="Date of Birth"
                              id="dateOfBirth"
                              className="input-form"                          
-                             value={basicDetails.dateOfBirth}
+                             value={basicDetails?.dateOfBirth || ''}
                              onChange={(e) =>{
                               console.log(e.target.value);
                              setBasicDetails({...basicDetails,dateOfBirth: e.target.value,})}}
@@ -558,7 +566,7 @@ if (!graduationDetails.gState) {
                     <input type="text"
                            placeholder="City"
                            className="input-form"
-                           value={basicDetails.city}
+                           value={basicDetails?.city || ''}
                            onChange={(e) =>
                            setBasicDetails({ ...basicDetails, city: e.target.value })}
                            onBlur={() => validateForm("city")}
@@ -574,7 +582,7 @@ if (!graduationDetails.gState) {
                             placeholder="Pin Code"
                             className="input-form"
                             maxLength="6"
-                            value={basicDetails.pincode}
+                            value={basicDetails?.pincode || ''}
                             onChange={(e) =>
                             setBasicDetails({ ...basicDetails, pincode: e.target.value })}
                             onBlur={() => validateForm("pincode")}
@@ -583,6 +591,36 @@ if (!graduationDetails.gState) {
               <div className="error-message">{errors.basicDetails.pincode}</div>
             )}
                   </div>
+                  <fieldset>
+                  <label class="title-user fw-7">Total Experience <span className="color-red">*</span></label>
+                    <input
+                        type="text"
+                        placeholder="Overall Experience"
+                        className="input-form"
+                        value={experience || ''}
+                        onChange={(e) =>
+                        setBasicDetails({ ...basicDetails, state: e.target.value })}
+                        onBlur={() => validateForm("state")}
+                   />
+                    {errors.basicDetails.state && (
+              <div className="error-message">{errors.basicDetails.state}</div>
+            )}
+                  </fieldset>
+                  <fieldset>
+                  <label class="title-user fw-7">Specialization <span className="color-red">*</span></label>
+                    <input
+                        type="text"
+                        placeholder="Specialization"
+                        className="input-form"
+                        value={specialization || ''}
+                        onChange={(e) =>
+                        setBasicDetails({ ...basicDetails, state: e.target.value })}
+                        onBlur={() => validateForm("state")}
+                   />
+                    {errors.basicDetails.state && (
+              <div className="error-message">{errors.basicDetails.state}</div>
+            )}
+                  </fieldset>
                 </div>
                 <div className="info-box info-wd">
                   <fieldset>
@@ -591,7 +629,7 @@ if (!graduationDetails.gState) {
                             type="text"
                             placeholder="Address"
                             className="input-form"
-                            value={basicDetails.address}
+                            value={basicDetails?.address || ''}
                             onChange={(e) =>
                             setBasicDetails({ ...basicDetails, address: e.target.value })}
                             onBlur={() => validateForm("address")}
@@ -606,7 +644,7 @@ if (!graduationDetails.gState) {
                         type="text"
                         placeholder="State"
                         className="input-form"
-                        value={basicDetails.state}
+                        value={basicDetails?.state || ''}
                         onChange={(e) =>
                         setBasicDetails({ ...basicDetails, state: e.target.value })}
                         onBlur={() => validateForm("state")}
@@ -616,16 +654,46 @@ if (!graduationDetails.gState) {
             )}
                   </fieldset>
                   <div id="item_size" className="dropdown titles-dropdown ">
-                  <label class="title-user fw-7">Alternate Phone Number</label>
+                  <label class="title-user fw-7">WhatsApp</label>
                     <input
                              type="text"
-                             placeholder="Alternate Phone Number"
+                             placeholder="WhatsApp"
                              className="input-form"
-                             value={basicDetails.alternatePhoneNumber}
+                             value={basicDetails?.alternatePhoneNumber || ''}
                              onChange={(e) =>
                              setBasicDetails({...basicDetails,alternatePhoneNumber: e.target.value,})}
                     />
                   </div>
+                  <fieldset>
+                  <label class="title-user fw-7">Qualification <span className="color-red">*</span></label>
+                    <input
+                        type="text"
+                        placeholder="Highiest Qualification"
+                        className="input-form"
+                        value={qualification || ''}
+                        onChange={(e) =>
+                        setBasicDetails({ ...basicDetails, state: e.target.value })}
+                        onBlur={() => validateForm("state")}
+                   />
+                    {errors.basicDetails.state && (
+              <div className="error-message">{errors.basicDetails.state}</div>
+            )}
+                  </fieldset>
+                  <fieldset>
+                  <label class="title-user fw-7">Preferred Job Locations <span className="color-red">*</span></label>
+                    <input
+                        type="text"
+                        placeholder="Preferred Job Locations"
+                        className="input-form"
+                        value={preferredJobLocations || ''}
+                        onChange={(e) =>
+                        setBasicDetails({ ...basicDetails, state: e.target.value })}
+                        onBlur={() => validateForm("state")}
+                   />
+                    {errors.basicDetails.state && (
+              <div className="error-message">{errors.basicDetails.state}</div>
+            )}
+                  </fieldset>
                 </div>
                
               </div>
@@ -640,7 +708,7 @@ if (!graduationDetails.gState) {
                          type="text"
                           placeholder="School Name"
                           className="input-form"
-                          value={xClassDetails.xschoolName}
+                          value={xClassDetails?.xschoolName || ''}
                           onChange={(e) =>
                            setXClassDetails({...xClassDetails,xschoolName: e.target.value,})}
                            onBlur={() => validateForm("xschoolName")}
@@ -656,7 +724,7 @@ if (!graduationDetails.gState) {
                            type="text"
                            placeholder="Board"
                            className="input-form"
-                           value={xClassDetails.xboard}
+                           value={xClassDetails?.xboard || ''}
                            onChange={(e) =>
                            setXClassDetails({ ...xClassDetails, xboard: e.target.value })}
                            onBlur={() => validateForm("xboard")}
@@ -671,7 +739,7 @@ if (!graduationDetails.gState) {
                     <input type="text"
                           placeholder="Percentage"
                           className="input-form"
-                          value={xClassDetails.xpercentage}
+                          value={xClassDetails?.xpercentage || ''}
                           onChange={(e) =>setXClassDetails({...xClassDetails,xpercentage: e.target.value,})}
                           onBlur={() => validateForm("xpercentage")}
                    />
@@ -687,7 +755,7 @@ if (!graduationDetails.gState) {
                          placeholder="Pincode"
                          className="input-form"
                          maxLength={6}
-                         value={xClassDetails.xPincode}
+                         value={xClassDetails?.xPincode || ''}
                          onChange={(e) =>setXClassDetails({...xClassDetails,xPincode: e.target.value,})}
                          onBlur={() => validateForm("xPincode")}
                   />
@@ -705,7 +773,7 @@ if (!graduationDetails.gState) {
                            placeholder="Year of passing"
                            className="input-form"
                            maxLength={4}
-                           value={xClassDetails.xyearOfPassing}
+                           value={xClassDetails?.xyearOfPassing || ''}
                            onChange={(e) =>
                            setXClassDetails({...xClassDetails,xyearOfPassing: e.target.value,})}
                            onBlur={() => validateForm("xyearOfPassing")}
@@ -720,7 +788,7 @@ if (!graduationDetails.gState) {
                   <input  type="text"
                           placeholder="City"
                           className="input-form"
-                          value={xClassDetails.xCity}
+                          value={xClassDetails?.xCity || ''}
                           onChange={(e) =>
                           setXClassDetails({ ...xClassDetails, xCity: e.target.value })}
                           onBlur={() => validateForm("xCity")}
@@ -735,7 +803,7 @@ if (!graduationDetails.gState) {
                   <input  type="text"
                           placeholder="State"
                           className="input-form"
-                          value={xClassDetails.xState}
+                          value={xClassDetails?.xState || ''}
                           onChange={(e) =>
                           setXClassDetails({ ...xClassDetails, xState: e.target.value })}
                           onBlur={() => validateForm("xState")}
@@ -758,7 +826,7 @@ if (!graduationDetails.gState) {
                          type="text"
                           placeholder="Name of college"
                           className="input-form"
-                          value={intermediateDetails.icollegeName}
+                          value={intermediateDetails?.icollegeName || ''}
                           onChange={(e) =>
                             setIntermediateDetails({
                               ...intermediateDetails,
@@ -776,7 +844,7 @@ if (!graduationDetails.gState) {
                            type="text"
                            placeholder="Board"
                            className="input-form"
-                           value={intermediateDetails.iboard}
+                           value={intermediateDetails?.iboard || ''}
                            onChange={(e) =>
                              setIntermediateDetails({...intermediateDetails,iboard: e.target.value,})}
                              onBlur={() => validateForm("iboard")}
@@ -791,7 +859,7 @@ if (!graduationDetails.gState) {
                     <input type="text"
                           placeholder="Program"
                           className="input-form"
-                          value={intermediateDetails.iprogram}
+                          value={intermediateDetails?.iprogram || ''}
                           onChange={(e) =>
                             setIntermediateDetails({...intermediateDetails,iprogram: e.target.value,})
                             
@@ -809,7 +877,7 @@ if (!graduationDetails.gState) {
                           type="text"
                           placeholder="Percentage"
                           className="input-form"
-                          value={intermediateDetails.ipercentage}
+                          value={intermediateDetails?.ipercentage || ''}
                           onChange={(e) =>
                           setIntermediateDetails({...intermediateDetails,ipercentage: e.target.value,})}
                           onBlur={() => validateForm("ipercentage")}
@@ -828,7 +896,7 @@ if (!graduationDetails.gState) {
                            placeholder="Year of passing"
                            className="input-form"
                            maxLength={4}
-                           value={intermediateDetails.iyearOfPassing}
+                           value={intermediateDetails?.iyearOfPassing || ''}
                            onChange={(e) =>
                             setIntermediateDetails({...intermediateDetails,iyearOfPassing: e.target.value,})}
                             onBlur={() => validateForm("iyearOfPassing")}
@@ -843,7 +911,7 @@ if (!graduationDetails.gState) {
                   <input  type="text"
                           placeholder="City"
                           className="input-form"
-                          value={intermediateDetails.iCity}
+                          value={intermediateDetails?.iCity || ''}
                           onChange={(e) =>
                             setIntermediateDetails({ ...intermediateDetails, iCity: e.target.value })}
                             onBlur={() => validateForm("iCity")}
@@ -859,7 +927,7 @@ if (!graduationDetails.gState) {
                   <input  type="text"
                           placeholder="State"
                           className="input-form"
-                          value={intermediateDetails.iState}
+                          value={intermediateDetails?.iState || ''}
                           onChange={(e) =>
                             setIntermediateDetails({ ...intermediateDetails, iState: e.target.value })}
                             onBlur={() => validateForm("iState")}
@@ -882,7 +950,7 @@ if (!graduationDetails.gState) {
                            type="text"
                            placeholder="Name of college"
                            className="input-form"
-                           value={graduationDetails.gcollegeName}
+                           value={graduationDetails?.gcollegeName || ''}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gcollegeName: e.target.value,})}
                            onBlur={() => validateForm("gcollegeName")}
                   />
@@ -897,7 +965,7 @@ if (!graduationDetails.gState) {
                            type="text"
                            placeholder="Board"
                            className="input-form"
-                           value={graduationDetails.gboard}
+                           value={graduationDetails?.gboard || ''}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gboard: e.target.value,})}
                            onBlur={() => validateForm("gboard")}
                     />
@@ -911,7 +979,7 @@ if (!graduationDetails.gState) {
                     <input type="text"
                           placeholder="Program"
                           className="input-form"
-                          value={graduationDetails.gprogram}
+                          value={graduationDetails?.gprogram || ''}
                           onChange={(e) =>setGraduationDetails({
                               ...graduationDetails,
                               gprogram: e.target.value,
@@ -930,7 +998,7 @@ if (!graduationDetails.gState) {
                           type="text"
                           placeholder="Percentage"
                           className="input-form"
-                          value={graduationDetails.gpercentage}
+                          value={graduationDetails?.gpercentage || ''}
                 onChange={(e) =>setGraduationDetails({
                     ...graduationDetails,gpercentage: e.target.value,})}
                     onBlur={() => validateForm("gpercentage")}
@@ -948,7 +1016,7 @@ if (!graduationDetails.gState) {
                            type="text"
                            placeholder="Year of passing"
                            className="input-form"
-                           value={graduationDetails.gyearOfPassing}
+                           value={graduationDetails?.gyearOfPassing || ''}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gyearOfPassing: e.target.value,})}
                            onBlur={() => validateForm("gyearOfPassing")}
                   />
@@ -962,7 +1030,7 @@ if (!graduationDetails.gState) {
                   <input  type="text"
                           placeholder="City"
                           className="input-form"
-                          value={graduationDetails.gCity}
+                          value={graduationDetails?.gCity || ''}
                           onChange={(e) =>
                             setGraduationDetails({...graduationDetails,gCity: e.target.value,})}
                             onBlur={() => validateForm("gCity")}
@@ -977,7 +1045,7 @@ if (!graduationDetails.gState) {
                   <input  type="text"
                           placeholder="State"
                           className="input-form"
-                          value={graduationDetails.gState}
+                          value={graduationDetails?.gState || ''}
                           onChange={(e) =>setGraduationDetails({...graduationDetails,gState: e.target.value,})}
                           onBlur={() => validateForm("gState")}
                    />
@@ -1037,6 +1105,7 @@ if (!graduationDetails.gState) {
                     <div class="form-box  wg-box">
                       <div id="item_category2" class="dropdown titles-dropdow">
                         <label class="title-user color-1 fw-7">Experience</label>
+                       
                         {experienceDetails.map((experience, index) => (
             <div key={index}>
               <fieldset>
@@ -1045,7 +1114,7 @@ if (!graduationDetails.gState) {
                   type="text"
                   className="input-form"
                   placeholder="ABC Pvt Ltd"
-                  value={experience.company}
+                  value={experience?.company || ''}
                   onChange={(e) => handleExperienceChange(e, index, "company")}
                 />
               </fieldset>
@@ -1055,7 +1124,7 @@ if (!graduationDetails.gState) {
                   type="text"
                   className="input-form"
                   placeholder="Java Developer"
-                  value={experience.position}
+                  value={experience?.position || ''}
                   onChange={(e) => handleExperienceChange(e, index, "position")}
                 />
               </fieldset>
@@ -1065,7 +1134,7 @@ if (!graduationDetails.gState) {
                   type="date"
                   className="input-form"
                   id={`startDate-${index}`}
-                  value={experience.startDate}
+                  value={experience?.startDate || ''}
                   onChange={(e) => handleExperienceChange(e, index, "startDate")}
                 />
               </div>
@@ -1075,7 +1144,7 @@ if (!graduationDetails.gState) {
                   type="date"
                   className="input-form"
                   id={`endDate-${index}`}
-                  value={experience.endDate}
+                  value={experience?.endDate|| ''}
                   onChange={(e) => handleExperienceChange(e, index, "endDate")}
                 />
               </div>

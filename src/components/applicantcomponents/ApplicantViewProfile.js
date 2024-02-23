@@ -31,6 +31,7 @@ const ApplicantViewProfile = () => {
       try {
         profileResponse = await axios.get(`${apiUrl}/applicantprofile/${id}/profile-view`);
         setProfileData(profileResponse.data);
+        console.log('profileData:', profileData);
         count = 1;
         const imageResponse = await axios.get(`${apiUrl}/applicant-image/getphoto/${id}`, { responseType: 'arraybuffer' });
         const base64Image = btoa(
@@ -120,7 +121,7 @@ const ApplicantViewProfile = () => {
                 </div>
                  <div className="title-box flex">
                   <div className="p-16">Location</div>
-                  <h4>{profileData.basicDetails.city} ,{profileData.basicDetails.state}</h4>
+                  <h4>{(profileData.basicDetails && profileData.basicDetails.city) || 'Not available'}, {(profileData.basicDetails && profileData.basicDetails.state) || 'Not available'}</h4>
                 </div>
                 <div className="title-box flex">
                   <div className="p-16">Mobile Number</div>
@@ -133,7 +134,7 @@ const ApplicantViewProfile = () => {
                                
                 <div className="title-box flex">
                   <div className="p-16">Qualification</div>
-                  <h4> {profileData.graduationDetails.gprogram}</h4>
+                  <h4> {(profileData.graduationDetails && profileData.graduationDetails.gprogram) || 'Not available'}</h4>
                 </div>      
                 <div className="title-box flex">
                 <div className="p-16">Skills</div>
@@ -159,28 +160,28 @@ const ApplicantViewProfile = () => {
                 <h3 class="title-education">Education</h3>
                 <div class="education-wrap">
                   <div class="education-box">
-                    <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'#1967d2'}}> Graducation:</h4></h4>
-                    <div style={{marginLeft:'20px'}}>
-                    <div className="subtitle-1 fw-7">University: {profileData.graduationDetails.gboard}</div>
-                    <div className="subtitle-1 fw-7">Branch: {profileData.graduationDetails.gprogram}</div>
-                   
-                    <div className="subtitle-2 fw-7 fw-5">Percentage: {profileData.graduationDetails.gpercentage}</div>
-                    <div className="subtitle-2 fw-7 fw-5">Year of Passing: {profileData.graduationDetails.gyearOfPassing}</div>
-                  </div>
-                  <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'#1967d2'}}> Intermediate Details:</h4></h4>
-                    <div style={{marginLeft:'20px'}}>
-                    <div className="subtitle-1 fw-7">Board: {profileData.intermediateDetails.iboard} </div>
-                    <div className="subtitle-1 fw-7">Branch: {profileData.intermediateDetails.iprogram} </div>
-                    <div className="subtitle-1 fw-7">Percentage: {profileData.intermediateDetails.ipercentage} </div>
-                    <div className="subtitle-1 fw-7">Year of Passing: {profileData.intermediateDetails.iyearOfPassing} </div>
-                  </div>
-                  <h4 class="fw-7"><h4 style={{fontWeight:'bold',color:'#1967d2'}}> SSC Details:</h4></h4>
-                    <div style={{marginLeft:'20px'}}>
-                    <div className="subtitle-1 fw-7">Board: {profileData.xClassDetails.xboard} </div>
-                    <div className="subtitle-1 fw-7">Branch: SSC/CBSE/ICSE {profileData.xClassDetails.xprogram} </div>
-                    <div className="subtitle-1 fw-7">Percentage: {profileData.xClassDetails.xpercentage} </div>
-                    <div className="subtitle-1 fw-7">Year of Passing: {profileData.xClassDetails.xyearOfPassing} </div>
-                  </div>
+                  <h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#1967d2' }}> Graduation:</h4></h4>
+<div style={{ marginLeft: '20px' }}>
+  <div className="subtitle-1 fw-7">University: {(profileData.graduationDetails && profileData.graduationDetails.gboard) || 'Not available'}</div>
+  <div className="subtitle-1 fw-7">Branch: {(profileData.graduationDetails && profileData.graduationDetails.gprogram) || 'Not available'}</div>
+  <div className="subtitle-2 fw-7 fw-5">Percentage: {(profileData.graduationDetails && profileData.graduationDetails.gpercentage) || 'Not available'}</div>
+  <div className="subtitle-2 fw-7 fw-5">Year of Passing: {(profileData.graduationDetails && profileData.graduationDetails.gyearOfPassing) || 'Not available'}</div>
+</div>
+        
+<h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#1967d2' }}> Intermediate Details:</h4></h4>
+<div style={{ marginLeft: '20px' }}>
+  <div className="subtitle-1 fw-7">Board: {(profileData.intermediateDetails && profileData.intermediateDetails.iboard) || 'Not available'}</div>
+  <div className="subtitle-1 fw-7">Branch: {(profileData.intermediateDetails && profileData.intermediateDetails.iprogram) || 'Not available'}</div>
+  <div className="subtitle-1 fw-7">Percentage: {(profileData.intermediateDetails && profileData.intermediateDetails.ipercentage) || 'Not available'}</div>
+  <div className="subtitle-1 fw-7">Year of Passing: {(profileData.intermediateDetails && profileData.intermediateDetails.iyearOfPassing) || 'Not available'}</div>
+</div>
+<h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#1967d2' }}> SSC Details:</h4></h4>
+<div style={{ marginLeft: '20px' }}>
+  <div className="subtitle-1 fw-7">Board: {(profileData.xClassDetails && profileData.xClassDetails.xboard) || 'Not available'}</div>
+  <div className="subtitle-1 fw-7">Branch: SSC/CBSE/ICSE {(profileData.xClassDetails && profileData.xClassDetails.xprogram) || 'Not available'}</div>
+  <div className="subtitle-1 fw-7">Percentage: {(profileData.xClassDetails && profileData.xClassDetails.xpercentage) || 'Not available'}</div>
+  <div className="subtitle-1 fw-7">Year of Passing: {(profileData.xClassDetails && profileData.xClassDetails.xyearOfPassing) || 'Not available'}</div>
+</div>
                   </div>
                 </div>
          </div>
