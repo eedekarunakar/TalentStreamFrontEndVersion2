@@ -12,6 +12,7 @@ import '../../stylesheets/swiper-bundle.min.css';
 import '../../stylesheets/colors/color6.css';
 import '../../stylesheets/responsive.css';
 import '../../fonts/fonts.css';
+import '../../stylesheets/jquery.dataTables.min.css';
 
 const Nav = () => {
 

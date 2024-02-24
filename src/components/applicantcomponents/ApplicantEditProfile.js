@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import ApplicantAPIService,{ apiUrl } from '../../services/ApplicantAPIService';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import { useUserContext } from '../common/UserProvider';
 function ApplicantEditProfile() {
   const [loading, setLoading] = useState(true);
@@ -37,6 +38,9 @@ function ApplicantEditProfile() {
       experienceDetails: [],
       applicant:{},    
     };   
+
+    
+
 const currentDate = new Date();
 const maxAllowedAge = 18;
 if(fielname === "" || fielname === "dateOfBirth")
@@ -393,6 +397,19 @@ if (!graduationDetails.gState) {
    const[qualification,setQualification]=useState();
    const[specialization,setSpecialization]=useState();
    const[preferredJobLocations,setpreferredJobLocations]=useState([]);
+   const cities = [
+    'Chennai',
+    'Thiruvananthapuram',
+    'Bangalore',
+    'Hyderabad',
+    'Coimbatore',
+    'Kochi',
+    'Madurai',
+    'Mysore',
+    'Thanjavur',
+    'Pondicherry',
+    'Vijayawada',
+  ];
       const [basicDetails, setBasicDetails] = useState({
         firstName: "",
         lastName: "",
@@ -476,6 +493,10 @@ if (!graduationDetails.gState) {
       setExperienceDetails(updatedExperienceDetails);
     }
   };
+
+  const [resumeFile, setResumeFile] = useState(null);
+  const [photoFile,setPhotoFile]=useState(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   console.log("in handleSubmit")
@@ -491,6 +512,10 @@ if (!graduationDetails.gState) {
       graduationDetails: graduationDetails,
       skillsRequired: skillsRequired,
       experienceDetails: experienceDetails,
+      experience,
+      qualification,
+      specialization,
+      preferredJobLocations,
     }
    try { 
     const jwtToken = localStorage.getItem('jwtToken');
@@ -519,6 +544,64 @@ if (!graduationDetails.gState) {
     console.error('An error occurred:', error);
   }
 };
+
+
+const handleFileSelect = (e) => {
+  const file = e.target.files[0];
+  setPhotoFile(file);
+};
+const uploadPhoto = async () => {
+  try {
+    const jwtToken = localStorage.getItem('jwtToken');
+    const formData = new FormData();
+    formData.append('photo', photoFile); 
+    const response = await axios.post(
+      `${apiUrl}/applicant-image/${user.id}/upload`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      }
+    );
+
+    console.log(response.data);
+    window.alert(response.data);
+    window.location.reload();
+  } catch (error) {
+    console.error('Error uploading photo:', error);
+    window.alert('error in uploading Profile ');
+  }
+};
+const handleResumeSelect = (e) => {
+  const file = e.target.files[0];
+  setResumeFile(file);
+};
+const handleResumeUpload = async () => {
+  try {
+    const jwtToken = localStorage.getItem('jwtToken');
+    const formData = new FormData();
+    formData.append('resume', resumeFile);
+    const response = await axios.post(
+      `${apiUrl}/applicant-pdf/${user.id}/upload`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      }
+    );
+    console.log(response.data);
+    window.alert(response.data);
+    window.location.reload();
+  } catch (error) {
+    console.error('Error uploading resume:', error);
+    window.alert('Error uploading resume. Please try again.');
+  }
+};
+
+
+
   return (
     <div>
        {loading ? null : (
@@ -540,28 +623,202 @@ if (!graduationDetails.gState) {
       <div className="row">
         <div className="col-lg-12 col-md-12 ">
           <div className="profile-setting bg-white">
+
+
+
+
+          <div class="author-profile flex2 border-bt">
+          <div class="wrap-img flex2">
+  <div id="upload-profile">
+    <h5 class="fw-6">Upload your profile picture: </h5>
+    <h6>JPG or PNG</h6>
+    <input
+      class="up-file"
+      id="tf-upload-img"
+      type="file"
+      name="profile"
+      required=""
+      onChange={handleFileSelect}
+    />
+    <button
+      type="button"
+      onClick={uploadPhoto}
+      className="btn-3"
+      style={{
+        backgroundColor: '#4CAF50',
+        color: 'white',
+        padding: '10px 15px',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        marginLeft:'5px',
+        marginTop:'5px'
+      }}
+    >
+      Upload Photo
+    </button>
+  </div>
+</div>&nbsp;&nbsp;&nbsp;
+<div class="wrap-img flex2">
+  <div id="upload-profile">
+    <h5 class="fw-6">Upload your resume: </h5>
+    <h6>PDF only</h6>
+    <input
+      class="up-file"
+      id="tf-upload-img"
+      type="file"
+      name="profile"
+      required=""
+      onChange={handleResumeSelect}
+    />  
+    <button
+  type="button"
+  onClick={handleResumeUpload}
+  className="btn-3"
+  style={{
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    padding: '10px 15px',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    marginLeft:'5px',
+    marginTop:'5px'
+  }}
+>
+  Upload Resume
+</button>
+  </div>
+</div>
+<div>
+  </div>
+</div>
+
+
+
                      <div className="form-infor-profile">
               <h3 className="title-info">Information</h3>
               <div className="form-infor flex flat-form">
+
+                         
+
+
                 <div className="info-box info-wd">
-                  <fieldset>
-                  <label class="title-user fw-7">Date of Birth <span className="color-red">*</span></label>
-                     <input
-                             type="date"
-                             placeholder="Date of Birth"
-                             id="dateOfBirth"
-                             className="input-form"                          
-                             value={basicDetails?.dateOfBirth || ''}
-                             onChange={(e) =>{
-                              console.log(e.target.value);
-                             setBasicDetails({...basicDetails,dateOfBirth: e.target.value,})}}
-                             onBlur={() => validateForm("dateOfBirth")}                             
-                       /> 
-                       {errors.basicDetails.dateOfBirth && (
-              <div className="error-message">{errors.basicDetails.dateOfBirth}</div>
+                <fieldset>
+                <label class="title-user fw-7">Full Name <span className="color-red">*</span></label>
+                  <input  type="text"
+                          placeholder="Name Given at Registration"
+                          className="input-form"
+                          value={applicant.name}
+                          onChange={(e) =>
+                           setApplicant({...applicant,name: e.target.value,})}
+                           onBlur={() => validateForm("name")}
+                  />
+                  <div className="validation-errors">
+            {errors.applicant.name && (
+              <div className="error-message">{errors.applicant.name}</div>
             )}
-                  </fieldset>
+          </div>
+          </fieldset>
+          
+          {/* <div id="item_size" className="dropdown titles-dropdown ">
+                  <label class="title-user fw-7">WhatsApp</label>
+                    <input
+                             type="text"
+                             placeholder="WhatsApp"
+                             className="input-form"
+                             value={basicDetails?.alternatePhoneNumber || ''}
+                             onChange={(e) =>
+                             setBasicDetails({...basicDetails,alternatePhoneNumber: e.target.value,})}
+                    />
+                  </div> */}
+
                   <fieldset>
+                  <label class="title-user fw-7">WhatsApp</label>
+                    <input
+                           type="text"
+                           placeholder="WhatsAppNumber"
+                           className="input-form"
+                           value={applicant.mobilenumber}
+                           onChange={(e) =>
+                           setApplicant({ ...applicant, mobilenumber: e.target.value })}
+                           onBlur={() => validateForm("mobilenumber")}
+              />
+              <div className="validation-errors">
+            {errors.applicant.mobilenumber && (
+              <div className="error-message">{errors.applicant.mobilenumber}</div>
+            )}
+          </div>
+                  </fieldset>             
+
+                  <fieldset>
+                  <label class="title-user fw-7">Qualification <span className="color-red">*</span></label>
+                    <input
+                        type="text"
+                        placeholder="Highiest Qualification"
+                        className="input-form"
+                        value={qualification}
+                           onChange={(e) =>
+                           setApplicant({ ...applicant, qualification: e.target.value })}
+                           onBlur={() => validateForm("qualification")}
+
+                        // value={qualification || ''}
+                        // onChange={(e) =>
+                        // setBasicDetails({ ...basicDetails, state: e.target.value })}
+                        // onBlur={() => validateForm("state")}
+                   />
+                   <div className="validation-errors">
+            {errors.applicant.qualification && (
+              <div className="error-message">{errors.applicant.qualification}</div>
+            )}
+          </div>
+                    {/* {errors.basicDetails.state && (
+              <div className="error-message">{errors.basicDetails.state}</div>
+            )} */}
+                  </fieldset>
+
+                  {/* <div className="dropdown titles-dropdown info-wd">
+          <select
+            value={qualification}
+            className="input-form"
+            onChange={handleQualificationChange}
+            style={{ color: qualification ? 'black' : 'lightgrey' }}
+          >
+            <option value="" disabled>*Qualification</option>
+            {qualificationsOptions.map((qual) => (
+              <option key={qual} value={qual}>
+                {qual}
+              </option>
+            ))}
+          </select>
+          {errors.qualification && (
+            <div className="error-message">{errors.qualification}</div>
+          )}
+        </div> */}
+
+                  <div className="col-lg-6 col-md-12">
+      <div id="item_3" className="dropdown titles-dropdown info-wd">
+      <label class="title-user fw-7">Preferred Location(s) <span className="color-red">*</span></label>
+      <Typeahead
+  id="cityTypeahead"
+  labelKey="city"  // Specify the property to be used as the label
+  multiple
+  placeholder="*Preferred Job Location(s)"
+  options={cities.map(city => ({ city }))}
+  onChange={(selectedCities) => setpreferredJobLocations(selectedCities)}
+  selected={preferredJobLocations}
+  inputProps={{
+    className: 'input-form',
+  }}
+/>
+        {errors.city && (
+          <div className="error-message">{errors.city}</div>
+        )}
+      </div>
+    </div> 
+
+                  
+                  {/* <fieldset>
                   <label class="title-user fw-7">City <span className="color-red">*</span></label>
                     <input type="text"
                            placeholder="City"
@@ -574,8 +831,8 @@ if (!graduationDetails.gState) {
                    {errors.basicDetails.city && (
               <div className="error-message">{errors.basicDetails.city}</div>
             )}
-                  </fieldset>
-                  <div id="item_date" className="dropdown titles-dropdown">
+                  </fieldset> */}
+                  {/* <div id="item_date" className="dropdown titles-dropdown">
                   <label class="title-user fw-7">Pin Code <span className="color-red">*</span></label>
                     <input
                             type="text"
@@ -590,8 +847,70 @@ if (!graduationDetails.gState) {
                      {errors.basicDetails.pincode && (
               <div className="error-message">{errors.basicDetails.pincode}</div>
             )}
-                  </div>
-                  <fieldset>
+                  </div> */}
+                  
+                  
+                </div>
+                <div className="info-box info-wd">
+
+                <fieldset>
+                  <label class="title-user fw-7">Date of Birth <span className="color-red">*</span></label>
+                     {/* <input
+                             type="date"
+                             placeholder="Date of Birth"
+                             id="dateOfBirth"
+                             className="input-form"                          
+                             value={basicDetails?.dateOfBirth || ''}
+                             onChange={(e) =>{
+                              console.log(e.target.value);
+                             setBasicDetails({...basicDetails,dateOfBirth: e.target.value,})}}
+                             onBlur={() => validateForm("dateOfBirth")}                             
+                       /> 
+                       {errors.basicDetails.dateOfBirth && (
+              <div className="error-message">{errors.basicDetails.dateOfBirth}</div>
+            )} */}
+
+
+                            <input
+                             type="date"
+                             placeholder="Date of Birth"
+                             id="dateOfBirth"
+                             className="input-form"
+                            //  style={{ color: basicDetails.dateOfBirth==="dd-mm-yyyy"||basicDetails.dateOfBirth===""? 'lightgrey': 'black' }}
+                             value={basicDetails?.dateOfBirth || ''}
+                            //  value={basicDetails.dateOfBirth}
+                             onChange={(e) =>{
+                            console.log(e.target.value);
+                             setBasicDetails({...basicDetails,dateOfBirth: e.target.value,})}}
+                             onBlur={() => validateForm("dateOfBirth")}                             
+                       /> 
+                       {errors.basicDetails.dateOfBirth && (
+              <div className="error-message">{errors.basicDetails.dateOfBirth}</div>
+            )}
+                  </fieldset>
+
+                <fieldset>
+            <label className="title-user fw-7">
+                    Email<span className="color-red">*</span>
+                  </label> 
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    value={applicant.email}
+                    className="input-form"
+                    onChange={(e) =>
+                      setApplicant({...applicant,email: e.target.value,})}
+                      onBlur={() => validateForm("email")}
+                    // onChange={(e) => setEmail(e.target.value)}
+                    // style={{ color: email ? 'black' : 'black' }}
+                    
+                  />
+                  {errors.email && (
+                    <div className="error-message">{errors.email}</div>
+                  )}
+          </fieldset>
+
+          <fieldset>
                   <label class="title-user fw-7">Total Experience <span className="color-red">*</span></label>
                     <input
                         type="text"
@@ -606,6 +925,7 @@ if (!graduationDetails.gState) {
               <div className="error-message">{errors.basicDetails.state}</div>
             )}
                   </fieldset>
+
                   <fieldset>
                   <label class="title-user fw-7">Specialization <span className="color-red">*</span></label>
                     <input
@@ -621,9 +941,8 @@ if (!graduationDetails.gState) {
               <div className="error-message">{errors.basicDetails.state}</div>
             )}
                   </fieldset>
-                </div>
-                <div className="info-box info-wd">
-                  <fieldset>
+
+                  {/* <fieldset>
                   <label class="title-user fw-7">Address <span className="color-red">*</span></label>
                     <input
                             type="text"
@@ -652,34 +971,10 @@ if (!graduationDetails.gState) {
                     {errors.basicDetails.state && (
               <div className="error-message">{errors.basicDetails.state}</div>
             )}
-                  </fieldset>
-                  <div id="item_size" className="dropdown titles-dropdown ">
-                  <label class="title-user fw-7">WhatsApp</label>
-                    <input
-                             type="text"
-                             placeholder="WhatsApp"
-                             className="input-form"
-                             value={basicDetails?.alternatePhoneNumber || ''}
-                             onChange={(e) =>
-                             setBasicDetails({...basicDetails,alternatePhoneNumber: e.target.value,})}
-                    />
-                  </div>
-                  <fieldset>
-                  <label class="title-user fw-7">Qualification <span className="color-red">*</span></label>
-                    <input
-                        type="text"
-                        placeholder="Highiest Qualification"
-                        className="input-form"
-                        value={qualification || ''}
-                        onChange={(e) =>
-                        setBasicDetails({ ...basicDetails, state: e.target.value })}
-                        onBlur={() => validateForm("state")}
-                   />
-                    {errors.basicDetails.state && (
-              <div className="error-message">{errors.basicDetails.state}</div>
-            )}
-                  </fieldset>
-                  <fieldset>
+                  </fieldset> */}
+                  
+                  
+                  {/* <fieldset>
                   <label class="title-user fw-7">Preferred Job Locations <span className="color-red">*</span></label>
                     <input
                         type="text"
@@ -693,13 +988,19 @@ if (!graduationDetails.gState) {
                     {errors.basicDetails.state && (
               <div className="error-message">{errors.basicDetails.state}</div>
             )}
-                  </fieldset>
+                  </fieldset> */}
+
+
+
+
                 </div>
                
               </div>
              </div>
              <div className="form-infor-profile">
-              <h3 className="title-info">Education- X Class <span className="color-red">*</span></h3>
+              <h3 className="title-info">Education- X Class 
+              {/* <span className="color-red">*</span> */}
+              </h3>
               <div className="form-infor flex flat-form">
                 <div className="info-box info-wd">
                   <fieldset>
@@ -818,7 +1119,9 @@ if (!graduationDetails.gState) {
               </div>
              </div>
              <div className="form-infor-profile">
-              <h3 className="title-info">Education- Inter/Diploma Details <span className="color-red">*</span></h3>
+              <h3 className="title-info">Education- Inter/Diploma Details 
+              {/* <span className="color-red">*</span> */}
+              </h3>
               <div className="form-infor flex flat-form">
                 <div className="info-box info-wd">
                   <fieldset>
@@ -942,7 +1245,9 @@ if (!graduationDetails.gState) {
               </div>
              </div>
              <div className="form-infor-profile">
-              <h3 className="title-info">Education- Graduation Details <span className="color-red">*</span></h3>
+              <h3 className="title-info">Education- Graduation Details 
+              {/* <span className="color-red">*</span> */}
+              </h3>
               <div className="form-infor flex flat-form">
                 <div className="info-box info-wd">
                   <fieldset>
@@ -963,7 +1268,7 @@ if (!graduationDetails.gState) {
                   <fieldset>
                     <input
                            type="text"
-                           placeholder="Board"
+                           placeholder="University"
                            className="input-form"
                            value={graduationDetails?.gboard || ''}
                            onChange={(e) =>setGraduationDetails({...graduationDetails,gboard: e.target.value,})}
@@ -1059,7 +1364,7 @@ if (!graduationDetails.gState) {
                
               </div>
              </div>
-   <div className="form-infor-profile">
+   {/* <div className="form-infor-profile">
               <h3 className="title-info">Registration- Details <span className="color-red">*</span></h3>
               <div className="form-infor flex flat-form">
                 <div className="info-box info-wd">
@@ -1098,7 +1403,7 @@ if (!graduationDetails.gState) {
                   </fieldset>             
                   </div>
                 </div>            
-              </div>            
+              </div>             */}
     <div class="contact-wrap info-wd">
                   <h3>Experience & Skills</h3>
                  <div class="form-social form-wg flex flat-form">

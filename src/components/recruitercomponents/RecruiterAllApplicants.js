@@ -6,6 +6,7 @@ import $ from 'jquery';
 import ScheduleInterviewPopup from './ScheduleInterviewPopup';
 import { CSVLink } from 'react-csv';
 import { Link } from 'react-router-dom';
+$.DataTable = require('datatables.net')
  
 function RecruiterAllApplicants() {
   const [applicants, setApplicants] = useState([]);
@@ -363,33 +364,25 @@ const handleTextFieldChange = (e) => {
         </section>
  
        
-       
-        <section className="flat-dashboard-setting bg-white">
-  <div className="themes-container">
-    <div className="row justify-content-end">
-      <div className="col-md-auto">
-        <div className="dropdown-container">
-          <select value={selectedStatus} onChange={handleSelectChange}>
-            <option value="" disabled>
-              Change Status
-            </option>
-            <option value="Screening">Screening</option>
-            <option value="Shortlisted">Shortlisted</option>
-            <option value="Interviewing">Interviewing</option>
-            <option value="Selected">Selected</option>
-            <option value="selected">All the applicants</option>
-          </select>
-        </div>
-      </div>
-      <div className="col-md-auto">
-        <button onClick={exportCSV} className="export-csv-button">
-          Export CSV
-        </button>
-      </div>
-    </div>
+        <div className="container">
+  <h4 className="total-applicants">Total Applicants: {count}</h4>
+  <div className="controls">
+    <select className="status-select" value={selectedStatus} onChange={handleSelectChange}>
+      <option value="" disabled>
+        Change Status
+      </option>
+      <option value="Screening">Screening</option>
+      <option value="Shortlisted">Shortlisted</option>
+      <option value="Interviewing">Interviewing</option>
+      <option value="Selected">Selected</option>
+      <option value="selected">All the applicants</option>
+    </select>
+    <button className="export-buttonn" onClick={exportCSV}>
+      ExportCSV
+    </button>
   </div>
-</section>
-<h4 style={{ paddingLeft: '12px' }}>Total Applicants: {count}</h4>
+</div>
+       
  
         <section className="flat-dashboard-setting bg-white">
           <div className="themes-container">
@@ -400,7 +393,7 @@ const handleTextFieldChange = (e) => {
 <div className="profile-setting">
   <div className="table-container-wrapper">
     <div className="table-container">
-    <h3><strong>Filters </strong></h3>
+    <h3 className="filter"><strong>Filters </strong></h3>
  
       {/* Filter section */}
       <div className="filter-option">

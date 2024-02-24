@@ -3293,9 +3293,26 @@ input[type="color"],
     border-radius: 0;
    
 }
+.table-container .filter{
+   padding-bottom: 10px;
+}
 .table-container .apply-button1 {
   background-color: #1967d2;
   color: white;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 4px;
+ 
+}
+.table-container .reset-button1 {
+  background-color: #1967d2;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 4px;
+ 
 }
  
 .apply-button1,
@@ -3303,11 +3320,11 @@ input[type="color"],
   background-color: #1967d2;
   border: none;
   color: blue;
-  padding: 10px 20px;
+ 
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 14px;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 4px;
@@ -3318,4 +3335,48 @@ input[type="color"],
   background-color: #1967d2; /* Darker Green */
   color: white;
 }
-
+ 
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+ 
+.total-applicants {
+  padding-left: 12px;
+  margin: 0;
+}
+ 
+.controls {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+ 
+}
+ 
+.dashboard__content .status-select {
+  margin-right: 8px;
+  background-color: #1967d2;
+  height: 40px;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: sans-serif;
+ 
+}
+ 
+.dashboard__content .export-buttonn {
+  background-color: #1967d2;
+  color: #fff;
+  border: none;
+  height: 40px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: sans-serif;
+}
