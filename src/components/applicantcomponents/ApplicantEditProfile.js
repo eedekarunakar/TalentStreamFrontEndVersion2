@@ -19,6 +19,12 @@ function ApplicantEditProfile() {
     experienceDetails: [],   
     applicant:{},
   });
+
+  const [formData, setFormData] = useState({
+    declaration1: false,
+    declaration2: false,
+  });
+
   const [errors, setErrors] = useState({
     basicDetails: {},
     xClassDetails: {},
@@ -54,6 +60,7 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
   }
 }
 }
+
 if(fielname === "" || fielname === "city")
 {
     if (!basicDetails.city) {
@@ -460,8 +467,8 @@ if (!graduationDetails.gState) {
      ]); 
   const [dragging, setDragging] = useState(false);
    const [selectedSkill, setSelectedSkill] = useState("");
-   const handleSkillChange = (e, index, field) => {
-    const updatedSkillsRequired = [...skillsRequired];
+ const handleSkillChange = (e, index, field) => {
+ const updatedSkillsRequired = [...skillsRequired];
         updatedSkillsRequired[index][field] = e.target.value;
  console.log('After Update:', updatedSkillsRequired);
      setSkillsRequired(updatedSkillsRequired); 
@@ -480,20 +487,36 @@ if (!graduationDetails.gState) {
     newExperienceDetails[index][field] = e.target.value;
     setExperienceDetails(newExperienceDetails);
   };
+  // const addExperience = () => {
+  //   setExperienceDetails([
+  //     ...experienceDetails,
+  //     { company: "", position: "", startDate: "", endDate: "" }
+  //   ]);
+  // };
+  // const removeExperience = (index) => {
+  //   if(experienceDetails.length>1){
+  //     const updatedExperienceDetails = [...experienceDetails];
+  //     updatedExperienceDetails.splice(index, 1);
+  //     setExperienceDetails(updatedExperienceDetails);
+  //   }
+  // };
+
   const addExperience = () => {
     setExperienceDetails([
       ...experienceDetails,
       { company: "", position: "", startDate: "", endDate: "" }
     ]);
   };
+  
   const removeExperience = (index) => {
-    if(experienceDetails.length>1){
+    // Check if there's more than one experience section
+    if (experienceDetails.length > 1) {
       const updatedExperienceDetails = [...experienceDetails];
       updatedExperienceDetails.splice(index, 1);
       setExperienceDetails(updatedExperienceDetails);
     }
   };
-
+  
   const [resumeFile, setResumeFile] = useState(null);
   const [photoFile,setPhotoFile]=useState(null);
 
@@ -540,6 +563,197 @@ if (!graduationDetails.gState) {
     console.error('An error occurred:', error);
   }
 };
+
+
+// useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       await new Promise(resolve => setTimeout(resolve, 100));
+//     } catch (error) {
+//       console.error('Error fetching data:', error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+//   fetchData();
+// }, []);
+// const [basicDetails, setBasicDetails] = useState({
+//   firstName: "",
+//   lastName: "",
+//   dateOfBirth: "",
+//   address: "",
+//   city: "",
+//   state: "",
+//   pincode: "",
+//   alternatePhoneNumber: "",
+  
+// });
+//    const[experience,setExperience]=useState();
+//    const[specialization,setSpecialization]=useState();
+//    const [email, setEmail] = useState('');
+//     // setExperienceDetails(response.data.experienceDetails);
+//     // setExperience(response.data.experience);
+//     // setQualification(response.data.qualification);
+//     // setSpecialization(response.data.specialization);
+// const [xClassDetails, setXClassDetails] = useState({
+//   xschoolName: "",
+//   xboard: "",
+//   xpercentage: "",
+//   xyearOfPassing: "",
+//   xCity: "",
+//   xState: "",
+//   xPincode: "",
+// });
+// const [intermediateDetails, setIntermediateDetails] = useState({
+//   icollegeName: "",
+//   iboard: "",
+//   iprogram: "",
+//   ipercentage: "",
+//   iyearOfPassing: "",
+//   iCity: "",
+//   iState: "",
+// });
+// const [graduationDetails, setGraduationDetails] = useState({
+//   gcollegeName: "",
+//   gboard: "",
+//   gprogram: "",
+//   gpercentage: "",
+//   gyearOfPassing: "",
+//   gCity: "",
+//   gState: "",
+// });
+// const [skillsRequired, setSkillsRequired] = useState([
+//   { skillName: "", experience: "" },
+
+// ]);
+// const [experienceDetails, setExperienceDetails] = useState([
+//   {
+//     company: "",
+//     position: "",
+//     startDate: "",
+//     endDate: "",
+//   },
+// ]);
+// const [resumeFile, setResumeFile] = useState(null);
+// const [photoFile,setPhotoFile]=useState(null);
+// const [dragging, setDragging] = useState(false);
+// const [selectedSkill, setSelectedSkill] = useState("");
+// const handleSkillChange = (e, index, field) => {
+//   const updatedSkillsRequired = [...skillsRequired];
+//       updatedSkillsRequired[index][field] = e.target.value;
+// console.log('After Update:', updatedSkillsRequired);
+//   setSkillsRequired(updatedSkillsRequired);
+// }; 
+// const addSkills = () => {
+//   setSkillsRequired([...skillsRequired, { skillName: "", experience: "" }]);
+// };
+// const removeSkills = () => {
+//   if (skillsRequired.length > 1) {
+//     const updatedSkills = [...skillsRequired.slice(0, -1)];
+//     setSkillsRequired(updatedSkills);
+//   }
+// }; 
+// const handleExperienceChange = (e, index, field) => {
+//   const newExperienceDetails = [...experienceDetails];
+//   newExperienceDetails[index][field] = e.target.value;
+//   setExperienceDetails(newExperienceDetails);
+// };
+// const addExperience = () => {
+//   setExperienceDetails([
+//     ...experienceDetails,
+//     { company: "", position: "", startDate: "", endDate: "" }
+//   ]);
+// };
+
+// const removeExperience = (index) => {
+//   if(experienceDetails.length>1){
+//     const updatedExperienceDetails = [...experienceDetails];
+//     updatedExperienceDetails.splice(index, 1);
+//     setExperienceDetails(updatedExperienceDetails);
+//   }
+ 
+// };
+ 
+// const handleFileDrop = (e) => {
+//   e.preventDefault();
+//   setDragging(false);
+//   const file = e.dataTransfer.files[0];
+//   setResumeFile(file);
+// };
+
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   const isFormValid = validateForm("");
+//   if (!isFormValid) {
+//     return;
+//   }
+//   if (!formData.declaration1 || !formData.declaration2) {
+//     window.alert("Please check checkboxes before submitting.");
+//     return;
+//   }
+//   const userData = {
+//     basicDetails,
+//     xClassDetails,
+//     intermediateDetails,
+//     graduationDetails,
+//     skillsRequired,
+//     experienceDetails,
+//     user,
+//   };
+
+//  try {
+//   const jwtToken = localStorage.getItem('jwtToken');
+//    console.log('jwt token new',jwtToken);
+//   const response = await axios.post(`${apiUrl}/applicantprofile/createprofile/${user.id}`, userData, {
+//     headers: {
+//       Authorization: `Bearer ${jwtToken}`,
+//     },
+//   });
+//   if (response.status === 201) {
+//     if (response.data === 'profile saved sucessfully') {
+//       console.log(response.body);
+//       window.alert('Profile saved successfully!');
+//       navigate('/applicanthome');
+//     }  else {
+//       console.error('An unexpected success response:', response.body);
+//     }  
+//   }
+//   else {
+//     console.error('An error occurred:', response.status, response.body);
+//   } 
+// } catch (error) {
+//     window.alert("Your profile has already been updated.");
+//     navigate('/applicanthome');
+//    console.error('An error occurred:', error);
+// }
+// };  
+// const handleFileSelect = (e) => {
+// const file = e.target.files[0];
+// setPhotoFile(file);
+// };
+// const uploadPhoto = async () => {
+// try {
+//   const jwtToken = localStorage.getItem('jwtToken');
+//   const formData = new FormData();
+//   formData.append('photo', photoFile); 
+//   const response = await axios.post(
+//     `${apiUrl}/applicant-image/${user.id}/upload`,
+//     formData,
+//     {
+//       headers: {
+//         Authorization: `Bearer ${jwtToken}`,
+//       },
+//     }
+//   );
+
+//   console.log(response.data);
+//   window.alert(response.data);
+//   window.location.reload();
+// } catch (error) {
+//   console.error('Error uploading photo:', error);
+//   window.alert('error in uploading Profile ');
+// }
+// };
 
 
 const handleFileSelect = (e) => {
@@ -851,7 +1065,7 @@ const handleResumeUpload = async () => {
 
                 <fieldset>
                   <label class="title-user fw-7">Date of Birth <span className="color-red">*</span></label>
-                     {/* <input
+                     <input
                              type="date"
                              placeholder="Date of Birth"
                              id="dateOfBirth"
@@ -864,10 +1078,10 @@ const handleResumeUpload = async () => {
                        /> 
                        {errors.basicDetails.dateOfBirth && (
               <div className="error-message">{errors.basicDetails.dateOfBirth}</div>
-            )} */}
+            )}
 
 
-                            <input
+                            {/* <input
                              type="date"
                              placeholder="Date of Birth"
                              id="dateOfBirth"
@@ -882,7 +1096,7 @@ const handleResumeUpload = async () => {
                        /> 
                        {errors.basicDetails.dateOfBirth && (
               <div className="error-message">{errors.basicDetails.dateOfBirth}</div>
-            )}
+            )} */}
                   </fieldset>
 
                 <fieldset>
@@ -1451,14 +1665,27 @@ const handleResumeUpload = async () => {
               </div>
             </div>
           ))}
+          
           <button type="button" onClick={addExperience} style={{'color':'#FFFFFF','backgroundColor':'#1967d2'}}>
             +
           </button>
+          
           {experienceDetails.length > 0 && (
           <button type="button" onClick={() => removeExperience(experienceDetails.length - 1)} style={{'color':'#FFFFFF','backgroundColor':'#FF0000'}}>
             -
           </button>
         )}
+
+{/* {index === experienceDetails.length - 1 && (
+<button type="button" onClick={addExperience} className="btn-3" style={{'color':'#FFFFFF','backgroundColor':'#1967d2'}}>
+  +
+</button>
+)}
+{index === experienceDetails.length - 1 && (
+        <button type="button" onClick={removeExperience} style={{'color':'#FFFFFF','backgroundColor':'#FF0000'}}>
+          -
+        </button>
+      )} */}
                       </div>
                     </div>
                     <div class="form-box  wg-box">

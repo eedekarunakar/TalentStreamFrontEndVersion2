@@ -218,10 +218,23 @@ const ApplicantViewProfile = () => {
 </div>
 <h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#1967d2' }}> SSC Details:</h4></h4>
 <div style={{ marginLeft: '20px' }}>
-  <div className="subtitle-1 fw-7">Board: {(profileData.xClassDetails && profileData.xClassDetails.xboard) || 'Not available'}</div>
+  {/* <div className="subtitle-1 fw-7">Board: {(profileData.xClassDetails && profileData.xClassDetails.xboard) || 'Not available'}</div>
   <div className="subtitle-1 fw-7">Branch: SSC/CBSE/ICSE {(profileData.xClassDetails && profileData.xClassDetails.xprogram) || 'Not available'}</div>
   <div className="subtitle-1 fw-7">Percentage: {(profileData.xClassDetails && profileData.xClassDetails.xpercentage) || 'Not available'}</div>
-  <div className="subtitle-1 fw-7">Year of Passing: {(profileData.xClassDetails && profileData.xClassDetails.xyearOfPassing) || 'Not available'}</div>
+  <div className="subtitle-1 fw-7">Year of Passing: {(profileData.xClassDetails && profileData.xClassDetails.xyearOfPassing) || 'Not available'}</div> */}
+  <div className="subtitle-1 fw-7">
+  Board: {(profileData.xClassDetails && profileData.xClassDetails.xboard) || <span style={{ color: '#808080' }}>Not available</span>}
+</div>
+<div className="subtitle-1 fw-7">
+  Branch: SSC/CBSE/ICSE {(profileData.xClassDetails && profileData.xClassDetails.xprogram) || <span style={{ color: '#808080' }}>Not available</span>}
+</div>
+<div className="subtitle-1 fw-7">
+  Percentage: {(profileData.xClassDetails && profileData.xClassDetails.xpercentage) || <span style={{ color: '#808080' }}>Not available</span>}
+</div>
+<div className="subtitle-1 fw-7">
+  Year of Passing: {(profileData.xClassDetails && profileData.xClassDetails.xyearOfPassing) || <span style={{ color: '#808080' }}>Not available</span>}
+</div>
+
 </div>
                   </div>
                 </div>
