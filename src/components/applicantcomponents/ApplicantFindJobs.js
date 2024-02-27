@@ -14,25 +14,48 @@ function ApplicantFindJobs({ setSelectedJobId }) {
   const navigate = useNavigate();
   const { user } = useUserContext();
   const userId = user.id;
+
+  const getAuthToken = () => {
+    return localStorage.getItem('jwtToken');
+  };
+  
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         let jobData;
- 
+  
         // Check the profile ID
-        const profileIdResponse = await axios.get(`${apiUrl}/applicantprofile/${userId}/profileid`);
+        const jwtToken = localStorage.getItem('jwtToken');
+  
+        const profileIdResponse = await axios.get(`${apiUrl}/applicantprofile/${userId}/profileid`, {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        });
+  
         const profileId = profileIdResponse.data;
         setprofileid(profileId);
+  
         if (profileId === 0) {
           // If profile ID is "0", fetch promoted jobs
-          const promotedJobsResponse = await axios.get(`${apiUrl}/job/promote/yes`);
+          const promotedJobsResponse = await axios.get(`${apiUrl}/job/promote/yes`, {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          });
+  
           jobData = promotedJobsResponse.data;
         } else {
           // If profile ID has any other value, fetch recommended jobs
-          const recommendedJobsResponse = await axios.get(`${apiUrl}/recommendedjob/findrecommendedjob/${userId}`);
+          const recommendedJobsResponse = await axios.get(`${apiUrl}/recommendedjob/findrecommendedjob/${userId}`, {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          });
+  
           jobData = recommendedJobsResponse.data;
         }
- 
+  
         setJobs(jobData);
       } catch (error) {
         console.error('Error fetching job data:', error);
@@ -40,10 +63,10 @@ function ApplicantFindJobs({ setSelectedJobId }) {
         setLoading(false);
       }
     };
- 
+  
     fetchJobs();
   }, [userId]);
- 
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -87,11 +110,7 @@ function ApplicantFindJobs({ setSelectedJobId }) {
   }
   return (
     <div>
-       {loading && (
-      <div className="loading-spinner">
-        <ClipLoader color="#1967d2" size={50} />
-      </div>
-    )}
+     
       {loading ? null : (
        <div className="dashboard__content">
        <section className="page-title-dashboard">

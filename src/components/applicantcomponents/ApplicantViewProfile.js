@@ -123,7 +123,7 @@ const ApplicantViewProfile = () => {
                   <div className="p-16">Location</div>
                   {/* <h4>{(profileData.basicDetails && profileData.basicDetails.city) || 'Not available'}</h4> */}
                   <h4 style={{ color: profileData.basicDetails && profileData.basicDetails.city ? '' : '#808080' }}>
-  {profileData.basicDetails && profileData.basicDetails.city || 'Not available'}
+  {profileData && profileData.preferedJobLocations || 'Not available'}
 </h4>
 
                 </div>

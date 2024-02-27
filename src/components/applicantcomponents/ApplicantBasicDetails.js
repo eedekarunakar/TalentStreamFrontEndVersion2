@@ -490,21 +490,17 @@ const ApplicantBasicDetails = () => {
   <div className="col-lg-6 col-md-12">
   <div id="item_3" className="dropdown titles-dropdown info-wd">
   <Typeahead
-    id="cityTypeahead"
-    labelKey="city"
-    multiple
-    placeholder="*Preferred Job Location(s)"
-    options={filteredOptions}
-    onChange={handleChange}
-    selected={preferredJobLocations}
-    filterBy={(option, props) =>
-      option &&
-      option.toLowerCase().startsWith(props.text.toLowerCase())
-    }
-    inputProps={{
-      className: 'input-form',
-    }}
-  />
+  id="cityTypeahead"
+  labelKey="city"  // Specify the property to be used as the label
+  multiple
+  placeholder="*Preferred Job Location(s)"
+  options={cities.map(city => ({ city }))}
+  onChange={(selectedCities) => setPreferredJobLocations(selectedCities)}
+  selected={preferredJobLocations}
+  inputProps={{
+    className: 'input-form',
+  }}
+/>
 
   {preferredJobLocations.length === 0 && errors.city && (
     <div className="error-message">{errors.city}</div>
