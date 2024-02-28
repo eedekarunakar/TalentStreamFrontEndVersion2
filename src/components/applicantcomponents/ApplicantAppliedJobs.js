@@ -24,7 +24,12 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
   useEffect(() => {
     const fetchAppliedJobs = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/applyjob/getAppliedJobs/${applicantId}`);
+        const jwtToken = localStorage.getItem('jwtToken');
+        const response = await axios.get(`${apiUrl}/applyjob/getAppliedJobs/${applicantId}`, {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        });
         const jobsData = response.data;
         setJobs(jobsData);
       } catch (error) {
@@ -33,7 +38,8 @@ function ApplicantAppliedJobs({setSelectedJobId}) {
         setLoading(false);
       }
     };
-   fetchAppliedJobs();
+  
+    fetchAppliedJobs();
   }, []);
   function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };

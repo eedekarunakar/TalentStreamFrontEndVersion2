@@ -41,7 +41,25 @@ function ApplicantEditProfile() {
     };
 const currentDate = new Date();
 const maxAllowedAge = 18;
+if(fielname === "" || fielname === 'email'){
+  if (!applicant.email) {
+    newErrors.applicant.email='Email is required.';
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  newErrors.applicant.email=emailRegex.test(applicant.email) ? '' : 'Please enter a valid email address.';
 
+}
+if(fielname === "" || fielname === 'name'){
+  if (!applicant.name) {
+    newErrors.applicant.name= 'Full name is required.';
+  }
+  if (!/^[a-zA-Z\s]+$/.test(applicant.name)) {
+    newErrors.applicant.name='Please enter a valid full name and should not have any numbers and special char.';
+  }
+  if (applicant.name.length < 3) {
+    newErrors.applicant.name= 'Full name should be at least three characters long.';
+  }
+}
 if(fielname === "" || fielname === 'mobilenumber'){
   if (!applicant.mobilenumber.trim()) {
     newErrors.applicant.mobilenumber= 'Mobile number is required.';
@@ -63,15 +81,20 @@ if(fielname === "" || fielname === 'mobilenumber'){
 
 if(fielname === "" || fielname === "dateOfBirth")
 {
-if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
- newErrors.basicDetails.dateOfBirth = 'Date of birth is required';
-} else {
-  const selectedDate = new Date(basicDetails.dateOfBirth);
-
-  if (selectedDate > new Date(currentDate.getFullYear() - maxAllowedAge, currentDate.getMonth(), currentDate.getDate())) {
-    newErrors.basicDetails.dateOfBirth = 'The Date of Birth should be at least 18 years ago.';
+ 
+  if (basicDetails && (fielname === "" || fielname === "dateOfBirth")) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(basicDetails.dateOfBirth)){
+      //newErrors.basicDetails.dateOfBirth = 'Date of birth is required';
+    } else {
+      const selectedDate = new Date(basicDetails.dateOfBirth);
+      const currentDate = new Date();
+      const maxAllowedAge = 18;
+   
+      if (selectedDate > new Date(currentDate.getFullYear() - maxAllowedAge, currentDate.getMonth(), currentDate.getDate())) {
+        newErrors.basicDetails.dateOfBirth = 'The Date of Birth should be at least 18 years ago.';
+      }
+    }
   }
-}
 }
 
 
@@ -560,11 +583,12 @@ if (!graduationDetails.gState) {
   const handleSubmit = async (e) => {
     e.preventDefault();
   console.log("in handleSubmit")
-    // const isFormValid = validateForm(""); 
-    // if (!isFormValid) {
-    //   console.log("returned becuse while validating");
-    //   return;
-    // }
+//  let dateOfBirth=applicant.dateOfBirth;
+//      const isFormValid = validateForm("dateOfBirth"); 
+//      if (!isFormValid) {
+//        console.log("returned becuse while validating");
+//       return;
+//     }
     const formData={
       applicant:applicant,
       basicDetails: basicDetails,
@@ -915,7 +939,7 @@ const handleResumeUpload = async () => {
                 <div className="info-box info-wd">
 
                 <fieldset>
-                  <label class="title-user fw-7">Date of Birth <span className="color-red">*</span></label>
+                  <label class="title-user fw-7">Date of Birth </label>
                      {/* <input
                              type="date"
                              placeholder="Date of Birth"
@@ -966,9 +990,9 @@ const handleResumeUpload = async () => {
                     // style={{ color: email ? 'black' : 'black' }}
                     
                   />
-                  {errors.email && (
-                    <div className="error-message">{errors.email}</div>
-                  )}
+                   {errors.applicant.email && (
+              <div className="error-message">{errors.applicant.email}</div>
+            )}
           </fieldset>
 
           <fieldset>
