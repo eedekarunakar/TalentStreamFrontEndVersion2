@@ -151,7 +151,7 @@ const Nav = () => {
           e.target.style.backgroundColor = '#EE6D12';
         }}
         onMouseOut={(e) => {
-          e.target.style.color = '#FFFFFF';
+          e.target.style.color = '#FFFFEF';
           e.target.style.backgroundColor = '#f97316';
         }}
       >
