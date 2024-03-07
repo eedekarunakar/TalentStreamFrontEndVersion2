@@ -28,7 +28,7 @@
 }
 
 .dashboard .color-3 {
-    color: #1967d2 !important;
+    color: #F97316 !important;
 }
 
 .dashboard .color-4 {
@@ -173,7 +173,7 @@
     content: "";
     width: 8px;
     height: 32px;
-    background-color:#1967d2;
+    background-color:#F97316;
     margin-right: 8px;
     display: inline-block;
     border-radius: 100px;
@@ -193,7 +193,7 @@
 
 .page-title-dashboard.style .tt-button a {
     padding: 11px 32px;
-    background: #1967d2;
+    background: #F97316;
     color: #fff;
 }
 
@@ -523,7 +523,7 @@ tbody tr td:nth-child(2) {
 /*  */
 
 .dashboard .button-status {
-    background-color: #1967d2;
+    background-color: #F97316;
     font-weight: 700;
     border-radius: 24px;
     display: inline-flex;
@@ -537,7 +537,7 @@ tbody tr td:nth-child(2) {
 }
 
 .dashboard .button-status1 {
-    background-color: #1967d2;
+    background-color: #F97316;
     font-weight: 700;
     border-radius: 24px;
     display: inline-flex;
@@ -551,7 +551,7 @@ tbody tr td:nth-child(2) {
 
 .dashboard .button-status:hover
 {
-    background-color: #504cfe;
+    background-color: #EE6D12;
 }
 
 .dashboard .button-status.style {
@@ -560,8 +560,8 @@ tbody tr td:nth-child(2) {
 }
 
 .dashboard .button-status.style-2 {
-    background-color: #504cfe1a;
-    color: #504cfe;
+    background-color: #EE6D121a;
+    color: #EE6D12;
 }
 
 .dashboard .button-status.style-3 {
@@ -570,7 +570,7 @@ tbody tr td:nth-child(2) {
 }
 
 .dashboard .button-cancel {
-    border: 1px solid #504cfe;
+    border: 1px solid #EE6D12;
     background-color: #fff;
     padding: 6px 19px;
     border-radius: 4px;
@@ -578,7 +578,7 @@ tbody tr td:nth-child(2) {
 }
 
 .dashboard .button-cancel:hover {
-    background-color: #14a077;
+    background-color: #EE6D12;
     color: #fff;
 }
 
@@ -1006,12 +1006,12 @@ tbody tr td:nth-child(2) {
 #sidebar-menu ul .ff-active a .dash-icon,
 #sidebar-menu ul li a:hover .dash-icon::before,
 #sidebar-menu ul li a:hover .dash-icon {
-    color: #0d6efd;
+    color: #EE6D12;
 }
 
 #sidebar-menu ul li a .dash-icon::before,
 #sidebar-menu ul li a .dash-icon {
-    color: #1967d2;
+    color: #F97316;
 }
 
 .down-menu {
@@ -1076,7 +1076,7 @@ tbody tr td:nth-child(2) {
 
 .dashboard .tt-button a {
     padding: 11px 47px;
-    border: 1px solid #1967d2;
+    border: 1px solid #F97316;
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 700;
     font-size: 16px;
@@ -1085,7 +1085,7 @@ tbody tr td:nth-child(2) {
 }
 
 .dashboard .tt-button a.btn-3 {
-    background: #1967d2;
+    background: #F97316;
     color: #fff;
 }
 
@@ -1132,7 +1132,7 @@ tbody tr td:nth-child(2) {
 }
 
 .flat-dashboard-about .sidebar-map .box-icon a:hover {
-    background: #1967d2;
+    background: #F97316;
     color: #fff;
 }
 
@@ -2251,13 +2251,13 @@ input[type="radio"]:checked:after {
 
 .flat-dashboard-month .wrap-month:hover,
 .flat-dashboard-month .wrap-month.active {
-    border: 1px solid #1967d2;
+    border: 1px solid #F97316;
     box-shadow: 0px 10px 25px rgba(54, 95, 104, 0.1);
 }
 
 .flat-dashboard-month .wrap-month:hover .tt-button a,
 .flat-dashboard-month .wrap-month.active .tt-button a {
-    background: #1967d2;
+    background: #F97316;
     color: #fff;
 }
 
@@ -4360,7 +4360,7 @@ font-size: 14px;
 
   /* .export-csv-button {
     padding: 15px !important;
-    background-color:#1967d2 !important;
+    background-color:#F97316 !important;
     color: #fff !important;
     border: none;
     cursor: pointer;
@@ -4372,7 +4372,7 @@ font-size: 14px;
 
   .export-csv-button {
     padding: 15px !important;
-    background-color:#1967d2 !important;
+    background-color:#F97316 !important;
     color: #fff !important;
     border: none;
     cursor: pointer;

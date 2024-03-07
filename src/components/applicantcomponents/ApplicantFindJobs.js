@@ -145,10 +145,11 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                             </div>
                               <div className="box-content">
                                 <h4>
-                                  <a href="#">{job.companyname}</a>
+                                <a href="javascript:void(0);" onclick="{yourToggleFunction(); event.preventDefault();}">{job.companyname}</a>
+
                                 </h4>
                                 <h3>
-                                  <a href="#">
+                                  <a href="javascript:void(0);">
                                     {job.jobTitle}
                                   </a>
                                 </h3>

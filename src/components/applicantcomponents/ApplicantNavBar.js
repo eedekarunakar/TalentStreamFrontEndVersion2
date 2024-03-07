@@ -260,7 +260,7 @@ useEffect(() => {
           <span className="icon-bell1 dash-icon">
             <sup
               style={{
-                background: 'red',
+                background: '#121212',
                 borderRadius: '50%',
                 padding: '2px 5px',
                 color: 'white',

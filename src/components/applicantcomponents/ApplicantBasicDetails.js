@@ -390,7 +390,7 @@ const ApplicantBasicDetails = () => {
       <div className="row">
         <div className="col-lg-12 col-md-12 ">
           <div className="title-dashboard">
-            <div className="title-dash flex2">Application Form</div>
+            <div className="title-dash flex2">Profile Details</div>
           </div>
         </div>
       </div>
@@ -563,7 +563,6 @@ const ApplicantBasicDetails = () => {
     className: 'input-form',
   }}
   allowNew={false} // Prevent new entries
-  clearButton
   filterBy={(option, props) =>
     option.city.toLowerCase().startsWith(props.text.toLowerCase())
   }
@@ -591,7 +590,6 @@ const ApplicantBasicDetails = () => {
     className: 'input-form',
   }}
   allowNew={false} // Prevent new entries
-  clearButton
   filterBy={(option, props) =>
     option.skillName.toLowerCase().startsWith(props.text.toLowerCase())
   }

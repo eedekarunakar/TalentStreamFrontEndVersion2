@@ -44,8 +44,8 @@ const Nav = () => {
     <div>
   <>
   <a id="scroll-top" />
-  {(isOpen &&
-  <div className="menu-mobile-popup">
+
+  {/* <div className="menu-mobile-popup">
     <div className="modal-menu__backdrop" />
     <div className="widget-filter">
       <div className="mobile-header">
@@ -89,8 +89,7 @@ const Nav = () => {
           </div>
         </div>
         </div>
-  </div>
-  )}
+  </div> */}
   <div className="boxed">
     <header id="header" className="header header-default">
       <div className="tf-container">
@@ -108,7 +107,7 @@ const Nav = () => {
                   </a>
                 </div>
               </div>
-              <div className="header-ct-center">
+              {/* <div className="header-ct-center">
               <div className="nav-wrap">
                 <nav id="main-nav" className="main-nav">
                   <ul id="menu-primary-menu" className="menu">
@@ -131,23 +130,61 @@ const Nav = () => {
                   </ul>
                 </nav>
               </div>
-            </div>
-              <div className="header-ct-right st-1">
-                <div class="header-customize-item account">
-                  <div class="sub-account-item">
-                  <a href="/candidate" style={{ color: '#1967d2', backgroundColor: 'white', border: '1px solid #1967d2', padding: '5px 10px', borderRadius: '5px', display: 'inline-flex', alignItems: 'center' }}>
-  <span className="icon-resumes" style={{color: '#1967d2 !important', marginRight: '5px', fontSize: '1.2em',filter: 'brightness(1) invert(0) sepia(1) saturate(5) hue-rotate(175deg)' }}></span>
- Candidate
-</a>
-                  </div>
-                  <div class="sub-account-item">
-                  <a href="/recruiter" style={{ color: 'white', backgroundColor: '#1967d2', border: '1px solid #1967d2', padding: '5px 10px', borderRadius: '5px', display: 'inline-flex', alignItems: 'center' }}>
-  <span className="icon-profile" style={{ color: 'white', marginRight: '5px', filter: 'brightness(0) invert(1)', fontSize: '1.2em'  }}></span>
-  Recruiter
-</a>
-                  </div>
-              </div>
-                 </div>
+            </div> */}
+             <div className="header-ct-right st-1">
+  <div className="header-customize-item account">
+    <div className="sub-account-item">
+      <a
+        href="/candidate"
+        style={{
+          color: '#FFFFFF',
+          backgroundColor: '#f97316',
+          border: '1px solid #f97316',
+          padding: '10px 10px 10px 30px',
+          borderRadius: '8px',
+          display: 'inline-flex',
+          textAlign: 'center',
+          width: '130px',
+        }}
+        onMouseOver={(e) => {
+          e.target.style.color = '#FFFFFF';
+          e.target.style.backgroundColor = '#EE6D12';
+        }}
+        onMouseOut={(e) => {
+          e.target.style.color = '#FFFFFF';
+          e.target.style.backgroundColor = '#f97316';
+        }}
+      >
+        Find Jobs
+      </a>
+    </div>
+    <div className="sub-account-item">
+      <a
+        href="/recruiter"
+        style={{
+          color: '#f97316',
+          backgroundColor: 'white',
+          border: '1px solid #f97316',
+          padding: '10px 10px 10px 30px',
+          borderRadius: '8px',
+          display: 'inline-flex',
+          textAlign: 'center',
+          width: '190px',
+        }}
+        onMouseOver={(e) => {
+          e.target.style.color = '#FFFFFF';
+          e.target.style.backgroundColor = '#f97316';
+        }}
+        onMouseOut={(e) => {
+          e.target.style.color = '#f97316';
+          e.target.style.backgroundColor = 'white';
+        }}
+      >
+        Find Candidates
+      </a>
+    </div>
+  </div>
+</div>
                  {/* <div className="nav-filter" id="left-menu-btn" onClick={handleToggleMenu}>
                   <div className="nav-mobile">
                     <span />
