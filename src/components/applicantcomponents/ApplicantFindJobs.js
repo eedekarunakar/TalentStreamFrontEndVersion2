@@ -200,11 +200,9 @@ function ApplicantFindJobs({ setSelectedJobId }) {
                                   <li>
 <a href="javascript:void(0);" onclick="{yourToggleFunction()}">{job.remote ? 'Remote' : 'Office-based'}</a>
 </li>
+<p style={{ marginLeft: '8px', paddingTop: '2px', fontSize: '14px'}}> Exp {job.minimumExperience} - {job.maximumExperience} years</p>
  
                                 </ul>
-<div className="experience-range">          
-<p> Exp {job.minimumExperience} - {job.maximumExperience} years</p>
-  </div>
 <div className="star">
                                   {Array.from({ length: job.starRating }).map((_, index) => (
 <span key={index} className="icon-star-full"></span>

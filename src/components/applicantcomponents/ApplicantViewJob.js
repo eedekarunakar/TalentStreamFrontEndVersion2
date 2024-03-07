@@ -164,6 +164,7 @@ function ApplicantViewJob({ selectedJobId }) {
                                 <li>
                                   <a href="#">{jobDetails.remote ? 'Remote' : 'Office-based'}</a>
                                 </li>
+                                <p style={{ marginLeft: '8px', paddingTop: '2px', fontSize: '14px'}}> Exp {jobDetails.minimumExperience} - {jobDetails.maximumExperience} years</p>
                               </ul>
                               <div className="star">
                                 {Array.from({ length: jobDetails.starRating }).map((_, index) => (
