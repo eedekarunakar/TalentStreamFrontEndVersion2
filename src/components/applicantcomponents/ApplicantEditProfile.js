@@ -730,11 +730,11 @@ const handleResumeUpload = async () => {
       onClick={uploadPhoto}
       className="btn-3"
       style={{
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#F97316',
         color: 'white',
         padding: '10px 15px',
         border: 'none',
-        borderRadius: '5px',
+        borderRadius: '8px',
         cursor: 'pointer',
         marginLeft:'5px',
         marginTop:'5px'
@@ -761,11 +761,11 @@ const handleResumeUpload = async () => {
   onClick={handleResumeUpload}
   className="btn-3"
   style={{
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#F97316',
     color: 'white',
     padding: '10px 15px',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '8px',
     cursor: 'pointer',
     marginLeft:'5px',
     marginTop:'5px'

@@ -110,9 +110,10 @@ const ApplicantViewProfile = () => {
                 <h5 style={{ fontSize: '24px' }} className="fw-6 color-3 ">{profileData.applicant.name}</h5>
                
               </div>
+             
             </div>
-            <div className="tt-button">
-            <Link to="/applicant-edit-profile">Edit Profile</Link>
+            <div>
+            <Link to="/applicant-edit-profile"  className="button-status">Edit Profile</Link>
             </div>
           </div>
         </div>
@@ -157,7 +158,7 @@ const ApplicantViewProfile = () => {
                 {profileData.skillsRequired && profileData.skillsRequired.map((skill, index) => (
   <React.Fragment key={skill.id}>
     <span>
-      <a href="#">
+      <a>
         <ul className="job-tag">
           <li>{skill.skillName}</li>
         </ul>
@@ -174,10 +175,17 @@ const ApplicantViewProfile = () => {
                   <h4>{profileData.experience} </h4>
                 </div>
                  <div className="title-box flex">
-                  <div className="p-16">Preferred Job Location</div>
-                   <h4>{(profileData.basicDetails && profileData.basicDetails.city) || ''}</h4> 
                   <h4>
-  {profileData && profileData.preferredJobLocations || ''}
+                  <div className="p-16">Preferred Job Location</div>
+                   <h4>{(profileData.basicDetails && profileData.basicDetails.city) || ''}</h4>
+                   <h4>
+  {profileData && profileData.preferredJobLocations && profileData.preferredJobLocations.map((location, index) => (
+    <span key={index}>
+      {location}
+      {index !== profileData.preferredJobLocations.length - 1 && ', '}
+    </span>
+  ))}
+</h4>
 </h4>
             </div>   
               </div>
@@ -187,7 +195,7 @@ const ApplicantViewProfile = () => {
                 <h3 class="title-education">Education</h3>
                 <div class="education-wrap">
                   <div class="education-box">
-                  <h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#1967d2' }}> Graduation:</h4></h4>
+                  <h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#F97316' }}> Graduation:</h4></h4>
 <div style={{ marginLeft: '20px' }}>
   {/* <div className="subtitle-1 fw-7">University: {(profileData.graduationDetails && profileData.graduationDetails.gboard) || 'Not available'}</div>
   <div className="subtitle-1 fw-7">Branch: {(profileData.graduationDetails && profileData.graduationDetails.gprogram) || 'Not available'}</div>
@@ -211,7 +219,7 @@ const ApplicantViewProfile = () => {
 
 </div>
         
-<h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#1967d2' }}> Intermediate Details:</h4></h4>
+<h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#F97316' }}> Intermediate Details:</h4></h4>
 <div style={{ marginLeft: '20px' }}>
   {/* <div className="subtitle-1 fw-7">Board: {(profileData.intermediateDetails && profileData.intermediateDetails.iboard) || 'Not available'}</div>
   <div className="subtitle-1 fw-7">Branch: {(profileData.intermediateDetails && profileData.intermediateDetails.iprogram) || 'Not available'}</div>
@@ -232,7 +240,7 @@ const ApplicantViewProfile = () => {
 </div>
 
 </div>
-<h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#1967d2' }}> SSC Details:</h4></h4>
+<h4 class="fw-7"><h4 style={{ fontWeight: 'bold', color: '#F97316' }}> SSC Details:</h4></h4>
 <div style={{ marginLeft: '20px' }}>
   {/* <div className="subtitle-1 fw-7">Board: {(profileData.xClassDetails && profileData.xClassDetails.xboard) || 'Not available'}</div>
   <div className="subtitle-1 fw-7">Branch: SSC/CBSE/ICSE {(profileData.xClassDetails && profileData.xClassDetails.xprogram) || 'Not available'}</div>

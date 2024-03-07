@@ -28,7 +28,7 @@
 }
 
 .dashboard .color-3 {
-    color: #F97316 !important;
+    color: #121212 !important;
 }
 
 .dashboard .color-4 {
@@ -525,7 +525,7 @@ tbody tr td:nth-child(2) {
 .dashboard .button-status {
     background-color: #F97316;
     font-weight: 700;
-    border-radius: 24px;
+    border-radius: 8px;
     display: inline-flex;
     justify-content: center;
     width: 180px;
@@ -539,15 +539,28 @@ tbody tr td:nth-child(2) {
 .dashboard .button-status1 {
     background-color: #F97316;
     font-weight: 700;
-    border-radius: 24px;
+    border-radius: 8px;
     display: inline-flex;
     justify-content: center;
     width: 130px;
+    height: 40px;
     align-items: center;
     height: 34px;
     color:#fff;
     font-size:15px;
+    line-height: 16px;
+    font-weight: 500;
+    padding: 8px 16px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
 }
+
+    
+   
+  
 
 .dashboard .button-status:hover
 {
@@ -1522,7 +1535,8 @@ tbody tr td:nth-child(2) {
 }
 
 .flat-dashboard-setting .profile-setting {
-    padding: 32px 32px 34px;
+    padding: 20px 20px 20px;
+   
 }
 
 .flat-dashboard-setting .author-profile {
@@ -4057,7 +4071,7 @@ input[type="radio"]:checked:after {
     }
 
     .flat-dashboard-user .wrap-profile .box-profile {
-        display: block;
+        /* display: block; */
     }
 
     .flat-dashboard-user .wrap-profile .images {

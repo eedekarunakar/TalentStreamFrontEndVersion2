@@ -184,17 +184,17 @@ function ApplicantViewJob({ selectedJobId }) {
                                     disabled={jobDetails.jobStatus === 'Already Applied'}
                                     style={{
                                       backgroundColor:
-                                        jobDetails.jobStatus === 'Already Applied' ? 'green' : '#1967d2',
+                                        jobDetails.jobStatus === 'Already Applied' ? '#FEF1E8' : '#F97316',
                                       cursor: 'pointer',
-                                      height: '37px',
-                                      color: 'white',
-                                      borderRadius: '10px',
+                                      height: '40px',
+                                      color: '#FFFFFF',
+                                      borderRadius: '8px',
                                     }}
                                   >
                                     <span className="icon-send"></span>&nbsp;
                                     {jobDetails.jobStatus === 'Already Applied' ? 'Applied' : 'Apply Now'}
                                   </button>
-
+                                  
                                   <a
                                     href="/applicant-find-jobs"
                                     className="btn-apply btn-popup"
@@ -202,10 +202,11 @@ function ApplicantViewJob({ selectedJobId }) {
                                       display: 'inline-block',
                                       marginLeft: '10px',
                                       padding: '5px 20px',
-                                      backgroundColor: '#1967d2',
+                                      backgroundColor: '#F97316',
                                       color: 'white',
+                                      height: '40px',
                                       textDecoration: 'none',
-                                      borderRadius: '10px',
+                                      borderRadius: '8px',
                                       cursor: 'pointer',
                                       fontWeight: 'bold',
                                     }}

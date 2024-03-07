@@ -653,15 +653,17 @@
   }
   
   .wd-review-job.thumb1 .trader-box.box1 {
-    top: 12%;
+    top: 2%;
     left: 7.5%;
-  }
-  
-  .wd-review-job.thumb1 .trader-box.box2 {
-    top: 45%;
+}
+
+.wd-review-job.thumb1 .trader-box.box2 {
+    top: 40%;
     right: 14.2%;
     width: 238px;
-  }
+}
+
+  
   
   .wd-review-job.thumb1 .trader-box.box3 {
     bottom: 7%;
