@@ -132,14 +132,14 @@ const ApplicantInterviewStatus = ({ selectedJobId, setSelectedJobId }) => {
 </div>
 </section>
 <section className="flat-dashboard-setting flat-dashboard-setting2">
-<div className="themes-container bg-white">
+<div className="themes-container">
 <div className="content-tab">
 <div className="inner">
 <br />
 <article className="job-article">
                     {jobDetails && (
 <div className="top-content">
-<div className="features-job style-2 stc-apply">
+<div className="features-job style-2 stc-apply  bg-white">
 <div className="job-archive-header">
 <div className="inner-box">
 <div className="logo-company">                            
@@ -174,6 +174,9 @@ const ApplicantInterviewStatus = ({ selectedJobId, setSelectedJobId }) => {
 </li>
 <li>
 <a href="#">{jobDetails.remote ? 'Remote' : 'Office-based'}</a>
+</li>
+<li>
+<a href="javascript:void(0);"> Exp&nbsp; {jobDetails.minimumExperience} - {jobDetails.maximumExperience} years</a>
 </li>
 </ul>
 <div className="star">
